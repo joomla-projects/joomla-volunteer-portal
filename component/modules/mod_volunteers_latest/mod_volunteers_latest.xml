@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" client="site" method="upgrade">
+    <name>MOD_VOLUNTEERS_LATEST</name>
+    <author>Joomla! Project</author>
+    <creationDate>February 2018 / December 2022</creationDate>
+    <copyright>Copyright (C) 2005 - 2023 Open Source Matters. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <history>Original Joomla 3 code 2018 - 2022 Sander Potjer|Convert to Joomla 4 Code 2022-2023 Mark Fleeson</history>
+    <authorEmail>admin@joomla.org</authorEmail>
+    <authorUrl>www.joomla.org</authorUrl>
+    <version>4.0.0</version>
+    <description>MOD_VOLUNTEERS_LATEST_XML_DESCRIPTION</description>
+    <namespace>Joomla\Module\Volunteers</namespace>
+    <files>
+        <filename module="mod_volunteers_latest">mod_volunteers_latest.php</filename>
+        <filename>mod_volunteers_latest.xml</filename>
+        <folder>tmpl</folder>
+        <folder>language</folder>
+    </files>
+    <config>
+        <fields name="params">
+        </fields>
+    </config>
+</extension>

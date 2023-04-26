@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" method="upgrade">
+    <name>COM_VOLUNTEERS</name>
+    <author>Joomla! Project</author>
+    <creationDate>December 2022</creationDate>
+    <copyright>(C) 2023 Open Source Matters, Inc.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>admin@joomla.org</authorEmail>
+    <authorUrl>www.joomla.org</authorUrl>
+    <version>4.0.0</version>
+    <description>COM_VOLUNTEERS_XML_DESCRIPTION</description>
+    <namespace path="src">Joomla\Component\Volunteers</namespace>
+    <scriptfile>script.php</scriptfile>
+
+    <files folder="site">
+        <folder>forms</folder>
+        <folder>src</folder>
+        <folder>tmpl</folder>
+
+        <filename>index.html</filename>
+
+    </files>
+
+
+<languages folder="site/language">
+
+<language tag="en-GB">en-GB/com_volunteers.ini</language>
+
+    </languages>
+
+    <administration>
+    <menu view="volunteers">COM_VOLUNTEERS</menu>
+        <submenu>
+        <!-- Menu entries -->
+        <menu link="option=com_volunteers&amp;view=departments" view="departments" alt="Volunteers/Departments">COM_VOLUNTEERS_TITLE_DEPARTMENTS</menu>
+                    <menu link="option=com_volunteers&amp;view=members" view="members" alt="Volunteers/Members">COM_VOLUNTEERS_TITLE_MEMBERS</menu>
+
+            
+<menu link="option=com_volunteers&amp;view=positions" view="positions" alt="Volunteers/Positions">COM_VOLUNTEERS_TITLE_POSITIONS</menu>
+
+            <menu link="option=com_volunteers&amp;view=reports" view="reports" alt="Volunteers/Reports">
+COM_VOLUNTEERS_TITLE_REPORTS</menu>
+
+            <menu link="option=com_volunteers&amp;view=roles" view="roles" alt="Volunteers/Roles">COM_VOLUNTEERS_TITLE_ROLES</menu>
+
+            <menu link="option=com_volunteers&amp;view=teams" view="teams" alt="Volunteers/Teams">
+COM_VOLUNTEERS_TITLE_TEAMS</menu>
+
+            <menu link="option=com_volunteers&amp;view=volunteers" view="volunteers" alt="Volunteers/Volunteers">COM_VOLUNTEERS_TITLE_VOLUNTEERS</menu>
+            <menu link="option=com_volunteers&amp;view=setupdemo" view="volunteers" alt="Volunteers/Volunteers">COM_VOLUNTEERS_TITLE_DEMO</menu>
+
+        </submenu>
+
+        <files folder="administrator">
+            <folder>forms</folder>
+            <folder>layouts</folder>
+            <folder>services</folder>
+            <folder>sql</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+            <file>access.xml</file>
+            <file>config.xml</file>
+        </files>
+
+        <languages folder="administrator/language">
+            <language tag="en-GB">en-GB/com_volunteers.ini</language>
+            <language tag="en-GB">en-GB/com_volunteers.sys.ini</language>
+        </languages>
+    </administration>
+
+    <media destination="com_volunteers" folder="media">
+        <folder>images</folder>
+        <folder>css</folder>
+        <folder>js</folder>
+
+        <filename>joomla.asset.json</filename>
+    </media>
+
+<plugins>
+		<plugin group="user" plugin="volunteer"/>
+        <plugin group="system" plugin="joomlaidentityvolunteers"/>
+        <plugin group="system" plugin="volunteers"/>
+    </plugins>
+
+    <modules>
+		<module module="mod_volunteers_latest" />
+<module module="mod_volunteers_story" />
+	</modules>
+
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+</extension>

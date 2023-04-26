@@ -1,0 +1,64 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_volunteers",
+  "version": "4.0.0",
+  "description": "Joomla Volunteers Portal",
+  "license": "GPL-2.0-or-later",
+  "assets": [
+    {
+      "name": "com_volunteers.frontend",
+      "type": "style",
+      "uri": "media/com_volunteers/css/frontend.css"
+    },
+    {
+      "name": "com_volunteers.j3template",
+      "type": "style",
+      "uri": "media/com_volunteers/css/template_3.0.0.min.css"
+    },
+    {
+      "name": "com_volunteers.icons",
+      "type": "style",
+      "uri": "media/com_volunteers/css/icons.css"
+    },
+    {
+      "name": "com_volunteers.jquery-gmaps-latlon-picker",
+      "type": "script",
+      "uri": "media/com_volunteers/js/jquery-gmaps-latlon-picker.js",
+      "attributes": {
+        "defer": true
+      },
+      "package": "volunteers",
+      "version": "4.0.0"
+    },
+    {
+      "name": "com_volunteers.markerclusterer",
+      "type": "script",
+      "uri": "media/com_volunteers/js/markerclusterer.js",
+      "attributes": {
+        "defer": true
+      },
+      "package": "volunteers",
+      "version": "4.0.0"
+    },
+    {
+      "name": "com_volunteers.oms",
+      "type": "script",
+      "uri": "media/com_volunteers/js/oms.js",
+      "attributes": {
+        "defer": true
+      },
+      "package": "volunteers",
+      "version": "4.0.0"
+    },
+    {
+      "name": "com_volunteers.google_maps",
+      "type": "script",
+      "uri": "https://maps.googleapis.com/maps/api/js?key=AIzaSyC04czYnPuPFkO6eDAKX-j_lfrpanAAo-U'",
+      "attributes": {
+        "defer": true
+      },
+      "package": "volunteers",
+      "version": "4.0.0"
+    }
+  ]
+}

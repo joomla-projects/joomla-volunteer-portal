@@ -1,0 +1,2 @@
+Check original github sql volunteers.joomla.org.sql to get a list of modules to define
+and content vol_content

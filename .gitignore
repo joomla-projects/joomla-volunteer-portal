@@ -1,0 +1,7 @@
+### Composer vendor folder
+/component/administrator/vendor/
+### Node.JS build dependencies
+/node_modules/
+### Installation packages built through Phing
+/release/
+/.idea

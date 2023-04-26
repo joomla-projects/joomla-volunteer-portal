@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="4.0" type="plugin" group="user">
+    <name>PLG_USER_VOLUNTEERS</name>
+    <author>Joomla! Project</author>
+    <creationDate>August 2009 / December 2022</creationDate>
+    <copyright>(C) 2005 - 2023 Open Source Matters. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <history>Original Joomla 3 code 2018 - 2022 Sander Potjer|Convert to Joomla 4 Code 2022-2023 Mark Fleeson</history>
+    <authorEmail>admin@joomla.org</authorEmail>
+    <authorUrl>www.joomla.org</authorUrl>
+    <version>4.0.0</version>
+    <description>PLG_USER_VOLUNTEERS_XML_DESCRIPTION</description>
+
+    <files>
+        <filename plugin="volunteer">volunteer.php</filename>
+        <folder>language</folder>
+    </files>
+
+    <config>
+    <fields name="params">
+    </fields>
+    </config>
+</extension>
