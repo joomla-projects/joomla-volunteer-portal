@@ -255,7 +255,8 @@ class TeamsModel extends ListModel
 
         // Get members
         /** @var MembersModel $members */
-        $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
+        $members = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
+
         $members->setState('filter.active', 1);
         $members->setState('filter.type', 'team');
         $members->setState('filter.team', $teamIds);
