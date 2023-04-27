@@ -173,11 +173,11 @@ class com_volunteersInstallerScript extends InstallerScript
                     ->update('#__extensions')
                     ->set('enabled = 1')
                     ->where(
-                        array(
+                        [
                             'type LIKE ' . $db->quote('plugin'),
                             'element LIKE ' . $db->quote($pluginName),
-                            'folder LIKE ' . $db->quote($pluginGroup)
-                        )
+                            'folder LIKE ' . $db->quote($pluginGroup),
+                        ]
                     );
                 $db->setQuery($query);
                 $db->execute();
@@ -348,11 +348,11 @@ class com_volunteersInstallerScript extends InstallerScript
                     ->select('extension_id')
                     ->from('#__extensions')
                     ->where(
-                        array(
+                        [
                             'type LIKE ' . $db->quote('plugin'),
                             'element LIKE ' . $db->quote($pluginName),
-                            'folder LIKE ' . $db->quote($pluginGroup)
-                        )
+                            'folder LIKE ' . $db->quote($pluginGroup),
+                        ]
                     );
                 $db->setQuery($query);
                 $extension = $db->loadResult();
@@ -406,10 +406,10 @@ class com_volunteersInstallerScript extends InstallerScript
                         ->select('extension_id')
                         ->from('#__extensions')
                         ->where(
-                            array(
+                            [
                                 'type LIKE ' . $db->quote('module'),
-                                'element LIKE ' . $db->quote($moduleName)
-                            )
+                                'element LIKE ' . $db->quote($moduleName),
+                            ]
                         );
                     $db->setQuery($query);
                     $extension = $db->loadResult();

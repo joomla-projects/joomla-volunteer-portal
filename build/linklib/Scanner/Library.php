@@ -147,7 +147,7 @@ class Library extends AbstractScanner
      */
     public function map(): MapResult
     {
-        $scan = $this->getScanResults();
+        $scan   = $this->getScanResults();
         $result = parent::map();
 
         // Map the library itself

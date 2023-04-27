@@ -37,40 +37,40 @@ class HtmlView extends BaseHtmlView
      * @since  4.0.0
      */
     protected mixed $item;
-/**
-     * The model state
-     *
-     * @var    CMSObject
-     * @since  4.0.0
-     */
+    /**
+         * The model state
+         *
+         * @var    CMSObject
+         * @since  4.0.0
+         */
     protected CMSObject $state;
-/**
-     * Component Parameters
-     *
-     * @var    Registry
-     * @since  4.0.0
-     */
+    /**
+         * Component Parameters
+         *
+         * @var    Registry
+         * @since  4.0.0
+         */
     protected $params = null;
-/**
-     * Migration SQL
-     *
-     * @var    SimpleXMLElement
-     * @since  4.0.0
-     */
+    /**
+         * Migration SQL
+         *
+         * @var    SimpleXMLElement
+         * @since  4.0.0
+         */
     protected SimpleXMLElement $migrate_xml;
-/**
-     * Action Task
-     *
-     * @var    string
-     * @since  4.0.0
-     */
+    /**
+         * Action Task
+         *
+         * @var    string
+         * @since  4.0.0
+         */
     protected string $task;
-/**
-     * Add the page title and toolbar.
-     *
-     * @since  4.0.0
-     * @throws Exception
-     */
+    /**
+         * Add the page title and toolbar.
+         *
+         * @since  4.0.0
+         * @throws Exception
+         */
     private function addToolbar(): void
     {
         ToolBarHelper::title('Setup Demo Menu');
@@ -105,9 +105,9 @@ class HtmlView extends BaseHtmlView
         $this->state       = $this->get('State');
         $this->item        = $this->get('Item');
         $this->params      = ComponentHelper::getParams('com_volunteer');
-        $app  = Factory::getApplication();
-        $input = $app->input->getInputForRequestMethod();
-        $this->task = $input->get('task', '');
+        $app               = Factory::getApplication();
+        $input             = $app->input->getInputForRequestMethod();
+        $this->task        = $input->get('task', '');
         $this->addToolbar();
         parent::display($tpl);
     }

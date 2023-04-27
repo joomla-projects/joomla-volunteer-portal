@@ -101,7 +101,7 @@ class Plugin extends AbstractScanner
         }
 
         // Get the <languages> tag
-        $xpath = new \DOMXPath($xmlDoc);
+        $xpath          = new \DOMXPath($xmlDoc);
         $languagesNodes = $xpath->query('/extension/languages');
 
         foreach ($languagesNodes as $node) {
@@ -138,14 +138,14 @@ class Plugin extends AbstractScanner
      */
     public function map()
     {
-        $scan = $this->getScanResults();
+        $scan   = $this->getScanResults();
         $result = parent::map();
 
         $basePath = $this->siteRoot . '/plugins/' . $scan->pluginFolder . '/' . $scan->extension;
 
         // Frontend and backend directories
         $dirs = [
-            $scan->siteFolder => $basePath
+            $scan->siteFolder => $basePath,
         ];
 
         $result->dirs = array_merge($result->dirs, $dirs);
@@ -178,7 +178,7 @@ class Plugin extends AbstractScanner
             }
 
             $sectionPath = $sectionFolder->getRealPath();
-            $section = $sectionFolder->getFilename();
+            $section     = $sectionFolder->getFilename();
 
             // Scan all plugin folders inside that section
             $allPluginFolders = new \DirectoryIterator($sectionPath);

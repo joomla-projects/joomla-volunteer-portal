@@ -144,8 +144,7 @@ abstract class LinkHelper
                 $relativeFrom = self::getRelativePath($realTo, $realFrom);
                 $res          = @symlink($relativeFrom, $realTo);
             }
-        } else // $type == 'link'
-        {
+        } else { // $type == 'link'
             $res = @link($realFrom, $realTo);
         }
 
@@ -281,7 +280,7 @@ abstract class LinkHelper
                 }
 
                 [$drive, $path] = explode(':', $path, 2);
-                $drive = strtoupper($drive);
+                $drive          = strtoupper($drive);
 
                 return $drive . ':' . $path;
             }, [$pathToConvert, $basePath]);

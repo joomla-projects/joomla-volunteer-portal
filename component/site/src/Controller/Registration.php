@@ -44,14 +44,14 @@ class RegistrationController extends FormController
         $model = $this->getModel('Registration', 'Site');
 
         // Get the user data.
-        $requestData = $this->input->post->get('jform', array(), 'array');
+        $requestData = $this->input->post->get('jform', [], 'array');
 
         // Validate the posted data.
         $form = $model->getForm();
 
         if (!$form) {
             throw new Exception('', 500);
-//          JError::raiseError(500, $model->getError()); HOW TO FIX THIS?
+            //          JError::raiseError(500, $model->getError()); HOW TO FIX THIS?
 
             //return false;
         }
@@ -120,13 +120,13 @@ class RegistrationController extends FormController
         $app->setUserState('com_volunteers.registration.data', null);
 
         // Get the log in credentials.
-        $credentials = array(
+        $credentials = [
             'username' => $data['email'],
-            'password' => $data['password1']
-        );
+            'password' => $data['password1'],
+        ];
 
         // Perform the log in.
-        $app->login($credentials, array('remember' => true));
+        $app->login($credentials, ['remember' => true]);
 
         // Volunteer ID
         $volunteerId = $app->getUserState('com_volunteers.registration.id');

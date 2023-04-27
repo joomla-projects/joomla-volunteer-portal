@@ -83,7 +83,7 @@ class Template extends AbstractScanner
         }
 
         // Get the <languages> tag
-        $xpath = new \DOMXPath($xmlDoc);
+        $xpath          = new \DOMXPath($xmlDoc);
         $languagesNodes = $xpath->query('/extension/languages');
 
         foreach ($languagesNodes as $node) {
@@ -132,10 +132,10 @@ class Template extends AbstractScanner
      */
     public function map()
     {
-        $scan = $this->getScanResults();
+        $scan   = $this->getScanResults();
         $result = parent::map();
 
-        $source = $scan->siteFolder;
+        $source   = $scan->siteFolder;
         $basePath = $this->siteRoot . '/';
 
         if (!empty($scan->adminFolder)) {
@@ -147,7 +147,7 @@ class Template extends AbstractScanner
 
         // Frontend and backend directories
         $dirs = [
-            $source => $basePath
+            $source => $basePath,
         ];
 
         $result->dirs = array_merge($result->dirs, $dirs);

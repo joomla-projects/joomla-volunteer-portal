@@ -20,6 +20,7 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Component\Volunteers\Administrator\Model\DepartmentModel;
+
 /**
  * View to edit a department.
  *
@@ -30,24 +31,24 @@ class HtmlView extends BaseHtmlView
     protected CMSObject $state;
     protected mixed $item;
     protected mixed $form;
-/**
-     * Display the view
-     *
-     * @param   string  $tpl  Template
-     *
-     * @return  void
-     *
-     * @since 4.0.0
-     * @throws Exception
-     */
+    /**
+         * Display the view
+         *
+         * @param   string  $tpl  Template
+         *
+         * @return  void
+         *
+         * @since 4.0.0
+         * @throws Exception
+         */
     public function display($tpl = null)
     {
         /** @var DepartmentModel $model */
-        $model = $this->getModel();
+        $model       = $this->getModel();
         $this->state = $model->getState();
         $this->item  = $model->getItem();
         $this->form  = $model->getForm();
-        $errors = $model->getErrors();
+        $errors      = $model->getErrors();
         if ($errors && count($errors) > 0) {
             throw new GenericDataException(implode("\n", $errors), 500);
         }

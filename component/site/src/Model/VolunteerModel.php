@@ -65,7 +65,7 @@ class VolunteerModel extends AdminModel
      * @var    array
      * @since 4.0.0
      */
-    protected array $url_fields = array('website', 'github', 'twitter', 'crowdin', 'joomladocs', 'certification');
+    protected array $url_fields = ['website', 'github', 'twitter', 'crowdin', 'joomladocs', 'certification'];
 
     /**
      * Method to check for valid certification link
@@ -81,7 +81,7 @@ class VolunteerModel extends AdminModel
         // JHttp transport throws an exception when there's no response.
         try {
             $http     = HttpFactory::getHttp();
-            $response = $http->get($url, array(), 5);
+            $response = $http->get($url, [], 5);
         } catch (RuntimeException $e) {
             Log::add($e->getMessage());
             $response = null;
@@ -112,7 +112,7 @@ class VolunteerModel extends AdminModel
         $options->set('userAgent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0');
 
         try {
-            $response = HttpFactory::getHttp($options)->get($url, array(), 5);
+            $response = HttpFactory::getHttp($options)->get($url, [], 5);
         } catch (RuntimeException $e) {
             Log::add($e->getMessage());
             $response = null;
@@ -137,7 +137,7 @@ class VolunteerModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Volunteer', $prefix = 'VolunteersTable', $options = array()): Table
+    public function getTable($name = 'Volunteer', $prefix = 'VolunteersTable', $options = []): Table
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -152,10 +152,10 @@ class VolunteerModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = array(), $loadData = true): Form
+    public function getForm($data = [], $loadData = true): Form
     {
         // Get the form.
-        $form = $this->loadForm('com_volunteers.volunteer', 'volunteer', array('control' => 'jform', 'load_data' => $loadData));
+        $form = $this->loadForm('com_volunteers.volunteer', 'volunteer', ['control' => 'jform', 'load_data' => $loadData]);
 
         if (empty($form)) {
             return false;
@@ -185,7 +185,7 @@ class VolunteerModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.volunteer.data', array());
+        $data = Factory::getApplication()->getUserState('com_volunteers.edit.volunteer.data', []);
 
         if (empty($data)) {
             $data = $this->getItem();
@@ -295,7 +295,7 @@ class VolunteerModel extends AdminModel
                 throw new Exception(($e));
             }
         } else {
-        //  throw new Exception(Text::_('COM_VOLUNTEERS_ERROR_VOLUNTEER_NOT_FOUND'), 404);
+            //  throw new Exception(Text::_('COM_VOLUNTEERS_ERROR_VOLUNTEER_NOT_FOUND'), 404);
         }
 
         // Convert to the JObject before adding other data.
@@ -362,13 +362,13 @@ class VolunteerModel extends AdminModel
         $app = Factory::getApplication();
 
         // Joomla User
-        $dataUser = array(
+        $dataUser = [
             'name'      => $data['name'],
             'username'  => PunycodeHelper::emailToPunycode($data['email']),
             'password'  => (isset($data['password1'])) ? $data['password1'] : '',
             'password2' => (isset($data['password2'])) ? $data['password2'] : '',
-            'email'     => PunycodeHelper::emailToPunycode($data['email'])
-        );
+            'email'     => PunycodeHelper::emailToPunycode($data['email']),
+        ];
 
         // Handle com_users changes
         if (isset($data['id'])) {
@@ -463,8 +463,8 @@ class VolunteerModel extends AdminModel
         $items = $model->getItems();
 
         $teams               = new stdClass();
-        $teams->active       = array();
-        $teams->honorroll    = array();
+        $teams->active       = [];
+        $teams->honorroll    = [];
         $teams->activemember = false;
 
         // Check for active or inactive members

@@ -23,12 +23,12 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use RuntimeException;
 use stdClass;
-use function defined;
 use Joomla\Component\Volunteers\Administrator\Model\MemberModel;
 use Joomla\Component\Volunteers\Administrator\Model\PositionModel;
 use Joomla\Component\Volunteers\Site\Model\TeamModel;
 use Joomla\Component\Volunteers\Site\Model\VolunteerModel;
 
+use function defined;
 
 /**
  * Class VolunteersHelper
@@ -37,7 +37,7 @@ use Joomla\Component\Volunteers\Site\Model\VolunteerModel;
  */
 class VolunteersHelper
 {
-    public static array $countries = array(
+    public static array $countries = [
         'AD' => 'Andorra', 'AE' => 'United Arab Emirates', 'AF' => 'Afghanistan',
         'AG' => 'Antigua and Barbuda', 'AI' => 'Anguilla', 'AL' => 'Albania',
         'AM' => 'Armenia', 'AO' => 'Angola',
@@ -111,8 +111,8 @@ class VolunteersHelper
         'VC' => 'Saint Vincent and the Grenadines', 'VE' => 'Venezuela, Bolivarian Republic of',
         'VG' => 'Virgin Islands, British', 'VI' => 'Virgin Islands, U.S.', 'VN' => 'Viet Nam',
         'VU' => 'Vanuatu', 'WF' => 'Wallis and Futuna', 'WS' => 'Samoa', 'YE' => 'Yemen',
-        'YT' => 'Mayotte', 'ZA' => 'South Africa', 'ZM' => 'Zambia', 'ZW' => 'Zimbabwe'
-    );
+        'YT' => 'Mayotte', 'ZA' => 'South Africa', 'ZM' => 'Zambia', 'ZW' => 'Zimbabwe',
+    ];
 
     /**
      * Displays Volunteer Block
@@ -122,7 +122,7 @@ class VolunteersHelper
      *
      * @since version
      */
-    public static function OutputVolunteer($volunteer)
+    public static function outputVolunteer($volunteer)
     {
 
         echo '<a  class="pull-left" href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->volunteer) . '">';
@@ -178,9 +178,9 @@ class VolunteersHelper
             return $acl;
         }
 
-        $volmodel = new VolunteerModel();
-        $teammodel = new TeamModel();
-        $membermodel = new MemberModel();
+        $volmodel      = new VolunteerModel();
+        $teammodel     = new TeamModel();
+        $membermodel   = new MemberModel();
         $positionmodel = new PositionModel();
 
         // Get Volunteer ID
@@ -405,18 +405,18 @@ class VolunteersHelper
      */
     public static function reportcategories(): array
     {
-        $groups = [];
-        $groups[]['items'][] = HTMLHelper::_('select.option', '', Text::_('COM_VOLUNTEERS_SELECT_REPORTCATEGORY'));
-        $groups['departments'] = [];
-        $groups['departments']['text'] = Text::sprintf('COM_VOLUNTEERS_FIELD_DEPARTMENTS');
+        $groups                         = [];
+        $groups[]['items'][]            = HTMLHelper::_('select.option', '', Text::_('COM_VOLUNTEERS_SELECT_REPORTCATEGORY'));
+        $groups['departments']          = [];
+        $groups['departments']['text']  = Text::sprintf('COM_VOLUNTEERS_FIELD_DEPARTMENTS');
         $groups['departments']['items'] = [];
 
         foreach (self::departments(true) as $department) {
             $groups['departments']['items'][] = HTMLHelper::_('select.option', $department->value, $department->text);
         }
 
-        $groups['teams'] = [];
-        $groups['teams']['text'] = Text::sprintf('COM_VOLUNTEERS_FIELD_TEAMS');
+        $groups['teams']          = [];
+        $groups['teams']['text']  = Text::sprintf('COM_VOLUNTEERS_FIELD_TEAMS');
         $groups['teams']['items'] = [];
 
         foreach (self::teams(true) as $team) {

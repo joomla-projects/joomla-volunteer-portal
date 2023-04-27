@@ -23,19 +23,19 @@ use Joomla\CMS\MVC\Controller\AdminController;
  */
 class TeamsController extends AdminController
 {
-   /**
-     * Proxy for getModel.
-     *
-     * @param   string  $name    Optional. Model name
-     * @param   string  $prefix  Optional. Class prefix
-     * @param   array   $config  Optional. Configuration array for model
-     *
-     * @return  object  The Model
-     *
-     * @since   4.0.0
-     */
-    public function getModel($name = 'Team', $prefix = 'Administrator', $config = array()): object
+    /**
+      * Proxy for getModel.
+      *
+      * @param   string  $name    Optional. Model name
+      * @param   string  $prefix  Optional. Class prefix
+      * @param   array   $config  Optional. Configuration array for model
+      *
+      * @return  object  The Model
+      *
+      * @since   4.0.0
+      */
+    public function getModel($name = 'Team', $prefix = 'Administrator', $config = []): object
     {
-        return parent::getModel($name, $prefix, array('ignore_request' => true));
+        return parent::getModel($name, $prefix, ['ignore_request' => true]);
     }
 }

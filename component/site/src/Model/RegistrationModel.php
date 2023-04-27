@@ -52,10 +52,10 @@ class RegistrationModel extends FormModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = array(), $loadData = true): Form
+    public function getForm($data = [], $loadData = true): Form
     {
         // Get the form.
-        $form = $this->loadForm('com_volunteers.registration', 'registration', array('control' => 'jform', 'load_data' => $loadData));
+        $form = $this->loadForm('com_volunteers.registration', 'registration', ['control' => 'jform', 'load_data' => $loadData]);
 
         if (empty($form)) {
             return false;
@@ -100,14 +100,14 @@ class RegistrationModel extends FormModel
             $params     = ComponentHelper::getParams('com_volunteers');
 
             // Override the base user data with any data in the session.
-            $temp = (array) $app->getUserState('com_volunteers.registration.data', array());
+            $temp = (array) $app->getUserState('com_volunteers.registration.data', []);
 
             foreach ($temp as $k => $v) {
                 $this->data->$k = $v;
             }
 
             // Get the groups the user should be added to after registration.
-            $this->data->groups = array();
+            $this->data->groups = [];
 
             // Get the default new user group, Registered if not specified.
             $system = $params->get('new_usertype', 2);
@@ -210,9 +210,9 @@ class RegistrationModel extends FormModel
     public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         $config     = array_merge(
-            array(
-                'events_map' => array('validate' => 'user')
-            ),
+            [
+                'events_map' => ['validate' => 'user'],
+            ],
             $config
         );
         $this->data = new stdClass();

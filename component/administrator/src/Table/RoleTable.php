@@ -22,7 +22,6 @@ use Joomla\CMS\Tag\TaggableTableInterface;
 use Joomla\CMS\Tag\TaggableTableTrait;
 use Joomla\Database\DatabaseDriver;
 
-
 /**
  * Role Table class
  * @since 4.0.0

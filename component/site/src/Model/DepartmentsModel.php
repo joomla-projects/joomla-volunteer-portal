@@ -84,7 +84,7 @@ class DepartmentsModel extends ListModel
 
         // Select the required fields from the table.
         $query
-            ->select($this->getState('list.select', array('a.*')))
+            ->select($this->getState('list.select', ['a.*']))
             ->from($db->quoteName('#__volunteers_departments') . ' AS a');
 
         // Join over the users for the checked_out user.
@@ -141,16 +141,16 @@ class DepartmentsModel extends ListModel
         $items    = parent::getItems();
         $frontend = Factory::getApplication()->isClient('site');
         if ($frontend) {
-            $departments = array();
+            $departments = [];
             foreach ($items as $item) {
                 $departments[$item->id]          = $item;
-                $departments[$item->id]->members = array();
+                $departments[$item->id]->members = [];
             }
 
             // Get members
 
             $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
-            $model->setState('filter.position', array(11, 13));
+            $model->setState('filter.position', [11, 13]);
 
             $model->setState('filter.active', 1);
             $model->setState('filter.type', 'department');
@@ -180,7 +180,7 @@ class DepartmentsModel extends ListModel
     public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
-            $config['filter_fields'] = array(
+            $config['filter_fields'] = [
                 'id', 'a.id',
                 'title', 'a.title',
                 'alias', 'a.alias',
@@ -191,7 +191,7 @@ class DepartmentsModel extends ListModel
                 'created_by', 'a.created_by',
                 'ordering', 'a.ordering',
                 'featured', 'a.featured',
-            );
+            ];
         }
 
         parent::__construct($config, $factory);

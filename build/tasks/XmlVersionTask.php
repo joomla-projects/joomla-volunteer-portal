@@ -145,9 +145,9 @@ class XmlVersionTask extends Task
                 (strpos(trim($line), '"version"') === 0) &&
                 (strpos($line, ':') !== false)
             ) {
-                $parts = explode(':', $line, 2);
+                $parts    = explode(':', $line, 2);
                 $parts[1] = sprintf('"%s",', $this->version);
-                $line = implode(': ', $parts);
+                $line     = implode(': ', $parts);
             }
 
             return rtrim($line, "\n\r");

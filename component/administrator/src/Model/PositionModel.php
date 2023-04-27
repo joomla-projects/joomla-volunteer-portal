@@ -58,7 +58,7 @@ class PositionModel extends AdminModel
         // Alter the title & alias
         $table = $this->getTable();
 
-        while ($table->load(array('alias' => $alias))) {
+        while ($table->load(['alias' => $alias])) {
             if ($title == $table->get('title')) {
                 $title = StringHelper::increment($title);
             }
@@ -66,7 +66,7 @@ class PositionModel extends AdminModel
             $alias = StringHelper::increment($alias, 'dash');
         }
 
-        return array($title, $alias);
+        return [$title, $alias];
     }
 
     /**
@@ -79,10 +79,10 @@ class PositionModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = array(), $loadData = true)
+    public function getForm($data = [], $loadData = true)
     {
         // Get the form.
-        $form = $this->loadForm('com_volunteers.position', 'position', array('control' => 'jform', 'load_data' => $loadData));
+        $form = $this->loadForm('com_volunteers.position', 'position', ['control' => 'jform', 'load_data' => $loadData]);
 
         if (empty($form)) {
             return false;
@@ -113,7 +113,7 @@ class PositionModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Position', $prefix = 'VolunteersTable', $options = array()): Table
+    public function getTable($name = 'Position', $prefix = 'VolunteersTable', $options = []): Table
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -128,7 +128,7 @@ class PositionModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.position.data', array());
+        $data = Factory::getApplication()->getUserState('com_volunteers.edit.position.data', []);
 
         if (empty($data)) {
             $data = $this->getItem();
@@ -203,9 +203,9 @@ class PositionModel extends AdminModel
         // Alter the title for save as copy
         if ($app->input->get('task') == 'save2copy') {
             list($name, $alias) = $this->generateNewTitle(0, $data['alias'], $data['title']);
-            $data['title'] = $name;
-            $data['alias'] = $alias;
-            $data['state'] = 0;
+            $data['title']      = $name;
+            $data['alias']      = $alias;
+            $data['state']      = 0;
         }
 
         return parent::save($data);

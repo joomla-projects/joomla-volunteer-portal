@@ -20,6 +20,7 @@ use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Table\Table;
 use Joomla\String\StringHelper;
 use stdClass;
+
 /**
  * Department model.
  * @since 4.0.0
@@ -33,39 +34,39 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      */
     public $typeAlias = 'com_volunteers.department';
-/**
-     * The prefix to use with controller messages.
-     *
-     * @var    string
-     * @since 4.0.0
-     */
+    /**
+         * The prefix to use with controller messages.
+         *
+         * @var    string
+         * @since 4.0.0
+         */
     protected $text_prefix = 'COM_VOLUNTEERS';
-/**
-     * @var null  Item data
-     * @since  4.0.0
-     */
+    /**
+         * @var null  Item data
+         * @since  4.0.0
+         */
     protected mixed $item = null;
-/**
-     * Method to get Department Members.
-     *
-     * @param   int|null  $pk  The id of the team.
-     *
-     * @return  mixed  Data object on success, false on failure.
-     * @since 4.0.0
-     * @throws Exception
-     */
+    /**
+         * Method to get Department Members.
+         *
+         * @param   int|null  $pk  The id of the team.
+         *
+         * @return  mixed  Data object on success, false on failure.
+         * @since 4.0.0
+         * @throws Exception
+         */
     public function getDepartmentMembers(int $pk = null): stdClass
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
-// Get members
+        // Get members
 
         $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.department', $pk);
         $items = $model->getItems();
-// Sorting the results
-        $leaders    = array();
-        $assistants = array();
-        $volunteers = array();
+        // Sorting the results
+        $leaders    = [];
+        $assistants = [];
+        $volunteers = [];
         foreach ($items as $item) {
             switch ($item->position) {
                 case 9:
@@ -78,7 +79,7 @@ class DepartmentModel extends AdminModel
 
                     break;
                 default:
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     $volunteers[$item->volunteer_name . $item->date_ended] = $item;
+                    $volunteers[$item->volunteer_name . $item->date_ended] = $item;
 
                     break;
             }
@@ -88,12 +89,12 @@ class DepartmentModel extends AdminModel
         ksort($leaders);
         ksort($assistants);
         ksort($volunteers);
-// Group them again
-        $groupmembers = $leaders + $assistants + $volunteers;
+        // Group them again
+        $groupmembers       = $leaders + $assistants + $volunteers;
         $members            = new stdClass();
-        $members->active    = array();
-        $members->honorroll = array();
-// Check for active or inactive members
+        $members->active    = [];
+        $members->honorroll = [];
+        // Check for active or inactive members
         foreach ($groupmembers as $item) {
             if ($item->date_ended == '0000-00-00') {
                 $members->active[] = $item;
@@ -119,7 +120,7 @@ class DepartmentModel extends AdminModel
     public function getDepartmentReports(int $pk = null): mixed
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
-// Get reports
+        // Get reports
         $model = $this->getMVCFactory()->createModel('Reports', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.department', $pk);
         $model->setState('list.limit', 25);
@@ -138,7 +139,7 @@ class DepartmentModel extends AdminModel
     public function getDepartmentReportsTeams(int $pk = null): mixed
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
-// Get reports
+        // Get reports
         $model = $this->getMVCFactory()->createModel('Reports', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.departmentTeams', $pk);
         $model->setState('list.limit', 25);
@@ -156,7 +157,7 @@ class DepartmentModel extends AdminModel
      */
     public function getDepartmentReportsTotal(int $pk = null): int
     {
-        $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
+        $pk    = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
         $db    = $this->getDatabase();
         $query = $db->getQuery(true)
             ->select('count(id)')
@@ -178,12 +179,12 @@ class DepartmentModel extends AdminModel
     public function getDepartmentTeams(int $pk = null): array
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
-// Get teams
+        // Get teams
         $model = $this->getMVCFactory()->createModel('Teams', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.department', $pk);
         $model->setState('list.limit', 0);
-        $teams = $model->getItems();
-        $teamsById = array();
+        $teams     = $model->getItems();
+        $teamsById = [];
         foreach ($teams as $team) {
             $teamsById[$team->id] = $team;
         }
@@ -234,12 +235,12 @@ class DepartmentModel extends AdminModel
     public function getDepartmentTeamLeads(int $pk = null): mixed
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
-// Get team lead positions
+        // Get team lead positions
         $model = $this->getMVCFactory()->createModel('Positions', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.type', 2);
         $model->setState('filter.acl', 'edit');
-        $positions = $model->getItems();
-        $positionIds = array();
+        $positions   = $model->getItems();
+        $positionIds = [];
         foreach ($positions as $position) {
             $positionIds[] = $position->id;
         }
@@ -263,7 +264,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Department', $prefix = 'VolunteersTable', $options = array()): Table
+    public function getTable($name = 'Department', $prefix = 'VolunteersTable', $options = []): Table
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -278,20 +279,20 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = array(), $loadData = true): Form|bool
+    public function getForm($data = [], $loadData = true): Form|bool
     {
         // Get the form.
-        $form = $this->loadForm('com_volunteers.department', 'department', array('control' => 'jform', 'load_data' => $loadData));
+        $form = $this->loadForm('com_volunteers.department', 'department', ['control' => 'jform', 'load_data' => $loadData]);
         if (empty($form)) {
             return false;
         }
 
         // Modify the form based on access controls.
         if (!$this->canEditState((object) $data)) {
-// Disable fields for display.
+            // Disable fields for display.
             $form->setFieldAttribute('ordering', 'disabled', 'true');
             $form->setFieldAttribute('state', 'disabled', 'true');
-// Disable fields while saving.
+            // Disable fields while saving.
             $form->setFieldAttribute('ordering', 'filter', 'unset');
             $form->setFieldAttribute('state', 'filter', 'unset');
         }
@@ -309,7 +310,7 @@ class DepartmentModel extends AdminModel
     protected function loadFormData(): mixed
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.department.data', array());
+        $data = Factory::getApplication()->getUserState('com_volunteers.edit.department.data', []);
         if (empty($data)) {
             if ($this->item === null) {
                 $this->item = $this->getItem();
@@ -341,7 +342,7 @@ class DepartmentModel extends AdminModel
         }
 
         if (empty($table->getId())) {
-// Set the values
+            // Set the values
 
             // Set ordering to the last item if not set
             if (empty($table->get('ordering'))) {
@@ -353,7 +354,7 @@ class DepartmentModel extends AdminModel
                 $max = $db->loadResult();
                 $table->set('ordering', $max + 1);
             } else {
-            // Set the values
+                // Set the values
                 $table->set('modified', $date->toSql());
                 $table->set('modified_by', $user->id);
             }
@@ -378,12 +379,12 @@ class DepartmentModel extends AdminModel
     public function save($data): bool
     {
         $app = Factory::getApplication();
-// Alter the title for save as copy
+        // Alter the title for save as copy
         if ($app->input->get('task') == 'save2copy') {
             list($name, $alias) = $this->generateNewTitle(0, $data['alias'], $data['title']);
-            $data['title'] = $name;
-            $data['alias'] = $alias;
-            $data['state'] = 0;
+            $data['title']      = $name;
+            $data['alias']      = $alias;
+            $data['state']      = 0;
         }
 
         return parent::save($data);
@@ -404,7 +405,7 @@ class DepartmentModel extends AdminModel
     {
         // Alter the title & alias
         $table = $this->getTable();
-        while ($table->load(array('alias' => $alias))) {
+        while ($table->load(['alias' => $alias])) {
             if ($title == $table->get('title')) {
                 $title = StringHelper::increment($title);
             }
@@ -412,7 +413,7 @@ class DepartmentModel extends AdminModel
             $alias = StringHelper::increment($alias, 'dash');
         }
 
-        return array($title, $alias);
+        return [$title, $alias];
     }
 
     /**

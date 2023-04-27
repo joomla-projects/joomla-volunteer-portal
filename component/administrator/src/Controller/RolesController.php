@@ -21,8 +21,6 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\Component\Volunteers\Administrator\Helper\VolunteersHelper;
 
-
-
 /**
  * Roles list controller class.
  *
@@ -41,9 +39,9 @@ class RolesController extends AdminController
      *
      * @since   4.0.0
      */
-    public function getModel($name = 'Role', $prefix = 'Administrator', $config = array()): object
+    public function getModel($name = 'Role', $prefix = 'Administrator', $config = []): object
     {
-        return parent::getModel($name, $prefix, array('ignore_request' => true));
+        return parent::getModel($name, $prefix, ['ignore_request' => true]);
     }
 
 
@@ -67,7 +65,7 @@ class RolesController extends AdminController
         $roles = VolunteersHelper::roles($team);
 
         // Generate option list
-        $options   = array();
+        $options   = [];
         $options[] = HTMLHelper::_('select.option', '', Text::_('COM_VOLUNTEERS_SELECT_ROLE'));
         foreach ($roles as $role) {
             $options[] = HTMLHelper::_('select.option', $role->value, $role->text);

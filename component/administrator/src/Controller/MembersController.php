@@ -36,12 +36,12 @@ class MembersController extends AdminController
      * @since  1.0.0
      */
     private array $headerFields
-        = array(
+        = [
             "\xEF\xBB\xBF" . 'Name',
             'E-mail',
             'Position',
-            'Team'
-        );
+            'Team',
+        ];
 
     /**
      * Proxy for getModel
@@ -53,7 +53,7 @@ class MembersController extends AdminController
      * @return  object  The model.
      * @since 1.0.0
      */
-    public function getModel($name = 'Member', $prefix = 'VolunteersModel', $config = array('ignore_request' => true)): object
+    public function getModel($name = 'Member', $prefix = 'VolunteersModel', $config = ['ignore_request' => true]): object
     {
         return parent::getModel($name, $prefix, $config);
     }
@@ -73,7 +73,7 @@ class MembersController extends AdminController
         $this->checkToken();
 
         /** @var MembersModel $model */
-        $model = $this->getModel('Members', 'VolunteersModel', array('ignore_request' => false));
+        $model = $this->getModel('Members', 'VolunteersModel', ['ignore_request' => false]);
         //$model = JModelLegacy::getInstance('Members', 'VolunteersModel', array('ignore_request' => false));
         $items = $model->getItems();
 
@@ -92,12 +92,12 @@ class MembersController extends AdminController
         foreach ($items as $item) {
             fputcsv(
                 $outstream,
-                array(
+                [
                     $item->volunteer_name,
                     $item->user_email,
                     $item->position_title,
                     $item->team_title,
-                )
+                ]
             );
         }
 
@@ -118,8 +118,8 @@ class MembersController extends AdminController
         $this->checkToken();
 
         /** @var MembersModel $model */
-        $model = $this->getModel('Members', 'VolunteersModel', array('ignore_request' => false));
-//      $model = JModelLegacy::getInstance('Members', 'VolunteersModel', array('ignore_request' => false));
+        $model = $this->getModel('Members', 'VolunteersModel', ['ignore_request' => false]);
+        //      $model = JModelLegacy::getInstance('Members', 'VolunteersModel', array('ignore_request' => false));
         $items = $model->getItems();
 
         $members = [];
@@ -129,7 +129,7 @@ class MembersController extends AdminController
                 'name'     => $item->volunteer_name,
                 'email'    => $item->user_email,
                 'position' => $item->position_title,
-                'team'     => $item->team_title
+                'team'     => $item->team_title,
             ];
         }
 

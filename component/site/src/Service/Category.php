@@ -15,6 +15,7 @@ namespace Joomla\Component\Volunteers\Site\Service;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Categories\Categories;
+
 /**
  * Content Component Category Tree
  *

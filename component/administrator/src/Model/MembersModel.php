@@ -39,7 +39,7 @@ class MembersModel extends ListModel
                 $item->address = false;
                 $item->guest   = false;
 
-                        // Check if address is filled in
+                // Check if address is filled in
                 if ($item->osmAddress) {
                     $item->address = true;
                 }
@@ -72,7 +72,7 @@ class MembersModel extends ListModel
 
         // Select the required fields from the table.
         $query
-            ->select($this->getState('list.select', array('a.*')))
+            ->select($this->getState('list.select', ['a.*']))
             ->from($db->quoteName('#__volunteers_members') . ' AS a');
 
         // Join over the volunteers.
@@ -325,7 +325,7 @@ class MembersModel extends ListModel
     public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
-            $config['filter_fields'] = array(
+            $config['filter_fields'] = [
                 'id', 'a.id',
                 'team_id', 'a.team_id',
                 'volunteer_id', 'a.volunteer_id',
@@ -341,7 +341,7 @@ class MembersModel extends ListModel
                 'date_started', 'a.date_started',
                 'date_ended', 'a.date_ended',
                 'volunteer', 'a.volunteer',
-            );
+            ];
         }
 
         parent::__construct($config, $factory);

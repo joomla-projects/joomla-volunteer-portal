@@ -36,7 +36,7 @@ class RolesModel extends ListModel
     public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
-            $config['filter_fields'] = array(
+            $config['filter_fields'] = [
                 'id', 'a.id',
                 'team', 'a.team',
                 'checked_out', 'a.checked_out',
@@ -46,7 +46,7 @@ class RolesModel extends ListModel
                 'created_by', 'a.created_by',
                 'ordering', 'a.ordering',
                 'featured', 'a.featured',
-            );
+            ];
         }
 
         parent::__construct($config, $factory);
@@ -66,7 +66,7 @@ class RolesModel extends ListModel
 
         // Select the required fields from the table.
         $query
-            ->select($this->getState('list.select', array('a.*')))
+            ->select($this->getState('list.select', ['a.*']))
             ->from($db->quoteName('#__volunteers_roles') . ' AS a');
 
         // Join over the teams.
@@ -133,7 +133,7 @@ class RolesModel extends ListModel
 
         $items = $db->loadObjectList();
 
-        $roles = array();
+        $roles = [];
 
         foreach ($items as $item) {
             $roles[$item->team_title][] = $item;

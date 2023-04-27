@@ -28,6 +28,7 @@ use Joomla\CMS\Tag\TagServiceInterface;
 use Joomla\CMS\Tag\TagServiceTrait;
 use Psr\Container\ContainerInterface;
 use stdClass;
+
 use function defined;
 
 /**
@@ -63,8 +64,8 @@ class VolunteersComponent extends MVCComponent implements
      */
     public function boot(ContainerInterface $container)
     {
-//$db = $container->get('DatabaseDriver');
-//      $this->getRegistry()->register('volunteers', new Volunteers($db));
+        //$db = $container->get('DatabaseDriver');
+        //      $this->getRegistry()->register('volunteers', new Volunteers($db));
         $this->getRegistry()->register('volunteers', new Volunteers());
     }
 
@@ -96,12 +97,12 @@ class VolunteersComponent extends MVCComponent implements
      */
     public function countItems(array $items, string $section)
     {
-        $config = (object) array(
+        $config = (object) [
             'related_tbl'   => $this->getTableNameForSection($section),
             'state_col'     => $this->getStateColumnForSection($section),
             'group_col'     => 'primary_category_id',
             'relation_type' => 'category_or_group',
-        );
+        ];
 
         ContentHelper::countRelations($items, $config);
     }

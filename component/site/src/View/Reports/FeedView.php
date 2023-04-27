@@ -19,6 +19,7 @@ use Joomla\CMS\HTML\Helpers\StringHelper;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
+
 /**
  * Feed class for a list of reports.
  *

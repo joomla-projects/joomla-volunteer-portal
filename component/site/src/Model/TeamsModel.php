@@ -38,7 +38,7 @@ class TeamsModel extends ListModel
     public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
-            $config['filter_fields'] = array(
+            $config['filter_fields'] = [
                 'id', 'a.id',
                 'title', 'a.title',
                 'alias', 'a.alias',
@@ -49,7 +49,7 @@ class TeamsModel extends ListModel
                 'created_by', 'a.created_by',
                 'ordering', 'a.ordering',
                 'featured', 'a.featured',
-            );
+            ];
         }
 
         parent::__construct($config, $factory);
@@ -124,7 +124,7 @@ class TeamsModel extends ListModel
 
         // Select the required fields from the table.
         $query
-            ->select($this->getState('list.select', array('a.*')))
+            ->select($this->getState('list.select', ['a.*']))
             ->from($db->quoteName('#__volunteers_teams') . ' AS a');
 
         // Join over the users for the checked_out user.
@@ -178,7 +178,7 @@ class TeamsModel extends ListModel
 
         // Filter by active state
         $frontend = Factory::getApplication()->isClient('site');
-        $active = $this->getState('filter.active', ($frontend) ? 1 : null);
+        $active   = $this->getState('filter.active', ($frontend) ? 1 : null);
 
         if (is_numeric($active)) {
             $nullDate = $db->quote($db->getNullDate());
@@ -233,14 +233,14 @@ class TeamsModel extends ListModel
     {
         $items = parent::getItems();
 
-        $teams   = array();
-        $teamIds = array();
+        $teams   = [];
+        $teamIds = [];
 
         foreach ($items as $item) {
             $teamIds[]                  = $item->id;
             $teams[$item->id]           = $item;
-            $teams[$item->id]->members  = array();
-            $teams[$item->id]->subteams = array();
+            $teams[$item->id]->members  = [];
+            $teams[$item->id]->subteams = [];
         }
 
         // Get Subteams

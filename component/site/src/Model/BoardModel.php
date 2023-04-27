@@ -80,16 +80,16 @@ class BoardModel extends AdminModel
         // Get members
 
         $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
-        $model->setState('filter.position', array(11, 13));
+        $model->setState('filter.position', [11, 13]);
 
         $items = $model->getItems();
 
         // Sorting the results
-        $president     = array();
-        $vicepresident = array();
-        $secretary     = array();
-        $treasurer     = array();
-        $coordinator   = array();
+        $president     = [];
+        $vicepresident = [];
+        $secretary     = [];
+        $treasurer     = [];
+        $coordinator   = [];
 
         foreach ($items as $item) {
             switch ($item->role) {
@@ -125,8 +125,8 @@ class BoardModel extends AdminModel
         $groupmembers = $president + $vicepresident + $secretary + $treasurer + $coordinator;
 
         $members            = new stdClass();
-        $members->active    = array();
-        $members->honorroll = array();
+        $members->active    = [];
+        $members->honorroll = [];
 
         // Check for active or inactive members
         foreach ($groupmembers as $item) {
@@ -175,7 +175,7 @@ class BoardModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Department', $prefix = 'VolunteersTable', $options = array()): Table
+    public function getTable($name = 'Department', $prefix = 'VolunteersTable', $options = []): Table
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -191,10 +191,10 @@ class BoardModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = array(), $loadData = true): Form
+    public function getForm($data = [], $loadData = true): Form
     {
         // Get the form.
-        $form = $this->loadForm('com_volunteers.department', 'department', array('control' => 'jform', 'load_data' => $loadData));
+        $form = $this->loadForm('com_volunteers.department', 'department', ['control' => 'jform', 'load_data' => $loadData]);
 
         if (empty($form)) {
             return false;
@@ -225,7 +225,7 @@ class BoardModel extends AdminModel
     protected function loadFormData(): mixed
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.department.data', array());
+        $data = Factory::getApplication()->getUserState('com_volunteers.edit.department.data', []);
 
         if (empty($data)) {
             if ($this->item === null) {
@@ -305,9 +305,9 @@ class BoardModel extends AdminModel
         // Alter the title for save as copy
         if ($app->input->get('task') == 'save2copy') {
             list($name, $alias) = $this->generateNewTitle(0, $data['alias'], $data['title']);
-            $data['title'] = $name;
-            $data['alias'] = $alias;
-            $data['state'] = 0;
+            $data['title']      = $name;
+            $data['alias']      = $alias;
+            $data['state']      = 0;
         }
 
         return parent::save($data);
@@ -330,7 +330,7 @@ class BoardModel extends AdminModel
         // Alter the title & alias
         $table = $this->getTable();
 
-        while ($table->load(array('alias' => $alias))) {
+        while ($table->load(['alias' => $alias])) {
             if ($title == $table->get('title')) {
                 $title = StringHelper::increment($title);
             }
@@ -338,6 +338,6 @@ class BoardModel extends AdminModel
             $alias = StringHelper::increment($alias, 'dash');
         }
 
-        return array($title, $alias);
+        return [$title, $alias];
     }
 }

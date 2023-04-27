@@ -263,8 +263,8 @@ class com_volunteersInstallerScript extends InstallerScript
         if (isset($table->field)) {
             $fields = $table->children();
 
-            $fields_definitions = array();
-            $indexes            = array();
+            $fields_definitions = [];
+            $indexes            = [];
 
             $db = Factory::getContainer()->get('DatabaseDriver');
 
@@ -344,7 +344,7 @@ class com_volunteersInstallerScript extends InstallerScript
                 );
             }
 
-            if ((isset($field['required']) && $field['required'] == 1)  || $field['field_name'] == 'id') {
+            if ((isset($field['required']) && $field['required'] == 1) || $field['field_name'] == 'id') {
                 return Text::sprintf(
                     '%s %s NOT NULL %s %s %s',
                     $col_name,
@@ -395,7 +395,7 @@ class com_volunteersInstallerScript extends InstallerScript
      */
     private function allowsLengthField($field_type)
     {
-        $allow_length = array(
+        $allow_length = [
             'INT',
             'VARCHAR',
             'CHAR',
@@ -407,8 +407,8 @@ class com_volunteersInstallerScript extends InstallerScript
             'FLOAT',
             'DOUBLE',
             'DECIMAL',
-            'NUMERIC'
-        );
+            'NUMERIC',
+        ];
 
         return (in_array((string) $field_type, $allow_length));
     }
@@ -754,11 +754,11 @@ class com_volunteersInstallerScript extends InstallerScript
                     ->update('#__extensions')
                     ->set('enabled = 1')
                     ->where(
-                        array(
+                        [
                             'type LIKE ' . $db->quote('plugin'),
                             'element LIKE ' . $db->quote($pluginName),
-                            'folder LIKE ' . $db->quote($pluginGroup)
-                        )
+                            'folder LIKE ' . $db->quote($pluginGroup),
+                        ]
                     );
                 $db->setQuery($query);
                 $db->execute();
@@ -891,11 +891,11 @@ class com_volunteersInstallerScript extends InstallerScript
                     ->select('extension_id')
                     ->from('#__extensions')
                     ->where(
-                        array(
+                        [
                             'type LIKE ' . $db->quote('plugin'),
                             'element LIKE ' . $db->quote($pluginName),
-                            'folder LIKE ' . $db->quote($pluginGroup)
-                        )
+                            'folder LIKE ' . $db->quote($pluginGroup),
+                        ]
                     );
                 $db->setQuery($query);
                 $extension = $db->loadResult();
@@ -946,10 +946,10 @@ class com_volunteersInstallerScript extends InstallerScript
                         ->select('extension_id')
                         ->from('#__extensions')
                         ->where(
-                            array(
+                            [
                                 'type LIKE ' . $db->quote('module'),
-                                'element LIKE ' . $db->quote($moduleName)
-                            )
+                                'element LIKE ' . $db->quote($moduleName),
+                            ]
                         );
                     $db->setQuery($query);
                     $extension = $db->loadResult();

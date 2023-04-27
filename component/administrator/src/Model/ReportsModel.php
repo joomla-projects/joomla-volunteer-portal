@@ -18,6 +18,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\Database\QueryInterface;
 use Joomla\Component\Volunteers\Administrator\Helper\VolunteersHelper;
+
 /**
  * Methods supporting a list of teams records.
  * @since 4.0.0
@@ -36,7 +37,7 @@ class ReportsModel extends ListModel
     public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
-            $config['filter_fields'] = array(
+            $config['filter_fields'] = [
                 'id', 'a.id',
                 'title', 'a.title',
                 'alias', 'a.alias',
@@ -47,7 +48,7 @@ class ReportsModel extends ListModel
                 'created_by', 'a.created_by',
                 'ordering', 'a.ordering',
                 'featured', 'a.featured',
-            );
+            ];
         }
 
         parent::__construct($config, $factory);
@@ -69,10 +70,10 @@ class ReportsModel extends ListModel
         $this->setState('filter.team', $this->getUserStateFromRequest($this->context . '.filter.team', 'filter_team'));
         $this->setState('filter.department', $this->getUserStateFromRequest($this->context . '.filter.department', 'filter_department'));
         $this->setState('filter.category', $this->getUserStateFromRequest($this->context . '.filter.category', 'filter_category'));
-// Load the parameters.
+        // Load the parameters.
         $params = ComponentHelper::getParams('com_volunteers');
         $this->setState('params', $params);
-// List state information.
+        // List state information.
         parent::populateState($ordering, $direction);
     }
 
@@ -110,30 +111,30 @@ class ReportsModel extends ListModel
         // Create a new query object.
         $db    = $this->getDatabase();
         $query = $db->getQuery(true);
-// Select the required fields from the table.
+        // Select the required fields from the table.
         $query
-            ->select($this->getState('list.select', array('a.*')))
+            ->select($this->getState('list.select', ['a.*']))
             ->from($db->quoteName('#__volunteers_reports') . ' AS a');
-// Join over the users for the checked_out user.
+        // Join over the users for the checked_out user.
         $query
             ->select('checked_out.name AS editor')
             ->join('LEFT', '#__users AS ' . $db->quoteName('checked_out') . ' ON checked_out.id = a.checked_out');
-// Join over the volunteers
+        // Join over the volunteers
         $query
             ->select('volunteer.image AS volunteer_image, volunteer.id AS volunteer_id, volunteer.email_feed AS volunteer_email_feed')
             ->join('LEFT', '#__volunteers_volunteers AS ' . $db->quoteName('volunteer') . ' ON volunteer.user_id = a.created_by');
-// Join over the teams.
+        // Join over the teams.
         $query->select('department.title AS department_title, department.parent_id AS department_parent_id')
             ->join('LEFT', '#__volunteers_departments AS ' . $db->quoteName('department') . ' ON department.id = a.department');
-// Join over the teams.
+        // Join over the teams.
         $query
             ->select('team.title AS team_title, team.department AS team_deaprtment')
             ->join('LEFT', '#__volunteers_teams AS ' . $db->quoteName('team') . ' ON team.id = a.team');
-// Join over the users for the user email.
+        // Join over the users for the user email.
         $query
             ->select('user.name AS volunteer_name, user.email AS volunteer_email')
             ->join('LEFT', '#__users AS ' . $db->quoteName('user') . ' ON user.id = a.created_by');
-// Filter by published state
+        // Filter by published state
         $state = $this->getState('filter.state', 1);
         if (is_numeric($state)) {
             $query->where('a.state = ' . (int) $state);
@@ -226,8 +227,8 @@ class ReportsModel extends ListModel
      */
     public function getCategory()
     {
-        $category = $this->getState('filter.category');
-        $title    = '';
+        $category     = $this->getState('filter.category');
+        $title        = '';
         $selection    = '';
         if ($category) {
             $selection = explode('.', $category);

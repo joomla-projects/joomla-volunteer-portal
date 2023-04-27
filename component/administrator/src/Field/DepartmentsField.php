@@ -32,14 +32,14 @@ class DepartmentsField extends ListField
      * @since 4.0.0
      */
     protected $type = 'Departments';
-/**
-     * Method to get the field options.
-     *
-     * @return  array  The field option objects.
-     *
-     * @since 4.0.0
-     * @throws Exception
-     */
+    /**
+         * Method to get the field options.
+         *
+         * @return  array  The field option objects.
+         *
+         * @since 4.0.0
+         * @throws Exception
+         */
     public function getOptions(): array
     {
         $depts     = VolunteersHelper::departments();

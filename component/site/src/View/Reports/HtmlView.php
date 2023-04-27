@@ -54,12 +54,12 @@ class HtmlView extends BaseHtmlView
     {
         /** @var ReportsModel $model */
 
-        $model          = $this->getModel();
-        $this->state    = $model->getState();
-        $this->items    = $model->getItems();
+        $model            = $this->getModel();
+        $this->state      = $model->getState();
+        $this->items      = $model->getItems();
         $this->pagination = $model->getPagination();
-        $this->user     = Factory::getApplication()->getIdentity();
-        $this->category = $model->getCategory();
+        $this->user       = Factory::getApplication()->getIdentity();
+        $this->category   = $model->getCategory();
 
         $errors = $model->getErrors();
         if ($errors && count($errors) > 0) {
@@ -103,12 +103,12 @@ class HtmlView extends BaseHtmlView
         $this->document->setMetaData('og:url', $url, 'property');
 
         // Add the RSS link.
-        $props = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
+        $props = ['type' => 'application/rss+xml', 'title' => 'RSS 2.0'];
         $route = Route::_('index.php?option=com_volunteers&view=reports&filter_category=&format=feed&type=rss');
         $this->document->addHeadLink($route, 'alternate', 'rel', $props);
 
         // Add the ATOM link.
-        $props = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
+        $props = ['type' => 'application/atom+xml', 'title' => 'Atom 1.0'];
         $route = Route::_('index.php?option=com_volunteers&view=reports&filter_category=&format=feed&type=atom');
         $this->document->addHeadLink($route, 'alternate', 'rel', $props);
     }

@@ -76,7 +76,7 @@ class VolunteerController extends FormController
         // Get variables
         $volunteerId     = $this->input->getInt('id');
         $volunteerUserId = (int) $this->getModel()->getItem($volunteerId)->user_id;
-        $userId       = Factory::getApplication()->getSession()->get('user')->get('id');
+        $userId          = Factory::getApplication()->getSession()->get('user')->get('id');
         // Check if the volunteer is saving own data
         if ($volunteerUserId != $userId) {
             throw new Exception(Text::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $volunteerId), 403);
@@ -143,8 +143,8 @@ class VolunteerController extends FormController
 
         // Get Volunteer Profile owner
         $volunteerUserId = (int) $this->getModel()->getItem($volunteerId)->user_id;
-        $container   = Factory::getContainer();
-        $userFactory = $container->get('user.factory');
+        $container       = Factory::getContainer();
+        $userFactory     = $container->get('user.factory');
 
         $volunteer =  $userFactory->loadUserById($volunteerUserId);
 

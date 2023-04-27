@@ -64,8 +64,8 @@ class Router extends RouterView
      */
     public function __construct($app, $menu, CategoryFactoryInterface $categoryFactory, $db)
     {
-        $params = Factory::getApplication()->getParams('com_volunteers');
-        $this->noIDs = (bool) $params->get('sef_ids');
+        $params                = Factory::getApplication()->getParams('com_volunteers');
+        $this->noIDs           = (bool) $params->get('sef_ids');
         $this->categoryFactory = $categoryFactory;
 
 
@@ -125,7 +125,7 @@ class Router extends RouterView
      */
     public function getDepartmentSegment(string $id, array $query): array
     {
-        return array((int) $id => $id);
+        return [(int) $id => $id];
     }
     /**
      * Method to get the segment(s) for an member
@@ -139,7 +139,7 @@ class Router extends RouterView
      */
     public function getMemberSegment(string $id, array $query): array
     {
-        return array((int) $id => $id);
+        return [(int) $id => $id];
     }
     /**
      * Method to get the segment(s) for an report
@@ -153,7 +153,7 @@ class Router extends RouterView
      */
     public function getReportSegment(string $id, array $query): array
     {
-        return array((int) $id => $id);
+        return [(int) $id => $id];
     }
     /**
      * Method to get the segment(s) for an role
@@ -167,7 +167,7 @@ class Router extends RouterView
      */
     public function getRoleSegment(string $id, array $query): array
     {
-        return array((int) $id => $id);
+        return [(int) $id => $id];
     }
     /**
      * Method to get the segment(s) for an team
@@ -181,7 +181,7 @@ class Router extends RouterView
      */
     public function getTeamSegment(string $id, array $query): array
     {
-        return array((int) $id => $id);
+        return [(int) $id => $id];
     }
     /**
      * Method to get the segment(s) for an volunteer
@@ -195,7 +195,7 @@ class Router extends RouterView
      */
     public function getVolunteerSegment(string $id, array $query): array
     {
-        return array((int) $id => $id);
+        return [(int) $id => $id];
     }
 
 

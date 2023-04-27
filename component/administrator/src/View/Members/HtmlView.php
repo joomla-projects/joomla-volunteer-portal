@@ -22,6 +22,7 @@ use Joomla\CMS\Pagination\Pagination;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Component\Volunteers\Administrator\Model\MembersModel;
+
 /**
  * View class for a list of members.
  *
@@ -34,21 +35,21 @@ class HtmlView extends BaseHtmlView
     protected CMSObject $state;
     public Form $filterForm;
     public array $activeFilters;
-/**
-     * Display the view
-     *
-     * @param   string  $tpl  Template name
-     *
-     * @return  void
-     *
-     * @throws Exception
-     *
-     * @since 4.0.0
-     */
+    /**
+         * Display the view
+         *
+         * @param   string  $tpl  Template name
+         *
+         * @return  void
+         *
+         * @throws Exception
+         *
+         * @since 4.0.0
+         */
     public function display($tpl = null)
     {
         /** @var MembersModel $model */
-        $model = $this->getModel();
+        $model               = $this->getModel();
         $this->state         = $model->getState();
         $this->items         = $model->getItems();
         $this->pagination    = $model->getPagination();

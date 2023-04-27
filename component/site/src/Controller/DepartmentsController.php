@@ -15,7 +15,6 @@ namespace Joomla\Component\Volunteers\Site\Controller;
 
 use Joomla\CMS\MVC\Controller\BaseController;
 
-
 /**
  * Departments class.
  *
@@ -34,8 +33,8 @@ class DepartmentsController extends BaseController
      *
      * @since   4.0.0
      */
-    public function getModel($name = 'Departments', $prefix = 'Site', $config = array())
+    public function getModel($name = 'Departments', $prefix = 'Site', $config = [])
     {
-        return parent::getModel($name, $prefix, array('ignore_request' => true));
+        return parent::getModel($name, $prefix, ['ignore_request' => true]);
     }
 }

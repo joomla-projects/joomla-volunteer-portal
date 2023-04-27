@@ -59,7 +59,7 @@ class RoleModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Role', $prefix = 'VolunteersTable', $options = array()): Table
+    public function getTable($name = 'Role', $prefix = 'VolunteersTable', $options = []): Table
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -74,10 +74,10 @@ class RoleModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = array(), $loadData = true): Form
+    public function getForm($data = [], $loadData = true): Form
     {
         // Get the form.
-        $form = $this->loadForm('com_volunteers.role', 'role', array('control' => 'jform', 'load_data' => $loadData));
+        $form = $this->loadForm('com_volunteers.role', 'role', ['control' => 'jform', 'load_data' => $loadData]);
 
         if (empty($form)) {
             return false;
@@ -107,7 +107,7 @@ class RoleModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.role.data', array());
+        $data = Factory::getApplication()->getUserState('com_volunteers.edit.role.data', []);
 
         if (empty($data)) {
             if ($this->item === null) {

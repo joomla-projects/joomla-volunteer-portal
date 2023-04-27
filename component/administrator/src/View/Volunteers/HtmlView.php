@@ -51,7 +51,7 @@ class HtmlView extends BaseHtmlView
     public function display($tpl = null)
     {
         /** @var VolunteersModel $model */
-        $model = $this->getModel();
+        $model               = $this->getModel();
         $this->state         = $model->getState();
         $this->items         = $model->getItems();
         $this->pagination    = $model->getPagination();

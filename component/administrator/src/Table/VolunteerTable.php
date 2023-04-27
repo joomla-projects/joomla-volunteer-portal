@@ -53,7 +53,7 @@ class VolunteerTable extends Table implements VersionableTableInterface, Taggabl
      * @return  boolean  True on success, false on failure.
      * @since 4.0.0
      */
-    public function bind($src, $ignore = array()): bool
+    public function bind($src, $ignore = []): bool
     {
         // send_permission checkbox default
         if (!isset($src['send_permission'])) {

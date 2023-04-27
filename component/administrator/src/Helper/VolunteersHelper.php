@@ -24,7 +24,9 @@ use Joomla\Component\Volunteers\Administrator\Model\TeamModel;
 use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
 use RuntimeException;
 use stdClass;
+
 use function defined;
+
 /**
  * Volunteers Helper
  *
@@ -33,7 +35,7 @@ use function defined;
  */
 class VolunteersHelper
 {
-    public static array $countries = array(
+    public static array $countries = [
         'AD' => 'Andorra', 'AE' => 'United Arab Emirates', 'AF' => 'Afghanistan',
         'AG' => 'Antigua and Barbuda', 'AI' => 'Anguilla', 'AL' => 'Albania',
         'AM' => 'Armenia', 'AO' => 'Angola',
@@ -107,17 +109,17 @@ class VolunteersHelper
         'VC' => 'Saint Vincent and the Grenadines', 'VE' => 'Venezuela, Bolivarian Republic of',
         'VG' => 'Virgin Islands, British', 'VI' => 'Virgin Islands, U.S.', 'VN' => 'Viet Nam',
         'VU' => 'Vanuatu', 'WF' => 'Wallis and Futuna', 'WS' => 'Samoa', 'YE' => 'Yemen',
-        'YT' => 'Mayotte', 'ZA' => 'South Africa', 'ZM' => 'Zambia', 'ZW' => 'Zimbabwe'
-    );
-/**
-     * @param $type
-     * @param $id
-     *
-     * @return stdClass
-     *
-     * @since version
-     * @throws Exception
-     */
+        'YT' => 'Mayotte', 'ZA' => 'South Africa', 'ZM' => 'Zambia', 'ZW' => 'Zimbabwe',
+    ];
+    /**
+         * @param $type
+         * @param $id
+         *
+         * @return stdClass
+         *
+         * @since version
+         * @throws Exception
+         */
     public static function acl($type, $id): stdClass
     {
         // Base ACL
@@ -126,12 +128,12 @@ class VolunteersHelper
         $acl->edit            = false;
         $acl->create_report   = false;
         $acl->create_team     = false;
-// Set ID
+        // Set ID
         $departmentId = ($type == 'department') ? $id : null;
         $teamId       = ($type == 'team') ? $id : null;
-// Get User ID
+        // Get User ID
         $user = Factory::getApplication()->getIdentity();
-// Guest
+        // Guest
         if ($user->guest) {
             return $acl;
         }
@@ -145,11 +147,11 @@ class VolunteersHelper
             return $acl;
         }
 
-        $volmodel = new VolunteerModel();
-        $teammodel = new TeamModel();
-        $membermodel = new MemberModel();
+        $volmodel      = new VolunteerModel();
+        $teammodel     = new TeamModel();
+        $membermodel   = new MemberModel();
         $positionmodel = new PositionModel();
-// Get Volunteer ID
+        // Get Volunteer ID
         $volunteerId = (int) $volmodel->getVolunteerId($user->id);
         if ($volunteerId == -1) { // Found a logged in user who is not in department or team. Think this will only occur when being tested on development machines.
             return $acl;
@@ -164,7 +166,7 @@ class VolunteersHelper
 
         // Check for department involvement
         $positionId = (int) $membermodel->getPosition($volunteerId, $departmentId, $teamId);
-// Get ACL for position
+        // Get ACL for position
         $positionDepartment = $positionmodel->getItem($positionId);
         foreach ($acl as $action => $value) {
             if ($positionDepartment->{$action}) {
@@ -175,7 +177,7 @@ class VolunteersHelper
         // Check for parent team involvement
         if ($type == 'team' && $parentTeamId) {
             $positionId = (int) $membermodel->getPosition($volunteerId, null, $parentTeamId);
-// Get ACL for position
+            // Get ACL for position
             $positionTeamParent = $positionmodel->getItem($positionId);
             foreach ($acl as $action => $value) {
                 if ($positionTeamParent->{$action}) {
@@ -187,7 +189,7 @@ class VolunteersHelper
         // Check for team involvement
         if ($type == 'team') {
             $positionId = (int) $membermodel->getPosition($volunteerId, null, $teamId);
-// Get ACL for position
+            // Get ACL for position
             $positionTeam = $positionmodel->getItem($positionId);
             foreach ($acl as $action => $value) {
                 if ($positionTeam->{$action}) {
@@ -232,7 +234,7 @@ class VolunteersHelper
     {
         $items = self::$countries;
         asort($items);
-        $options   = array();
+        $options   = [];
         $options[] = HTMLHelper::_('select.option', '', Text::_('COM_VOLUNTEERS_SELECT_COUNTRY'));
         foreach ($items as $iso => $item) {
             $options[] = HTMLHelper::_('select.option', $iso, $item);
@@ -263,7 +265,7 @@ class VolunteersHelper
         $query->from('#__volunteers_departments')
             ->where('state = 1')
             ->order('title asc');
-// Get the options.
+        // Get the options.
         $db->setQuery($query);
         try {
             $options = $db->loadObjectList();
@@ -304,7 +306,7 @@ class VolunteersHelper
     {
 
         try {
-//$user   = Factory::getUser();
+            //$user   = Factory::getUser();
             $container   = Factory::getContainer();
             $userFactory = $container->get('user.factory');
             return $userFactory->loadUserById($userId);
@@ -326,8 +328,8 @@ class VolunteersHelper
         $departmentId = Factory::getApplication()->getUserState('com_volunteers.edit.member.departmentid');
         $teamId       = Factory::getApplication()->getUserState('com_volunteers.edit.member.teamid');
         $options      = null;
-        $db    = Factory::getContainer()->get('DatabaseDriver');
-        $query = $db->getQuery(true)
+        $db           = Factory::getContainer()->get('DatabaseDriver');
+        $query        = $db->getQuery(true)
             ->select('id AS value, title AS text')
             ->from('#__volunteers_positions')
             ->where('state = 1');
@@ -340,7 +342,7 @@ class VolunteersHelper
         }
 
         $query->order('ordering asc');
-// Get the options.
+        // Get the options.
         $db->setQuery($query);
         try {
             $options = $db->loadObjectList();
@@ -383,7 +385,7 @@ class VolunteersHelper
     {
         $options = null;
         if (empty($team)) {
-        // Get team
+            // Get team
             $team = Factory::getApplication()->getUserState('com_volunteers.edit.member.teamid');
         }
 
@@ -394,7 +396,7 @@ class VolunteersHelper
             ->where('state = 1')
             ->where($db->quoteName('team') . ' = ' . (int) $team)
             ->order('title asc');
-// Get the options.
+        // Get the options.
         $db->setQuery($query);
         try {
             $options = $db->loadObjectList();
@@ -433,7 +435,7 @@ class VolunteersHelper
         }
 
         $query->order('title asc');
-// Get the options.
+        // Get the options.
         $db->setQuery($query);
         try {
             $options = $db->loadObjectList();
@@ -463,7 +465,7 @@ class VolunteersHelper
             ->where('state = 1')
             ->where($db->quoteName('user.email') . ' NOT LIKE ' . $db->quote('%identity.joomla.org%'))
             ->order('name asc');
-// Get the options.
+        // Get the options.
         $db->setQuery($query);
         try {
             $options = $db->loadObjectList();

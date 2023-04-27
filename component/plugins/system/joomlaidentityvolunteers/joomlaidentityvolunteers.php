@@ -54,7 +54,7 @@ class PlgSystemJoomlaIdentityVolunteers extends CMSPlugin
      * @var    array
      * @since  1.0.0
      */
-    private $requiredFields = array(
+    private $requiredFields = [
         'address',
         'city',
         'region',
@@ -75,8 +75,8 @@ class PlgSystemJoomlaIdentityVolunteers extends CMSPlugin
         'longitude',
         'joomlaforum',
         'joomladocs',
-        'crowdin'
-    );
+        'crowdin',
+    ];
 
     /**
      * Method triggered in processing Joomla identity data
@@ -134,7 +134,7 @@ class PlgSystemJoomlaIdentityVolunteers extends CMSPlugin
     private function updateVolunteer(int $userId, string $guid, object $data)
     {
         // Consent date
-        $volunteer = (object) array(
+        $volunteer = (object) [
             'user_id'             => $userId,
             'alias'               => ApplicationHelper::stringURLSafe($data->name),
             'address'             => $data->address,
@@ -160,15 +160,15 @@ class PlgSystemJoomlaIdentityVolunteers extends CMSPlugin
             'joomladocs'          => $data->joomladocs,
             'crowdin'             => $data->crowdin,
             'osmAddress'          => $data->osmAddress,
-            'nda'                 => $data->nda
-        );
+            'nda'                 => $data->nda,
+        ];
 
         JLog::add(json_encode($volunteer), JLog::INFO, 'idpjvp');
 
         try {
             $this->db->insertObject('#__volunteers_volunteers', $volunteer, 'user_id');
         } catch (Exception $e) {
-            $this->db->updateObject('#__volunteers_volunteers', $volunteer, array('user_id'));
+            $this->db->updateObject('#__volunteers_volunteers', $volunteer, ['user_id']);
         }
     }
 }

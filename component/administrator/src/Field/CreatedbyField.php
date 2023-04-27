@@ -45,17 +45,17 @@ class CreatedbyField extends FormField
     protected function getInput()
     {
         // Initialize variables.
-        $html = array();
+        $html = [];
 
         // Load user
         $user_id = $this->value;
 
         if ($user_id) {
-            $container = Factory::getContainer();
+            $container   = Factory::getContainer();
             $userFactory = $container->get(UserFactoryInterface::class);
-            $user = $userFactory->loadUserById($user_id);
+            $user        = $userFactory->loadUserById($user_id);
         } else {
-            $user = Factory::getApplication()->getIdentity();
+            $user   = Factory::getApplication()->getIdentity();
             $html[] = '<input type="hidden" name="' . $this->name . '" value="' . $user->id . '" />';
         }
 

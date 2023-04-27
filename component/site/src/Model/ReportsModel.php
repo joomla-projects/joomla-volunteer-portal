@@ -39,7 +39,7 @@ class ReportsModel extends ListModel
     public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
-            $config['filter_fields'] = array(
+            $config['filter_fields'] = [
                 'id', 'a.id',
                 'title', 'a.title',
                 'alias', 'a.alias',
@@ -50,7 +50,7 @@ class ReportsModel extends ListModel
                 'created_by', 'a.created_by',
                 'ordering', 'a.ordering',
                 'featured', 'a.featured',
-            );
+            ];
         }
 
         parent::__construct($config, $factory);
@@ -119,7 +119,7 @@ class ReportsModel extends ListModel
 
         // Select the required fields from the table.
         $query
-            ->select($this->getState('list.select', array('a.*')))
+            ->select($this->getState('list.select', ['a.*']))
             ->from($db->quoteName('#__volunteers_reports') . ' AS a');
 
         // Join over the users for the checked_out user.

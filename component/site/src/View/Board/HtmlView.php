@@ -132,12 +132,12 @@ class HtmlView extends BaseHtmlView
         $pathway->addItem($this->item->title, $itemURL);
 
         // Add the RSS link.
-        $props = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
+        $props = ['type' => 'application/rss+xml', 'title' => 'RSS 2.0'];
         $route = Route::_('index.php?option=com_volunteers&view=reports&filter_category=d.' . $this->item->id . '&format=feed&type=rss', false);
         $this->document->addHeadLink($route, 'alternate', 'rel', $props);
 
         // Add the ATOM link.
-        $props = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
+        $props = ['type' => 'application/atom+xml', 'title' => 'Atom 1.0'];
         $route = Route::_('index.php?option=com_volunteers&view=reports&filter_category=d.' . $this->item->id . '&format=feed&type=atom', false);
         $this->document->addHeadLink($route, 'alternate', 'rel', $props);
     }

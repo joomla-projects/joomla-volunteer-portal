@@ -97,8 +97,7 @@ class AutoVersionTask extends Task
          */
         if (empty($changelogVersion) && empty($latestGitTag)) {
             $version = $this->getFakeVersion();
-        }
-        elseif (empty($latestGitTag) && !empty($changelogVersion)) {
+        } elseif (empty($latestGitTag) && !empty($changelogVersion)) {
             /**
              * No Git tag, just a changelog version.
              *
@@ -108,8 +107,7 @@ class AutoVersionTask extends Task
              * Either way, take the changelog version and add a dev suffix without bumping the version number.
              */
             $version = $this->bumpVersion($changelogVersion, true);
-        }
-        elseif (
+        } elseif (
             (!empty($latestGitTag) && empty($changelogVersion))
             || version_compare($changelogVersion, $latestGitTag, 'le')
         ) {
@@ -124,8 +122,7 @@ class AutoVersionTask extends Task
              * the stability level revision (e.g. alpha1 to alpha2, only applies if the Git version was unstable).
              */
             $version = $this->bumpVersion($latestGitTag ?: $changelogVersion);
-        }
-        else {
+        } else {
             /**
              * The Git tag is an older version to the changelog version.
              *
@@ -171,8 +168,7 @@ class AutoVersionTask extends Task
             $prefix    = $matches[1];
             $revision  = (int) ($matches[2] ?: 0);
             $stability = $prefix . ++$revision;
-        }
-        elseif (!$onlyAddDev) {
+        } elseif (!$onlyAddDev) {
             // Otherwise, increase the sub–minor version
             $bits = explode('.', $mainVersion);
 

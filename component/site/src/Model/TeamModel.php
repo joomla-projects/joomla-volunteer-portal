@@ -67,7 +67,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function getTable($name = 'Team', $prefix = 'VolunteersTable', $options = array()): Table
+    public function getTable($name = 'Team', $prefix = 'VolunteersTable', $options = []): Table
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -82,10 +82,10 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function getForm($data = array(), $loadData = true): Form
+    public function getForm($data = [], $loadData = true): Form
     {
         // Get the form.
-        $form = $this->loadForm('com_volunteers.team', 'team', array('control' => 'jform', 'load_data' => $loadData));
+        $form = $this->loadForm('com_volunteers.team', 'team', ['control' => 'jform', 'load_data' => $loadData]);
 
         if (empty($form)) {
             return false;
@@ -116,7 +116,7 @@ class TeamModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.team.data', array());
+        $data = Factory::getApplication()->getUserState('com_volunteers.edit.team.data', []);
 
         if (empty($data)) {
             $data = $this->getItem();
@@ -191,9 +191,9 @@ class TeamModel extends AdminModel
         // Alter the title for save as copy
         if ($app->input->get('task') == 'save2copy') {
             list($name, $alias) = $this->generateNewTitle(0, $data['alias'], $data['title']);
-            $data['title'] = $name;
-            $data['alias'] = $alias;
-            $data['state'] = 0;
+            $data['title']      = $name;
+            $data['alias']      = $alias;
+            $data['state']      = 0;
         }
 
         // Move team members to the honour roll if team end-date is set
@@ -251,7 +251,7 @@ class TeamModel extends AdminModel
         // Alter the title & alias
         $table = $this->getTable();
 
-        while ($table->load(array('alias' => $alias))) {
+        while ($table->load(['alias' => $alias])) {
             if ($title == $table->get('title')) {
                 $title = StringHelper::increment($title);
             }
@@ -259,7 +259,7 @@ class TeamModel extends AdminModel
             $alias = StringHelper::increment($alias, 'dash');
         }
 
-        return array($title, $alias);
+        return [$title, $alias];
     }
 
     /**
@@ -282,9 +282,9 @@ class TeamModel extends AdminModel
         $items = $model->getItems();
 
         // Sorting the results
-        $leaders    = array();
-        $assistants = array();
-        $volunteers = array();
+        $leaders    = [];
+        $assistants = [];
+        $volunteers = [];
 
         foreach ($items as $item) {
             switch ($item->position) {
@@ -311,8 +311,8 @@ class TeamModel extends AdminModel
         $groupmembers = $leaders + $assistants + $volunteers;
 
         $members            = new stdClass();
-        $members->active    = array();
-        $members->honorroll = array();
+        $members->active    = [];
+        $members->honorroll = [];
 
         // Check for active or inactive members
         foreach ($groupmembers as $item) {
@@ -348,7 +348,7 @@ class TeamModel extends AdminModel
         $roles = $model->getItems();
 
         // Order by id
-        $teamroles = array();
+        $teamroles = [];
         foreach ($roles as $role) {
             $teamroles[$role->id] = $role;
         }

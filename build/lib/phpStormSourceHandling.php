@@ -22,16 +22,16 @@ class PhpStormSourceHandling
                          $rootFolder . '/administrator/components',
                          $rootFolder . '/component',
                      ],
-                     'module'    => [
+                     'module' => [
                          $rootFolder . '/administrator/modules',
                          $rootFolder . '/modules',
                          $rootFolder . '/modules/site',
                          $rootFolder . '/modules/admin',
                      ],
-                     'plugin'    => [
+                     'plugin' => [
                          $rootFolder . '/plugins',
                      ],
-                     'library'   => [
+                     'library' => [
                          $rootFolder . '/libraries',
                          $rootFolder . '/src',
                      ],

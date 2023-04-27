@@ -59,10 +59,10 @@ class ContactModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = array(), $loadData = false): Form
+    public function getForm($data = [], $loadData = false): Form
     {
         // Get the form.
-        $form = $this->loadForm('com_volunteers.contact', 'contact', array('control' => 'jform', 'load_data' => $loadData));
+        $form = $this->loadForm('com_volunteers.contact', 'contact', ['control' => 'jform', 'load_data' => $loadData]);
 
         if (empty($form)) {
             return false;

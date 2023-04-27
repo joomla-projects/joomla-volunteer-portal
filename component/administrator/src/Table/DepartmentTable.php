@@ -22,7 +22,6 @@ use Joomla\CMS\Tag\TaggableTableInterface;
 use Joomla\CMS\Tag\TaggableTableTrait;
 use Joomla\Database\DatabaseDriver;
 
-
 /**
  * Department Table class
  *
@@ -145,7 +144,7 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
         $table = new DepartmentTable($this->getDbo());
         //$table = Table::getInstance('Department', 'VolunteersTable');
 
-        if ($table->load(array('alias' => $this->get('alias'))) && ($table->get('id') != $this->get('id') || $this->get('id') == 0)) {
+        if ($table->load(['alias' => $this->get('alias')]) && ($table->get('id') != $this->get('id') || $this->get('id') == 0)) {
             throw new Exception(Text::_('COM_VOLUNTEERS_ERROR_UNIQUE_ALIAS'));
         }
 

@@ -50,7 +50,7 @@ class ContactController extends FormController
             throw new Exception('No access to mail sending', 403);
         }
 
-        $mailData   = $app->input->get('jform', array(), 'Array');
+        $mailData   = $app->input->get('jform', [], 'Array');
         //$from       = $app->get('mailfrom');
         //$fromName   = $app->get('fromname');
         $subject    = trim($mailData['subject']);

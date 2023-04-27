@@ -7,7 +7,9 @@
  */
 
 //require_once 'phing/Task.php';
+// phpcs:disable PSR1.Files.SideEffects
 require_once __DIR__ . '/../linklib/include.php';
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * Class RelinkSiteTask

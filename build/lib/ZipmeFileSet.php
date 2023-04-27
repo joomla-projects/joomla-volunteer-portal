@@ -48,7 +48,7 @@ class ZipmeFileSet extends FileSet
 
             if ($includeEmpty) {
                 // first any empty directories that will not be implicitly added by any of the files
-                $implicitDirs = array();
+                $implicitDirs = [];
 
                 foreach ($this->files as $file) {
                     $implicitDirs[] = dirname($file);

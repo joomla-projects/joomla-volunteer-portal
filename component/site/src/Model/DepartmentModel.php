@@ -74,9 +74,9 @@ class DepartmentModel extends AdminModel
         $items = $model->getItems();
 
         // Sorting the results
-        $leaders    = array();
-        $assistants = array();
-        $volunteers = array();
+        $leaders    = [];
+        $assistants = [];
+        $volunteers = [];
 
         foreach ($items as $item) {
             switch ($item->position) {
@@ -104,8 +104,8 @@ class DepartmentModel extends AdminModel
         $groupmembers = $leaders + $assistants + $volunteers;
 
         $members            = new stdClass();
-        $members->active    = array();
-        $members->honorroll = array();
+        $members->active    = [];
+        $members->honorroll = [];
 
         // Check for active or inactive members
         foreach ($groupmembers as $item) {
@@ -206,14 +206,14 @@ class DepartmentModel extends AdminModel
         $model->setState('list.limit', 0);
         $teams = $model->getItems();
 
-        $teamsById = array();
+        $teamsById = [];
         foreach ($teams as $team) {
             $teamsById[$team->id] = $team;
         }
 
         // Get the department team leads
         $teamLeads = $this->getAllDepartmentTeamLeads(array_keys($teamsById));
-//teamleads is an array(teamid) of positions so
+        //teamleads is an array(teamid) of positions so
         foreach ($teamLeads as $teamentries) {
             foreach ($teamentries as $lead) {
                 if (!str_contains($lead->position_title, 'Assistant')) {
@@ -265,7 +265,7 @@ class DepartmentModel extends AdminModel
         $model->setState('filter.acl', 'edit');
         $positions = $model->getItems();
 
-        $positionIds = array();
+        $positionIds = [];
         foreach ($positions as $position) {
             $positionIds[] = $position->id;
         }
@@ -291,7 +291,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Department', $prefix = 'VolunteersTable', $options = array()): Table
+    public function getTable($name = 'Department', $prefix = 'VolunteersTable', $options = []): Table
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -306,10 +306,10 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = array(), $loadData = true): Form|bool
+    public function getForm($data = [], $loadData = true): Form|bool
     {
         // Get the form.
-        $form = $this->loadForm('com_volunteers.department', 'department', array('control' => 'jform', 'load_data' => $loadData));
+        $form = $this->loadForm('com_volunteers.department', 'department', ['control' => 'jform', 'load_data' => $loadData]);
 
         if (empty($form)) {
             return false;
@@ -339,7 +339,7 @@ class DepartmentModel extends AdminModel
     protected function loadFormData(): mixed
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.department.data', array());
+        $data = Factory::getApplication()->getUserState('com_volunteers.edit.department.data', []);
 
         if (empty($data)) {
             if ($this->item === null) {
@@ -418,9 +418,9 @@ class DepartmentModel extends AdminModel
         // Alter the title for save as copy
         if ($app->input->get('task') == 'save2copy') {
             list($name, $alias) = $this->generateNewTitle(0, $data['alias'], $data['title']);
-            $data['title'] = $name;
-            $data['alias'] = $alias;
-            $data['state'] = 0;
+            $data['title']      = $name;
+            $data['alias']      = $alias;
+            $data['state']      = 0;
         }
 
         return parent::save($data);
@@ -442,7 +442,7 @@ class DepartmentModel extends AdminModel
         // Alter the title & alias
         $table = $this->getTable();
 
-        while ($table->load(array('alias' => $alias))) {
+        while ($table->load(['alias' => $alias])) {
             if ($title == $table->get('title')) {
                 $title = StringHelper::increment($title);
             }
@@ -450,7 +450,7 @@ class DepartmentModel extends AdminModel
             $alias = StringHelper::increment($alias, 'dash');
         }
 
-        return array($title, $alias);
+        return [$title, $alias];
     }
 
     /**

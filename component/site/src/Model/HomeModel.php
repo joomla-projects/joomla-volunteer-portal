@@ -77,7 +77,7 @@ class HomeModel extends ListModel
         $query = $db->getQuery(true);
 
         $query
-            ->select($db->quoteName(array('a.id', 'a.alias', 'user.name', 'a.latitude', 'a.longitude', 'a.image')))
+            ->select($db->quoteName(['a.id', 'a.alias', 'user.name', 'a.latitude', 'a.longitude', 'a.image']))
             ->from($db->quoteName('#__volunteers_volunteers') . ' AS a')
             ->join('LEFT', '#__users AS ' . $db->quoteName('user') . ' ON user.id = a.user_id')
             ->where($db->quoteName('latitude') . ' not like \'\'')
@@ -88,20 +88,20 @@ class HomeModel extends ListModel
         $volunteers = $db->loadObjectList();
 
         // Map markers
-        $markers = array();
+        $markers = [];
 
         if ($volunteers) {
             // Base Joomlers url
             $joomlers = Route::_('index.php?option=com_volunteers&view=volunteers');
 
             foreach ($volunteers as $volunteer) {
-                $markers[] = json_encode(array(
+                $markers[] = json_encode([
                     'title' => $volunteer->name,
                     'lat'   => $volunteer->latitude,
                     'lng'   => $volunteer->longitude,
                     'url'   => $joomlers . '/' . $volunteer->id . '-' . $volunteer->alias,
-                    'image' => VolunteersHelper::image($volunteer->image, 'small', true)
-                ));
+                    'image' => VolunteersHelper::image($volunteer->image, 'small', true),
+                ]);
             }
         }
 

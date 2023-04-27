@@ -177,7 +177,7 @@ class HtmlView extends BaseHtmlView
 
         // Share Buttons
         $layout      = new JLayoutFile('joomlarrssb');
-        $data        = (object) array(
+        $data        = (object) [
             'title'            => $title,
             'image'            => Uri::base() . 'images/reports-og.jpg',
             'url'              => $url,
@@ -189,8 +189,8 @@ class HtmlView extends BaseHtmlView
             'displayLinkedin'  => true,
             'displayPinterest' => true,
             'shorten'          => true,
-            'shortenKey'       => ComponentHelper::getParams('com_volunteers')->get('yourlsapikey')
-        );
+            'shortenKey'       => ComponentHelper::getParams('com_volunteers')->get('yourlsapikey'),
+        ];
         $this->share = $layout->render($data);
 
         // Add to pathway

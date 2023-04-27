@@ -17,6 +17,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
+
 /**
  * Copyjed3data model.
  *
@@ -30,15 +31,15 @@ class SetupdemoModel extends AdminModel
      *
      */
     public $typeAlias = 'com_volunteer.Setupdemo';
-/**
-     * @var      string    The prefix to use with controller messages.
-     * @since  4.0.0
-     */
+    /**
+         * @var      string    The prefix to use with controller messages.
+         * @since  4.0.0
+         */
     protected $text_prefix = 'COM_VOLUNTEER';
-/**
-     * @var null  Item data
-     * @since 4.0.0
-     */
+    /**
+         * @var null  Item data
+         * @since 4.0.0
+         */
     protected mixed $item = null;
 
     /**
@@ -53,15 +54,15 @@ class SetupdemoModel extends AdminModel
      *
      * @throws Exception
      */
-    public function getForm($data = array(), $loadData = true, $formname = 'jform'): Form
+    public function getForm($data = [], $loadData = true, $formname = 'jform'): Form
     {
         // Get the form.
         $form = $this->loadForm(
             'com_jed.setupdemo',
             'setupdemo',
-            array('control'   => $formname,
-                  'load_data' => $loadData
-            )
+            ['control'        => $formname,
+                  'load_data' => $loadData,
+            ]
         );
         if (empty($form)) {
             return false;
@@ -97,7 +98,7 @@ class SetupdemoModel extends AdminModel
      * @since  4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Volunteer', $prefix = 'Administrator', $options = array()): Table
+    public function getTable($name = 'Volunteer', $prefix = 'Administrator', $options = []): Table
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -114,7 +115,7 @@ class SetupdemoModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteer.edit.setupdemo.data', array());
+        $data = Factory::getApplication()->getUserState('com_volunteer.edit.setupdemo.data', []);
         if (empty($data)) {
             if ($this->item === null) {
                 $this->item = $this->getItem();

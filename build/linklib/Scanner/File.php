@@ -190,7 +190,7 @@ class File extends AbstractScanner
             $absoluteTarget = $this->siteRoot . '/' . trim($relativeTarget, '/');
 
             foreach ($sourceFolders as $sourceFolder) {
-                $basename                                 = basename($sourceFolder);
+                $basename                                   = basename($sourceFolder);
                 $folders[$absoluteTarget . '/' . $basename] = $this->extensionRoot . '/' . $sourceFolder;
             }
         }

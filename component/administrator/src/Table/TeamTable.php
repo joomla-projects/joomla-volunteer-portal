@@ -22,7 +22,6 @@ use Joomla\CMS\Tag\TaggableTableInterface;
 use Joomla\CMS\Tag\TaggableTableTrait;
 use Joomla\Database\DatabaseDriver;
 
-
 /**
  * Team Table class
  *
@@ -144,7 +143,7 @@ class TeamTable extends Table implements VersionableTableInterface, TaggableTabl
         $table = new TeamTable($this->myDB);
         //      $table = JTable::getInstance('Team', 'VolunteersTable');
 
-        if ($table->load(array('alias' => $this->get('alias'))) && ($table->get('id') != $this->get('id') || $this->get('id') == 0)) {
+        if ($table->load(['alias' => $this->get('alias')]) && ($table->get('id') != $this->get('id') || $this->get('id') == 0)) {
             throw new Exception(Text::_('COM_VOLUNTEERS_ERROR_UNIQUE_ALIAS'));
         }
 

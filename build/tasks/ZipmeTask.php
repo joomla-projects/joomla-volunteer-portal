@@ -48,7 +48,7 @@ class ZipmeTask extends MatchingTask
      *
      * @var   array
      */
-    private $filesets = array();
+    private $filesets = [];
 
     /**
      * Add a new fileset.
@@ -57,7 +57,7 @@ class ZipmeTask extends MatchingTask
      */
     public function createFileSet()
     {
-        $this->fileset = new ZipmeFileSet();
+        $this->fileset    = new ZipmeFileSet();
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;
@@ -70,7 +70,7 @@ class ZipmeTask extends MatchingTask
      */
     public function createZipmeFileSet()
     {
-        $this->fileset = new ZipmeFileSet();
+        $this->fileset    = new ZipmeFileSet();
         $this->filesets[] = $this->fileset;
 
         return $this->fileset;
@@ -156,7 +156,7 @@ class ZipmeTask extends MatchingTask
                 throw new BuildException("ZIP file path $absolutePath is not a path.", $this->getLocation());
             }
 
-            $zip = new ZipArchive();
+            $zip        = new ZipArchive();
             $openResult = $zip->open($this->zipFile->getAbsolutePath(), ZipArchive::CREATE);
 
             if ($openResult !== true) {
@@ -205,18 +205,18 @@ class ZipmeTask extends MatchingTask
                 $fsBasedir = (null != $this->baseDir) ? $this->baseDir : $fs->getDir($this->project);
                 $removeDir = str_replace('\\', '/', $fsBasedir->getPath());
 
-                $filesToZip = array();
+                $filesToZip = [];
 
                 foreach ($files as $file) {
                     $f = new PhingFile($fsBasedir, $file);
 
                     $fileAbsolutePath = $f->getPath();
-                    $fileDir = rtrim(dirname($fileAbsolutePath), '/\\');
-                    $fileBase = basename($fileAbsolutePath);
+                    $fileDir          = rtrim(dirname($fileAbsolutePath), '/\\');
+                    $fileBase         = basename($fileAbsolutePath);
 
                     // Only use lowercase for $disallowedBases because we'll convert $fileBase to lowercase
-                    $disallowedBases = array('.ds_store', '.svn', '.gitignore', 'thumbs.db');
-                    $fileBaseLower = strtolower($fileBase);
+                    $disallowedBases = ['.ds_store', '.svn', '.gitignore', 'thumbs.db'];
+                    $fileBaseLower   = strtolower($fileBase);
 
                     if (in_array($fileBaseLower, $disallowedBases)) {
                         continue;

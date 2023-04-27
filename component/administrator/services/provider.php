@@ -31,7 +31,7 @@ use Joomla\CMS\Extension\Service\Provider\RouterFactory;
  *
  * @since  4.0.0
  */
-return new class implements ServiceProviderInterface {
+return new class () implements ServiceProviderInterface {
     /**
      * Registers the service provider with a DI container.
      *

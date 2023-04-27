@@ -24,7 +24,7 @@ use Joomla\CMS\Plugin\CMSPlugin;
  *
  * @since       4.0.0
  */
-class plgUserVolunteer extends CMSPlugin
+class PlgUserVolunteer extends CMSPlugin
 {
     /**
      * Application object.
@@ -71,7 +71,7 @@ class plgUserVolunteer extends CMSPlugin
 
 
         $query      = $this->db->getQuery(true);
-        $conditions = array($this->db->quoteName('user_id') . ' = ' . $this->db->quote($user['id']));
+        $conditions = [$this->db->quoteName('user_id') . ' = ' . $this->db->quote($user['id'])];
         $query->delete($this->db->quoteName('#__volunteers_volunteers'));
         $query->where($conditions);
         $this->db->setQuery($query);

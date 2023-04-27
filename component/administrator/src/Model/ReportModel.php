@@ -55,7 +55,7 @@ class ReportModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Report', $prefix = 'VolunteersTable', $options = array()): Table
+    public function getTable($name = 'Report', $prefix = 'VolunteersTable', $options = []): Table
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -70,10 +70,10 @@ class ReportModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = array(), $loadData = true): Form
+    public function getForm($data = [], $loadData = true): Form
     {
         // Get the form.
-        $form = $this->loadForm('com_volunteers.report', 'report', array('control' => 'jform', 'load_data' => $loadData));
+        $form = $this->loadForm('com_volunteers.report', 'report', ['control' => 'jform', 'load_data' => $loadData]);
 
         if (empty($form)) {
             return false;
@@ -103,7 +103,7 @@ class ReportModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.report.data', array());
+        $data = Factory::getApplication()->getUserState('com_volunteers.edit.report.data', []);
 
         if (empty($data)) {
             $data = $this->getItem();
@@ -179,9 +179,9 @@ class ReportModel extends AdminModel
         // Alter the title for save as copy
         if ($app->input->get('task') == 'save2copy') {
             list($name, $alias) = $this->generateNewTitle(0, $data['alias'], $data['title']);
-            $data['title'] = $name;
-            $data['alias'] = $alias;
-            $data['state'] = 0;
+            $data['title']      = $name;
+            $data['alias']      = $alias;
+            $data['state']      = 0;
         }
 
         return parent::save($data);
@@ -203,7 +203,7 @@ class ReportModel extends AdminModel
         // Alter the title & alias
         $table = $this->getTable();
 
-        while ($table->load(array('alias' => $alias))) {
+        while ($table->load(['alias' => $alias])) {
             if ($title == $table->get('title')) {
                 $title = StringHelper::increment($title);
             }
@@ -211,7 +211,7 @@ class ReportModel extends AdminModel
             $alias = StringHelper::increment($alias, 'dash');
         }
 
-        return array($title, $alias);
+        return [$title, $alias];
     }
 
     /**
@@ -302,7 +302,7 @@ class ReportModel extends AdminModel
         $user = Factory::getApplication()->getSession()->get('user');
 
         // Get subteams
-        $model = $this->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
+        $model       = $this->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
         $volunteerId = $model->getVolunteerId($user->id);
 
         return $model->getItem($volunteerId);

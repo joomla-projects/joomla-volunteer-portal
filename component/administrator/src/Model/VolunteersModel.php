@@ -38,7 +38,7 @@ class VolunteersModel extends ListModel
     public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
-            $config['filter_fields'] = array(
+            $config['filter_fields'] = [
                 'id', 'a.id',
                 'alias', 'a.alias',
                 'checked_out', 'a.checked_out',
@@ -52,8 +52,8 @@ class VolunteersModel extends ListModel
                 'modified', 'a.modified',
                 'num_teams', 'num_teams',
                 'spam', 'a.spam',
-                'birthday', 'a.birthday'
-            );
+                'birthday', 'a.birthday',
+            ];
         }
 
         parent::__construct($config, $factory);
@@ -76,7 +76,7 @@ class VolunteersModel extends ListModel
 
         // Select the required fields from the table.
         $query
-            ->select($this->getState('list.select', array('a.*')))
+            ->select($this->getState('list.select', ['a.*']))
             ->from($db->quoteName('#__volunteers_volunteers') . ' AS a');
 
         // Join over the users for the checked_out user.

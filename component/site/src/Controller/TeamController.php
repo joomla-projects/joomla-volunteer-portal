@@ -197,7 +197,7 @@ class TeamController extends FormController
             /** @var MembersModel $lead */
             $lead = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
             $lead->setState('filter.team', $teamId);
-            $lead->setState('filter.position', array(2, 3, 5, 6));
+            $lead->setState('filter.position', [2, 3, 5, 6]);
             $lead->setState('filter.active', 1);
             $lead->setState('list.limit', 1);
             $lead->setState('list.ordering', 'position');
@@ -209,7 +209,7 @@ class TeamController extends FormController
 
         // Get email department coordinator for CC
         $db        = Factory::getContainer()->get('DatabaseDriver');
-        $query = $db->getQuery(true);
+        $query     = $db->getQuery(true);
         $query
             ->select('user.email, user.name')
             ->from('#__volunteers_members as member')

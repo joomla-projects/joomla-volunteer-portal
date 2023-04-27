@@ -93,7 +93,7 @@ class MemberModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Member', $prefix = 'VolunteersTable', $options = array()): Table
+    public function getTable($name = 'Member', $prefix = 'VolunteersTable', $options = []): Table
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -108,10 +108,10 @@ class MemberModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = array(), $loadData = true): Form
+    public function getForm($data = [], $loadData = true): Form
     {
         // Get the form.
-        $form = $this->loadForm('com_volunteers.member', 'member', array('control' => 'jform', 'load_data' => $loadData));
+        $form = $this->loadForm('com_volunteers.member', 'member', ['control' => 'jform', 'load_data' => $loadData]);
 
         if (empty($form)) {
             return false;
@@ -141,7 +141,7 @@ class MemberModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.member.data', array());
+        $data = Factory::getApplication()->getUserState('com_volunteers.edit.member.data', []);
 
         if (empty($data)) {
             if ($this->item === null) {
