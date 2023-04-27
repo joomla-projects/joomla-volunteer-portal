@@ -50,12 +50,12 @@ class AutoVersionTask extends Task
         $this->changelog = $path;
     }
 
-    function getPropertyName(): string
+    public function getPropertyName(): string
     {
         return $this->propertyName ?: 'auto.version';
     }
 
-    function setPropertyName(string $propertyName): void
+    public function setPropertyName(string $propertyName): void
     {
         $this->propertyName = $propertyName;
     }
@@ -98,42 +98,42 @@ class AutoVersionTask extends Task
         if (empty($changelogVersion) && empty($latestGitTag)) {
             $version = $this->getFakeVersion();
         }
-        /**
-         * No Git tag, just a changelog version.
-         *
-         * This branch does not have a release yet. This is either new software or a new branch for an upcoming major
-         * version of existing software.
-         *
-         * Either way, take the changelog version and add a dev suffix without bumping the version number.
-         */
         elseif (empty($latestGitTag) && !empty($changelogVersion)) {
+            /**
+             * No Git tag, just a changelog version.
+             *
+             * This branch does not have a release yet. This is either new software or a new branch for an upcoming major
+             * version of existing software.
+             *
+             * Either way, take the changelog version and add a dev suffix without bumping the version number.
+             */
             $version = $this->bumpVersion($changelogVersion, true);
         }
-        /**
-         * There are three cases where we need to bump the version number:
-         *
-         * 1. No changelog version, just Git tag. Missing changelog?
-         * 2. Both versions present but the Git tag is newer than the changelog version. Out of date changelog?
-         * 3. Both versions present and identical. We made changes without updating the changelog.
-         *
-         * Either way, take the Git tag version and bump the least sub–minor version (if the Git version was stable) or
-         * the stability level revision (e.g. alpha1 to alpha2, only applies if the Git version was unstable).
-         */
         elseif (
             (!empty($latestGitTag) && empty($changelogVersion))
             || version_compare($changelogVersion, $latestGitTag, 'le')
         ) {
+            /**
+             * There are three cases where we need to bump the version number:
+             *
+             * 1. No changelog version, just Git tag. Missing changelog?
+             * 2. Both versions present but the Git tag is newer than the changelog version. Out of date changelog?
+             * 3. Both versions present and identical. We made changes without updating the changelog.
+             *
+             * Either way, take the Git tag version and bump the least sub–minor version (if the Git version was stable) or
+             * the stability level revision (e.g. alpha1 to alpha2, only applies if the Git version was unstable).
+             */
             $version = $this->bumpVersion($latestGitTag ?: $changelogVersion);
         }
-        /**
-         * The Git tag is an older version to the changelog version.
-         *
-         * We have continued developing after the last release. We have already decided on a version number for the next
-         * version, that's what we have in the changelog.
-         *
-         * Add a dev suffix to the changelog version, do not bump the version.
-         */
         else {
+            /**
+             * The Git tag is an older version to the changelog version.
+             *
+             * We have continued developing after the last release. We have already decided on a version number for the next
+             * version, that's what we have in the changelog.
+             *
+             * Add a dev suffix to the changelog version, do not bump the version.
+             */
             $version = $this->bumpVersion($changelogVersion, true);
         }
 
@@ -172,8 +172,8 @@ class AutoVersionTask extends Task
             $revision  = (int) ($matches[2] ?: 0);
             $stability = $prefix . ++$revision;
         }
-        // Otherwise, increase the sub–minor version
         elseif (!$onlyAddDev) {
+            // Otherwise, increase the sub–minor version
             $bits = explode('.', $mainVersion);
 
             while (count($bits) < 3) {

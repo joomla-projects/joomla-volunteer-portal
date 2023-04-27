@@ -15,10 +15,6 @@ use Joomla\CMS\HTML\HTMLHelper;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-HTMLHelper::_('jquery.framework');
-HTMLHelper::script('//maps.googleapis.com/maps/api/js?key=AIzaSyC04czYnPuPFkO6eDAKX-j_lfrpanAAo-U');
-HTMLHelper::script('com_volunteers/jquery-gmaps-latlon-picker.js', false, true);
-
 /**
  * Volunteers Field class.
  * @since 4.0.0
@@ -41,6 +37,10 @@ class LocationField extends TextField
      */
     public function getInput(): string
     {
+        HTMLHelper::_('jquery.framework');
+        HTMLHelper::script('//maps.googleapis.com/maps/api/js?key=AIzaSyC04czYnPuPFkO6eDAKX-j_lfrpanAAo-U');
+        HTMLHelper::script('com_volunteers/jquery-gmaps-latlon-picker.js', false, true);
+
         $data = $this->form->getData();
 
         $html[] = '<div class="gllpLatlonPicker" id="location">';

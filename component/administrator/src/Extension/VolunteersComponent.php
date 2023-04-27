@@ -8,7 +8,9 @@
 
 namespace Joomla\Component\Volunteers\Administrator\Extension;
 
-defined('JPATH_PLATFORM') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
 use Joomla\Component\Volunteers\Administrator\Service\Html\Volunteers;

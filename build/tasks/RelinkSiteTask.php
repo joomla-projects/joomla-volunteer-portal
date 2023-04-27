@@ -108,7 +108,7 @@ class RelinkSiteTask extends Task
      *
      * @return  string|null  Home directory absolute path. NULL if it cannot be determined.
      */
-    function getUserHomeDirectory(): ?string
+    public function getUserHomeDirectory(): ?string
     {
         // Try the UNIX method first. If it fails it will return either false or null. Normalize it to NULL.
         $home = @getenv('HOME');

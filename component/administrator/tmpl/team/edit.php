@@ -1,4 +1,4 @@
-Welcome<?php
+<?php
 
 /**
  * @package    Joomla! Volunteers

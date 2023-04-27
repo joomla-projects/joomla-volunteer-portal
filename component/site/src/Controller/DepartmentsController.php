@@ -8,7 +8,7 @@
 
 namespace Joomla\Component\Volunteers\Site\Controller;
 
-\// phpcs:disable PSR1.Files.SideEffects
+// phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
