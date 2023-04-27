@@ -10,7 +10,9 @@
 
 namespace Joomla\Component\Volunteers\Site\Service;
 
-defined('_JEXEC') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Categories\Categories;
 /**

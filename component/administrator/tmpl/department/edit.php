@@ -11,7 +11,9 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Volunteers\Administrator\View\Department\HtmlView;
 
-defined('_JEXEC') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 /** @var $this HtmlView */
 
 $wa = $this->document->getWebAssetManager();

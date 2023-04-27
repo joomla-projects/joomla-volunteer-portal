@@ -12,7 +12,9 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\Component\Menus\Administrator\Table\MenuTable;
 use Joomla\Component\Menus\Administrator\Table\MenuTypeTable;
 
-defined('_JEXEC') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('keepalive')
     ->useScript('form.validate');

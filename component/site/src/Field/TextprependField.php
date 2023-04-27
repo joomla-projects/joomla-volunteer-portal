@@ -8,7 +8,9 @@
 
 namespace Joomla\Component\Volunteers\Site\Field;
 
-defined('_JEXEC') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Form\Field\TextField;
 use Joomla\CMS\Language\Text;

@@ -9,7 +9,9 @@
 define('MODIFIED', 1);
 define('NOT_MODIFIED', 2);
 
-defined('_JEXEC') or die();
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Installer\Installer;

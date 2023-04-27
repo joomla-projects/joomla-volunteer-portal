@@ -9,7 +9,9 @@
 
 namespace Joomla\Component\Volunteers\Administrator\Helper;
 
-defined('_JEXEC') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 use Exception;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;

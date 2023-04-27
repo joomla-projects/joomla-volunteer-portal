@@ -14,7 +14,9 @@ use Joomla\CMS\Router\Route;
 use Joomla\Component\Volunteers\Administrator\Helper\VolunteersHelper;
 use Joomla\Component\Volunteers\Administrator\View\Volunteers\HtmlView;
 
-defined('_JEXEC') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /** @var $this HtmlView */
 

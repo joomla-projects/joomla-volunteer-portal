@@ -10,7 +10,9 @@ namespace Joomla\Component\Volunteers\Administrator\Controller;
 
 use Joomla\CMS\MVC\Controller\AdminController;
 
-defined('_JEXEC') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * Positions list controller class.

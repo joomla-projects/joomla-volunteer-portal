@@ -11,7 +11,9 @@ namespace Joomla\Component\Volunteers\Administrator\Field;
 use Joomla\CMS\Form\Field\TextField;
 use Joomla\CMS\HTML\HTMLHelper;
 
-defined('_JEXEC') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 HTMLHelper::_('jquery.framework');
 HTMLHelper::script('//maps.googleapis.com/maps/api/js?key=AIzaSyC04czYnPuPFkO6eDAKX-j_lfrpanAAo-U');

@@ -8,7 +8,9 @@
 
 namespace Joomla\Component\Volunteers\Site\View\Volunteers;
 
-defined('_JEXEC') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
 use Joomla\CMS\Language\Text;
