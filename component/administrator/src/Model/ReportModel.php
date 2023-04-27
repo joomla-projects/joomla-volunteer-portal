@@ -302,9 +302,7 @@ class ReportModel extends AdminModel
         $user = Factory::getApplication()->getSession()->get('user');
 
         // Get subteams
-        $model = new VolunteerModel();
-        $model->setCodeModel(true);
-
+        $model = $this->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
         $volunteerId = $model->getVolunteerId($user->id);
 
         return $model->getItem($volunteerId);

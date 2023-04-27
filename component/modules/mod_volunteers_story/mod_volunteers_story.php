@@ -20,8 +20,7 @@ try {
 } catch (Exception $e) {
     die('Cannot access Joomla Application!');
 }
-$model = new VolunteersModel();
-$model->setCodeModel(true);
+$model = $app->bootComponent('com_volunteers')->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
 $model->setState('list.limit', 1);
 $model->setState('list.ordering', 'rand()');
 $model->setState('filter.image', 1);

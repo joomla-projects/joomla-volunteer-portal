@@ -12,6 +12,7 @@ namespace Joomla\Component\Volunteers\Site\Model;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Exception;
 use Joomla\CMS\Component\ComponentHelper;
@@ -35,7 +36,7 @@ class ReportsModel extends ListModel
      * @since   4.0.0
      * @throws Exception
      */
-    public function __construct($config = array())
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
@@ -52,7 +53,7 @@ class ReportsModel extends ListModel
             );
         }
 
-        parent::__construct($config);
+        parent::__construct($config, $factory);
     }
 
     /**

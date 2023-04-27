@@ -11,6 +11,7 @@ namespace Joomla\Component\Volunteers\Administrator\Model;
 use Exception;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 
@@ -148,11 +149,8 @@ class DepartmentsModel extends ListModel
 
             // Get members
 
-            $model = new MembersModel();
-            $model->setCodeModel(true);
-
+            $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
             $model->setState('filter.position', array(11, 13));
-
             $model->setState('filter.active', 1);
             $model->setState('filter.type', 'department');
             $members = $model->getItems();
@@ -178,7 +176,7 @@ class DepartmentsModel extends ListModel
      * @since   4.0.0
      * @throws Exception
      */
-    public function __construct($config = array())
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
@@ -195,6 +193,6 @@ class DepartmentsModel extends ListModel
             );
         }
 
-        parent::__construct($config);
+        parent::__construct($config, $factory);
     }
 }

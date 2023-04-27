@@ -195,10 +195,7 @@ class TeamController extends FormController
         if (empty($team->email)) {
             // Get lead
             /** @var MembersModel $lead */
-            $lead = new MembersModel();
-            $lead->setCodeModel(true);
-
-
+            $lead = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
             $lead->setState('filter.team', $teamId);
             $lead->setState('filter.position', array(2, 3, 5, 6));
             $lead->setState('filter.active', 1);

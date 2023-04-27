@@ -19,6 +19,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\FormModel;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
@@ -206,7 +207,7 @@ class RegistrationModel extends FormModel
      * @since 4.0.0
      * @throws  Exception
      */
-    public function __construct($config = array())
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         $config     = array_merge(
             array(
@@ -215,6 +216,6 @@ class RegistrationModel extends FormModel
             $config
         );
         $this->data = new stdClass();
-        parent::__construct($config);
+        parent::__construct($config, $factory);
     }
 }

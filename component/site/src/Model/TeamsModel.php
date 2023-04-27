@@ -9,6 +9,7 @@
 namespace Joomla\Component\Volunteers\Site\Model;
 
 use Exception;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -34,7 +35,7 @@ class TeamsModel extends ListModel
      * @since   4.0.0
      * @throws Exception
      */
-    public function __construct($config = array())
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
@@ -51,7 +52,7 @@ class TeamsModel extends ListModel
             );
         }
 
-        parent::__construct($config);
+        parent::__construct($config, $factory);
     }
 
     /**
@@ -254,10 +255,7 @@ class TeamsModel extends ListModel
 
         // Get members
         /** @var MembersModel $members */
-        $members = new MembersModel();
-        $members->setCodeModel(true);
-
-
+        $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
         $members->setState('filter.active', 1);
         $members->setState('filter.type', 'team');
         $members->setState('filter.team', $teamIds);

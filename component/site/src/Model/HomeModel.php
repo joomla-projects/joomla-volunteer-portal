@@ -39,8 +39,7 @@ class HomeModel extends ListModel
     public function getLatestReports(): mixed
     {
         // Get reports
-        $model = new ReportsModel();
-        $model->setCodeModel(true);
+        $model = $this->getMVCFactory()->createModel('Reports', 'Administrator', ['ignore_request' => true]);
         $model->setState('list.limit', 3);
 
         return $model->getItems();
@@ -56,9 +55,7 @@ class HomeModel extends ListModel
     public function getLatestVolunteers(): mixed
     {
         // Get volunteers
-        $model = new VolunteersModel();
-        $model->setCodeModel(true);
-
+        $model = $this->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
         $model->setState('list.limit', 5);
         $model->setState('list.ordering', 'a.created');
         $model->setState('list.direction', 'desc');
@@ -121,9 +118,7 @@ class HomeModel extends ListModel
     public function getVolunteerStory(): mixed
     {
         // Get volunteers story
-        $model = new VolunteersModel();
-        $model->setCodeModel(true);
-
+        $model = $this->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
         $model->setState('list.limit', 1);
         $model->setState('list.ordering', 'rand()');
         $model->setState('filter.image', 1);

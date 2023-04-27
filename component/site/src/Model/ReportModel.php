@@ -60,8 +60,7 @@ class ReportModel extends FormModel
         $user = Factory::getApplication()->getIdentity();
 
         // Get subteams
-        $model = new VolunteerModel();
-        $model->setCodeModel(true);
+        $model = $this->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
 
         $volunteerId = $model->getVolunteerId($user->id);
 

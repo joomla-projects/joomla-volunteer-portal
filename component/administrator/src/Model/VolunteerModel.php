@@ -65,59 +65,6 @@ class VolunteerModel extends AdminModel
      */
     protected array $url_fields = array('website', 'github', 'twitter', 'crowdin', 'joomladocs', 'certification');
 
-    protected array $_filters = [];
-    protected bool $_code_model = false;
-
-    /**
-     * Allows extension code to instantiate models and pass filter and other parameters. If this is false then use State values.
-     *
-     * @param   bool  $is_model_being_used_by_code
-     *
-     *
-     * @since version
-     */
-    public function setCodeModel(bool $is_model_being_used_by_code = false)
-    {
-        $this->_code_model = $is_model_being_used_by_code;
-    }
-
-
-    /**
-     * Method to set state variables.
-     *
-     * @param   string  $property  The name of the property
-     * @param   mixed   $value     The value of the property to set or null
-     *
-     * @return  mixed  The previous value of the property or null if not set
-     *
-     * @since   4.0.0
-     */
-    public function setState($property, $value = null): mixed
-    {
-
-        $this->_filters[$property] = $value;
-        return parent::setState($property, $value);
-    }
-
-    /**
-     * Method to get state variables.
-     *
-     * @param   string  $property  Optional parameter name
-     * @param   mixed   $default   Optional default value
-     *
-     * @return  mixed  The property where specified, the state object where omitted
-     *
-     * @since   4.0.0
-     */
-    public function getState($property = null, $default = null): mixed
-    {
-        if ($this->_code_model) { // Use _filters not states
-            return $this->_filters[$property] ?? $default;
-        } else {
-            return parent::getState($property, $default);
-        }
-    }
-
     /**
      * Abstract method for getting the form from the model.
      *
@@ -506,9 +453,7 @@ class VolunteerModel extends AdminModel
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
         // Get members
-        $model = new MembersModel();
-        $model->setCodeModel(true);
-
+        $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.volunteer', $pk);
         $items = $model->getItems();
 

@@ -277,8 +277,7 @@ class TeamModel extends AdminModel
 
         // Get members
 
-        $model = new MembersModel();
-        $model->setCodeModel(true);
+        $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.team', $pk);
         $items = $model->getItems();
 
@@ -344,9 +343,7 @@ class TeamModel extends AdminModel
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
         // Get roles
-        $model = new RolesModel();
-        $model->setCodeModel(true);
-
+        $model = $this->getMVCFactory()->createModel('Roles', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.team', $pk);
         $roles = $model->getItems();
 
@@ -382,9 +379,7 @@ class TeamModel extends AdminModel
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
         // Get reports
-        $model = new ReportsModel();
-        $model->setCodeModel(true);
-
+        $model = $this->getMVCFactory()->createModel('Reports', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.team', $pk);
         $model->setState('list.limit', 25);
 
@@ -428,9 +423,7 @@ class TeamModel extends AdminModel
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
         // Get subteams
-        $model = new TeamsModel();
-        $model->setCodeModel(true);
-
+        $model = $this->getMVCFactory()->createModel('Teams', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.subteams', true);
         $model->setState('filter.parent', $pk);
         $model->setState('list.limit', 0);

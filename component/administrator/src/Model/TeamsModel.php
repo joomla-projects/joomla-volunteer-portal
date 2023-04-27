@@ -9,6 +9,7 @@
 namespace Joomla\Component\Volunteers\Administrator\Model;
 
 use Exception;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -24,59 +25,6 @@ use Joomla\Database\QueryInterface;
  */
 class TeamsModel extends ListModel
 {
-    protected array $_filters = [];
-    protected bool $_code_model = false;
-
-    /**
-     * Allows extension code to instantiate models and pass filter and other parameters. If this is false then use State values.
-     *
-     * @param   bool  $is_model_being_used_by_code
-     *
-     *
-     * @since version
-     */
-    public function setCodeModel(bool $is_model_being_used_by_code = false)
-    {
-        $this->_code_model = $is_model_being_used_by_code;
-    }
-
-
-
-    /**
-     * Method to set state variables.
-     *
-     * @param   string  $property  The name of the property
-     * @param   mixed   $value     The value of the property to set or null
-     *
-     * @return  mixed  The previous value of the property or null if not set
-     *
-     * @since   4.0.0
-     */
-    public function setState($property, $value = null): mixed
-    {
-
-        $this->_filters[$property] = $value;
-        return parent::setState($property, $value);
-    }
-
-    /**
-     * Method to get state variables.
-     *
-     * @param   string  $property  Optional parameter name
-     * @param   mixed   $default   Optional default value
-     *
-     * @return  mixed  The property where specified, the state object where omitted
-     *
-     * @since   4.0.0
-     */
-    public function getState($property = null, $default = null): mixed
-    {
-        if ($this->_code_model) { // Use _filters not states
-            return $this->_filters[$property] ?? $default;
-        } else {
-            return parent::getState($property, $default);
-        }
-    }
     /**
      * Constructor.
      *
@@ -86,7 +34,7 @@ class TeamsModel extends ListModel
      * @since   4.0.0
      * @throws Exception
      */
-    public function __construct($config = array())
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
@@ -103,8 +51,7 @@ class TeamsModel extends ListModel
             );
         }
 
-        parent::__construct($config);
-        $this->populateState();
+        parent::__construct($config, $factory);
     }
 
     /**
@@ -305,12 +252,7 @@ class TeamsModel extends ListModel
         }
 
         // Get members
-
-        $members = new MembersModel();
-        $members->setCodeModel(true);
-
-
-
+        $members = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
         $members->setState('filter.active', 1);
         $members->setState('filter.type', 'team');
         $members->setState('filter.team', $teamIds);

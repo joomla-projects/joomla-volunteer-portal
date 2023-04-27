@@ -79,10 +79,7 @@ class BoardModel extends AdminModel
     {
         // Get members
 
-        $model = new MembersModel();
-        $model->setCodeModel(true);
-        $model->setCodeModel(true);
-
+        $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.position', array(11, 13));
 
         $items = $model->getItems();
@@ -159,9 +156,7 @@ class BoardModel extends AdminModel
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
         // Get reports
-        $model = new ReportsModel();
-        $model->setCodeModel(true);
-
+        $model = $this->getMVCFactory()->createModel('Reports', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.department', $pk);
         $model->setState('list.limit', 10);
 

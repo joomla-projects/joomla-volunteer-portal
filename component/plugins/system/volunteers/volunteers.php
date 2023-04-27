@@ -73,9 +73,7 @@ class PlgSystemVolunteers extends CMSPlugin
         $update = Factory::getApplication()->getSession()->get('updateprofile');
 
         if ($update && $view != 'volunteer' && $task != 'volunteer.edit') {
-            $model = new VolunteerModel();
-            $model->setCodeModel(true);
-
+            $model = $this->app->bootComponent('com_volunteers')->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
 
             $userId      = Factory::getApplication()->getSession()->get('user')->get('id');
             $volunteerId = (int) $model->getVolunteerId($userId);
@@ -123,8 +121,7 @@ class PlgSystemVolunteers extends CMSPlugin
 
         // Check if this is the volunteers own profile
         if ($option == 'com_volunteers' && $view == 'volunteer') {
-            $model = new VolunteerModel();
-            $model->setCodeModel(true);
+            $model = $this->app->bootComponent('com_volunteers')->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
 
             $userId      = Factory::getApplication()->getSession()->get('user')->get('id');
             $volunteerId = (int) $model->getVolunteerId($userId);

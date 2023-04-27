@@ -40,9 +40,9 @@ class HtmlView extends BaseHtmlView
      */
     public function display($tpl = null)
     {
+        $app = Factory::getApplication();
         /** @var VolunteerModel $model */
-        $model = new VolunteerModel();
-        $model->setCodeModel(true);
+        $model = $app->bootComponent('com_volunteers')->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
 
         $user        = Factory::getApplication()->getIdentity();
         $userId      = (int) $user->get('id');

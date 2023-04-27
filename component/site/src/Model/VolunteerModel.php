@@ -458,9 +458,7 @@ class VolunteerModel extends AdminModel
 
         // Get members
 
-        $model = new MembersModel();
-        $model->setCodeModel(true);
-
+        $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.volunteer', $pk);
         $items = $model->getItems();
 
