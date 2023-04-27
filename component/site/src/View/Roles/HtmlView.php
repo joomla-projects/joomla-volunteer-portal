@@ -55,7 +55,7 @@ class HtmlView extends BaseHtmlView
             throw new GenericDataException(implode("\n", $errors));
         }
 
-        $this->_prepareDocument();
+        $this->prepareDocument();
 
         parent::display($tpl);
     }
@@ -67,7 +67,7 @@ class HtmlView extends BaseHtmlView
      *
      * @since 4.0.0
      */
-    protected function _prepareDocument()
+    protected function prepareDocument()
     {
         // Prepare variables
         $title   = Text::_('COM_VOLUNTEERS_TITLE_ROLESOPEN');

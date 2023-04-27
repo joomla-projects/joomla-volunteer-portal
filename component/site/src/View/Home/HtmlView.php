@@ -63,7 +63,7 @@ class HtmlView extends BaseHtmlView
         }
 
 
-        $this->_prepareDocument();
+        $this->prepareDocument();
 
         parent::display($tpl);
     }
@@ -77,7 +77,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    protected function _prepareDocument()
+    protected function prepareDocument()
     {
         $title   = Text::_('COM_VOLUNTEERS_TITLE_HOME');
         $image   = 'https://cdn.joomla.org/images/joomla-org-og.jpg';

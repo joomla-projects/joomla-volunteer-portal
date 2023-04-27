@@ -91,10 +91,10 @@ class HtmlView extends BaseHtmlView
         }
 
         // Manipulate form
-        $this->_manipulateForm();
+        $this->manipulateForm();
 
         // Prepare document
-        $this->_prepareDocument();
+        $this->prepareDocument();
 
         parent::display($tpl);
     }
@@ -106,7 +106,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    protected function _manipulateForm()
+    protected function manipulateForm()
     {
         $app      = Factory::getApplication();
         $jinput   = $app->input;
@@ -138,7 +138,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    protected function _prepareDocument()
+    protected function prepareDocument()
     {
         $layout = Factory::getApplication()->input->get('layout');
 

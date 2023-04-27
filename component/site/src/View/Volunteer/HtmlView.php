@@ -75,10 +75,10 @@ class HtmlView extends BaseHtmlView
         }
 
         // Manipulate form
-        $this->_manipulateForm();
+        $this->manipulateForm();
 
         // Prepare document
-        $this->_prepareDocument();
+        $this->prepareDocument();
 
         parent::display($tpl);
     }
@@ -90,7 +90,7 @@ class HtmlView extends BaseHtmlView
      *
      * @since 4.0.0
      */
-    protected function _manipulateForm()
+    protected function manipulateForm()
     {
         // Clear birthday field if not set
         if ($this->item->birthday == '0000-00-00') {
@@ -112,7 +112,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    protected function _prepareDocument()
+    protected function prepareDocument()
     {
         // Prepare variables
         $title       = Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEER') . ': ' . $this->item->name;

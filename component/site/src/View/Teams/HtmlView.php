@@ -61,7 +61,7 @@ class HtmlView extends BaseHtmlView
         }
 
 
-        $this->_prepareDocument();
+        $this->prepareDocument();
 
         parent::display($tpl);
     }
@@ -73,7 +73,7 @@ class HtmlView extends BaseHtmlView
      *
      * @since 4.0.0
      */
-    protected function _prepareDocument()
+    protected function prepareDocument()
     {
         // Prepare variables
         $title   = ($this->state->get('filter.groups')) ? Text::_('COM_VOLUNTEERS_TITLE_GROUPS') : Text::_('COM_VOLUNTEERS_TITLE_TEAMS');

@@ -67,7 +67,7 @@ class HtmlView extends BaseHtmlView
         }
 
 
-        $this->_prepareDocument();
+        $this->prepareDocument();
 
         parent::display($tpl);
     }
@@ -81,7 +81,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    protected function _prepareDocument()
+    protected function prepareDocument()
     {
         // Prepare variables
         $title   = Text::_('COM_VOLUNTEERS_TITLE_REPORTS');

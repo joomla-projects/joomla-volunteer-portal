@@ -111,7 +111,7 @@ class HtmlView extends BaseHtmlView
      * @return  void.
      * @since 4.0.0
      */
-    protected function _manipulateForm()
+    protected function manipulateForm()
     {
         $this->form->removeField('password1');
         $this->form->removeField('password2');
