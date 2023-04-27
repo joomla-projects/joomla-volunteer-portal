@@ -487,7 +487,6 @@ class com_volunteersInstallerScript extends InstallerScript
      */
     public function update($parent)
     {
-
         $this->installLibrary($parent);
         $this->installPlugins($parent);
         $this->installModules($parent);
