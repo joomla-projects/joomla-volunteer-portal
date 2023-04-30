@@ -1,5 +1,3 @@
-SET FOREIGN_KEY_CHECKS = 0;
-
 /*Table structure for table `#__volunteers_departments` */
 
 CREATE TABLE `#__volunteers_departments`
@@ -22,9 +20,7 @@ CREATE TABLE `#__volunteers_departments`
     `checked_out`      bigint       NOT NULL DEFAULT '0',
     `checked_out_time` datetime     NOT NULL DEFAULT '0000-00-00 00:00:00',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `#__volunteers_members` */
 
@@ -53,9 +49,7 @@ CREATE TABLE `#__volunteers_members`
     KEY `volunteer` (`volunteer`),
     KEY `position` (`position`),
     KEY `role` (`role`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `#__volunteers_positions` */
 
@@ -81,9 +75,7 @@ CREATE TABLE `#__volunteers_positions`
     `checked_out`      bigint       NOT NULL DEFAULT '0',
     `checked_out_time` datetime     NOT NULL DEFAULT '0000-00-00 00:00:00',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `#__volunteers_reports` */
 
@@ -108,9 +100,7 @@ CREATE TABLE `#__volunteers_reports`
     PRIMARY KEY (`id`),
     KEY `department` (`department`),
     KEY `team` (`team`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `#__volunteers_roles` */
 
@@ -135,9 +125,7 @@ CREATE TABLE `#__volunteers_roles`
     `checked_out_time` datetime     NOT NULL DEFAULT '0000-00-00 00:00:00',
     PRIMARY KEY (`id`),
     KEY `team` (`team`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `#__volunteers_teams` */
 
@@ -169,9 +157,7 @@ CREATE TABLE `#__volunteers_teams`
     `ready_transition` datetime     NOT NULL DEFAULT '0000-00-00 00:00:00',
     PRIMARY KEY (`id`),
     KEY `parent_id` (`parent_id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `#__volunteers_volunteers` */
 
@@ -226,7 +212,4 @@ CREATE TABLE `#__volunteers_volunteers`
     `nda`                 int          NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`),
     UNIQUE KEY `user_id` (`user_id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb3;
-
-SET FOREIGN_KEY_CHECKS = 1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;

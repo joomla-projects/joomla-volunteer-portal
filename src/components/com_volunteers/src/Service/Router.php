@@ -34,7 +34,6 @@ use Joomla\CMS\Menu\AbstractMenu;
  */
 class Router extends RouterView
 {
-    private $noIDs;
     /**
      * The category factory
      *
@@ -64,10 +63,7 @@ class Router extends RouterView
      */
     public function __construct($app, $menu, CategoryFactoryInterface $categoryFactory, $db)
     {
-        $params                = Factory::getApplication()->getParams('com_volunteers');
-        $this->noIDs           = (bool) $params->get('sef_ids');
         $this->categoryFactory = $categoryFactory;
-
 
         $departments = new RouterViewConfiguration('departments');
         $this->registerView($departments);

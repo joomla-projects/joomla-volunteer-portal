@@ -87,17 +87,6 @@
         <filename>joomla.asset.json</filename>
     </media>
 
-    <plugins>
-        <plugin group="user" plugin="volunteer"/>
-        <plugin group="system" plugin="joomlaidentityvolunteers"/>
-        <plugin group="system" plugin="volunteers"/>
-    </plugins>
-
-    <modules>
-        <module module="mod_volunteers_latest"/>
-        <module module="mod_volunteers_story"/>
-    </modules>
-
     <install>
         <sql>
             <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
