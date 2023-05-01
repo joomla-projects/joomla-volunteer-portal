@@ -5,8 +5,8 @@
     <!-- Exclude folders not containing production code -->
 
     <!-- Exclude 3rd party libraries and Framework code. -->
-    <exclude-pattern type="relative">^component/administrator/vendor/*</exclude-pattern>
-	<exclude-pattern type="relative">^component/administrator/layouts/*</exclude-pattern>
+    <exclude-pattern type="relative">^vendor/*</exclude-pattern>
+	<exclude-pattern type="relative">^src/administrator/components/com_volunteers/layouts/*</exclude-pattern>
     <exclude-pattern type="relative">^libraries/*</exclude-pattern>
 
     <rule ref="PSR12" />
