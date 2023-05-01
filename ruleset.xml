@@ -9,6 +9,7 @@
 	<exclude-pattern type="relative">^src/administrator/components/com_volunteers/layouts/*</exclude-pattern>
     <exclude-pattern type="relative">^src/administrator/components/com_volunteers/tmpl/*</exclude-pattern>
     <exclude-pattern type="relative">^src/components/com_volunteers/tmpl/*</exclude-pattern>
+    <exclude-pattern type="relative">^dist/*</exclude-pattern>
     <exclude-pattern type="relative">^libraries/*</exclude-pattern>
 
     <rule ref="PSR12" />
@@ -23,6 +24,7 @@
 
     <rule ref="PSR1.Files.SideEffects">
         <exclude-pattern type="relative">build/lib/phpStormSourceHandling\.php</exclude-pattern>
+        <exclude-pattern type="relative">RoboFile\.php</exclude-pattern>
     </rule>
 
     <rule ref="PSR1.Classes.ClassDeclaration">
@@ -36,6 +38,7 @@
 
         <exclude-pattern type="relative">administrator/components/com_volunteers/script\.php</exclude-pattern>
         <exclude-pattern type="relative">plugins/*</exclude-pattern>
+        <exclude-pattern type="relative">RoboFile\.php</exclude-pattern>
     </rule>
 
     <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
