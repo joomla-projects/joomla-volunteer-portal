@@ -7,6 +7,8 @@
     <!-- Exclude 3rd party libraries and Framework code. -->
     <exclude-pattern type="relative">^vendor/*</exclude-pattern>
 	<exclude-pattern type="relative">^src/administrator/components/com_volunteers/layouts/*</exclude-pattern>
+    <exclude-pattern type="relative">^src/administrator/components/com_volunteers/tmpl/*</exclude-pattern>
+    <exclude-pattern type="relative">^src/components/com_volunteers/tmpl/*</exclude-pattern>
     <exclude-pattern type="relative">^libraries/*</exclude-pattern>
 
     <rule ref="PSR12" />
@@ -32,23 +34,23 @@
         <exclude-pattern type="relative">build/tasks/XmlVersionTask\.php</exclude-pattern>
         <exclude-pattern type="relative">build/tasks/ZipmeTask\.php</exclude-pattern>
 
-        <exclude-pattern type="relative">component/script\.php</exclude-pattern>
-        <exclude-pattern type="relative">component/plugins/*</exclude-pattern>
+        <exclude-pattern type="relative">administrator/components/com_volunteers/script\.php</exclude-pattern>
+        <exclude-pattern type="relative">plugins/*</exclude-pattern>
     </rule>
 
     <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
-        <exclude-pattern type="relative">component/frontend/src/Model/CategoriesModel\.php</exclude-pattern>
-        <exclude-pattern type="relative">component/backend/src/Model/ExtensionModel\.php</exclude-pattern>
+        <exclude-pattern type="relative">src/components/com_volunteers/src/Model/CategoriesModel\.php</exclude-pattern>
+        <exclude-pattern type="relative">src/administrator/components/com_volunteers/src/Model/ExtensionModel\.php</exclude-pattern>
     </rule>
 
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
         <exclude-pattern type="relative">build/linklib/LinkHelper\.php</exclude-pattern>
-        <exclude-pattern type="relative">component/frontend/src/Helper/JedHelper\.php</exclude-pattern>
-        <exclude-pattern type="relative">component/script\.php</exclude-pattern>
+        <exclude-pattern type="relative">src/components/com_volunteer/src/Helper/JedHelper\.php</exclude-pattern>
+        <exclude-pattern type="relative">administrator/components/com_volunteers/script\.php</exclude-pattern>
     </rule>
 
     <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
-        <exclude-pattern type="relative">component/backend/src/Table/*\.php</exclude-pattern>
+        <exclude-pattern type="relative">src/administrator/components/com_volunteers/src/Table/*\.php</exclude-pattern>
     </rule>
 
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
@@ -56,6 +58,6 @@
     </rule>
 
     <rule ref="Squiz.Classes.ValidClassName">
-        <exclude-pattern type="relative">component/script\.php</exclude-pattern>
+        <exclude-pattern type="relative">administrator/components/com_volunteers/script\.php</exclude-pattern>
     </rule>
 </ruleset>
