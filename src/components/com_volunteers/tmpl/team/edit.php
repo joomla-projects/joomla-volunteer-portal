@@ -41,25 +41,31 @@ try {
 
 <div class="team-edit">
 
-    <form id="team" action="<?php echo Route::_('index.php?option=com_volunteers&task=team.save&id=' . (int) $this->item->id); ?>" method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
+    <form id="team"
+        action="<?php echo Route::_('index.php?option=com_volunteers&task=team.save&id=' . (int) $this->item->id); ?>"
+        method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
         <div class="row-fluid">
 
             <div class="filter-bar">
                 <div class="btn-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
                         <button class="btn btn-danger" onclick="Joomla.submitbutton('team.cancel')">
-                            <span class="icon-cancel"></span> <?php echo Text::_('JCANCEL') ?>
+                            <span class="icon-cancel" aria-hidden="true"></span>
+                            <?php echo Text::_('JCANCEL') ?>
                         </button>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
                         <button class="btn btn-success" type="submit">
-                            <span class="icon-pencil"></span> <?php echo Text::_('JSAVE') ?>
+                            <span class="icon-pencil" aria-hidden="true"></span>
+                            <?php echo Text::_('JSAVE') ?>
                         </button>
                     </div>
                 </div>
             </div>
             <div class="page-header">
-                <h1><?php echo Text::_('COM_VOLUNTEERS_TITLE_TEAMS_EDIT') ?></h1>
+                <h1>
+                    <?php echo Text::_('COM_VOLUNTEERS_TITLE_TEAMS_EDIT') ?>
+                </h1>
             </div>
 
         </div>
@@ -91,20 +97,23 @@ try {
         <div class="row-fluid">
             <div class="btn-toolbar pull-right">
                 <div id="toolbar-cancel" class="btn-group">
-                    <a class="btn btn-danger" href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $this->item->id) ?>">
-                        <span class="icon-cancel"></span> <?php echo Text::_('JCANCEL') ?>
+                    <a class="btn btn-danger"
+                        href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $this->item->id) ?>">
+                        <span class="icon-cancel" aria-hidden="true"></span>
+                        <?php echo Text::_('JCANCEL') ?>
                     </a>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
                     <button class="btn btn-success" type="submit">
-                        <span class="icon-pencil"></span> <?php echo Text::_('JSAVE') ?>
+                        <span class="icon-pencil" aria-hidden="true"></span>
+                        <?php echo Text::_('JSAVE') ?>
                     </button>
                 </div>
             </div>
         </div>
 
-        <input type="hidden" name="option" value="com_volunteers"/>
-        <input type="hidden" name="task" value="team.save"/>
+        <input type="hidden" name="option" value="com_volunteers" />
+        <input type="hidden" name="task" value="team.save" />
         <?php echo HtmlHelper::_('form.token'); ?>
     </form>
 </div>

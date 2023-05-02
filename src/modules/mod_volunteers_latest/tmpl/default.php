@@ -26,28 +26,32 @@ try {
 }
 ?>
 <div class="well">
-    <div class="page-header"><strong><?php echo Text::_('COM_VOLUNTEERS_LATEST_VOLUNTEERS'); ?></strong></div>
-<?php if (!empty($volunteers)) {
-    foreach ($volunteers as $i => $item) : ?>
-    <ul class="media-list latest-volunteers">
-        <li class="media">
-            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->id) ?>">
+    <div class="page-header"><strong>
+            <?php echo Text::_('COM_VOLUNTEERS_LATEST_VOLUNTEERS'); ?>
+        </strong></div>
+    <?php if (!empty($volunteers)) {
+        foreach ($volunteers as $i => $item): ?>
+            <ul class="media-list latest-volunteers">
+                <li class="media">
+                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->id) ?>">
                         <span class="pull-left">
-                                <?php echo VolunteersHelper::image($item->image, 'small', false, $item->name); ?>
+                            <?php echo VolunteersHelper::image($item->image, 'small', false, $item->name); ?>
                         </span>
-                <div class="media-body">
-                    <h3 class="media-heading">
-                            <?php echo $item->name; ?>
-                    </h3>
-                    <p class="muted">
-                        <span class="icon-location"></span> <?php echo VolunteersHelper::location($item->country, $item->city); ?>
-                    </p>
-                </div>
-            </a>
-        </li>
-    </ul>
-    <?php endforeach;
-}; ?>
-<a class="btn btn-large btn-block"
-   href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>"><?php echo Text::_('MOD_VOLUNTEERS_READ_MORE_VOLUNTEERS') ?></a>
+                        <div class="media-body">
+                            <h3 class="media-heading">
+                                <?php echo $item->name; ?>
+                            </h3>
+                            <p class="muted">
+                                <span class="icon-location" aria-hidden="true"></span>
+                                <?php echo VolunteersHelper::location($item->country, $item->city); ?>
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        <?php endforeach;
+    }
+    ; ?>
+    <a class="btn btn-large btn-block"
+        href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>"><?php echo Text::_('MOD_VOLUNTEERS_READ_MORE_VOLUNTEERS') ?></a>
 </div>

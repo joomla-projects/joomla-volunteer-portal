@@ -23,11 +23,12 @@ if ($displayData->item->active) {
     if ($displayData->acl->edit) {
         echo '<div class="row-fluid">
         <a class="btn pull-right" href="' . Route::_('index.php?option=com_volunteers&task=member.add&team=' . $displayData->item->id) . '">
-            <span class="icon-new"></span> ' . Text::_('COM_VOLUNTEERS_MEMBER_ADD') . '
+            <span class="icon-new" aria-hidden="true"></span> ' . Text::_('COM_VOLUNTEERS_MEMBER_ADD') . '
         </a>
     </div>
     <hr>';
-    };
+    }
+    ;
     if ($displayData->item->members->active) {
         echo '<table class="table table-striped table-hover table-vertical-align">
     <thead>
@@ -39,7 +40,8 @@ if ($displayData->item->active) {
             echo '<th width="10%" class="center">' . Text::_('COM_VOLUNTEERS_FIELD_ADDRESS') . '</th>
         <th width="10%" class="center">' . Text::_('COM_VOLUNTEERS_FIELD_NDA') . '</th>
         <th width="10%"></th>';
-        };
+        }
+        ;
         echo '</thead>';
         echo '<tbody>';
         foreach ($displayData->item->members->active as $volunteer) {
@@ -53,7 +55,7 @@ if ($displayData->item->active) {
                 $volunteer->volunteer_name . '
                 </a>
                 <span class="muted volunteer-location">
-                                            <span class="icon-location"></span>' . VolunteersHelper::location($volunteer->volunteer_country) . '
+                                            <span class="icon-location" aria-hidden="true"></span>' . VolunteersHelper::location($volunteer->volunteer_country) . '
                                         </span>
             </td>
             <td>' . $volunteer->position_title . '
@@ -69,24 +71,29 @@ if ($displayData->item->active) {
                     echo ' <span class="icon-checkbox-checked"></span>';
                 } else {
                     echo ' <span class="icon-checkbox-unchecked"></span>';
-                };
+                }
+                ;
                 echo '</td>
                 <td class="center">';
                 if ($volunteer->nda) {
                     echo '<span class="icon-checkbox-checked"></span>';
                 } else {
                     echo '<span class="icon-checkbox-unchecked"></span>';
-                };
+                }
+                ;
                 echo '</td>
                 <td>
                     <a class="btn btn-small pull-right" href="' . Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id) . '">
-                        <span class="icon-edit"></span> ' . Text::_('COM_VOLUNTEERS_EDIT') . '
+                        <span class="icon-edit" aria-hidden="true"></span> ' . Text::_('COM_VOLUNTEERS_EDIT') . '
                     </a>
                 </td>';
-            };
+            }
+            ;
             echo '</tr>';
         }
         echo '</tbody>
 </table>';
-    };
-};
+    }
+    ;
+}
+;

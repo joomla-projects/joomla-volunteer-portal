@@ -20,11 +20,11 @@ use Joomla\Component\Volunteers\Administrator\View\Volunteers\HtmlView;
 
 /** @var $this HtmlView */
 
-$user      = Factory::getApplication()->getIdentity();
-$userId    = $user->get('id');
+$user = Factory::getApplication()->getIdentity();
+$userId = $user->get('id');
 $listOrder = $this->escape($this->state->get('list.ordering'));
-$listDirn  = $this->escape($this->state->get('list.direction'));
-$canOrder  = $user->authorise('core.edit.state', 'com_volunteers');
+$listDirn = $this->escape($this->state->get('list.direction'));
+$canOrder = $user->authorise('core.edit.state', 'com_volunteers');
 $saveOrder = $listOrder == 'a.ordering';
 
 if ($saveOrder) {
@@ -42,19 +42,24 @@ $wa->useScript('table.columns');
     }
 </style>
 
-<form action="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>" method="post" name="adminForm"
+    id="adminForm">
 
-<div id="j-main-container" class="j-main-container">
+    <div id="j-main-container" class="j-main-container">
         <?php echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
-            <?php if (empty($this->items)) : ?>
+        <?php if (empty($this->items)): ?>
             <div class="alert alert-info">
-                <span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
-                    <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
-                </div>
-            <?php else : ?>
-            <h3><?php echo count($this->items); ?> volunteers (matching filters)</h3>
-                <table class="table table-striped" id="itemsList">
-                    <thead>
+                <span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden">
+                    <?php echo Text::_('INFO'); ?>
+                </span>
+                <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
+            </div>
+        <?php else: ?>
+            <h3>
+                <?php echo count($this->items); ?> volunteers (matching filters)
+            </h3>
+            <table class="table table-striped" id="itemsList">
+                <thead>
                     <tr>
                         <th width="1%" class="nowrap center hidden-phone">
                             <?php echo HTMLHelper::_('searchtools.sort', '', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
@@ -86,9 +91,9 @@ $wa->useScript('table.columns');
                             <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
                         </th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($this->items as $i => $item) :
+                </thead>
+                <tbody>
+                    <?php foreach ($this->items as $i => $item):
                         $ordering = ($listOrder == 'a.ordering');
                         $canCreate = $user->authorise('core.create', 'com_volunteers');
                         $canEdit = $user->authorise('core.edit', 'com_volunteers');
@@ -106,10 +111,11 @@ $wa->useScript('table.columns');
                                 }
                                 ?>
                                 <span class="sortable-handler<?php echo $iconClass ?>">
-                                <span class="icon-menu"></span>
-                            </span>
-                                <?php if ($canChange && $saveOrder) : ?>
-                                    <input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order "/>
+                                    <span class="icon-menu"></span>
+                                </span>
+                                <?php if ($canChange && $saveOrder): ?>
+                                    <input type="text" style="display:none" name="order[]" size="5"
+                                        value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " />
                                 <?php endif; ?>
                             </td>
                             <td class="center hidden-phone">
@@ -119,46 +125,48 @@ $wa->useScript('table.columns');
                                 <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'volunteers.', $canChange, 'cb'); ?>
                             </td>
                             <td class="volunteer-image">
-                                <?php if ($item->image) : ?>
+                                <?php if ($item->image): ?>
                                     <img class="img-rounded" src="<?php echo $item->image; ?>">
-                                <?php else : ?>
+                                <?php else: ?>
                                     <img class="img-rounded" src="<?php echo JURI::root() . 'images/joomla.png'; ?>">
                                 <?php endif; ?>
                             </td>
                             <td class="nowrap">
-                                <?php if ($item->checked_out) : ?>
+                                <?php if ($item->checked_out): ?>
                                     <?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'volunteers.', $canCheckin); ?>
                                 <?php endif; ?>
-                                <?php if ($canEdit) : ?>
-                                    <a href="<?php echo Route::_('index.php?option=com_volunteers&task=volunteer.edit&id=' . (int) $item->id); ?>">
+                                <?php if ($canEdit): ?>
+                                    <a
+                                        href="<?php echo Route::_('index.php?option=com_volunteers&task=volunteer.edit&id=' . (int) $item->id); ?>">
                                         <?php echo $this->escape($item->name); ?></a>
-                                <?php else : ?>
+                                <?php else: ?>
                                     <?php echo $this->escape($item->name); ?>
                                 <?php endif; ?>
                                 <div class="small">
-                                    <span class="icon-user"></span>
-                                    <?php if ($canEdit) : ?>
-                                        <a href="<?php echo Route::_('index.php?option=com_users&task=user.edit&id=' . (int) $item->user_id); ?>">
+                                    <span class="icon-user" aria-hidden="true"></span>
+                                    <?php if ($canEdit): ?>
+                                        <a
+                                            href="<?php echo Route::_('index.php?option=com_users&task=user.edit&id=' . (int) $item->user_id); ?>">
                                             <?php echo $this->escape($item->user_username); ?></a>
-                                    <?php else : ?>
+                                    <?php else: ?>
                                         <?php echo $this->escape($item->user_username); ?>
                                     <?php endif; ?>
                                 </div>
                                 <div class="small">
-                                    <span class="icon-mail"></span>
+                                    <span class="icon-mail" aria-hidden="true"></span>
                                     <?php echo $this->escape($item->user_email); ?>
                                 </div>
                                 <div class="small">
-                                    <span class="icon-location"></span>
+                                    <span class="icon-location" aria-hidden="true"></span>
                                     <?php echo $item->city; ?>,
-                                    <?php if ($item->country) : ?>
+                                    <?php if ($item->country): ?>
                                         <?php echo VolunteersHelper::$countries[$item->country]; ?>
-                                    <?php else : ?>
+                                    <?php else: ?>
                                         <?php echo $item->country; ?>
                                     <?php endif; ?>
                                 </div>
                                 <div class="small">
-                                    <span class="icon-calendar-3"></span>
+                                    <span class="icon-calendar-3" aria-hidden="true"></span>
                                     <?php echo $item->birthday; ?>
                                 </div>
                             </td>
@@ -166,7 +174,8 @@ $wa->useScript('table.columns');
                                 <?php echo HTMLHelper::_('string.truncate', $item->intro, 250); ?>
                             </td>
                             <td class="center">
-                                <a href="<?php echo Route::_('index.php?option=com_volunteers&view=members&filter[volunteer]=' . $item->id); ?>"><?php echo $item->num_teams; ?></a>
+                                <a
+                                    href="<?php echo Route::_('index.php?option=com_volunteers&view=members&filter[volunteer]=' . $item->id); ?>"><?php echo $item->num_teams; ?></a>
                             </td>
                             <td class="center">
                                 <?php echo $item->spam; ?>
@@ -182,14 +191,14 @@ $wa->useScript('table.columns');
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
 
-                <?php echo $this->pagination->getListFooter(); ?>
-            <?php endif; ?>
+            <?php echo $this->pagination->getListFooter(); ?>
+        <?php endif; ?>
 
-            <input type="hidden" name="task" value=""/>
-            <input type="hidden" name="boxchecked" value="0"/>
-            <?php echo HTMLHelper::_('form.token'); ?>
-        </div>
+        <input type="hidden" name="task" value="" />
+        <input type="hidden" name="boxchecked" value="0" />
+        <?php echo HTMLHelper::_('form.token'); ?>
+    </div>
 </form>
