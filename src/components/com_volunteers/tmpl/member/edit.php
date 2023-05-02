@@ -25,40 +25,46 @@ JFactory::getDocument()->addScriptDeclaration("
 
 if ($this->item->department) {
     $view = 'department';
-    $id   = $this->item->department;
+    $id = $this->item->department;
 } elseif ($this->item->team) {
     $view = 'team';
-    $id   = $this->item->team;
+    $id = $this->item->team;
 }
 ?>
 
 <div class="member-edit">
 
-    <form id="member" action="<?php echo Route::_('index.php?option=com_volunteers&task=member.save&id=' . (int) $this->item->id); ?>" method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
+    <form id="member"
+        action="<?php echo Route::_('index.php?option=com_volunteers&task=member.save&id=' . (int) $this->item->id); ?>"
+        method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
         <div class="row-fluid">
             <div class="filter-bar">
                 <div class="btn-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
                         <button class="btn btn-danger" onclick="Joomla.submitbutton('member.cancel')">
-                            <span class="icon-cancel"></span> <?php echo Text::_('JCANCEL') ?>
+                            <span class="icon-cancel" aria-hidden="true"></span>
+                            <?php echo Text::_('JCANCEL') ?>
                         </button>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
                         <button class="btn btn-success" type="submit">
-                            <span class="icon-pencil"></span> <?php echo Text::_('JSAVE') ?>
+                            <span class="icon-pencil" aria-hidden="true"></span>
+                            <?php echo Text::_('JSAVE') ?>
                         </button>
                     </div>
                 </div>
             </div>
             <div class="page-header">
-                <h1><?php echo Text::_('COM_VOLUNTEERS_TITLE_MEMBERS_EDIT') ?></h1>
+                <h1>
+                    <?php echo Text::_('COM_VOLUNTEERS_TITLE_MEMBERS_EDIT') ?>
+                </h1>
             </div>
         </div>
 
-        <?php if ($this->item->department) : ?>
+        <?php if ($this->item->department): ?>
             <?php echo $this->form->renderField('department'); ?>
         <?php endif; ?>
-        <?php if ($this->item->team) : ?>
+        <?php if ($this->item->team): ?>
             <?php echo $this->form->renderField('team'); ?>
         <?php endif; ?>
 
@@ -90,20 +96,23 @@ if ($this->item->department) {
         <div class="row-fluid">
             <div class="btn-toolbar pull-right">
                 <div id="toolbar-cancel" class="btn-group">
-                    <a class="btn btn-danger" href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $this->item->team) ?>">
-                        <span class="icon-cancel"></span> <?php echo Text::_('JCANCEL') ?>
+                    <a class="btn btn-danger"
+                        href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $this->item->team) ?>">
+                        <span class="icon-cancel" aria-hidden="true"></span>
+                        <?php echo Text::_('JCANCEL') ?>
                     </a>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
                     <button class="btn btn-success" type="submit">
-                        <span class="icon-pencil"></span> <?php echo Text::_('JSAVE') ?>
+                        <span class="icon-pencil" aria-hidden="true"></span>
+                        <?php echo Text::_('JSAVE') ?>
                     </button>
                 </div>
             </div>
         </div>
 
-        <input type="hidden" name="option" value="com_volunteers"/>
-        <input type="hidden" name="task" value="member.save"/>
+        <input type="hidden" name="option" value="com_volunteers" />
+        <input type="hidden" name="task" value="member.save" />
         <?php echo HtmlHelper::_('form.token'); ?>
     </form>
 </div>

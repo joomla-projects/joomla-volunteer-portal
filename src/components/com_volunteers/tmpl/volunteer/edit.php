@@ -26,28 +26,36 @@ JFactory::getDocument()->addScriptDeclaration("
 
 <div class="volunteer-edit">
 
-    <form id="volunteer" action="<?php echo Route::_('index.php?option=com_volunteers&task=volunteer.save&id=' . (int) $this->item->id); ?>" method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
+    <form id="volunteer"
+        action="<?php echo Route::_('index.php?option=com_volunteers&task=volunteer.save&id=' . (int) $this->item->id); ?>"
+        method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
         <div class="row-fluid">
             <div class="filter-bar">
                 <div class="btn-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
                         <button class="btn btn-danger" onclick="Joomla.submitbutton('volunteer.cancel')">
-                            <span class="icon-cancel"></span> <?php echo Text::_('JCANCEL') ?>
+                            <span class="icon-cancel" aria-hidden="true"></span>
+                            <?php echo Text::_('JCANCEL') ?>
                         </button>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
                         <button class="btn btn-success" type="submit">
-                            <span class="icon-pencil"></span> <?php echo Text::_('JSAVE') ?>
+                            <span class="icon-pencil" aria-hidden="true"></span>
+                            <?php echo Text::_('JSAVE') ?>
                         </button>
                     </div>
                 </div>
             </div>
             <div class="page-header">
-                <h1><?php echo Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS_EDIT_MY') ?></h1>
+                <h1>
+                    <?php echo Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS_EDIT_MY') ?>
+                </h1>
             </div>
         </div>
 
-        <h3><?php echo Text::_('COM_VOLUNTEERS_PROFILE_ACCOUNT') ?></h3>
+        <h3>
+            <?php echo Text::_('COM_VOLUNTEERS_PROFILE_ACCOUNT') ?>
+        </h3>
 
         <div class="control-group">
             <div class="controls">
@@ -63,7 +71,9 @@ JFactory::getDocument()->addScriptDeclaration("
 
         <hr>
 
-        <h3><?php echo Text::_('COM_VOLUNTEERS_PROFILE_BIRTHDAY') ?></h3>
+        <h3>
+            <?php echo Text::_('COM_VOLUNTEERS_PROFILE_BIRTHDAY') ?>
+        </h3>
 
         <div class="control-group">
             <div class="controls">
@@ -77,7 +87,9 @@ JFactory::getDocument()->addScriptDeclaration("
 
         <hr>
 
-        <h3><?php echo Text::_('COM_VOLUNTEERS_PROFILE_PHOTO') ?></h3>
+        <h3>
+            <?php echo Text::_('COM_VOLUNTEERS_PROFILE_PHOTO') ?>
+        </h3>
 
         <div class="control-group">
             <div class="controls">
@@ -91,7 +103,9 @@ JFactory::getDocument()->addScriptDeclaration("
 
         <hr>
 
-        <h3><?php echo Text::_('COM_VOLUNTEERS_PROFILE_LOCATION') ?></h3>
+        <h3>
+            <?php echo Text::_('COM_VOLUNTEERS_PROFILE_LOCATION') ?>
+        </h3>
 
         <div class="control-group">
             <div class="controls">
@@ -107,7 +121,9 @@ JFactory::getDocument()->addScriptDeclaration("
 
         <hr>
 
-        <h3><?php echo Text::_('COM_VOLUNTEERS_PROFILE_ADDRESS') ?></h3>
+        <h3>
+            <?php echo Text::_('COM_VOLUNTEERS_PROFILE_ADDRESS') ?>
+        </h3>
 
         <div class="control-group">
             <div class="controls">
@@ -117,7 +133,7 @@ JFactory::getDocument()->addScriptDeclaration("
             </div>
         </div>
 
-        <?php if ($this->item->teams->activemember) : ?>
+        <?php if ($this->item->teams->activemember): ?>
             <div class="control-group">
                 <div class="controls">
                     <div class="alert alert-warning">
@@ -150,7 +166,9 @@ JFactory::getDocument()->addScriptDeclaration("
 
         <hr>
 
-        <h3><?php echo Text::_('COM_VOLUNTEERS_PROFILE_JOOMLA') ?></h3>
+        <h3>
+            <?php echo Text::_('COM_VOLUNTEERS_PROFILE_JOOMLA') ?>
+        </h3>
 
         <?php echo $this->form->renderField('joomlaforum'); ?>
         <?php echo $this->form->renderField('joomladocs'); ?>
@@ -158,7 +176,9 @@ JFactory::getDocument()->addScriptDeclaration("
 
         <hr>
 
-        <h3><?php echo Text::_('COM_VOLUNTEERS_PROFILE_SOCIAL') ?></h3>
+        <h3>
+            <?php echo Text::_('COM_VOLUNTEERS_PROFILE_SOCIAL') ?>
+        </h3>
 
         <?php echo $this->form->renderField('website'); ?>
         <?php echo $this->form->renderField('github'); ?>
@@ -171,7 +191,9 @@ JFactory::getDocument()->addScriptDeclaration("
 
         <hr>
 
-        <h3><?php echo Text::_('COM_VOLUNTEERS_PROFILE_INTRODUCTION') ?></h3>
+        <h3>
+            <?php echo Text::_('COM_VOLUNTEERS_PROFILE_INTRODUCTION') ?>
+        </h3>
 
         <div class="control-group">
             <div class="controls">
@@ -195,7 +217,9 @@ JFactory::getDocument()->addScriptDeclaration("
 
         <hr>
 
-        <h3><?php echo Text::_('COM_VOLUNTEERS_PROFILE_SETTINGS') ?></h3>
+        <h3>
+            <?php echo Text::_('COM_VOLUNTEERS_PROFILE_SETTINGS') ?>
+        </h3>
 
         <div class="control-group">
             <div class="controls">
@@ -214,20 +238,22 @@ JFactory::getDocument()->addScriptDeclaration("
 
                 <div id="toolbar-cancel" class="btn-group">
                     <a class="btn btn-danger" href="<?php echo Route::_('index.php?option=com_volunteers&view=my') ?>">
-                        <span class="icon-cancel"></span> <?php echo Text::_('JCANCEL') ?>
+                        <span class="icon-cancel" aria-hidden="true"></span>
+                        <?php echo Text::_('JCANCEL') ?>
                     </a>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
                     <button class="btn btn-success" type="submit">
-                        <span class="icon-pencil"></span> <?php echo Text::_('JSAVE') ?>
+                        <span class="icon-pencil" aria-hidden="true"></span>
+                        <?php echo Text::_('JSAVE') ?>
                     </button>
                 </div>
 
             </div>
         </div>
 
-        <input type="hidden" name="option" value="com_volunteers"/>
-        <input type="hidden" name="task" value="volunteer.save"/>
+        <input type="hidden" name="option" value="com_volunteers" />
+        <input type="hidden" name="task" value="volunteer.save" />
         <?php echo HtmlHelper::_('form.token'); ?>
     </form>
 </div>

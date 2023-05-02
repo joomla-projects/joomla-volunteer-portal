@@ -88,7 +88,7 @@ $wa->useScript('table.columns');
                                   endif; ?>" sortable-volunteer-id="<?php echo $item->id ?>">
                         <td>
                             <a class="btn btn-small" href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . (int) $item->id); ?>">
-                                <span class="icon-edit"></span>Edit
+                                <span class="icon-edit" aria-hidden="true"></span>Edit
                             </a>
                         </td>
                         <td class="nowrap">
