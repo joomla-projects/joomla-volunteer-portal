@@ -30,7 +30,7 @@ try {
             <?php echo Text::_('COM_VOLUNTEERS_LATEST_VOLUNTEERS'); ?>
         </strong></div>
     <?php if (!empty($volunteers)) {
-        foreach ($volunteers as $i => $item): ?>
+        foreach ($volunteers as $i => $item) : ?>
             <ul class="media-list latest-volunteers">
                 <li class="media">
                     <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->id) ?>">

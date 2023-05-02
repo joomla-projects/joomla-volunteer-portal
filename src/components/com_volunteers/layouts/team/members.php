@@ -29,7 +29,7 @@ defined('_JEXEC') or die('Restricted access');
         </div>
         <hr>
     <?php } ?>
-    <?php if ($displayData->item->members->active): ?>
+    <?php if ($displayData->item->members->active) : ?>
         <table class="table table-striped table-hover table-vertical-align">
             <thead>
                 <th width="30%">
@@ -44,7 +44,7 @@ defined('_JEXEC') or die('Restricted access');
                 <th width="12%">
                     <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_STARTED'); ?>
                 </th>
-                <?php if ($displayData->acl->edit): ?>
+                <?php if ($displayData->acl->edit) : ?>
                     <th width="10%" class="center">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_ADDRESS'); ?>
                     </th>
@@ -55,7 +55,7 @@ defined('_JEXEC') or die('Restricted access');
                 <?php endif; ?>
             </thead>
             <tbody>
-                <?php foreach ($displayData->item->members->active as $volunteer): ?>
+                <?php foreach ($displayData->item->members->active as $volunteer) : ?>
                     <tr>
                         <td class="volunteer-image">
                             <a class="pull-left"
@@ -80,7 +80,7 @@ defined('_JEXEC') or die('Restricted access');
                         <td>
                             <?php echo VolunteersHelper::date($volunteer->date_started, 'M Y'); ?>
                         </td>
-                        <?php if ($displayData->acl->edit): ?>
+                        <?php if ($displayData->acl->edit) : ?>
                             <td class="center">
                                 <?php if ($volunteer->address) { ?>
                                     <span class="icon-checkbox-checked"></span>
