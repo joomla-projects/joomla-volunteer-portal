@@ -13,11 +13,11 @@ namespace Joomla\Component\Volunteers\Site\View\Report;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
-use JLayoutFile;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\Helpers\StringHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
@@ -59,7 +59,7 @@ class HtmlView extends BaseHtmlView
     {
         /** @var ReportModel $model */
 
-        $model      = $this->getModel();
+        $model = $this->getModel();
         $this->item = $model->getItem();
 
         $this->state = $model->getState();
@@ -72,15 +72,15 @@ class HtmlView extends BaseHtmlView
         }
 
         if ($this->item->department && ($this->item->department_parent_id == 0)) {
-            $this->acl        = VolunteersHelper::acl('department', $this->item->department);
+            $this->acl = VolunteersHelper::acl('department', $this->item->department);
             $this->item->link = Route::_('index.php?option=com_volunteers&view=board&id=' . $this->item->department);
             $this->item->name = $this->item->department_title;
         } elseif ($this->item->department) {
-            $this->acl        = VolunteersHelper::acl('department', $this->item->department);
+            $this->acl = VolunteersHelper::acl('department', $this->item->department);
             $this->item->link = Route::_('index.php?option=com_volunteers&view=department&id=' . $this->item->department);
             $this->item->name = $this->item->department_title;
         } elseif ($this->item->team) {
-            $this->acl        = VolunteersHelper::acl('team', $this->item->team);
+            $this->acl = VolunteersHelper::acl('team', $this->item->team);
             $this->item->link = Route::_('index.php?option=com_volunteers&view=team&id=' . $this->item->team);
             $this->item->name = $this->item->team_title;
         }
@@ -108,8 +108,8 @@ class HtmlView extends BaseHtmlView
      */
     protected function manipulateForm()
     {
-        $app      = Factory::getApplication();
-        $jinput   = $app->input;
+        $app = Factory::getApplication();
+        $jinput = $app->input;
         $reportId = $jinput->getInt('id');
 
         // Disable fields
@@ -121,12 +121,12 @@ class HtmlView extends BaseHtmlView
             //$this->form->setFieldAttribute('volunteer', 'readonly', 'true');
         } else {
             $departmentId = (int) $app->getUserState('com_volunteers.edit.report.departmentid');
-            $teamId       = (int) $app->getUserState('com_volunteers.edit.report.teamid');
+            $teamId = (int) $app->getUserState('com_volunteers.edit.report.teamid');
             $this->form->setValue('department', $department = null, $departmentId);
             $this->form->setValue('team', $team = null, $teamId);
             $this->form->setValue('created', $team = null, Factory::getDate());
             $this->item->department = $departmentId;
-            $this->item->team       = $teamId;
+            $this->item->team = $teamId;
         }
     }
 
@@ -153,11 +153,11 @@ class HtmlView extends BaseHtmlView
         }
 
         // Prepare variables
-        $typeTitle   = ($this->item->team) ? $this->item->team_title : $this->item->department_title;
-        $title       = $this->item->title . ' - ' . $typeTitle;
+        $typeTitle = ($this->item->team) ? $this->item->team_title : $this->item->department_title;
+        $title = $this->item->title . ' - ' . $typeTitle;
         $description = StringHelper::truncate($this->item->description, 160, true, false);
-        $itemURL     = Route::_('index.php?option=com_volunteers&view=report&id=' . $this->item->id);
-        $url         = Uri::getInstance()->toString(['scheme', 'host', 'port']) . $itemURL;
+        $itemURL = Route::_('index.php?option=com_volunteers&view=report&id=' . $this->item->id);
+        $url = Uri::getInstance()->toString(['scheme', 'host', 'port']) . $itemURL;
 
         // Set meta
         $this->document->setTitle($title);
@@ -176,20 +176,20 @@ class HtmlView extends BaseHtmlView
         $this->document->setMetaData('og:url', $url, 'property');
 
         // Share Buttons
-        $layout      = new JLayoutFile('joomlarrssb');
-        $data        = (object) [
-            'title'            => $title,
-            'image'            => Uri::base() . 'images/reports-og.jpg',
-            'url'              => $url,
-            'text'             => $description,
-            'displayEmail'     => true,
-            'displayFacebook'  => true,
-            'displayTwitter'   => true,
-            'displayGoogle'    => false,
-            'displayLinkedin'  => true,
+        $layout = new FileLayout('joomlarrssb');
+        $data = (object) [
+            'title' => $title,
+            'image' => Uri::base() . 'images/reports-og.jpg',
+            'url' => $url,
+            'text' => $description,
+            'displayEmail' => true,
+            'displayFacebook' => true,
+            'displayTwitter' => true,
+            'displayGoogle' => false,
+            'displayLinkedin' => true,
             'displayPinterest' => true,
-            'shorten'          => true,
-            'shortenKey'       => ComponentHelper::getParams('com_volunteers')->get('yourlsapikey'),
+            'shorten' => true,
+            'shortenKey' => ComponentHelper::getParams('com_volunteers')->get('yourlsapikey'),
         ];
         $this->share = $layout->render($data);
 
