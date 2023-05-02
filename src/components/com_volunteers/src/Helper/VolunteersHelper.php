@@ -323,15 +323,15 @@ class VolunteersHelper
     public static function acl($type, $id): stdClass
     {
         // Base ACL
-        $acl = new stdClass();
+        $acl                  = new stdClass();
         $acl->edit_department = false;
-        $acl->edit = false;
-        $acl->create_report = false;
-        $acl->create_team = false;
+        $acl->edit            = false;
+        $acl->create_report   = false;
+        $acl->create_team     = false;
 
         // Set ID
         $departmentId = ($type == 'department') ? $id : null;
-        $teamId = ($type == 'team') ? $id : null;
+        $teamId       = ($type == 'team') ? $id : null;
 
         // Get User ID
         $user = Factory::getApplication()->getIdentity();
@@ -345,16 +345,16 @@ class VolunteersHelper
         // Admin
         if ($user->authorise('code.admin', 'com_volunteers')) {
             $acl->edit_department = true;
-            $acl->edit = true;
-            $acl->create_report = true;
-            $acl->create_team = true;
+            $acl->edit            = true;
+            $acl->create_report   = true;
+            $acl->create_team     = true;
 
             return $acl;
         }
 
-        $volmodel = new VolunteerModel();
-        $teammodel = new TeamModel();
-        $membermodel = new MemberModel();
+        $volmodel      = new VolunteerModel();
+        $teammodel     = new TeamModel();
+        $membermodel   = new MemberModel();
         $positionmodel = new PositionModel();
 
         // Get Volunteer ID
@@ -365,7 +365,7 @@ class VolunteersHelper
 
         // Get Department ID
         if ($type == 'team') {
-            $team = $teammodel->getItem($id);
+            $team         = $teammodel->getItem($id);
             $departmentId = (int) $team->department;
             $parentTeamId = (int) $team->parent_id;
         }
@@ -445,8 +445,8 @@ class VolunteersHelper
      */
     public static function departments($prefix = false): array
     {
-        $db = Factory::getContainer()->get('DatabaseDriver');
-        $query = $db->getQuery(true);
+        $db      = Factory::getContainer()->get('DatabaseDriver');
+        $query   = $db->getQuery(true);
         $options = null;
         if ($prefix) {
             $query->select('CONCAT(\'d.\', id) AS value, title AS text');
@@ -537,10 +537,10 @@ class VolunteersHelper
     public static function positions(): array
     {
         $departmentId = Factory::getApplication()->getUserState('com_volunteers.edit.member.departmentid');
-        $teamId = Factory::getApplication()->getUserState('com_volunteers.edit.member.teamid');
-        $options = null;
+        $teamId       = Factory::getApplication()->getUserState('com_volunteers.edit.member.teamid');
+        $options      = null;
 
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $db    = Factory::getContainer()->get('DatabaseDriver');
         $query = $db->getQuery(true)
             ->select('id AS value, title AS text')
             ->from('#__volunteers_positions')
@@ -579,18 +579,18 @@ class VolunteersHelper
      */
     public static function reportcategories(): array
     {
-        $groups = [];
-        $groups[]['items'][] = HTMLHelper::_('select.option', '', Text::_('COM_VOLUNTEERS_SELECT_REPORTCATEGORY'));
-        $groups['departments'] = [];
-        $groups['departments']['text'] = Text::sprintf('COM_VOLUNTEERS_FIELD_DEPARTMENTS');
+        $groups                         = [];
+        $groups[]['items'][]            = HTMLHelper::_('select.option', '', Text::_('COM_VOLUNTEERS_SELECT_REPORTCATEGORY'));
+        $groups['departments']          = [];
+        $groups['departments']['text']  = Text::sprintf('COM_VOLUNTEERS_FIELD_DEPARTMENTS');
         $groups['departments']['items'] = [];
 
         foreach (self::departments(true) as $department) {
             $groups['departments']['items'][] = HTMLHelper::_('select.option', $department->value, $department->text);
         }
 
-        $groups['teams'] = [];
-        $groups['teams']['text'] = Text::sprintf('COM_VOLUNTEERS_FIELD_TEAMS');
+        $groups['teams']          = [];
+        $groups['teams']['text']  = Text::sprintf('COM_VOLUNTEERS_FIELD_TEAMS');
         $groups['teams']['items'] = [];
 
         foreach (self::teams(true) as $team) {
@@ -617,7 +617,7 @@ class VolunteersHelper
             $team = Factory::getApplication()->getUserState('com_volunteers.edit.member.teamid');
         }
 
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $db    = Factory::getContainer()->get('DatabaseDriver');
         $query = $db->getQuery(true)
             ->select('id AS value, title AS text')
             ->from('#__volunteers_roles')
@@ -647,8 +647,8 @@ class VolunteersHelper
      */
     public static function teams($parent = false, $prefix = false): array
     {
-        $db = Factory::getContainer()->get('DatabaseDriver');
-        $query = $db->getQuery(true);
+        $db      = Factory::getContainer()->get('DatabaseDriver');
+        $query   = $db->getQuery(true);
         $options = null;
         if ($prefix) {
             $query->select('CONCAT(\'t.\', id) AS value, title AS text');
@@ -689,9 +689,9 @@ class VolunteersHelper
      */
     public static function volunteers(): array
     {
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $db      = Factory::getContainer()->get('DatabaseDriver');
         $options = null;
-        $query = $db->getQuery(true)
+        $query   = $db->getQuery(true)
             ->select('a.id AS value, user.name AS text')
             ->from($db->quoteName('#__volunteers_volunteers') . ' AS a')
             ->join('LEFT', '#__users AS ' . $db->quoteName('user') . ' ON user.id = a.user_id')
