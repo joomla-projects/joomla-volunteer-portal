@@ -13,7 +13,6 @@
 	<version>1.0</version>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<description>PKG_VOLUNTEERS_XML_DESCRIPTION</description>
-	<scriptfile>script.php</scriptfile>
 	<files>
 		<!-- The id for each extension is the element stored in the DB -->
 		<file type="component" id="com_volunteers">com_volunteers.zip</file>
