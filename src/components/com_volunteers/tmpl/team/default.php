@@ -271,7 +271,7 @@ try {
                                 <td>
                                     <a class="btn btn-small pull-right"
                                         href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id) ?>">
-                                        <span class="icon-edit"></span>
+                                        <span class="icon-edit" aria-hidden="true"></span>
                                         <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
                                     </a>
                                 </td>
@@ -383,18 +383,18 @@ try {
                     if ($this->acl->edit) {
                         echo '<a class="btn btn-small pull-right"';
                         echo 'href="' . Route::_('index.php?option=com_volunteers&task=role.delete&id=' . $role->id) . '">';
-                        echo '<span class="icon-delete"></span> ' . Text::_('COM_VOLUNTEERS_DELETE') . '</a>';
+                        echo '<span class="icon-delete" aria-hidden="true"></span> ' . Text::_('COM_VOLUNTEERS_DELETE') . '</a>';
 
                         echo '<a class="btn btn-small pull-right"';
                         echo 'href="' . Route::_('index.php?option=com_volunteers&task=role.edit&id=' . $role->id) . '">';
 
-                        echo '<span class="icon-delete"></span> ' . Text::_('COM_VOLUNTEERS_EDIT') . '</a>';
+                        echo '<span class="icon-delete" aria-hidden="true"></span> ' . Text::_('COM_VOLUNTEERS_EDIT') . '</a>';
                     }
                     echo ('<h2>' . $role->title . '</h2>');
                     echo ('<p>' . $role->description . '</p>');
                     if ($role->open) {
                         echo '<a class="btn" data-toggle="tab" onclick="document.getElementById(\'teamsTab\').activateTab(document.getElementById(\'viewcontact\'));">';
-                        echo '<span class="icon-chevron-right"></span>' . Text::_('COM_VOLUNTEERS_ROLE_APPLY') . '</a>';
+                        echo '<span class="icon-chevron-right" aria-hidden="true"></span>' . Text::_('COM_VOLUNTEERS_ROLE_APPLY') . '</a>';
                     }
 
                     echo '</div>';
@@ -453,7 +453,7 @@ try {
                         <?php if ($this->acl->edit || ($this->user->id == $report->created_by)): ?>
                             <a class="btn btn-small pull-right"
                                 href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $report->id) ?>">
-                                <span class="icon-edit"></span>
+                                <span class="icon-edit" aria-hidden="true"></span>
                                 <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
                             </a>
                         <?php endif; ?>
@@ -491,7 +491,7 @@ try {
             <?php endif; ?>
             <a class="btn btn-warning pull-right"
                 href="<?php echo Route::_('index.php?option=com_volunteers&view=reports&filter_category=t.' . $this->item->id . '&format=feed&type=rss') ?>">
-                <span class="icon-feed"></span>
+                <span class="icon-feed" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_RSSFEED') ?>
             </a>
         <?php else: ?>
