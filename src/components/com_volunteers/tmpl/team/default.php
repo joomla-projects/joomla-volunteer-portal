@@ -142,26 +142,26 @@ try {
         <?php if ($this->item->members->active) { ?>
             <table class="table table-striped table-hover table-vertical-align">
                 <thead>
-                    <th width="30%">
+                    <th scope="col" width="30%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_VOLUNTEER') ?>
                     </th>
-                    <th width="20%">
+                    <th scope="col" width="20%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_POSITION') ?>
                     </th>
-                    <th>
+                    <th scope="col">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_ROLE') ?>
                     </th>
-                    <th width="12%">
+                    <th scope="col" width="12%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_STARTED') ?>
                     </th>
                     <?php if ($this->acl->edit) { ?>
-                        <th width="10%" class="center">
+                        <th scope="col" width="10%" class="center">
                             <?php echo Text::_('COM_VOLUNTEERS_FIELD_ADDRESS') ?>
                         </th>
-                        <th width="10%" class="center">
+                        <th scope="col" width="10%" class="center">
                             <?php echo Text::_('COM_VOLUNTEERS_FIELD_NDA') ?>
                         </th>
-                        <th width="10%"></th>
+                        <th scope="col" width="10%"></th>
                         <?php
                     } ?>
                 </thead>
@@ -230,23 +230,23 @@ try {
             <?php } ?>
             <table class="table table-striped table-hover table-vertical-align">
                 <thead>
-                    <th width="30%">
+                    <th scope="col" width="30%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_VOLUNTEER') ?>
                     </th>
-                    <th width="20%">
+                    <th scope="col" width="20%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_POSITION') ?>
                     </th>
-                    <th>
+                    <th scope="col">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_ROLE') ?>
                     </th>
-                    <th width="12%">
+                    <th scope="col" width="12%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_STARTED') ?>
                     </th>
-                    <th width="12%">
+                    <th scope="col" width="12%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_ENDED') ?>
                     </th>
                     <?php if ($this->acl->edit) { ?>
-                        <th width="10%"></th>
+                        <th scope="col" width="10%"></th>
                     <?php } ?>
                 </thead>
                 <tbody>
