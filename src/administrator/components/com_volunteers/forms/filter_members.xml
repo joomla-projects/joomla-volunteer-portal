@@ -14,7 +14,7 @@
 			type="departments"
 			label="COM_VOLUNTEERS_FIELD_DEPARTMENT"
 			description="COM_VOLUNTEERS_FIELD_DEPARTMENT_DESC"
-			onchange="this.form.submit();"
+			class="js-select-submit-on-change"
 		/>
 
 		<field
@@ -22,7 +22,7 @@
 			type="teams"
 			label="COM_VOLUNTEERS_FIELD_TEAM"
 			description="COM_VOLUNTEERS_FIELD_TEAM_DESC"
-			onchange="this.form.submit();"
+			class="js-select-submit-on-change"
 		/>
 
 		<field
@@ -30,8 +30,8 @@
 			type="volunteers"
 			label="COM_VOLUNTEERS_FIELD_VOLUNTEER"
 			description="COM_VOLUNTEERS_FIELD_VOLUNTEER_DESC"
-			onchange="this.form.submit();"
-		>
+			class="js-select-submit-on-change"
+			>
 			<option value="">COM_VOLUNTEERS_SELECT_VOLUNTEER</option>
 		</field>
 
@@ -39,8 +39,8 @@
 			name="teamStatus"
 			type="list"
 			label="COM_VOLUNTEERS_FIELD_TEAMSTATUS"
-			onchange="this.form.submit();"
-		>
+			class="js-select-submit-on-change"
+			>
 			<option value="">COM_VOLUNTEERS_SELECT_TEAMSTATUS</option>
 			<option value="0">COM_VOLUNTEERS_FIELD_STATUS_INFORMATION</option>
 			<option value="1">COM_VOLUNTEERS_FIELD_STATUS_OFFICIAL</option>
@@ -51,8 +51,8 @@
 			name="active"
 			type="list"
 			label="COM_VOLUNTEERS_FIELD_ACTIVE"
-			onchange="this.form.submit();"
-		>
+			class="js-select-submit-on-change"
+			>
 			<option value="">COM_VOLUNTEERS_SELECT_MEMBERSTATE</option>
 			<option value="1">COM_VOLUNTEERS_FIELD_MEMBERSTATE_ACTIVE</option>
 			<option value="0">COM_VOLUNTEERS_FIELD_MEMBERSTATE_INACTIVE</option>
@@ -62,26 +62,24 @@
 			name="osmStatus"
 			type="list"
 			label="COM_VOLUNTEERS_FIELD_OSMSTATUS"
-			onchange="this.form.submit();"
-		>
+			class="js-select-submit-on-change"
+			>
 			<option value="">COM_VOLUNTEERS_SELECT_OSMSTATUS</option>
 			<option value="contributor">COM_VOLUNTEERS_FIELD_OSMSTATUS_CONTRIBUTOR</option>
 			<option value="member">COM_VOLUNTEERS_FIELD_OSMSTATUS_MEMBER</option>
 			<option value="teamleaders">COM_VOLUNTEERS_FIELD_OSMSTATUS_TEAMLEADERS</option>
 			<option value="directors">COM_VOLUNTEERS_FIELD_OSMSTATUS_DIRECTORS</option>
 			<option value="officers">COM_VOLUNTEERS_FIELD_OSMSTATUS_OFFICERS</option>
-
 		</field>
 	</fields>
 	<fields name="list">
 		<field
 			name="limit"
 			type="limitbox"
-			class="input-mini"
-			default="25"
 			label="COM_VOLUNTEERS_LIST_LIMIT"
 			description="COM_VOLUNTEERS_LIST_LIMIT_DESC"
-			onchange="this.form.submit();"
+			default="25"
+			class="js-select-submit-on-change"
 		/>
 	</fields>
 </form>
