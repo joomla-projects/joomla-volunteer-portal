@@ -11,6 +11,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Volunteers\Administrator\Helper\VolunteersHelper;
 use Joomla\Component\Volunteers\Administrator\View\Volunteers\HtmlView;
 
@@ -128,7 +129,7 @@ $wa->useScript('table.columns');
                                 <?php if ($item->image): ?>
                                     <img class="img-rounded" src="<?php echo $item->image; ?>">
                                 <?php else: ?>
-                                    <img class="img-rounded" src="<?php echo JURI::root() . 'images/joomla.png'; ?>">
+                                    <img class="img-rounded" src="<?php echo URI::root() . 'images/joomla.png'; ?>">
                                 <?php endif; ?>
                             </td>
                             <td class="nowrap">
