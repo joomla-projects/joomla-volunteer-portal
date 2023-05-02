@@ -21,12 +21,12 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
-use RuntimeException;
-use stdClass;
 use Joomla\Component\Volunteers\Administrator\Model\MemberModel;
 use Joomla\Component\Volunteers\Administrator\Model\PositionModel;
 use Joomla\Component\Volunteers\Site\Model\TeamModel;
 use Joomla\Component\Volunteers\Site\Model\VolunteerModel;
+use RuntimeException;
+use stdClass;
 
 use function defined;
 

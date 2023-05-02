@@ -13,7 +13,6 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Volunteers\Administrator\Helper\VolunteersHelper;
-use Joomla\Component\Volunteers\Administrator\View\Volunteers\HtmlView;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;

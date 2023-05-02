@@ -12,6 +12,7 @@ namespace Joomla\Component\Volunteers\Administrator\Model;
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
+
 use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
@@ -32,14 +33,14 @@ class SetupdemoModel extends AdminModel
      */
     public $typeAlias = 'com_volunteer.Setupdemo';
     /**
-         * @var      string    The prefix to use with controller messages.
-         * @since  4.0.0
-         */
+     * @var      string    The prefix to use with controller messages.
+     * @since  4.0.0
+     */
     protected $text_prefix = 'COM_VOLUNTEER';
     /**
-         * @var null  Item data
-         * @since 4.0.0
-         */
+     * @var null  Item data
+     * @since 4.0.0
+     */
     protected mixed $item = null;
 
     /**
@@ -60,8 +61,9 @@ class SetupdemoModel extends AdminModel
         $form = $this->loadForm(
             'com_jed.setupdemo',
             'setupdemo',
-            ['control'        => $formname,
-                  'load_data' => $loadData,
+            [
+                'control'   => $formname,
+                'load_data' => $loadData,
             ]
         );
         if (empty($form)) {

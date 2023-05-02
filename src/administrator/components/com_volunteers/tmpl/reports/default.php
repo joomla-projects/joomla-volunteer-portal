@@ -11,7 +11,6 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
-use Joomla\Component\Volunteers\Administrator\View\Members\HtmlView;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -19,11 +18,11 @@ use Joomla\Component\Volunteers\Administrator\View\Members\HtmlView;
 
 /** @var $this HtmlView */
 
-$user      = Factory::getApplication()->getIdentity();
-$userId    = $user->get('id');
+$user = Factory::getApplication()->getIdentity();
+$userId = $user->get('id');
 $listOrder = $this->escape($this->state->get('list.ordering'));
-$listDirn  = $this->escape($this->state->get('list.direction'));
-$canOrder  = $user->authorise('core.edit.state', 'com_volunteers');
+$listDirn = $this->escape($this->state->get('list.direction'));
+$canOrder = $user->authorise('core.edit.state', 'com_volunteers');
 $saveOrder = $listOrder == 'a.ordering';
 
 if ($saveOrder) {
@@ -35,18 +34,21 @@ $wa = $this->document->getWebAssetManager();
 $wa->useScript('table.columns');
 ?>
 
-<form action="<?php echo Route::_('index.php?option=com_volunteers&view=reports'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_volunteers&view=reports'); ?>" method="post" name="adminForm"
+    id="adminForm">
 
- <div id="j-main-container" class="j-main-container">
+    <div id="j-main-container" class="j-main-container">
         <?php echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
-            <?php if (empty($this->items)) : ?>
-                <div class="alert alert-no-items">
-                    <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
-                </div>
-            <?php else : ?>
-            <h3><?php echo count($this->items); ?> reports (matching filters)</h3>
-                <table class="table table-striped" id="itemsList">
-                    <thead>
+        <?php if (empty($this->items)): ?>
+            <div class="alert alert-no-items">
+                <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
+            </div>
+        <?php else: ?>
+            <h3>
+                <?php echo count($this->items); ?> reports (matching filters)
+            </h3>
+            <table class="table table-striped" id="itemsList">
+                <thead>
                     <tr>
                         <th width="1%" class="nowrap center hidden-phone">
                             <?php echo HTMLHelper::_('searchtools.sort', '', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
@@ -70,9 +72,9 @@ $wa->useScript('table.columns');
                             <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
                         </th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($this->items as $i => $item) :
+                </thead>
+                <tbody>
+                    <?php foreach ($this->items as $i => $item):
                         $ordering = ($listOrder == 'a.ordering');
                         $canCreate = $user->authorise('core.create', 'com_volunteers');
                         $canEdit = $user->authorise('core.edit', 'com_volunteers');
@@ -90,10 +92,11 @@ $wa->useScript('table.columns');
                                 }
                                 ?>
                                 <span class="sortable-handler<?php echo $iconClass ?>">
-                                <span class="icon-menu"></span>
-                            </span>
-                                <?php if ($canChange && $saveOrder) : ?>
-                                    <input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order "/>
+                                    <span class="icon-menu"></span>
+                                </span>
+                                <?php if ($canChange && $saveOrder): ?>
+                                    <input type="text" style="display:none" name="order[]" size="5"
+                                        value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " />
                                 <?php endif; ?>
                             </td>
                             <td class="center hidden-phone">
@@ -104,29 +107,34 @@ $wa->useScript('table.columns');
                             </td>
                             <td class="has-context">
                                 <div class="pull-left break-word">
-                                    <?php if ($item->checked_out) : ?>
+                                    <?php if ($item->checked_out): ?>
                                         <?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'reports.', $canCheckin); ?>
                                     <?php endif; ?>
-                                    <?php if ($canEdit || $canEditOwn) : ?>
-                                        <a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?>">
+                                    <?php if ($canEdit || $canEditOwn): ?>
+                                        <a class="hasTooltip"
+                                            href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $item->id); ?>"
+                                            title="<?php echo Text::_('JACTION_EDIT'); ?>">
                                             <?php echo $this->escape($item->title); ?></a>
-                                    <?php else : ?>
-                                        <span title="<?php echo Text::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)); ?>"><?php echo $this->escape($item->title); ?></span>
+                                    <?php else: ?>
+                                        <span
+                                            title="<?php echo Text::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)); ?>"><?php echo $this->escape($item->title); ?></span>
                                     <?php endif; ?>
                                     <span class="small break-word">
                                         <?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
                                     </span>
                                     <div class="small">
-                                        <?php if ($item->team) : ?>
+                                        <?php if ($item->team): ?>
                                             <?php echo Text::_('COM_VOLUNTEERS_FIELD_TEAM') . ": " . $this->escape($item->team_title); ?>
-                                        <?php elseif ($item->department) : ?>
+                                        <?php elseif ($item->department): ?>
                                             <?php echo Text::_('COM_VOLUNTEERS_FIELD_DEPARTMENT') . ": " . $this->escape($item->department_title); ?>
                                         <?php endif; ?>
                                     </div>
                                 </div>
                             </td>
                             <td class="small hidden-phone">
-                                <a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_users&task=user.edit&id=' . (int) $item->created_by); ?>" title="<?php echo Text::_('JAUTHOR'); ?>">
+                                <a class="hasTooltip"
+                                    href="<?php echo Route::_('index.php?option=com_users&task=user.edit&id=' . (int) $item->created_by); ?>"
+                                    title="<?php echo Text::_('JAUTHOR'); ?>">
                                     <?php echo $this->escape($item->volunteer_name); ?></a>
                             </td>
                             <td class="nowrap small hidden-phone">
@@ -137,14 +145,14 @@ $wa->useScript('table.columns');
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
 
-                <?php echo $this->pagination->getListFooter(); ?>
-            <?php endif; ?>
+            <?php echo $this->pagination->getListFooter(); ?>
+        <?php endif; ?>
 
-            <input type="hidden" name="task" value=""/>
-            <input type="hidden" name="boxchecked" value="0"/>
-            <?php echo HTMLHelper::_('form.token'); ?>
-        </div>
+        <input type="hidden" name="task" value="" />
+        <input type="hidden" name="boxchecked" value="0" />
+        <?php echo HTMLHelper::_('form.token'); ?>
+    </div>
 </form>

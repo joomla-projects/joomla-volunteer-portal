@@ -11,16 +11,17 @@ namespace Joomla\Component\Volunteers\Administrator\View\Members;
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
+
 use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Helper\ContentHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Pagination\Pagination;
 use Joomla\CMS\Toolbar\ToolbarHelper;
-use Joomla\CMS\Language\Text;
 use Joomla\Component\Volunteers\Administrator\Model\MembersModel;
 
 /**
@@ -36,16 +37,16 @@ class HtmlView extends BaseHtmlView
     public Form $filterForm;
     public array $activeFilters;
     /**
-         * Display the view
-         *
-         * @param   string  $tpl  Template name
-         *
-         * @return  void
-         *
-         * @throws Exception
-         *
-         * @since 4.0.0
-         */
+     * Display the view
+     *
+     * @param   string  $tpl  Template name
+     *
+     * @return  void
+     *
+     * @throws Exception
+     *
+     * @since 4.0.0
+     */
     public function display($tpl = null)
     {
         /** @var MembersModel $model */

@@ -4,7 +4,7 @@
  * @package    Joomla! Volunteers
  * @copyright  Copyright (C) 2016 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
-*/
+ */
 
 namespace Joomla\Component\Volunteers\Administrator\Model;
 
@@ -12,17 +12,16 @@ namespace Joomla\Component\Volunteers\Administrator\Model;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Joomla\CMS\Factory;
+use Exception;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
-use Joomla\CMS\Component\ComponentHelper;
 use Joomla\Database\QueryInterface;
-use Exception;
 
 /**
  * Methods supporting a list of roles records.
  * @since 4.0.0
-*/
+ */
 class RolesModel extends ListModel
 {
     /**
@@ -38,15 +37,24 @@ class RolesModel extends ListModel
     {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = [
-                'id', 'a.id',
-                'team', 'a.team',
-                'checked_out', 'a.checked_out',
-                'checked_out_time', 'a.checked_out_time',
-                'state', 'a.state',
-                'created', 'a.created',
-                'created_by', 'a.created_by',
-                'ordering', 'a.ordering',
-                'featured', 'a.featured',
+                'id',
+                'a.id',
+                'team',
+                'a.team',
+                'checked_out',
+                'a.checked_out',
+                'checked_out_time',
+                'a.checked_out_time',
+                'state',
+                'a.state',
+                'created',
+                'a.created',
+                'created_by',
+                'a.created_by',
+                'ordering',
+                'a.ordering',
+                'featured',
+                'a.featured',
             ];
         }
 
@@ -60,7 +68,7 @@ class RolesModel extends ListModel
      *
      * @note    Calling getState in this method will result in recursion.
      * @since 4.0.0
-*/
+     */
     protected function populateState($ordering = 'a.title', $direction = 'asc')
     {
         // Load the filter state.
@@ -87,7 +95,7 @@ class RolesModel extends ListModel
      *
      * @return  string  A store id.
      * @since 4.0.0
-*/
+     */
     protected function getStoreId($id = ''): string
     {
         // Compile the store id.
@@ -103,7 +111,7 @@ class RolesModel extends ListModel
      *
      * @return  QueryInterface
      * @since 4.0.0
-*/
+     */
     protected function getListQuery(): QueryInterface
     {
         // Create a new query object.
@@ -164,7 +172,7 @@ class RolesModel extends ListModel
      *
      * @return  mixed  An array of data items on success, false on failure.
      * @since 4.0.0
-*/
+     */
     public function getOpenRoles(): array
     {
         // Create a new query object.
@@ -209,15 +217,13 @@ class RolesModel extends ListModel
         $items = $db->loadObjectList();
 
         /*  $roles = array();
-
-            foreach ($items as $item)
-            {
-                $roles[$item->team_title][] = $item;
-            }
-
-            // Sort by team name
-            ksort($roles);
-*/
+        foreach ($items as $item)
+        {
+        $roles[$item->team_title][] = $item;
+        }
+        // Sort by team name
+        ksort($roles);
+        */
         return $items;
     }
 }

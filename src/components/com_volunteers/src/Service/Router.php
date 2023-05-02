@@ -15,17 +15,16 @@ namespace Joomla\Component\Volunteers\Site\Service;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
-use Joomla\CMS\Component\Router\RouterViewConfiguration;
-use Joomla\CMS\Component\Router\RouterView;
-use Joomla\CMS\Component\Router\Rules\StandardRules;
-use Joomla\CMS\Component\Router\Rules\NomenuRules;
-use Joomla\CMS\Component\Router\Rules\MenuRules;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Categories\CategoryFactoryInterface;
 use Joomla\CMS\Categories\CategoryInterface;
-use Joomla\Database\DatabaseInterface;
+use Joomla\CMS\Component\Router\RouterView;
+use Joomla\CMS\Component\Router\RouterViewConfiguration;
+use Joomla\CMS\Component\Router\Rules\MenuRules;
+use Joomla\CMS\Component\Router\Rules\NomenuRules;
+use Joomla\CMS\Component\Router\Rules\StandardRules;
 use Joomla\CMS\Menu\AbstractMenu;
+use Joomla\Database\DatabaseInterface;
 
 /**
  * Class VolunteersRouter
