@@ -98,7 +98,10 @@ try {
                     <?php foreach ($this->item->members->active as $volunteer): ?>
                         <tr>
                             <td class="volunteer-image">
+
+
                                 <?php VolunteersHelper::OutputVolunteer($volunteer); ?>
+
                             </td>
                             <td>
                                 <?php echo $volunteer->position_title; ?>
@@ -430,18 +433,14 @@ try {
                 <form class="form form-horizontal" name="sendmail" action="<?php echo Route::_('index.php') ?>"
                     method="post" enctype="multipart/form-data">
                     <div class="control-group">
-                        <label class="control-label" for="to_name">
-                            <?php echo Text::_('COM_VOLUNTEERS_MESSAGE_TO') ?>
-                        </label>
+                        <label class="control-label" for="to_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_TO') ?></label>
                         <div class="controls">
                             <input type="text" name="to_name" id="to_name" value="<?php echo $this->item->title ?>"
                                 class="input-block-level" disabled="disabled" />
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="from_name">
-                            <?php echo Text::_('COM_VOLUNTEERS_MESSAGE_FROM') ?>
-                        </label>
+                        <label class="control-label" for="from_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_FROM') ?></label>
                         <div class="controls">
                             <input type="text" name="from_name" id="from_name"
                                 value="<?php echo ($this->user->name); ?> <<?php echo ($this->user->email); ?>>"

@@ -182,31 +182,32 @@ try {
 <div class="row-fluid">
     <div class="span12">
         <?php
+
         echo HTMLHelper::_('uitab.startTabSet', 'volunteerTab', array('active' => 'viewteamsinvolved'));
         if ($this->item->teams->active) {
             echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewteamsinvolved', Text::_('COM_VOLUNTEERS_TAB_TEAMSINVOLVED'));
             ?>
             <table class="table table-striped table-hover table-vertical-align">
                 <thead>
-                    <th scope="col" scope="col" width="30%">
+                    <th width="30%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_TEAM') ?>
                     </th>
-                    <th scope="col" width="20%">
+                    <th width="20%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_POSITION') ?>
                     </th>
-                    <th scope="col" scope="col">
+                    <th>
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_ROLE') ?>
                     </th>
-                    <th scope="col" scope="col" width="12%">
+                    <th width="12%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_STARTED') ?>
                     </th>
                 </thead>
                 <tbody>
                     <?php foreach ($this->item->teams->active as $team) { ?>
                         <tr>
-                            <th scope="row">
+                            <td>
                                 <a href="<?php echo $team->link; ?>"><?php echo $team->name; ?></a>
-                            </th>
+                            </td>
                             <td>
                                 <?php echo ($team->position_title) ?>
                             </td>
@@ -228,28 +229,28 @@ try {
             ?>
             <table class="table table-striped table-hover table-vertical-align">
                 <thead>
-                    <th scope="col" scope="col" width="30%">
+                    <th width="30%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_TEAM') ?>
                     </th>
-                    <th scope="col" width="20%">
+                    <th width="20%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_POSITION') ?>
                     </th>
                     <th>
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_ROLE') ?>
                     </th>
-                    <th scope="col" width="12%">
+                    <th width="12%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_STARTED') ?>
                     </th>
-                    <th scope="col" width="12%">
+                    <th width="12%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_ENDED') ?>
                     </th>
                 </thead>
                 <tbody>
                     <?php foreach ($this->item->teams->honorroll as $team) { ?>
                         <tr>
-                            <th scope="row">
+                            <td>
                                 <a href="<?php echo $team->link; ?>"><?php echo $team->name; ?></a>
-                                </td>
+                            </td>
                             <td>
                                 <?php echo ($team->position_title) ?>
                             </td>
