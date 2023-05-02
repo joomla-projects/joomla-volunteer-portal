@@ -20,7 +20,6 @@ use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Toolbar\ToolbarHelper;
-use Joomla\Component\Volunteers\Administrator\Model\PositionModel;
 
 /**
  * View to edit a team.

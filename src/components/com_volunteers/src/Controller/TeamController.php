@@ -18,9 +18,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Volunteers\Administrator\Model\MembersModel;
+use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 use RuntimeException;
 use stdClass;
-use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 
 /**
  * Team controller class.
@@ -208,8 +208,8 @@ class TeamController extends FormController
         }
 
         // Get email department coordinator for CC
-        $db        = Factory::getContainer()->get('DatabaseDriver');
-        $query     = $db->getQuery(true);
+        $db    = Factory::getContainer()->get('DatabaseDriver');
+        $query = $db->getQuery(true);
         $query
             ->select('user.email, user.name')
             ->from('#__volunteers_members as member')

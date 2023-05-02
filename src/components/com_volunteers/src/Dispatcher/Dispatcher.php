@@ -15,7 +15,6 @@ namespace Joomla\Component\Volunteers\Site\Dispatcher;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Dispatcher\ComponentDispatcher;
-use Joomla\CMS\Language\Text;
 
 /**
  * ComponentDispatcher class for Com_Volunteers

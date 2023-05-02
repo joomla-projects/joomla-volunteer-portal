@@ -17,6 +17,7 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
+use Joomla\CMS\Http\HttpFactory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Router\Route;
@@ -25,7 +26,6 @@ use Joomla\CMS\Table\Table;
 use Joomla\CMS\User\User;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
-use Joomla\CMS\Http\HttpFactory;
 use RuntimeException;
 use stdClass;
 
@@ -238,7 +238,7 @@ class VolunteerModel extends AdminModel
         }
 
         // Increment the version number.
-        $v =  $table->get('version');
+        $v = $table->get('version');
         $v++;
         $table->set('version', $v);
     }

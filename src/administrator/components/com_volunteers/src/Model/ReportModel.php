@@ -4,7 +4,7 @@
  * @package    Joomla! Volunteers
  * @copyright  Copyright (C) 2016 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
-*/
+ */
 
 namespace Joomla\Component\Volunteers\Administrator\Model;
 
@@ -12,20 +12,20 @@ namespace Joomla\Component\Volunteers\Administrator\Model;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Joomla\CMS\Form\Form;
-use Joomla\String\StringHelper;
-use Joomla\Utilities\ArrayHelper;
 use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
+use Joomla\String\StringHelper;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Report model.
  * @since 4.0.0
-*/
+ */
 class ReportModel extends AdminModel
 {
     /**
@@ -33,7 +33,7 @@ class ReportModel extends AdminModel
      *
      * @var    string
      * @since 4.0.0
-*/
+     */
     public $typeAlias = 'com_volunteers.report';
 
     /**
@@ -41,7 +41,7 @@ class ReportModel extends AdminModel
      *
      * @var    string
      * @since 4.0.0
-*/
+     */
     protected $text_prefix = 'COM_VOLUNTEERS';
 
     /**
@@ -157,7 +157,7 @@ class ReportModel extends AdminModel
         }
 
         // Increment the version number.
-        $v =  $table->get('version');
+        $v = $table->get('version');
         $v++;
         $table->set('version', $v);
     }

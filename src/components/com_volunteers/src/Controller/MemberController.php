@@ -19,8 +19,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
-use stdClass;
 use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
+use stdClass;
 
 /**
  * Member controller class.

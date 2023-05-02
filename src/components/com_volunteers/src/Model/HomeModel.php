@@ -17,8 +17,6 @@ namespace Joomla\Component\Volunteers\Site\Model;
 use Exception;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Router\Route;
-use Joomla\Component\Volunteers\Administrator\Model\ReportsModel;
-use Joomla\Component\Volunteers\Administrator\Model\VolunteersModel;
 use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 
 /**

@@ -9,10 +9,10 @@
 namespace Joomla\Component\Volunteers\Site\Model;
 
 use Exception;
-use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
-use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Component\Volunteers\Administrator\Model\MembersModel;
 use Joomla\Database\QueryInterface;
 
@@ -39,16 +39,26 @@ class TeamsModel extends ListModel
     {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = [
-                'id', 'a.id',
-                'title', 'a.title',
-                'alias', 'a.alias',
-                'checked_out', 'a.checked_out',
-                'checked_out_time', 'a.checked_out_time',
-                'state', 'a.state',
-                'created', 'a.created',
-                'created_by', 'a.created_by',
-                'ordering', 'a.ordering',
-                'featured', 'a.featured',
+                'id',
+                'a.id',
+                'title',
+                'a.title',
+                'alias',
+                'a.alias',
+                'checked_out',
+                'a.checked_out',
+                'checked_out_time',
+                'a.checked_out_time',
+                'state',
+                'a.state',
+                'created',
+                'a.created',
+                'created_by',
+                'a.created_by',
+                'ordering',
+                'a.ordering',
+                'featured',
+                'a.featured',
             ];
         }
 
