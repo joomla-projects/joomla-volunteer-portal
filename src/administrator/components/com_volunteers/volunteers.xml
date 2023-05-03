@@ -12,8 +12,9 @@
     <namespace path="src">Joomla\Component\Volunteers</namespace>
     <scriptfile>script.php</scriptfile>
 
-    <files folder="site">
+    <files folder="components/com_volunteers">
         <folder>forms</folder>
+        <folder>layouts</folder>
         <folder>src</folder>
         <folder>tmpl</folder>
 
@@ -62,7 +63,7 @@
             </menu>
         </submenu>
 
-        <files folder="administrator">
+        <files folder="administrator/components/com_volunteers">
             <folder>forms</folder>
             <folder>layouts</folder>
             <folder>services</folder>
@@ -90,7 +91,6 @@
     <install>
         <sql>
             <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
-            <file driver="mysql" charset="utf8">sql/jvp-sample-data.sql</file>
         </sql>
     </install>
 

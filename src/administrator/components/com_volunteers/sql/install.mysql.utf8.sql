@@ -1,6 +1,6 @@
 /*Table structure for table `#__volunteers_departments` */
 
-CREATE TABLE `#__volunteers_departments`
+CREATE TABLE IF NOT EXISTS `#__volunteers_departments`
 (
     `id`               int unsigned NOT NULL AUTO_INCREMENT,
     `parent_id`        int unsigned NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE `#__volunteers_departments`
 
 /*Table structure for table `#__volunteers_members` */
 
-CREATE TABLE `#__volunteers_members`
+CREATE TABLE IF NOT EXISTS `#__volunteers_members`
 (
     `id`               int unsigned NOT NULL AUTO_INCREMENT,
     `department`       int unsigned NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `#__volunteers_members`
 
 /*Table structure for table `#__volunteers_positions` */
 
-CREATE TABLE `#__volunteers_positions`
+CREATE TABLE IF NOT EXISTS `#__volunteers_positions`
 (
     `id`               int unsigned NOT NULL AUTO_INCREMENT,
     `title`            varchar(255) NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE `#__volunteers_positions`
 
 /*Table structure for table `#__volunteers_reports` */
 
-CREATE TABLE `#__volunteers_reports`
+CREATE TABLE IF NOT EXISTS `#__volunteers_reports`
 (
     `id`               int unsigned NOT NULL AUTO_INCREMENT,
     `department`       int unsigned NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE `#__volunteers_reports`
 
 /*Table structure for table `#__volunteers_roles` */
 
-CREATE TABLE `#__volunteers_roles`
+CREATE TABLE IF NOT EXISTS `#__volunteers_roles`
 (
     `id`               int unsigned NOT NULL AUTO_INCREMENT,
     `department`       int unsigned NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE `#__volunteers_roles`
 
 /*Table structure for table `#__volunteers_teams` */
 
-CREATE TABLE `#__volunteers_teams`
+CREATE TABLE IF NOT EXISTS `#__volunteers_teams`
 (
     `id`               int unsigned NOT NULL AUTO_INCREMENT,
     `parent_id`        int unsigned NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE `#__volunteers_teams`
 
 /*Table structure for table `#__volunteers_volunteers` */
 
-CREATE TABLE `#__volunteers_volunteers`
+CREATE TABLE IF NOT EXISTS `#__volunteers_volunteers`
 (
     `id`                  int unsigned NOT NULL AUTO_INCREMENT,
     `user_id`             int          NOT NULL,
