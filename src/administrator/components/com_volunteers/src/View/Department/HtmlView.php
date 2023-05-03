@@ -45,11 +45,11 @@ class HtmlView extends BaseHtmlView
     public function display($tpl = null)
     {
         /** @var DepartmentModel $model */
-        $model = $this->getModel();
+        $model       = $this->getModel();
         $this->state = $model->getState();
-        $this->item = $model->getItem();
-        $this->form = $model->getForm();
-        $errors = $model->getErrors();
+        $this->item  = $model->getItem();
+        $this->form  = $model->getForm();
+        $errors      = $model->getErrors();
         if ($errors && count($errors) > 0) {
             throw new GenericDataException(implode("\n", $errors), 500);
         }
@@ -69,12 +69,12 @@ class HtmlView extends BaseHtmlView
     protected function addToolbar()
     {
         Factory::getApplication()->getInput()->set('hidemainmenu', true);
-        $user = $this->getCurrentUser();
-        $userId = $user->id;
-        $isNew = ($this->item->id == 0);
+        $user       = $this->getCurrentUser();
+        $userId     = $user->id;
+        $isNew      = ($this->item->id == 0);
         $checkedOut = !(is_null($this->item->checked_out) || $this->item->checked_out == $userId);
-        $toolbar = Toolbar::getInstance();
-        $canDo = ContentHelper::getActions('com_volunteers');
+        $toolbar    = Toolbar::getInstance();
+        $canDo      = ContentHelper::getActions('com_volunteers');
 
         ToolbarHelper::title($isNew ? Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS_NEW') : Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS_EDIT'), 'joomla');
 
