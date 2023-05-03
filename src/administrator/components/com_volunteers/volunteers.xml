@@ -17,12 +17,9 @@
         <folder>layouts</folder>
         <folder>src</folder>
         <folder>tmpl</folder>
-
-        <filename>index.html</filename>
-
     </files>
 
-    <languages folder="site/language">
+    <languages folder="components/com_volunteers/language">
 
         <language tag="en-GB">en-GB/com_volunteers.ini</language>
 
@@ -74,13 +71,13 @@
             <file>config.xml</file>
         </files>
 
-        <languages folder="administrator/language">
+        <languages folder="administrator/components/com_volunteers/language">
             <language tag="en-GB">en-GB/com_volunteers.ini</language>
             <language tag="en-GB">en-GB/com_volunteers.sys.ini</language>
         </languages>
     </administration>
 
-    <media destination="com_volunteers" folder="media">
+    <media destination="media/com_volunteers" folder="media/com_volunteers">
         <folder>images</folder>
         <folder>css</folder>
         <folder>js</folder>
