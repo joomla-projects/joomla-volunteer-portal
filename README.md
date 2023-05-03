@@ -1,6 +1,12 @@
 # joomla-volunteer-portal
 Based on the live Joomla 3 version code base ported to Joomla 4 and updated.
 ---------------------------------------------------------------
+Build Status 
+---------------------
+| Drone-CI                                                                                                                                                                  |  PHP           |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|  ------------- |
+| [![Build Status](http://ci.joomla.org/api/badges/joomla-projects/joomla-volunteer-portal/status.svg)](http://ci.joomla.org/joomla-projects/joomla-volunteer-portal) | [![PHP](https://img.shields.io/badge/PHP-V8.1.0-green)](https://www.php.net/) |
+------------------------------
 Instructions for installation
 ------------------------------
 * Create new installation of Joomla 4

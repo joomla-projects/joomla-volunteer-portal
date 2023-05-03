@@ -21,6 +21,7 @@ use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Pagination\Pagination;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Component\Volunteers\Administrator\Model\DepartmentsModel;
 
@@ -79,33 +80,48 @@ class HtmlView extends BaseHtmlView
     private function addToolbar(): void
     {
         $canDo = ContentHelper::getActions('com_volunteers');
-        $user  = Factory::getApplication()->getSession()->get('user');
+        $user  = Factory::getApplication()->getIdentity();
+
+        // Get the toolbar object instance
+        $toolbar = Toolbar::getInstance();
 
         ToolbarHelper::title(Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS'), 'joomla');
 
         if ($canDo->get('core.create')) {
-            ToolbarHelper::addNew('department.add');
+            $toolbar->addNew('department.add');
         }
 
-        if ($canDo->get('core.edit')) {
-            ToolbarHelper::editList('department.edit');
+        if (!$this->isEmptyState && $canDo->get('core.edit.state')) {
+            /** @var  DropdownButton $dropdown */
+            $dropdown = $toolbar->dropdownButton('status-group', 'JTOOLBAR_CHANGE_STATUS')
+                ->toggleSplit(false)
+                ->icon('icon-ellipsis-h')
+                ->buttonClass('btn btn-action')
+                ->listCheck(true);
+
+            $childBar = $dropdown->getChildToolbar();
+
+            $childBar->publish('departments.publish')->listCheck(true);
+            $childBar->unpublish('departments.unpublish')->listCheck(true);
+            $childBar->archive('departments.archive')->listCheck(true);
+
+            if ($user->authorise('core.admin')) {
+                $childBar->checkin('departments.checkin');
+            }
+
+            if ($this->state->get('filter.published') != -2) {
+                $childBar->trash('departments.trash')->listCheck(true);
+            }
         }
 
-        if ($canDo->get('core.edit.state')) {
-            ToolbarHelper::publish('departments.publish', 'JTOOLBAR_PUBLISH', true);
-            ToolbarHelper::unpublish('departments.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-            ToolbarHelper::archiveList('departments.archive');
-            ToolbarHelper::checkin('departments.checkin');
-        }
-
-        if ($canDo->get('core.delete')) {
-            ToolbarHelper::deleteList('', 'departments.delete', 'JTOOLBAR_EMPTY_TRASH');
-        } elseif ($canDo->get('core.edit.state')) {
-            ToolbarHelper::trash('departments.trash');
+        if (!$this->isEmptyState && $this->state->get('filter.published') == -2 && $canDo->get('core.delete')) {
+            $toolbar->delete('departments.delete', 'JTOOLBAR_EMPTY_TRASH')
+                ->message('JGLOBAL_CONFIRM_DELETE')
+                ->listCheck(true);
         }
 
         if ($user->authorise('core.admin', 'com_volunteers') || $user->authorise('core.options', 'com_volunteers')) {
-            ToolbarHelper::preferences('com_volunteers');
+            $toolbar->preferences('com_volunteers');
         }
     }
 }
