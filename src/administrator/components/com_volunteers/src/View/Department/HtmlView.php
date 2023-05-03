@@ -118,7 +118,6 @@ class HtmlView extends BaseHtmlView
                 ToolbarHelper::versions('com_volunteers.department', $this->item->id);
             }
             $toolbar->cancel('department.cancel', 'JTOOLBAR_CLOSE');
-
         }
 
         $toolbar->divider();
