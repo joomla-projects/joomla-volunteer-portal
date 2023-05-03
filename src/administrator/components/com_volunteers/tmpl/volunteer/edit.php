@@ -13,6 +13,7 @@
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('jquery.framework');
@@ -20,36 +21,36 @@ HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 /*$this->document->getWebAssetManager()->addScriptDeclaration("
-    Joomla.submitbutton = function(task)
-    {
-        if (task == 'volunteer.cancel' || document.formvalidator.isValid(document.getElementById('volunteer-form'))) {
-            " . $this->form->getField('joomlastory')->save() . "
-            Joomla.submitform(task, document.getElementById('volunteer-form'));
-        }
-    };
+Joomla.submitbutton = function(task)
+{
+if (task == 'volunteer.cancel' || document.formvalidator.isValid(document.getElementById('volunteer-form'))) {
+" . $this->form->getField('joomlastory')->save() . "
+Joomla.submitform(task, document.getElementById('volunteer-form'));
+}
+};
 ");*/
 ?>
 
-<form action="<?php echo Route::_('index.php?option=com_volunteers&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="volunteer-form" class="form-validate">
+<form action="<?php echo Route::_('index.php?option=com_volunteers&layout=edit&id=' . (int) $this->item->id); ?>"
+    method="post" name="adminForm" id="volunteer-form" class="form-validate">
+    <?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
+    <div class="main-card">
+        <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'general', 'recall' => true, 'breakpoint' => 768]); ?>
 
-    <div class="form-inline form-inline-header">
-        <?php
-        echo $this->form->renderField('name');
-        echo $this->form->renderField('alias');
-        ?>
-    </div>
-
-    <hr>
-
-    <div class="row">
-        <div class="span9">
-
-                <?php echo $this->form->renderFieldset('item'); ?>
-
-        </div>
-        <div class="span3">
-            <?php if (Factory::getApplication()->getSession()->get('user')->authorise('core.admin')) : ?>
-                    <h3><?php echo Text::_('COM_VOLUNTEERS_SECRETARY_ONLY') ?></h3>
+        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('JDETAILS')); ?>
+        <div class="row">
+            <div class="col-lg-9">
+                <div>
+                    <fieldset class="adminform">
+                        <?php echo $this->form->renderFieldset('item'); ?>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <?php if (Factory::getApplication()->getSession()->get('user')->authorise('core.admin')): ?>
+                    <h3>
+                        <?php echo Text::_('COM_VOLUNTEERS_SECRETARY_ONLY') ?>
+                    </h3>
                     <div class="control-group checkbox">
                         <div class="controls">
                             <?php echo $this->form->getInput('coc'); ?>
@@ -57,14 +58,15 @@ HTMLHelper::_('formbehavior.chosen', 'select');
                         </div>
                     </div>
 
-            <?php endif; ?>
-            <div class="form-vertical well">
+                <?php endif; ?>
                 <?php echo $this->form->renderFieldset('details'); ?>
             </div>
         </div>
     </div>
+    <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-    <input type="hidden" name="task" value=""/>
+    <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
+    <input type="hidden" name="task" value="" />
     <?php echo HTMLHelper::_('form.token'); ?>
 </form>
 

@@ -5,10 +5,8 @@
 			name="search"
 			type="text"
 			label="COM_VOLUNTEERS_FILTER_SEARCH"
-			description="COM_VOLUNTEERS_FILTER_SEARCH_DESC"
 			hint="JSEARCH_FILTER"
 		/>
-
 		<field
 			name="state"
 			type="status"
@@ -22,7 +20,6 @@
 			name="coc"
 			type="list"
 			label="COM_VOLUNTEERS_FIELD_COC"
-			description="COM_VOLUNTEERS_FIELD_COC_DESC"
 			class="js-select-submit-on-change"
 			>
 			<option value="">COM_VOLUNTEERS_SELECT_COC</option>
@@ -35,7 +32,6 @@
 			name="limit"
 			type="limitbox"
 			label="COM_VOLUNTEERS_LIST_LIMIT"
-			description="COM_VOLUNTEERS_LIST_LIMIT_DESC"
 			default="25"
 			class="js-select-submit-on-change"
 		/>
