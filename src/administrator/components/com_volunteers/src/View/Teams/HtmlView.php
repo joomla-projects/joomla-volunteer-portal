@@ -51,13 +51,13 @@ class HtmlView extends BaseHtmlView
     public function display($tpl = null)
     {
         /** @var TeamsModel $model */
-        $model = $this->getModel();
-        $this->state = $model->getState();
-        $this->items = $model->getItems();
-        $this->pagination = $model->getPagination();
-        $this->filterForm = $model->getFilterForm();
+        $model               = $this->getModel();
+        $this->state         = $model->getState();
+        $this->items         = $model->getItems();
+        $this->pagination    = $model->getPagination();
+        $this->filterForm    = $model->getFilterForm();
         $this->activeFilters = $model->getActiveFilters();
-        $errors = $model->getErrors();
+        $errors              = $model->getErrors();
 
         if ($errors && count($errors) > 0) {
             throw new GenericDataException(implode("\n", $errors));
@@ -79,7 +79,7 @@ class HtmlView extends BaseHtmlView
     private function addToolbar(): void
     {
         $canDo = ContentHelper::getActions('com_volunteers');
-        $user = Factory::getApplication()->getIdentity();
+        $user  = Factory::getApplication()->getIdentity();
 
         // Get the toolbar object instance
         $toolbar = Toolbar::getInstance();

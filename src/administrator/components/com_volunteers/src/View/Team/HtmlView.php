@@ -46,10 +46,10 @@ class HtmlView extends BaseHtmlView
     public function display($tpl = null)
     {
         /** @var TeamModel $model */
-        $model = $this->getModel();
+        $model       = $this->getModel();
         $this->state = $model->getState();
-        $this->item = $model->getItem();
-        $this->form = $model->getForm();
+        $this->item  = $model->getItem();
+        $this->form  = $model->getForm();
 
         $errors = $model->getErrors();
 
@@ -72,12 +72,12 @@ class HtmlView extends BaseHtmlView
     protected function addToolbar()
     {
         Factory::getApplication()->getInput()->set('hidemainmenu', true);
-        $user = $this->getCurrentUser();
-        $userId = $user->id;
-        $isNew = ($this->item->id == 0);
+        $user       = $this->getCurrentUser();
+        $userId     = $user->id;
+        $isNew      = ($this->item->id == 0);
         $checkedOut = !(is_null($this->item->checked_out) || $this->item->checked_out == $userId);
-        $toolbar = Toolbar::getInstance();
-        $canDo = ContentHelper::getActions('com_volunteers');
+        $toolbar    = Toolbar::getInstance();
+        $canDo      = ContentHelper::getActions('com_volunteers');
 
         ToolbarHelper::title($isNew ? Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_TEAMS_NEW') : Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_TEAMS_EDIT'), 'joomla');
 
