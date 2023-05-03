@@ -124,6 +124,4 @@ class HtmlView extends BaseHtmlView
             $toolbar->preferences('com_volunteers');
         }
     }
-
-
 }
