@@ -21,6 +21,7 @@ use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Pagination\Pagination;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Component\Volunteers\Administrator\Model\RolesModel;
 
@@ -78,37 +79,49 @@ class HtmlView extends BaseHtmlView
      */
     private function addToolbar(): void
     {
-
-        $state = $this->get('State');
         $canDo = ContentHelper::getActions('com_volunteers');
-        $user  = Factory::getApplication()->getSession()->get('user');
+        $user  = Factory::getApplication()->getIdentity();
 
-        // Set toolbar title
+        // Get the toolbar object instance
+        $toolbar = Toolbar::getInstance();
+
         ToolbarHelper::title(Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_ROLES'), 'joomla');
 
         if ($canDo->get('core.create')) {
-            ToolbarHelper::addNew('role.add');
+            $toolbar->addNew('role.add');
         }
 
-        if ($canDo->get('core.edit')) {
-            ToolbarHelper::editList('role.edit');
+        if (!$this->isEmptyState && $canDo->get('core.edit.state')) {
+            /** @var  DropdownButton $dropdown */
+            $dropdown = $toolbar->dropdownButton('status-group', 'JTOOLBAR_CHANGE_STATUS')
+                ->toggleSplit(false)
+                ->icon('icon-ellipsis-h')
+                ->buttonClass('btn btn-action')
+                ->listCheck(true);
+
+            $childBar = $dropdown->getChildToolbar();
+
+            $childBar->publish('roles.publish')->listCheck(true);
+            $childBar->unpublish('roles.unpublish')->listCheck(true);
+            $childBar->archive('roles.archive')->listCheck(true);
+
+            if ($user->authorise('core.admin')) {
+                $childBar->checkin('roles.checkin');
+            }
+
+            if ($this->state->get('filter.published') != -2) {
+                $childBar->trash('roles.trash')->listCheck(true);
+            }
         }
 
-        if ($canDo->get('core.edit.state')) {
-            ToolbarHelper::publish('roles.publish', 'JTOOLBAR_PUBLISH', true);
-            ToolbarHelper::unpublish('roles.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-            ToolbarHelper::archiveList('roles.archive');
-            ToolbarHelper::checkin('roles.checkin');
-        }
-
-        if ($state->get('filter.state') == -2 && $canDo->get('core.delete')) {
-            ToolbarHelper::deleteList('', 'roles.delete', 'JTOOLBAR_EMPTY_TRASH');
-        } elseif ($canDo->get('core.edit.state')) {
-            ToolbarHelper::trash('roles.trash');
+        if (!$this->isEmptyState && $this->state->get('filter.published') == -2 && $canDo->get('core.delete')) {
+            $toolbar->delete('roles.delete', 'JTOOLBAR_EMPTY_TRASH')
+                ->message('JGLOBAL_CONFIRM_DELETE')
+                ->listCheck(true);
         }
 
         if ($user->authorise('core.admin', 'com_volunteers') || $user->authorise('core.options', 'com_volunteers')) {
-            ToolbarHelper::preferences('com_volunteers');
+            $toolbar->preferences('com_volunteers');
         }
     }
 }
