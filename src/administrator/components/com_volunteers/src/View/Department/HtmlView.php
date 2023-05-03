@@ -18,6 +18,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Component\Volunteers\Administrator\Model\DepartmentModel;
 
@@ -32,15 +33,15 @@ class HtmlView extends BaseHtmlView
     protected mixed $item;
     protected mixed $form;
     /**
-         * Display the view
-         *
-         * @param   string  $tpl  Template
-         *
-         * @return  void
-         *
-         * @since 4.0.0
-         * @throws Exception
-         */
+     * Display the view
+     *
+     * @param   string  $tpl  Template
+     *
+     * @return  void
+     *
+     * @since 4.0.0
+     * @throws Exception
+     */
     public function display($tpl = null)
     {
         /** @var DepartmentModel $model */
@@ -67,33 +68,61 @@ class HtmlView extends BaseHtmlView
      */
     protected function addToolbar()
     {
-        Factory::getApplication()->input->set('hidemainmenu', true);
-        $user       = Factory::getApplication()->getSession()->get('user');
+        Factory::getApplication()->getInput()->set('hidemainmenu', true);
+        $user       = $this->getCurrentUser();
+        $userId     = $user->id;
         $isNew      = ($this->item->id == 0);
-        $checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->get('id'));
+        $checkedOut = !(is_null($this->item->checked_out) || $this->item->checked_out == $userId);
+        $toolbar    = Toolbar::getInstance();
         $canDo      = ContentHelper::getActions('com_volunteers');
+
         ToolbarHelper::title($isNew ? Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS_NEW') : Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS_EDIT'), 'joomla');
-        if (!$checkedOut && ($canDo->get('core.edit') || $canDo->get('core.create'))) {
-            ToolbarHelper::apply('department.apply');
-            ToolbarHelper::save('department.save');
-        }
 
-        if (!$checkedOut && $canDo->get('core.create')) {
-            ToolbarHelper::save2new('department.save2new');
-        }
+        // For new records, check the create permission.
+        if ($isNew) {
+            $toolbar->apply('department.apply');
 
-        if (!$isNew && $canDo->get('core.create')) {
-            ToolbarHelper::save2copy('department.save2copy');
-        }
+            $saveGroup = $toolbar->dropdownButton('save-group');
 
-        if (empty($this->item->id)) {
-            ToolbarHelper::cancel('department.cancel');
+            $saveGroup->configure(
+                function (Toolbar $childBar) use ($user) {
+                    $childBar->save('department.save');
+                    $childBar->save2new('department.save2new');
+                }
+            );
+
+            $toolbar->cancel('department.cancel', 'JTOOLBAR_CANCEL');
         } else {
+            // Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
+            $itemEditable = $canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $userId);
+
+            if (!$checkedOut && $itemEditable) {
+                $toolbar->apply('department.apply');
+            }
+
+            $saveGroup = $toolbar->dropdownButton('save-group');
+
+            $saveGroup->configure(
+                function (Toolbar $childBar) use ($checkedOut, $itemEditable, $canDo, $user) {
+                    // Can't save the record if it's checked out and editable
+                    if (!$checkedOut && $itemEditable) {
+                        $childBar->save('department.save');
+                    }
+                    // If checked out, we can still save
+                    if ($canDo->get('core.create')) {
+                        $childBar->save2copy('department.save2copy');
+                    }
+                }
+            );
             if ($this->state->params->get('save_history', 0) && $user->authorise('core.edit')) {
                 ToolbarHelper::versions('com_volunteers.department', $this->item->id);
             }
-
-            ToolbarHelper::cancel('department.cancel', 'JTOOLBAR_CLOSE');
+            $toolbar->cancel('department.cancel', 'JTOOLBAR_CLOSE');
         }
+
+        $toolbar->divider();
+        $toolbar->inlinehelp();
+        // For future use
+        // $toolbar->help('Volunteers_Department:_Edit');
     }
 }

@@ -12,6 +12,7 @@
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 use Joomla\CMS\Factory;
 
@@ -32,7 +33,7 @@ try {
 
 ?>
 
-<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 
     <div class="row-fluid">
         <div class="filter-bar">

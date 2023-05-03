@@ -16,12 +16,13 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Helper\ContentHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Pagination\Pagination;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
-use Joomla\CMS\Language\Text;
 use Joomla\Component\Volunteers\Administrator\Model\VolunteersModel;
 
 /**
@@ -78,39 +79,50 @@ class HtmlView extends BaseHtmlView
      */
     private function addToolbar(): void
     {
-
-        $state = $this->get('State');
         $canDo = ContentHelper::getActions('com_volunteers');
-        $user  = Factory::getApplication()->getSession()->get('user');
+        $user  = Factory::getApplication()->getIdentity();
 
-        // Set toolbar title
+        // Get the toolbar object instance
+        $toolbar = Toolbar::getInstance();
+
         ToolbarHelper::title(Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS'), 'joomla');
 
         if ($canDo->get('core.create')) {
-            ToolbarHelper::addNew('volunteer.add');
+            $toolbar->addNew('volunteer.add');
         }
 
-        if ($canDo->get('core.edit')) {
-            ToolbarHelper::editList('volunteer.edit');
+        if (!$this->isEmptyState && $canDo->get('core.edit.state')) {
+            /** @var  DropdownButton $dropdown */
+            $dropdown = $toolbar->dropdownButton('status-group', 'JTOOLBAR_CHANGE_STATUS')
+                ->toggleSplit(false)
+                ->icon('icon-ellipsis-h')
+                ->buttonClass('btn btn-action')
+                ->listCheck(true);
+
+            $childBar = $dropdown->getChildToolbar();
+
+            $childBar->publish('volunteers.publish')->listCheck(true);
+            $childBar->unpublish('volunteers.unpublish')->listCheck(true);
+            $childBar->archive('volunteers.archive')->listCheck(true);
+
+            if ($user->authorise('core.admin')) {
+                $childBar->checkin('volunteers.checkin');
+            }
+
+            if ($this->state->get('filter.published') != -2) {
+                $childBar->trash('volunteers.trash')->listCheck(true);
+            }
         }
 
-        if ($canDo->get('core.edit.state')) {
-            ToolbarHelper::publish('volunteers.publish', 'JTOOLBAR_PUBLISH', true);
-            ToolbarHelper::unpublish('volunteers.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-            ToolbarHelper::archiveList('volunteers.archive');
-            ToolbarHelper::checkin('volunteers.checkin');
-        }
-
-        if ($state->get('filter.state') == -2 && $canDo->get('core.delete')) {
-            ToolbarHelper::deleteList('', 'volunteers.delete', 'JTOOLBAR_EMPTY_TRASH');
-        } elseif ($canDo->get('core.edit.state')) {
-            ToolbarHelper::trash('volunteers.trash');
+        if (!$this->isEmptyState && $this->state->get('filter.published') == -2 && $canDo->get('core.delete')) {
+            $toolbar->delete('volunteers.delete', 'JTOOLBAR_EMPTY_TRASH')
+                ->message('JGLOBAL_CONFIRM_DELETE')
+                ->listCheck(true);
         }
 
         if ($user->authorise('core.admin', 'com_volunteers') || $user->authorise('core.options', 'com_volunteers')) {
-            ToolbarHelper::preferences('com_volunteers');
+            $toolbar->preferences('com_volunteers');
         }
-
         if ($canDo->get('core.edit')) {
             ToolbarHelper::custom('volunteers.resetspam', 'refresh', 'refresh2.png', 'COM_VOLUNTEERS_TOOLBAR_RESET', false);
         }

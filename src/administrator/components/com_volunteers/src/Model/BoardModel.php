@@ -19,7 +19,6 @@ use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Table\Table;
-use Joomla\Component\Volunteers\Administrator\Model\MembersModel;
 use Joomla\String\StringHelper;
 use stdClass;
 

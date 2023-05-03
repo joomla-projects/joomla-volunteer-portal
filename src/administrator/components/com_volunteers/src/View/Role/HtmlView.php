@@ -19,6 +19,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Component\Volunteers\Administrator\Model\RoleModel;
 
@@ -71,37 +72,61 @@ class HtmlView extends BaseHtmlView
      */
     protected function addToolbar()
     {
-        Factory::getApplication()->input->set('hidemainmenu', true);
-
-        $user       = Factory::getApplication()->getSession()->get('user');
+        Factory::getApplication()->getInput()->set('hidemainmenu', true);
+        $user       = $this->getCurrentUser();
+        $userId     = $user->id;
         $isNew      = ($this->item->id == 0);
-        $checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->get('id'));
+        $checkedOut = !(is_null($this->item->checked_out) || $this->item->checked_out == $userId);
+        $toolbar    = Toolbar::getInstance();
         $canDo      = ContentHelper::getActions('com_volunteers');
 
-        // Set toolbar title
         ToolbarHelper::title($isNew ? Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_ROLES_NEW') : Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_ROLES_EDIT'), 'joomla');
 
-        if (!$checkedOut && ($canDo->get('core.edit') || $canDo->get('core.create'))) {
-            ToolbarHelper::apply('role.apply');
-            ToolbarHelper::save('role.save');
-        }
+        // For new records, check the create permission.
+        if ($isNew) {
+            $toolbar->apply('role.apply');
 
-        if (!$checkedOut && $canDo->get('core.create')) {
-            ToolbarHelper::save2new('role.save2new');
-        }
+            $saveGroup = $toolbar->dropdownButton('save-group');
 
-        if (!$isNew && $canDo->get('core.create')) {
-            ToolbarHelper::save2copy('role.save2copy');
-        }
+            $saveGroup->configure(
+                function (Toolbar $childBar) use ($user) {
+                    $childBar->save('role.save');
+                    $childBar->save2new('role.save2new');
+                }
+            );
 
-        if (empty($this->item->id)) {
-            ToolbarHelper::cancel('role.cancel');
+            $toolbar->cancel('role.cancel', 'JTOOLBAR_CANCEL');
         } else {
+            // Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
+            $itemEditable = $canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $userId);
+
+            if (!$checkedOut && $itemEditable) {
+                $toolbar->apply('role.apply');
+            }
+
+            $saveGroup = $toolbar->dropdownButton('save-group');
+
+            $saveGroup->configure(
+                function (Toolbar $childBar) use ($checkedOut, $itemEditable, $canDo, $user) {
+                    // Can't save the record if it's checked out and editable
+                    if (!$checkedOut && $itemEditable) {
+                        $childBar->save('role.save');
+                    }
+                    // If checked out, we can still save
+                    if ($canDo->get('core.create')) {
+                        $childBar->save2copy('role.save2copy');
+                    }
+                }
+            );
             if ($this->state->params->get('save_history', 0) && $user->authorise('core.edit')) {
                 ToolbarHelper::versions('com_volunteers.role', $this->item->id);
             }
-
-            ToolbarHelper::cancel('role.cancel', 'JTOOLBAR_CLOSE');
+            $toolbar->cancel('role.cancel', 'JTOOLBAR_CLOSE');
         }
+
+        $toolbar->divider();
+        $toolbar->inlinehelp();
+        // For future use
+        // $toolbar->help('Volunteers_Role:_Edit');
     }
 }

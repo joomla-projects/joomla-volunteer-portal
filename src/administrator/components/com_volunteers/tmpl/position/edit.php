@@ -7,6 +7,7 @@
  */
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
@@ -14,35 +15,38 @@ use Joomla\CMS\Router\Route;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-
-
-HTMLHelper::_('behavior.formvalidator');
-HTMLHelper::_('formbehavior.chosen', 'select');
-
+$wa = $this->document->getWebAssetManager();
+$wa->useScript('keepalive')
+    ->useScript('form.validate');
 ?>
 
-<form action="<?php echo Route::_('index.php?option=com_volunteers&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="team-form" class="form-validate">
+<form action="<?php echo Route::_('index.php?option=com_volunteers&layout=edit&id=' . (int) $this->item->id); ?>"
+    method="post" name="adminForm" id="team-form" class="form-validate">
 
-    <?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
+    <?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
-    <hr>
-
-    <div class="row">
-        <div class="span9">
-
-
-                <?php echo $this->form->renderFieldset('item'); ?>
-            <h3><?php echo Text::_('COM_VOLUNTEERS_FIELD_ACL'); ?></h3>
-            <p><?php echo Text::_('COM_VOLUNTEERS_FIELD_ACL_DESC'); ?></p>
-
-            <?php echo $this->form->renderFieldset('acl'); ?>
+    <div class="main-card">
+        <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'general', 'recall' => true, 'breakpoint' => 768]); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('JDETAILS')); ?>
+        <div class="row">
+            <div class="col-lg-9">
+                <div>
+                    <fieldset class="adminform">
+                        <?php echo $this->form->renderFieldset('item'); ?>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <?php echo $this->form->renderFieldset('details'); ?>
+            </div>
         </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'permissions', Text::_('COM_VOLUNTEERS_FIELD_ACL')); ?>
+        <?php echo $this->form->renderFieldset('acl'); ?>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
 
-        <div class="span3">
-            <?php echo $this->form->renderFieldset('details'); ?>
-        </div>
+        <input type="hidden" name="task" value="" />
+        <?php echo HTMLHelper::_('form.token'); ?>
     </div>
-
-    <input type="hidden" name="task" value=""/>
-    <?php echo HTMLHelper::_('form.token'); ?>
 </form>

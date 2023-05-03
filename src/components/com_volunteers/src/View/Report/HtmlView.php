@@ -13,11 +13,11 @@ namespace Joomla\Component\Volunteers\Site\View\Report;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
-use JLayoutFile;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\Helpers\StringHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
@@ -176,8 +176,8 @@ class HtmlView extends BaseHtmlView
         $this->document->setMetaData('og:url', $url, 'property');
 
         // Share Buttons
-        $layout      = new JLayoutFile('joomlarrssb');
-        $data        = (object) [
+        $layout = new FileLayout('joomlarrssb');
+        $data   = (object) [
             'title'            => $title,
             'image'            => Uri::base() . 'images/reports-og.jpg',
             'url'              => $url,

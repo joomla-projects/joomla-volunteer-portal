@@ -13,14 +13,13 @@ namespace Joomla\Component\Volunteers\Administrator\View\Member;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Toolbar\ToolbarHelper;
-use Joomla\CMS\Factory;
-use Joomla\CMS\Language\Text;
-use  Joomla\Component\Volunteers\Administrator\Model\MemberModel;
 
 /**
  * View to edit a member.

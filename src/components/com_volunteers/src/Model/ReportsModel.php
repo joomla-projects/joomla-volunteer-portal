@@ -12,14 +12,14 @@ namespace Joomla\Component\Volunteers\Site\Model;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
-use Joomla\CMS\MVC\Model\ListModel;
+
 use Exception;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Router\Route;
-use Joomla\Database\QueryInterface;
-
 use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
+use Joomla\Database\QueryInterface;
 
 /**
  * Methods supporting a list of teams records.
@@ -40,16 +40,26 @@ class ReportsModel extends ListModel
     {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = [
-                'id', 'a.id',
-                'title', 'a.title',
-                'alias', 'a.alias',
-                'checked_out', 'a.checked_out',
-                'checked_out_time', 'a.checked_out_time',
-                'state', 'a.state',
-                'created', 'a.created',
-                'created_by', 'a.created_by',
-                'ordering', 'a.ordering',
-                'featured', 'a.featured',
+                'id',
+                'a.id',
+                'title',
+                'a.title',
+                'alias',
+                'a.alias',
+                'checked_out',
+                'a.checked_out',
+                'checked_out_time',
+                'a.checked_out_time',
+                'state',
+                'a.state',
+                'created',
+                'a.created',
+                'created_by',
+                'a.created_by',
+                'ordering',
+                'a.ordering',
+                'featured',
+                'a.featured',
             ];
         }
 

@@ -14,8 +14,6 @@ namespace Joomla\Component\Volunteers\Site\Service;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Joomla\CMS\Categories\Categories;
-
 /**
  * Content Component Category Tree
  *

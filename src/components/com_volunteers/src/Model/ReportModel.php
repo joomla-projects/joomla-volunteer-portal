@@ -19,7 +19,6 @@ use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\FormModel;
 use Joomla\CMS\Table\Table;
-use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
 use Joomla\String\StringHelper;
 use Joomla\Utilities\ArrayHelper;
 
@@ -287,7 +286,7 @@ class ReportModel extends FormModel
                 $query = $db->getQuery(true)
                     ->select($this->getState('item.select', 'a.*'))
                     ->from('#__volunteers_reports AS a')
-                    ->where('a.id = ' .  $pk);
+                    ->where('a.id = ' . $pk);
 
                 // Join on volunteer table.
                 $query->select('volunteer.id AS volunteer_id, volunteer.image AS volunteer_image')
