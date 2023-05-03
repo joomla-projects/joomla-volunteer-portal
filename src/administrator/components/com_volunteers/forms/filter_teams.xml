@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form  addfieldprefix="Joomla\Component\Volunteers\Administrator\Field">
-	<fields name="filter">
+<form>
+	<fields name="filter" addfieldprefix="Joomla\Component\Volunteers\Administrator\Field">
 		<field
 			name="search"
 			type="text"
