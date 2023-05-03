@@ -44,6 +44,7 @@
 			name="state"
 			type="list"
 			label="JSTATUS"
+			class="form-select-color-state"
 			default="1"
 			>
 			<option value="1">JPUBLISHED</option>

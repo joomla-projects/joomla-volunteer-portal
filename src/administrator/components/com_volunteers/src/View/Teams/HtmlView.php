@@ -21,6 +21,7 @@ use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Pagination\Pagination;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
@@ -77,37 +78,49 @@ class HtmlView extends BaseHtmlView
      */
     private function addToolbar(): void
     {
-
-        $state = $this->get('State');
         $canDo = ContentHelper::getActions('com_volunteers');
-        $user  = Factory::getApplication()->getSession()->get('user');
+        $user  = Factory::getApplication()->getIdentity();
 
-        // Set toolbar title
-        ToolbarHelper::title(Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_TEAMS'), 'joomla');
+        // Get the toolbar object instance
+        $toolbar = Toolbar::getInstance();
+
+        ToolbarHelper::title(Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_teamS'), 'joomla');
 
         if ($canDo->get('core.create')) {
-            ToolbarHelper::addNew('team.add');
+            $toolbar->addNew('team.add');
         }
 
-        if ($canDo->get('core.edit')) {
-            ToolbarHelper::editList('team.edit');
+        if (!$this->isEmptyState && $canDo->get('core.edit.state')) {
+            /** @var  DropdownButton $dropdown */
+            $dropdown = $toolbar->dropdownButton('status-group', 'JTOOLBAR_CHANGE_STATUS')
+                ->toggleSplit(false)
+                ->icon('icon-ellipsis-h')
+                ->buttonClass('btn btn-action')
+                ->listCheck(true);
+
+            $childBar = $dropdown->getChildToolbar();
+
+            $childBar->publish('teams.publish')->listCheck(true);
+            $childBar->unpublish('teams.unpublish')->listCheck(true);
+            $childBar->archive('teams.archive')->listCheck(true);
+
+            if ($user->authorise('core.admin')) {
+                $childBar->checkin('teams.checkin');
+            }
+
+            if ($this->state->get('filter.published') != -2) {
+                $childBar->trash('teams.trash')->listCheck(true);
+            }
         }
 
-        if ($canDo->get('core.edit.state')) {
-            ToolbarHelper::publish('teams.publish', 'JTOOLBAR_PUBLISH', true);
-            ToolbarHelper::unpublish('teams.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-            ToolbarHelper::archiveList('teams.archive');
-            ToolbarHelper::checkin('teams.checkin');
-        }
-
-        if ($state->get('filter.state') == -2 && $canDo->get('core.delete')) {
-            ToolbarHelper::deleteList('', 'teams.delete', 'JTOOLBAR_EMPTY_TRASH');
-        } elseif ($canDo->get('core.edit.state')) {
-            ToolbarHelper::trash('teams.trash');
+        if (!$this->isEmptyState && $this->state->get('filter.published') == -2 && $canDo->get('core.delete')) {
+            $toolbar->delete('teams.delete', 'JTOOLBAR_EMPTY_TRASH')
+                ->message('JGLOBAL_CONFIRM_DELETE')
+                ->listCheck(true);
         }
 
         if ($user->authorise('core.admin', 'com_volunteers') || $user->authorise('core.options', 'com_volunteers')) {
-            ToolbarHelper::preferences('com_volunteers');
+            $toolbar->preferences('com_volunteers');
         }
     }
 }
