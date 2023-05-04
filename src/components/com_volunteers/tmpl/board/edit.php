@@ -14,14 +14,6 @@ HtmlHelper::_('behavior.keepalive');
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('formbehavior.chosen', 'select');
 
-JFactory::getDocument()->addScriptDeclaration("
-	Joomla.submitbutton = function(task)
-	{
-		if (task == 'department.cancel' || document.formvalidator.isValid(document.getElementById('department'))) {
-			Joomla.submitform(task, document.getElementById('department'));
-		}
-	}
-");
 ?>
 
 <div class="department-edit">

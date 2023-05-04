@@ -23,14 +23,6 @@ try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
     $wa->useStyle('com_volunteers.j3template')
         ->useStyle('com_volunteers.frontend');
-    $wa->addScriptDeclaration("
-	Joomla.submitbutton = function(task)
-	{
-		if (task == 'team.cancel' || document.formvalidator.isValid(document.getElementById('team'))) {
-			Joomla.submitform(task, document.getElementById('team'));
-		}
-	}
-");
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();

@@ -13,15 +13,6 @@
 HtmlHelper::_('behavior.keepalive');
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('formbehavior.chosen', 'select');
-
-JFactory::getDocument()->addScriptDeclaration("
-	Joomla.submitbutton = function(task)
-	{
-		if (task == 'volunteer.cancel' || document.formvalidator.isValid(document.getElementById('volunteer'))) {
-			Joomla.submitform(task, document.getElementById('volunteer'));
-		}
-	}
-");
 ?>
 
 <div class="volunteer-edit">

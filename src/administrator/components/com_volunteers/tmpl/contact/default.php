@@ -14,14 +14,6 @@ use Joomla\CMS\Router\Route;
 // phpcs:enable PSR1.Files.SideEffects
 
 HTMLHelper::_('behavior.formvalidator');
-
-$this->document->getWebAssetManager()->addScriptDeclaration("
-	Joomla.submitbutton = function (task) {
-		if (task == 'contact.cancel' || document.formvalidator.isValid(document.getElementById('adminForm'))) {
-			Joomla.submitform(task, document.getElementById('adminForm'));
-		}
-	}
-");
 ?>
 
 <form action="<?php echo Route::_('index.php?option=com_volunteers&view=contact'); ?>"

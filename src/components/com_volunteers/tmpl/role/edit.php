@@ -13,15 +13,6 @@
 HtmlHelper::_('behavior.keepalive');
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('formbehavior.chosen', 'select');
-
-JFactory::getDocument()->addScriptDeclaration("
-	Joomla.submitbutton = function(task)
-	{
-		if (task == 'role.cancel' || document.formvalidator.isValid(document.getElementById('role'))) {
-			Joomla.submitform(task, document.getElementById('role'));
-		}
-	}
-");
 ?>
 
 <div class="role-edit">

@@ -14,15 +14,6 @@ HtmlHelper::_('behavior.keepalive');
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('formbehavior.chosen', 'select');
 
-JFactory::getDocument()->addScriptDeclaration("
-	Joomla.submitbutton = function(task)
-	{
-		if (task == 'member.cancel' || document.formvalidator.isValid(document.getElementById('member'))) {
-			Joomla.submitform(task, document.getElementById('member'));
-		}
-	}
-");
-
 if ($this->item->department) {
     $view = 'department';
     $id = $this->item->department;
