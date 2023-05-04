@@ -22,10 +22,7 @@ Instructions for installation
 ---------------------------------------------------------------
 Roll Call
 
-*Original Volunteer Portal by Sander Potjer and Roland Dalmulder
-
-*Joomla 4 Port by Mark Fleeson and Roland Dalmulder
-
-*Code Clean Up, adding drone and jrobo by Hannes Papenburgh
-
-*Code Clean Up and improvements by Brian Teeman
+* Original Volunteer Portal by Sander Potjer and Roland Dalmulder
+* Joomla 4 Port by Mark Fleeson and Roland Dalmulder
+* Code Clean Up, adding drone and jorobo by Hannes Papenburgh
+* Code Clean Up and improvements by Brian Teeman
