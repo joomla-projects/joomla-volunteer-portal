@@ -21,11 +21,10 @@ HTMLHelper::_('jquery.framework');
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
     $wa->useStyle('com_volunteers.j3template')
-        ->useStyle('com_volunteers.frontend');
-    $wa->useScript('com_volunteers.google_maps')
+        ->useStyle('com_volunteers.frontend')
+        ->useScript('com_volunteers.google_maps')
         ->useScript('com_volunteers.markerclusterer')
-        ->useScript('com_volunteers.oms')
-        ->useStyle('com_volunteers.frontend');
+        ->useScript('com_volunteers.oms');
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
@@ -40,83 +39,112 @@ try {
 <br>
 <div class="row-fluid">
     <div class="span6">
-        <h2><?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_TITLE'); ?></h2>
-        <p><?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_DESC'); ?></p>
-        <p><?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_ACTION'); ?></p>
+        <h2>
+            <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_TITLE'); ?>
+        </h2>
         <p>
-            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=roles'); ?>" class="btn"><col- class="icon-chevron-right"></col-><?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_BUTTON'); ?>
+            <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_DESC'); ?>
+        </p>
+        <p>
+            <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_ACTION'); ?>
+        </p>
+        <p>
+            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=roles'); ?>" class="btn"><col-
+                    class="icon-chevron-right"></col->
+                <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_BUTTON'); ?>
             </a>
         </p>
     </div>
     <div class="span6">
-        <h2><?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_TITLE'); ?></h2>
-        <p><?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_DESC'); ?></p>
-        <p><?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_ACTION'); ?></p>
+        <h2>
+            <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_TITLE'); ?>
+        </h2>
         <p>
-            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>" class="btn"><col- class="icon-chevron-right"></col-><?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_BUTTON'); ?>
+            <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_DESC'); ?>
+        </p>
+        <p>
+            <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_ACTION'); ?>
+        </p>
+        <p>
+            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>" class="btn"><col-
+                    class="icon-chevron-right"></col->
+                <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_BUTTON'); ?>
             </a>
         </p>
     </div>
 </div>
 <br>
 <div class="row-fluid">
-    <h2><?php echo Text::_('COM_VOLUNTEERS_LATEST_REPORTS') ?></h2>
+    <h2>
+        <?php echo Text::_('COM_VOLUNTEERS_LATEST_REPORTS') ?>
+    </h2>
     <?php if (!empty($this->reports)) {
-        foreach ($this->reports as $i => $item) : ?>
-        <div class="row report">
-            <div class="span2">
+        foreach ($this->reports as $i => $item): ?>
+            <div class="row report">
+                <div class="span2">
 
-                <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->volunteer_id) ?>">
-                            <?php echo VolunteersHelper::image($item->volunteer_image, 'large', false, $item->volunteer_name); ?>
-                </a>
-            </div>
-            <div class="span10">
-                <h3 class="report-title">
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>">
-                                <?php echo($item->title); ?>
+                    <a
+                        href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->volunteer_id) ?>">
+                        <?php echo VolunteersHelper::image($item->volunteer_image, 'large', false, $item->volunteer_name); ?>
                     </a>
-                </h3>
-                <p class="muted">
-                            <?php echo Text::_('COM_VOLUNTEERS_BY') ?>
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->volunteer_id) ?>"><?php echo $item->volunteer_name; ?></a>
-                            <?php echo Text::_('COM_VOLUNTEERS_ON') ?> <?php echo VolunteersHelper::date($item->created, 'Y-m-d H:i'); ?>
-                            <?php echo Text::_('COM_VOLUNTEERS_IN') ?>
-                    <a href="<?php echo $item->link; ?>"><?php echo $item->name; ?></a>
-                </p>
-                <p><?php echo StringHelper::truncate(strip_tags(trim($item->description)), 380); ?></p>
-                <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="btn">
-                    <col- class="icon-chevron-right"></col-><?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>&nbsp;<?php echo HtmlHelper::_('string.truncate', $item->title, 55); ?>
-                </a>
+                </div>
+                <div class="span10">
+                    <h3 class="report-title">
+                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>">
+                            <?php echo ($item->title); ?>
+                        </a>
+                    </h3>
+                    <p class="muted">
+                        <?php echo Text::_('COM_VOLUNTEERS_BY') ?>
+                        <a
+                            href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->volunteer_id) ?>"><?php echo $item->volunteer_name; ?></a>
+                        <?php echo Text::_('COM_VOLUNTEERS_ON') ?>
+                        <?php echo VolunteersHelper::date($item->created, 'Y-m-d H:i'); ?>
+                        <?php echo Text::_('COM_VOLUNTEERS_IN') ?>
+                        <a href="<?php echo $item->link; ?>"><?php echo $item->name; ?></a>
+                    </p>
+                    <p>
+                        <?php echo StringHelper::truncate(strip_tags(trim($item->description)), 380); ?>
+                    </p>
+                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="btn">
+                        <col- class="icon-chevron-right"></col->
+                        <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>&nbsp;
+                        <?php echo HtmlHelper::_('string.truncate', $item->title, 55); ?>
+                    </a>
+                </div>
             </div>
-        </div>
-        <hr>
+            <hr>
         <?php endforeach;
-    }; ?>
-    <a class="btn btn-large btn-block" href="<?php echo Route::_('index.php?option=com_volunteers&view=reports'); ?>"><?php echo Text::_('COM_VOLUNTEERS_READ_MORE_REPORTS') ?></a>
+    }
+    ; ?>
+    <a class="btn btn-large btn-block"
+        href="<?php echo Route::_('index.php?option=com_volunteers&view=reports'); ?>"><?php echo Text::_('COM_VOLUNTEERS_READ_MORE_REPORTS') ?></a>
 </div>
 <br>
 <div class="row-fluid">
-    <h2><?php echo count($this->markers) . ' ' . Text::_('COM_VOLUNTEERS_VOLUNTEERS_WORLD') ?></h2>
+    <h2>
+        <?php echo count($this->markers) . ' ' . Text::_('COM_VOLUNTEERS_VOLUNTEERS_WORLD') ?>
+    </h2>
     <div id="map-canvas"></div>
 </div>
 <script>
     function initialise() {
         var mapOptions = {
-                zoom: 2,
-                zoomControl: true,
-                zoomControlOptions: {
-                    style: google.maps.ZoomControlStyle.SMALL
-                },
-                center: {lat: 25, lng: 15},
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                panControl: false,
-                mapTypeControl: false,
-                scaleControl: false,
-                streetViewControl: false,
-                overviewMapControl: false,
-                rotateControl: false,
-                draggable: !("ontouchend" in document)
+            zoom: 2,
+            zoomControl: true,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL
             },
+            center: { lat: 25, lng: 15 },
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            panControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false,
+            rotateControl: false,
+            draggable: !("ontouchend" in document)
+        },
             mcOptions = {
                 maxZoom: 14,
                 styles: [{
@@ -124,31 +152,31 @@ try {
                     url: "media/com_volunteers/images/m1.png",
                     width: 53
                 },
-                    {
-                        height: 56,
-                        url: "media/com_volunteers/images/m2.png",
-                        width: 56
-                    },
-                    {
-                        height: 66,
-                        url: "media/com_volunteers/images/m3.png",
-                        width: 66
-                    },
-                    {
-                        height: 78,
-                        url: "media/com_volunteers/images/m4.png",
-                        width: 78
-                    },
-                    {
-                        height: 90,
-                        url: "media/com_volunteers/images/m5.png",
-                        width: 90
-                    }
+                {
+                    height: 56,
+                    url: "media/com_volunteers/images/m2.png",
+                    width: 56
+                },
+                {
+                    height: 66,
+                    url: "media/com_volunteers/images/m3.png",
+                    width: 66
+                },
+                {
+                    height: 78,
+                    url: "media/com_volunteers/images/m4.png",
+                    width: 78
+                },
+                {
+                    height: 90,
+                    url: "media/com_volunteers/images/m5.png",
+                    width: 90
+                }
                 ]
             }
 
         var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-        var oms = new OverlappingMarkerSpiderfier(map, {keepSpiderfied: true, circleFootSeparation: 100});
+        var oms = new OverlappingMarkerSpiderfier(map, { keepSpiderfied: true, circleFootSeparation: 100 });
 
         map.addListener('click', function () {
             map.set('draggable', true);
@@ -157,7 +185,7 @@ try {
         var markers = [];
         var bounds = new google.maps.LatLngBounds();
         var infoWindow = new google.maps.InfoWindow();
-        var locations = [ <?php echo implode(',', $this->markers) ?> ];
+        var locations = [<?php echo implode(',', $this->markers) ?>];
 
         var icon = {
             url: "media/com_volunteers/images/joomla.png", // url
@@ -192,37 +220,37 @@ try {
                 featureType: "road",
                 elementType: "geometry",
                 stylers: [
-                    {lightness: 100},
-                    {visibility: "simplified"}
+                    { lightness: 100 },
+                    { visibility: "simplified" }
                 ]
             }, {
                 featureType: "road",
                 elementType: "labels",
                 stylers: [
-                    {visibility: "simplified"}
+                    { visibility: "simplified" }
                 ]
             }, {
                 featureType: "poi",
                 elementType: "labels",
                 stylers: [
-                    {visibility: "on"}
+                    { visibility: "on" }
                 ]
             }, {
                 featureType: "poi.business",
                 elementType: "labels",
                 stylers: [
-                    {visibility: "off"}
+                    { visibility: "off" }
                 ]
             }, {
                 featureType: "water",
                 elementType: "labels",
                 stylers: [
-                    {visibility: "on"}
+                    { visibility: "on" }
                 ]
             }
         ];
         map.fitBounds(bounds);
-        map.setOptions({styles: styles});
+        map.setOptions({ styles: styles });
     }
 
     google.maps.event.addDomListener(window, 'load', initialise);
