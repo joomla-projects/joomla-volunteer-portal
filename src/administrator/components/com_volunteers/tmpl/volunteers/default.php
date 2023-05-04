@@ -138,7 +138,9 @@ if ($saveOrder) {
                                             <img class="img-rounded" src="<?php echo $item->image; ?>"
                                                 alt="<?php echo $this->escape($item->user_username); ?>">
                                         <?php else: ?>
-                                            <img class="img-rounded" src="<?php echo URI::root() . 'images/joomla.png'; ?>" alt="">
+                                            <img class="img-rounded"
+                                                src="<?php echo URI::root() . 'media/com_volunteers/images/joomlaperson.png'; ?>"
+                                                alt="">
                                         <?php endif; ?>
                                     </td>
                                     <th scope="row" class="has-context">
