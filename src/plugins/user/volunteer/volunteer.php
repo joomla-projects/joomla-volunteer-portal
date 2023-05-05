@@ -7,10 +7,10 @@
  */
 
 // No direct access.
-use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\Database\DatabaseInterface;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -29,15 +29,7 @@ class PlgUserVolunteer extends CMSPlugin
     /**
      * Application object.
      *
-     * @var    CMSApplication
-     * @since  1.0
-     */
-    protected $app;
-
-    /**
-     * Application object.
-     *
-     * @var    JDatabaseDriver
+     * @var    DatabaseInterface
      * @since  1.0.0
      */
     protected $db;
@@ -49,7 +41,6 @@ class PlgUserVolunteer extends CMSPlugin
      * @since  1.0.0
      */
     protected $autoloadLanguage = true;
-
 
     /**
      *
@@ -68,7 +59,6 @@ class PlgUserVolunteer extends CMSPlugin
         if (!$success) {
             return false;
         }
-
 
         $query      = $this->db->getQuery(true);
         $conditions = [$this->db->quoteName('user_id') . ' = ' . $this->db->quote($user['id'])];
