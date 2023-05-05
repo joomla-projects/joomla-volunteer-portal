@@ -30,7 +30,12 @@ use Joomla\Component\Volunteers\Site\Model\VolunteersModel;
 class HtmlView extends BaseHtmlView
 {
     protected array $items;
+
+    /**
+     * @var Pagination
+     */
     protected Pagination $pagination;
+
     protected CMSObject $state;
 
 

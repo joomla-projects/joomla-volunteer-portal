@@ -15,11 +15,8 @@ use Joomla\Component\Volunteers\Administrator\Model\VolunteersModel;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-try {
-    $app = Factory::getApplication();
-} catch (Exception $e) {
-    die('Cannot access Joomla Application!');
-}
+$app = Factory::getApplication();
+/** @var VolunteersModel $model */
 $model = $app->bootComponent('com_volunteers')->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
 $model->setState('list.limit', 1);
 $model->setState('list.ordering', 'rand()');

@@ -17,6 +17,7 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Table\Table;
 use Joomla\String\StringHelper;
 use stdClass;
@@ -54,7 +55,7 @@ class DepartmentModel extends AdminModel
      *
      * @param   int|null  $pk  The id of the team.
      *
-     * @return  mixed  Data object on success, false on failure.
+     * @return  stdClass  Data object on success, false on failure.
      * @since 4.0.0
      * @throws Exception
      */
@@ -451,9 +452,9 @@ class DepartmentModel extends AdminModel
     /**
      * Method to get a single record.
      *
-     * @param   null  $pk  The id of the primary key.
+     * @param   integer  $pk  The id of the primary key.
      *
-     * @return CMSObject|boolean Object on success
+     * @return  CMSObject|boolean  Object on success, false on failure.
      *
      * @since  4.0.0
      * @throws Exception

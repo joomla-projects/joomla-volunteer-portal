@@ -23,7 +23,7 @@ try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
     $wa->useStyle('com_volunteers.j3template')
         ->useStyle('com_volunteers.frontend');
-    $tabn = Factory::getApplication()->input->get('tab');
+    $tabn = Factory::getApplication()->getInput()->get('tab');
     if (!is_null($tabn)) {
         $tabneeded = "view" . $tabn;
     }

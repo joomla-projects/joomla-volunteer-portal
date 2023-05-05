@@ -39,7 +39,7 @@ class LocationField extends TextField
     {
         HTMLHelper::_('jquery.framework');
         HTMLHelper::script('//maps.googleapis.com/maps/api/js?key=AIzaSyC04czYnPuPFkO6eDAKX-j_lfrpanAAo-U');
-        HTMLHelper::script('com_volunteers/jquery-gmaps-latlon-picker.js', false, true);
+        HTMLHelper::script('com_volunteers/jquery-gmaps-latlon-picker.js', ['version' => 'auto', 'relative' => true]);
 
         $data = $this->form->getData();
 

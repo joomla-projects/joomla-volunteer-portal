@@ -195,7 +195,7 @@ class TeamModel extends AdminModel
         // Move team members to the honour roll if team end-date is set
         if ($data['date_ended']) {
             $members    = $this->getTeamMembers($data['id']);
-            $membersIds = array_map(create_function('$member', 'return $member->id;'), $members->active);
+            $membersIds = array_map(function ($member) {return $member->id;}, $members->active);
 
             if (count($membersIds)) {
                 // Set date_ended for active members
@@ -437,7 +437,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function &getItem($pk = null)
+    public function getItem($pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 

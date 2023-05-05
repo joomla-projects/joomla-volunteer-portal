@@ -6,8 +6,6 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access.
-use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
@@ -15,6 +13,7 @@ use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
 
+// No direct access.
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
@@ -25,22 +24,6 @@ use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
  */
 class PlgSystemVolunteers extends CMSPlugin
 {
-    /**
-     * Application object.
-     *
-     * @var    CMSApplication
-     * @since  1.0
-     */
-    protected $app;
-
-    /**
-     * Application object.
-     *
-     * @var    JDatabaseDriver
-     * @since  1.0.0
-     */
-    protected $db;
-
     /**
      * Affects constructor behavior. If true, language files will be loaded automatically.
      *
@@ -61,27 +44,27 @@ class PlgSystemVolunteers extends CMSPlugin
     {
         // Run on frontend only
 
-        if ($this->app->isClient('administrator')) {
+        if ($this->getApplication()->isClient('administrator')) {
             return true;
         }
 
         // Get variables
-        $view = $this->app->input->getString('view');
-        $task = $this->app->input->getString('task');
+        $view = $this->getApplication()->input->getString('view');
+        $task = $this->getApplication()->input->getString('task');
 
         // Check if volunteer needs to update profile
         $update = Factory::getApplication()->getSession()->get('updateprofile');
 
         if ($update && $view != 'volunteer' && $task != 'volunteer.edit') {
-            $model = $this->app->bootComponent('com_volunteers')->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
+            $model = $this->getApplication()->bootComponent('com_volunteers')->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
 
             $userId      = Factory::getApplication()->getSession()->get('user')->get('id');
             $volunteerId = (int) $model->getVolunteerId($userId);
 
             // Redirect to profile
             $this->loadLanguage('com_volunteers', JPATH_ADMINISTRATOR);
-            $this->app->enqueueMessage(Text::_('COM_VOLUNTEERS_PROFILE_ACTIVEMEMBERFIELDS'), 'warning');
-            $this->app->redirect('index.php?option=com_volunteers&task=volunteer.edit&id=' . $volunteerId);
+            $this->getApplication()->enqueueMessage(Text::_('COM_VOLUNTEERS_PROFILE_ACTIVEMEMBERFIELDS'), 'warning');
+            $this->getApplication()->redirect('index.php?option=com_volunteers&task=volunteer.edit&id=' . $volunteerId);
         }
 
         return true;
@@ -104,10 +87,10 @@ class PlgSystemVolunteers extends CMSPlugin
         }
 
         // Get variables
-        $option = $this->app->input->getString('option');
-        $view   = $this->app->input->getString('view');
-        $layout = $this->app->input->getString('layout');
-        $id     = $this->app->input->getInt('id');
+        $option = $this->getApplication()->input->getString('option');
+        $view   = $this->getApplication()->input->getString('view');
+        $layout = $this->getApplication()->input->getString('layout');
+        $id     = $this->getApplication()->input->getInt('id');
 
         // Check if volunteer url is correct
         if ($option == 'com_volunteers' && $view == 'volunteer' && $layout != 'edit') {
@@ -115,20 +98,21 @@ class PlgSystemVolunteers extends CMSPlugin
             $correctURL = Uri::getInstance()->toString(['scheme', 'host', 'port']) . $itemURL;
             $currentURL = str_replace("&", "&amp;", Uri::getInstance()->toString());
             if ($correctURL != $currentURL) {
-                $this->app->redirect(Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $id, false), 301);
+                $this->getApplication()->redirect(Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $id, false), 301);
             }
         }
 
         // Check if this is the volunteers own profile
         if ($option == 'com_volunteers' && $view == 'volunteer') {
-            $model = $this->app->bootComponent('com_volunteers')->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
+            /** @var VolunteerModel $model */
+            $model = $this->getApplication()->bootComponent('com_volunteers')->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
 
             $userId      = Factory::getApplication()->getSession()->get('user')->get('id');
             $volunteerId = (int) $model->getVolunteerId($userId);
 
             // Change active menu for own profile
             if ($volunteerId == $id) {
-                $menu     = $this->app->getMenu();
+                $menu     = $this->getApplication()->getMenu();
                 $menuItem = $menu->getItems('link', 'index.php?option=com_volunteers&view=my', true);
                 $menu->setActive($menuItem->id);
             }

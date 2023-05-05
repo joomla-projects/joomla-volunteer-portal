@@ -9,9 +9,10 @@
  */
 
 use Joomla\CMS\Application\ApplicationHelper;
-use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Log\Log;
 use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\Database\DatabaseDriver;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -25,17 +26,9 @@ use Joomla\CMS\Plugin\CMSPlugin;
 class PlgSystemJoomlaIdentityVolunteers extends CMSPlugin
 {
     /**
-     * Application object.
+     * Database object.
      *
-     * @var    CMSApplication
-     * @since  1.0
-     */
-    protected $app;
-
-    /**
-     * Application object.
-     *
-     * @var    JDatabaseDriver
+     * @var    DatabaseDriver
      * @since  1.0.0
      */
     protected $db;
@@ -163,7 +156,7 @@ class PlgSystemJoomlaIdentityVolunteers extends CMSPlugin
             'nda'                 => $data->nda,
         ];
 
-        JLog::add(json_encode($volunteer), JLog::INFO, 'idpjvp');
+        Log::add(json_encode($volunteer), Log::INFO, 'idpjvp');
 
         try {
             $this->db->insertObject('#__volunteers_volunteers', $volunteer, 'user_id');
