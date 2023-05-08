@@ -23,6 +23,20 @@ steps:
       - ./vendor/bin/phpcs --extensions=php -p --standard=ruleset.xml .
       - echo $(date)
 
+  - name: phpstan
+    image: joomlaprojects/docker-images:php8.1
+    depends_on: [ phpcs ]
+    failure: ignore
+    commands:
+      - vendor/bin/phpstan
+
+  - name: phan
+    image: joomlaprojects/docker-images:php8.1
+    depends_on: [ phpcs ]
+    failure: ignore
+    commands:
+      - vendor/bin/phan
+
 volumes:
   - name: composer-cache
     host:
@@ -30,6 +44,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 753db5e0765e3cd6dbe5e04eda32becec26a4d04dec12c6672802577083bcf0e
+hmac: 0f921e728d2772d63b0ee77a7367eff5ace4e043061f41fdc4a7c2fd8ee787e5
 
 ...
