@@ -32,11 +32,48 @@ use Joomla\Component\Volunteers\Administrator\Model\DepartmentsModel;
  */
 class HtmlView extends BaseHtmlView
 {
+    /**
+     * An array of items
+     *
+     * @var  array
+     */
     protected array $items;
+
+    /**
+     * The pagination object
+     *
+     * @var  \Joomla\CMS\Pagination\Pagination
+     */
     protected Pagination $pagination;
+
+    /**
+     * The model state
+     *
+     * @var   \Joomla\CMS\Object\CMSObject
+     */
     protected CMSObject $state;
+
+    /**
+     * Form object for search filters
+     *
+     * @var  \Joomla\CMS\Form\Form
+     */
     public Form $filterForm;
+
+    /**
+     * The active search filters
+     *
+     * @var  array
+     */
     public array $activeFilters;
+
+    /**
+     * Is this view an Empty State
+     *
+     * @var   boolean
+     * @since 4.0.0
+     */
+    private $isEmptyState = false;
 
     /**
      * Display the view
@@ -59,6 +96,7 @@ class HtmlView extends BaseHtmlView
         $this->filterForm    = $model->getFilterForm();
         $this->activeFilters = $model->getActiveFilters();
         $errors              = $model->getErrors();
+        $this->isEmptyState  = $this->get('IsEmptyState');
 
         if ($errors && count($errors) > 0) {
             throw new GenericDataException(implode("\n", $errors));
