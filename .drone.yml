@@ -29,19 +29,28 @@ steps:
       - mkdir test-cms
       - cd test-cms
       - git clone https://github.com/joomla/joomla-cms.git .
-      - composer install --no-dev
+
+  - name: composer-test
+    image: joomlaprojects/docker-images:php8.2
+    depends_on: [ clone-test-data ]
+    volumes:
+      - name: composer-cache
+        path: /tmp/composer-cache
+    commands:
+      - cd test-cms
+      - composer install --no-progress --no-suggest --no-dev
       - mv libraries ../libraries
 
   - name: phpstan
     image: joomlaprojects/docker-images:php8.1
-    depends_on: [ phpcs ]
+    depends_on: [ composer-test ]
     failure: ignore
     commands:
       - vendor/bin/phpstan
 
   - name: phan
     image: joomlaprojects/docker-images:php8.1-ast
-    depends_on: [ phpcs ]
+    depends_on: [ composer-test ]
     failure: ignore
     commands:
       - vendor/bin/phan
@@ -53,6 +62,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 94b619be1220fa35adae025c24262e18daf10e4913b461da541bf740eb05e2b6
+hmac: 974d8bbab63476ada85fd247023bc7405b06565db23694674e7601df088c6e91
 
 ...
