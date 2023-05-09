@@ -61,7 +61,7 @@ try {
 <div class="row-fluid">
     <div class="span12">
         <?php
-        echo HTMLHelper::_('uitab.startTabSet', 'departmentTab', array('active' => 'viewmembers'));
+        echo HTMLHelper::_('uitab.startTabSet', 'departmentTab', ['active' => 'viewmembers', 'recall' => true, 'breakpoint' => 768]);
         echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewmembers', Text::_('COM_VOLUNTEERS_TAB_MEMBERS'));
         ?>
         <?php if ($this->acl->edit): ?>

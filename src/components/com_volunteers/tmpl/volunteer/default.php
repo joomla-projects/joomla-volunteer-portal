@@ -182,8 +182,7 @@ try {
 <div class="row-fluid">
     <div class="span12">
         <?php
-
-        echo HTMLHelper::_('uitab.startTabSet', 'volunteerTab', array('active' => 'viewteamsinvolved'));
+        echo HTMLHelper::_('uitab.startTabSet', 'volunteerTab', ['active' => 'viewteamsinvolved', 'recall' => true, 'breakpoint' => 768]);
         if ($this->item->teams->active) {
             echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewteamsinvolved', Text::_('COM_VOLUNTEERS_TAB_TEAMSINVOLVED'));
             ?>

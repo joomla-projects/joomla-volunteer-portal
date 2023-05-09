@@ -19,15 +19,10 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 /** @var $this \Joomla\Component\Volunteers\Site\View\Team\HtmlView */
 
 // Import CSS and set up default tab
-$tabneeded = "viewmembers";
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
     $wa->useStyle('com_volunteers.j3template')
         ->useStyle('com_volunteers.frontend');
-    $tabn = Factory::getApplication()->getInput()->get('tab');
-    if (!is_null($tabn)) {
-        $tabneeded = "view" . $tabn;
-    }
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
@@ -121,7 +116,7 @@ try {
 <div class="row-fluid">
     <div class="span12">
         <?php
-        echo HTMLHelper::_('uitab.startTabSet', 'teamsTab', array('active' => $tabneeded));
+        echo HTMLHelper::_('uitab.startTabSet', 'teamsTab', ['active' => 'viewmembers', 'recall' => true, 'breakpoint' => 768]);
 
         /************************ TAB ***********************************/
         if ($this->item->active) {
