@@ -30,10 +30,11 @@ class VolunteerController extends FormController
     /**
      * Method to edit volunteer data
      *
-     * @param   null  $key
-     * @param   null  $urlVar
+     * @param   string  $key     The name of the primary key of the URL variable.
+     * @param   string  $urlVar  The name of the URL variable if different from the primary key
+     *                           (sometimes required to avoid router collisions).
      *
-     * @return  boolean
+     * @return  boolean  True if access level check and checkout passes, false otherwise.
      *
      * @since 4.0.0
      * @throws Exception
@@ -61,10 +62,10 @@ class VolunteerController extends FormController
     /**
      * Method to save volunteer data.
      *
-     * @param   null  $key
-     * @param   null  $urlVar
+     * @param   string  $key     The name of the primary key of the URL variable.
+     * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions).
      *
-     * @return  boolean
+     * @return  boolean  True if successful, false otherwise.
      * @since 4.0.0
      * @throws Exception
      */

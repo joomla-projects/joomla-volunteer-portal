@@ -14,8 +14,6 @@ namespace Joomla\Component\Volunteers\Site\Controller;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
-
 /**
  * Display Component Controller
  *
