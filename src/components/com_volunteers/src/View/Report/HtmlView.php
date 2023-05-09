@@ -43,7 +43,7 @@ class HtmlView extends BaseHtmlView
     protected stdClass $acl;
 
     protected string $share;
-    protected VolunteerModel $volunteer;
+    protected $volunteer;
 
     /**
      * Display the view

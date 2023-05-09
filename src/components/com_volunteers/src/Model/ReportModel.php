@@ -57,7 +57,7 @@ class ReportModel extends FormModel
         $user = Factory::getApplication()->getIdentity();
 
         // Get subteams
-        $model = $this->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
+        $model = $this->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
 
         $volunteerId = $model->getVolunteerId($user->id);
 
@@ -245,12 +245,8 @@ class ReportModel extends FormModel
         }
 
         // Load state from the request userState on edit or from the passed variable on default
-        if (Factory::getApplication()->input->get('layout') == 'edit') {
-            $id = Factory::getApplication()->getUserState('com_volunteers.edit.report.id');
-        } else {
-            $id = Factory::getApplication()->input->get('id');
-            Factory::getApplication()->setUserState('com_volunteers.edit.report.id', $id);
-        }
+        $id = $app->input->get('id');
+        $app->setUserState('com_volunteers.edit.report.id', $id);
 
         $this->setState('report.id', $id);
 
@@ -276,9 +272,7 @@ class ReportModel extends FormModel
      */
     public function getItem(int $pk = null): mixed
     {
-
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
-
 
         if ($pk > 0) {
             try {
@@ -319,7 +313,7 @@ class ReportModel extends FormModel
                 $data = $db->loadObject();
 
                 if (empty($data)) {
-                    throw new Exception(404, Text::_('COM_VOLUNTEERS_ERROR_REPORT_NOT_FOUND'));
+                    throw new Exception(Text::_('COM_VOLUNTEERS_ERROR_REPORT_NOT_FOUND'), 404);
                 }
 
                 // Check for published state if filter set.

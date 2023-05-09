@@ -105,7 +105,7 @@ class ReportController extends FormController
         // Get variables
         $reportId = $this->input->getInt('id');
         $report   = $this->getModel()->getItem($reportId);
-        $userId   = $this->app->getSession()->get('user')->get('id');
+        $userId   = $this->app->getIdentity()->id;
         $acl      = new stdClass();
 
         // Department or team?
