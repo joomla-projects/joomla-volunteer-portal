@@ -12,7 +12,6 @@ namespace  Joomla\Component\Volunteers\Administrator\Service\Html;
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
-use function defined;
 
 /**
  * VOLUNTEERS_PORTAL HTML class.

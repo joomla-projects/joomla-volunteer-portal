@@ -14,6 +14,7 @@ namespace Joomla\Component\Volunteers\Site\View\Role;
 
 use Exception;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
@@ -30,6 +31,9 @@ class HtmlView extends BaseHtmlView
 {
     protected CMSObject $state;
     protected mixed $item;
+    /**
+     * @var Form
+     */
     protected mixed $form;
     protected User|null $user;
 
@@ -86,7 +90,7 @@ class HtmlView extends BaseHtmlView
         // If editing existing member
         if (!$memberId) {
             $teamId = (int) $app->getUserState('com_volunteers.edit.role.teamid');
-            $this->form->setValue('team', $team = null, $teamId);
+            $this->form->setValue('team', null, $teamId);
             $this->item->team = $teamId;
         }
     }

@@ -498,7 +498,7 @@ class TeamModel extends AdminModel
 
         // Convert to the stdClass before adding other data.
         $properties = $this->getTable()->getProperties(1);
-        $item       = ArrayHelper::toObject($properties, 'stdClass');
+        $item       = ArrayHelper::toObject($properties);
 
         return $item;
     }

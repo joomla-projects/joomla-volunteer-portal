@@ -102,9 +102,9 @@ class HtmlView extends BaseHtmlView
                 $this->form->removeField('role');
             }
         } else {
-            $this->form->setValue('department', $department = null, $departmentId);
-            $this->form->setValue('team', $team = null, $teamId);
-            $this->form->setValue('date_started', $team = null, Factory::getDate());
+            $this->form->setValue('department', null, $departmentId);
+            $this->form->setValue('team', null, $teamId);
+            $this->form->setValue('date_started', null, Factory::getDate());
             $this->item->department = $departmentId;
             $this->item->team       = $teamId;
         }

@@ -135,7 +135,6 @@ class VolunteerController extends FormController
         $this->checkToken();
 
         // Get variables
-        $app         = Factory::getApplication();
         $session     = $this->app->getSession();
         $user        = $session->get('user');
         $volunteerId = $session->get('volunteer');

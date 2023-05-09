@@ -28,8 +28,6 @@ use Joomla\Component\Volunteers\Site\Model\VolunteerModel;
 use RuntimeException;
 use stdClass;
 
-use function defined;
-
 /**
  * Class VolunteersHelper
  *

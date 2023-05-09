@@ -162,7 +162,7 @@ class VolunteerModel extends AdminModel
         // Convert to the JObject before adding other data.
         $properties = $this->getTable()->getProperties(1);
 
-        return ArrayHelper::toObject($properties, 'stdClass');
+        return ArrayHelper::toObject($properties);
     }
 
     /**

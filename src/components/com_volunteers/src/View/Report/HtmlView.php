@@ -122,9 +122,9 @@ class HtmlView extends BaseHtmlView
         } else {
             $departmentId = (int) $app->getUserState('com_volunteers.edit.report.departmentid');
             $teamId       = (int) $app->getUserState('com_volunteers.edit.report.teamid');
-            $this->form->setValue('department', $department = null, $departmentId);
-            $this->form->setValue('team', $team = null, $teamId);
-            $this->form->setValue('created', $team = null, Factory::getDate());
+            $this->form->setValue('department', null, $departmentId);
+            $this->form->setValue('team', null, $teamId);
+            $this->form->setValue('created', null, Factory::getDate());
             $this->item->department = $departmentId;
             $this->item->team       = $teamId;
         }

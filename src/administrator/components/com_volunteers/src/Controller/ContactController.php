@@ -11,8 +11,8 @@
 namespace Joomla\Component\Volunteers\Administrator\Controller;
 
 use Exception;
-use ContentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;

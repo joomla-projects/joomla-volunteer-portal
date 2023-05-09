@@ -25,8 +25,6 @@ use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
 use RuntimeException;
 use stdClass;
 
-use function defined;
-
 /**
  * Volunteers Helper
  *
@@ -216,10 +214,10 @@ class VolunteersHelper
         SideBar::addEntry(Text::_('COM_VOLUNTEERS_TITLE_ROLES'), 'index.php?option=com_volunteers&view=roles', $vName == 'roles');
         SideBar::addEntry(Text::_('COM_VOLUNTEERS_TITLE_MEMBERS'), 'index.php?option=com_volunteers&view=members', $vName == 'members');
         SideBar::addEntry(Text::_('COM_VOLUNTEERS_TITLE_REPORTS'), 'index.php?option=com_volunteers&view=reports', $vName == 'reports');
-        SideBar::addEntry('<hr>', '');
+        SideBar::addEntry('<hr>');
         SideBar::addEntry(Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS'), 'index.php?option=com_volunteers&view=departments', $vName == 'departments');
         SideBar::addEntry(Text::_('COM_VOLUNTEERS_TITLE_POSITIONS'), 'index.php?option=com_volunteers&view=positions', $vName == 'positions');
-        SideBar::addEntry('<hr>', '');
+        SideBar::addEntry('<hr>');
         SideBar::addEntry(Text::_('COM_VOLUNTEERS_TITLE_CONTACT'), 'index.php?option=com_volunteers&view=contact', $vName == 'contact');
     }
 
@@ -365,11 +363,9 @@ class VolunteersHelper
     public static function reportcategories(): array
     {
         $department[] = HtmlHelper::_('select.optgroup', Text::_('COM_VOLUNTEERS_FIELD_DEPARTMENTS'));
-        $departments  = array_merge($department, self::departments($prefix = true));
-        $department[] = HtmlHelper::_('select.optgroup', '');
+        $departments  = array_merge($department, self::departments(true));
         $team[]       = HtmlHelper::_('select.optgroup', Text::_('COM_VOLUNTEERS_FIELD_TEAMS'));
-        $teams        = array_merge($team, self::teams($parent = false, $prefix = true));
-        $team[]       = HtmlHelper::_('select.optgroup', '');
+        $teams        = array_merge($team, self::teams());
         return array_merge($departments, $teams);
     }
 

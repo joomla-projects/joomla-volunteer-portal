@@ -29,8 +29,6 @@ use Joomla\Component\Volunteers\Administrator\Service\Html\Volunteers;
 use Psr\Container\ContainerInterface;
 use stdClass;
 
-use function defined;
-
 /**
  * Component class for com_volunteers
  *

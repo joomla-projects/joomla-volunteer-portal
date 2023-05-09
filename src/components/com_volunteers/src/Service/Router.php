@@ -17,7 +17,6 @@ namespace Joomla\Component\Volunteers\Site\Service;
 use Exception;
 use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Categories\CategoryFactoryInterface;
-use Joomla\CMS\Categories\CategoryInterface;
 use Joomla\CMS\Component\Router\RouterView;
 use Joomla\CMS\Component\Router\RouterViewConfiguration;
 use Joomla\CMS\Component\Router\Rules\MenuRules;
@@ -34,24 +33,6 @@ use Joomla\Database\DatabaseInterface;
 class Router extends RouterView
 {
     /**
-     * The category factory
-     *
-     * @var    CategoryFactoryInterface
-     *
-     * @since  4.0.0
-     */
-    private $categoryFactory;
-
-    /**
-     * The category cache
-     *
-     * @var    array
-     *
-     * @since  4.0.0
-     */
-    private $categoryCache = [];
-
-    /**
      * @param   SiteApplication           $app
      * @param   AbstractMenu              $menu
      * @param   CategoryFactoryInterface  $categoryFactory
@@ -62,8 +43,6 @@ class Router extends RouterView
      */
     public function __construct($app, $menu, CategoryFactoryInterface $categoryFactory, $db)
     {
-        $this->categoryFactory = $categoryFactory;
-
         $departments = new RouterViewConfiguration('departments');
         $this->registerView($departments);
         $ccDepartment = new RouterViewConfiguration('department');
@@ -276,27 +255,5 @@ class Router extends RouterView
     public function getVolunteerId(string $segment, array $query): int
     {
         return (int) $segment;
-    }
-
-
-
-    /**
-     * Method to get categories from cache
-     *
-     * @param   array  $options   The options for retrieving categories
-     *
-     * @return  CategoryInterface  The object containing categories
-     *
-     * @since   4.0.0
-     */
-    private function getCategories(array $options = []): CategoryInterface
-    {
-        $key = serialize($options);
-
-        if (!isset($this->categoryCache[$key])) {
-            $this->categoryCache[$key] = $this->categoryFactory->createCategory($options);
-        }
-
-        return $this->categoryCache[$key];
     }
 }
