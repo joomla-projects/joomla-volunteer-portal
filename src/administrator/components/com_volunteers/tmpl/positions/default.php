@@ -120,7 +120,7 @@ if ($saveOrder) {
                                                 ?>
                                                 <?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'positions.', $canCheckin); ?>
                                             <?php endif; ?>
-                                            <?php if ($canEdit || $canEditOwn): ?>
+                                            <?php if ($canEdit): ?>
                                                 <a href="<?php echo Route::_('index.php?option=com_volunteers&task=position.edit&id=' . (int) $item->id); ?>"
                                                     title="<?php echo Text::_('JACTION_EDIT'); ?>">
                                                     <?php echo $this->escape($item->title); ?></a>

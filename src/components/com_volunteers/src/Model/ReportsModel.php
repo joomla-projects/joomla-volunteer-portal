@@ -248,7 +248,6 @@ class ReportsModel extends ListModel
             }
         }
 
-
         return $items;
     }
 

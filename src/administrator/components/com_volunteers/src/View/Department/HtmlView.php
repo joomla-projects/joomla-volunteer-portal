@@ -117,7 +117,7 @@ class HtmlView extends BaseHtmlView
             if ($this->state->params->get('save_history', 0) && $user->authorise('core.edit')) {
                 ToolbarHelper::versions('com_volunteers.department', $this->item->id);
             }
-            $toolbar->cancel('department.cancel', 'JTOOLBAR_CLOSE');
+            $toolbar->cancel('department.cancel');
         }
 
         $toolbar->divider();

@@ -51,7 +51,7 @@ try {
             </ul>
         <?php endforeach;
     }
-    ; ?>
+    ?>
     <a class="btn btn-large btn-block"
         href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>"><?php echo Text::_('MOD_VOLUNTEERS_READ_MORE_VOLUNTEERS') ?></a>
 </div>

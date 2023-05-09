@@ -43,9 +43,6 @@ class DepartmentController extends FormController
      */
     public function edit($key = null, $urlVar = null): bool
     {
-        // Get the previous edit id (if any) and the current edit id.
-        $previousId = (int) $this->app->getUserState('com_volunteers.edit.department.id');
-
         // Get variables
         $departmentId = $this->input->getInt('id');
 
@@ -57,8 +54,7 @@ class DepartmentController extends FormController
         }
 
         // Use parent edit method
-        //return parent::edit($key, $urlVar);
-        $this->setRedirect(Route::_('index.php?option=com_volunteers&view=departmentform&layout=edit', false));
+        return parent::edit($key, $urlVar);
     }
 
     /**

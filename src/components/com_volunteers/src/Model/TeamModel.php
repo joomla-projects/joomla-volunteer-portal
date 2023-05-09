@@ -443,7 +443,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function &getItem($pk = null)
+    public function getItem($pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 

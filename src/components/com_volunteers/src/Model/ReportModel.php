@@ -235,7 +235,7 @@ class ReportModel extends FormModel
      */
     protected function populateState()
     {
-        $app  = Factory::getApplication('com_volunteers');
+        $app  = Factory::getApplication();
         $user = $app->getIdentity();
 
         // Check published state
@@ -274,7 +274,7 @@ class ReportModel extends FormModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function &getItem(int $pk = null): mixed
+    public function getItem(int $pk = null): mixed
     {
 
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
@@ -337,7 +337,7 @@ class ReportModel extends FormModel
 
         // Convert to the JObject before adding other data.
         $properties = $this->getTable()->getProperties(1);
-        $item       = ArrayHelper::toObject($properties, 'stdClass');
+        $item       = ArrayHelper::toObject($properties);
 
         return $item;
     }

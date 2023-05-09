@@ -151,7 +151,7 @@ try {
                                                                                 break;
                                                                             } ?>
                                         <?php endforeach;
-                                    }; ?>
+                                    } ?>
                             <?php if (count($item->members) > 14) : ?>
                                 <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $item->id) ?>" class="all-members">
                                     <span class="all"><?php echo Text::_('COM_VOLUNTEERS_ALL') ?></span><span class="number"><?php echo(' ' . count($item->members)); ?></span>
@@ -163,7 +163,7 @@ try {
             </div>
         </div>
         <?php endforeach;
-    }; ?>
+    } ?>
 
     <div class="pagination">
         <p class="counter pull-right">

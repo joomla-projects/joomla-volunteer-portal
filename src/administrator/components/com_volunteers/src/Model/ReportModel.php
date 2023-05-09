@@ -284,7 +284,7 @@ class ReportModel extends AdminModel
 
         // Convert to the JObject before adding other data.
         $properties = $this->getTable()->getProperties(1);
-        $item       = ArrayHelper::toObject($properties, 'stdClass');
+        $item       = ArrayHelper::toObject($properties);
 
         return $item;
     }

@@ -116,7 +116,7 @@ try {
             <hr>
         <?php endforeach;
     }
-    ; ?>
+    ?>
     <a class="btn btn-large btn-block"
         href="<?php echo Route::_('index.php?option=com_volunteers&view=reports'); ?>"><?php echo Text::_('COM_VOLUNTEERS_READ_MORE_REPORTS') ?></a>
 </div>

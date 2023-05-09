@@ -103,7 +103,7 @@ $active = $this->state->get('filter.active', 1);
                     <?php endif; ?>
                 <?php endforeach;
             }
-            ; ?>
+            ?>
         </div>
 
         <div class="pagination">
