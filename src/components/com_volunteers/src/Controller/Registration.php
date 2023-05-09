@@ -38,9 +38,8 @@ class RegistrationController extends FormController
     public function register(): bool
     {
         // Check for request forgeries.
-        $this::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+        $this->checkToken();
 
-        $app   = Factory::getApplication();
         $model = $this->getModel('Registration', 'Site');
 
         // Get the user data.
@@ -75,14 +74,14 @@ class RegistrationController extends FormController
             // Push up to three validation messages out to the user.
             for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++) {
                 if ($errors[$i] instanceof Exception) {
-                    $app->enqueueMessage($errors[$i]->getMessage(), 'warning');
+                    $this->app->enqueueMessage($errors[$i]->getMessage(), 'warning');
                 } else {
-                    $app->enqueueMessage($errors[$i], 'warning');
+                    $this->app->enqueueMessage($errors[$i], 'warning');
                 }
             }
 
             // Save the data in the session.
-            $app->setUserState('com_volunteers.registration.data', $requestData);
+            $this->app->setUserState('com_volunteers.registration.data', $requestData);
 
             // Redirect back to the registration screen.
             $this->setRedirect(Route::_('index.php?option=com_volunteers&view=registration', false));
@@ -101,14 +100,14 @@ class RegistrationController extends FormController
             // Push up to three validation messages out to the user.
             for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++) {
                 if ($errors[$i] instanceof Exception) {
-                    $app->enqueueMessage($errors[$i]->getMessage(), 'warning');
+                    $this->app->enqueueMessage($errors[$i]->getMessage(), 'warning');
                 } else {
-                    $app->enqueueMessage($errors[$i], 'warning');
+                    $this->app->enqueueMessage($errors[$i], 'warning');
                 }
             }
 
             // Save the data in the session.
-            $app->setUserState('com_volunteers.registration.data', $data);
+            $this->app->setUserState('com_volunteers.registration.data', $data);
 
             // Redirect back to the edit screen.
             $this->setRedirect(Route::_('index.php?option=com_volunteers&view=registration', false));
@@ -117,7 +116,7 @@ class RegistrationController extends FormController
         }
 
         // Flush the data from the session.
-        $app->setUserState('com_volunteers.registration.data', null);
+        $this->app->setUserState('com_volunteers.registration.data', null);
 
         // Get the log in credentials.
         $credentials = [
@@ -126,10 +125,10 @@ class RegistrationController extends FormController
         ];
 
         // Perform the log in.
-        $app->login($credentials, ['remember' => true]);
+        $this->app->login($credentials, ['remember' => true]);
 
         // Volunteer ID
-        $volunteerId = $app->getUserState('com_volunteers.registration.id');
+        $volunteerId = $this->app->getUserState('com_volunteers.registration.id');
 
         // Redirect to the profile screen.
         $this->setRedirect(Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteerId . '&new=1', false));

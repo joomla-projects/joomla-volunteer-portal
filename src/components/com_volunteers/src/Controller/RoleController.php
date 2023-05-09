@@ -11,7 +11,6 @@
 namespace Joomla\Component\Volunteers\Site\Controller;
 
 use Exception;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
@@ -31,15 +30,12 @@ class RoleController extends FormController
     /**
      * Method to add role
      *
-     * @param   null  $key
-     * @param   null  $urlVar
-     *
-     * @return  boolean
+     * @return  boolean  True if the record can be added, false if not.
      *
      * @since 4.0.0
      * @throws Exception
      */
-    public function add($key = null, $urlVar = null): bool
+    public function add(): bool
     {
         // Get variables
         $teamId = $this->input->getInt('team');
@@ -51,7 +47,7 @@ class RoleController extends FormController
         }
 
         // Set team
-        Factory::getApplication()->setUserState('com_volunteers.edit.role.teamid', $teamId);
+        $this->app->setUserState('com_volunteers.edit.role.teamid', $teamId);
 
         // Use parent add method
         return parent::add();
@@ -80,7 +76,7 @@ class RoleController extends FormController
         }
 
         // Set team
-        Factory::getApplication()->setUserState('com_volunteers.edit.role.teamid', $teamId);
+        $this->app->setUserState('com_volunteers.edit.role.teamid', $teamId);
 
         // Use parent edit method
         return parent::edit($key, $urlVar);
@@ -134,12 +130,11 @@ class RoleController extends FormController
     public function save($key = null, $urlVar = null): bool
     {
         // Check for request forgeries.
-        $this::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+        $this->checkToken();
 
         // Get variables
-        $app    = Factory::getApplication();
         $roleId = $this->input->getInt('id');
-        $teamId = ($roleId) ? $this->getModel()->getItem($roleId)->team : $app->getUserState('com_volunteers.edit.role.teamid');
+        $teamId = ($roleId) ? $this->getModel()->getItem($roleId)->team : $this->app->getUserState('com_volunteers.edit.role.teamid');
         $acl    = VolunteersHelper::acl('team', $teamId);
 
         // Check if the user is authorized to edit this team
@@ -148,7 +143,7 @@ class RoleController extends FormController
         }
 
         // Reset team
-        $app->setUserState('com_volunteers.edit.role.teamid', null);
+        $this->app->setUserState('com_volunteers.edit.role.teamid', null);
 
         // Use parent save method
         $return = parent::save($key, $urlVar);
@@ -163,9 +158,9 @@ class RoleController extends FormController
     /**
      * Method to cancel member data.
      *
-     * @param   null  $key
+     * @param   string  $key  The name of the primary key of the URL variable.
      *
-     * @return  boolean
+     * @return  boolean  True if access level checks pass, false otherwise.
      *
      * @since 4.0.0
      * @throws Exception
@@ -173,13 +168,12 @@ class RoleController extends FormController
     public function cancel($key = null): bool
     {
         // Get variables
-        $app    = Factory::getApplication();
-        $teamId = $app->getUserState('com_volunteers.edit.role.teamid');
+        $teamId = $this->app->getUserState('com_volunteers.edit.role.teamid');
 
         // Use parent save method
         $return = parent::cancel($key);
 
-        Factory::getApplication()->setUserState('com_volunteers.edit.report.teamid', null);
+        $this->app->setUserState('com_volunteers.edit.report.teamid', null);
         $this->setRedirect(Route::_('index.php?option=com_volunteers&view=team&id=' . $teamId . '#roles', false));
 
         return $return;

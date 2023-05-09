@@ -34,15 +34,12 @@ class TeamController extends FormController
     /**
      * Method to add team
      *
-     * @param   null  $key
-     * @param   null  $urlVar
-     *
-     * @return  boolean
+     * @return  boolean  True if the record can be added, false if not.
      *
      * @since 4.0.0
      * @throws Exception
      */
-    public function add($key = null, $urlVar = null): bool
+    public function add(): bool
     {
         // Get variables
         $department = $this->input->getInt('department');
@@ -60,8 +57,8 @@ class TeamController extends FormController
             $acl          = VolunteersHelper::acl('team', $teamId);
         }
 
-        Factory::getApplication()->setUserState('com_volunteers.edit.team.departmentid', $departmentId);
-        Factory::getApplication()->setUserState('com_volunteers.edit.team.teamid', $teamId);
+        $this->app->setUserState('com_volunteers.edit.team.departmentid', $departmentId);
+        $this->app->setUserState('com_volunteers.edit.team.teamid', $teamId);
 
         // Check if the user is authorized to edit this team
         if (!$acl->create_team) {
@@ -75,9 +72,9 @@ class TeamController extends FormController
     /**
      * Method to cancel member data.
      *
-     * @param   null  $key
+     * @param   string  $key  The name of the primary key of the URL variable.
      *
-     * @return  boolean
+     * @return  boolean  True if access level checks pass, false otherwise.
      *
      * @since 4.0.0
      * @throws Exception
@@ -85,10 +82,9 @@ class TeamController extends FormController
     public function cancel($key = null): bool
     {
         // Get variables
-        $app    = Factory::getApplication();
         $teamId = $this->input->getInt('id');
         $team   = $this->getModel()->getItem($teamId);
-        $teamId = ($teamId) ? $team->id : $app->getUserState('com_volunteers.edit.team.teamid');
+        $teamId = ($teamId) ? $team->id : $this->app->getUserState('com_volunteers.edit.team.teamid');
 
         // Use parent save method
         $return = parent::cancel($key);
@@ -137,15 +133,14 @@ class TeamController extends FormController
     public function save($key = null, $urlVar = null): bool
     {
         // Check for request forgeries.
-        $this::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+        $this->checkToken();
 
         // Get variables
-        $app    = Factory::getApplication();
         $teamId = $this->input->getInt('id');
         $team   = $this->getModel()->getItem($teamId);
-        $teamId = ($teamId) ? $team->id : $app->getUserState('com_volunteers.edit.team.teamid');
+        $teamId = ($teamId) ? $team->id : $this->app->getUserState('com_volunteers.edit.team.teamid');
 
-        Factory::getApplication()->setUserState('com_volunteers.edit.member.teamid', null);
+        $this->app->setUserState('com_volunteers.edit.member.teamid', null);
         $acl = VolunteersHelper::acl('team', $teamId);
 
         // Check if the user is authorized to edit this team
@@ -175,11 +170,10 @@ class TeamController extends FormController
     public function sendMail()
     {
         // Check for request forgeries.
-        $this::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+        $this->checkToken();
 
         // Get variables
-        $app     = Factory::getApplication();
-        $session = $app->getSession();
+        $session = $this->app->getSession();
         $user    = $session->get('user');
         $teamId  = $session->get('team');
         $subject = $this->input->getString('subject', '');
@@ -222,7 +216,7 @@ class TeamController extends FormController
         try {
             $coordinator = $db->setQuery($query)->loadObject();
         } catch (RuntimeException $e) {
-            $app->enqueueMessage(Text::_('JERROR_SENDING_EMAIL'), 'warning');
+            $this->app->enqueueMessage(Text::_('JERROR_SENDING_EMAIL'), 'warning');
         }
 
         // Get a reference to the Joomla! mailer object
@@ -246,11 +240,11 @@ class TeamController extends FormController
 
         // Handle the message
         if ($send == true) {
-            $app->enqueueMessage(Text::_('COM_VOLUNTEERS_MESSAGE_SEND_SUCCESS'), 'message');
+            $this->app->enqueueMessage(Text::_('COM_VOLUNTEERS_MESSAGE_SEND_SUCCESS'), 'message');
         } else {
-            $app->enqueueMessage(Text::_('JERROR_SENDING_EMAIL'), 'warning');
+            $this->app->enqueueMessage(Text::_('JERROR_SENDING_EMAIL'), 'warning');
         }
 
-        $app->redirect(Route::_('index.php?option=com_volunteers&view=team&id=' . $teamId, false));
+        $this->app->redirect(Route::_('index.php?option=com_volunteers&view=team&id=' . $teamId, false));
     }
 }

@@ -73,7 +73,7 @@ class DepartmentController extends FormController
     public function save($key = null, $urlVar = null): bool
     {
         // Check for request forgeries.
-        $this::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+        $this->checkToken();
 
         // Get variables
         $departmentId = $this->input->getInt('id');
@@ -97,9 +97,9 @@ class DepartmentController extends FormController
     /**
      * Method to cancel member data.
      *
-     * @param   null  $key
+     * @param   string  $key  The name of the primary key of the URL variable.
      *
-     * @return  boolean
+     * @return  boolean  True if access level checks pass, false otherwise.
      *
      * @since 4.0.0
      */
@@ -127,10 +127,10 @@ class DepartmentController extends FormController
     public function sendMail()
     {
         // Check for request forgeries.
-        $this::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+        $this->checkToken();
 
         // Get variables
-        $session      = Factory::getApplication()->getSession();
+        $session      = $this->app->getSession();
         $user         = $session->get('user');
         $departmentId = $session->get('department');
         $subject      = $this->input->getString('subject', '');
@@ -176,11 +176,11 @@ class DepartmentController extends FormController
 
         // Handle the message
         if ($send == true) {
-            Factory::getApplication()->enqueueMessage(Text::_('COM_VOLUNTEERS_MESSAGE_SEND_SUCCESS'), 'message');
+            $this->app->enqueueMessage(Text::_('COM_VOLUNTEERS_MESSAGE_SEND_SUCCESS'), 'message');
         } else {
-            Factory::getApplication()->enqueueMessage(Text::_('JERROR_SENDING_EMAIL'), 'warning');
+            $this->app->enqueueMessage(Text::_('JERROR_SENDING_EMAIL'), 'warning');
         }
 
-        Factory::getApplication()->redirect(Route::_('index.php?option=com_volunteers&view=department&id=' . $departmentId, false));
+        $this->app->redirect(Route::_('index.php?option=com_volunteers&view=department&id=' . $departmentId, false));
     }
 }

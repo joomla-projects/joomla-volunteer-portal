@@ -15,7 +15,6 @@ namespace Joomla\Component\Volunteers\Site\Controller;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
@@ -32,14 +31,11 @@ class ReportController extends FormController
     /**
      * Method to add report
      *
-     * @param   null  $key
-     * @param   null  $urlVar
-     *
-     * @return  boolean
+     * @return  boolean  True if the record can be added, false if not.
      * @since 4.0.0
      * @throws Exception
      */
-    public function add($key = null, $urlVar = null): bool
+    public function add(): bool
     {
         // Get variables
         $departmentId = $this->input->getInt('department');
@@ -48,10 +44,10 @@ class ReportController extends FormController
         // Department or team?
         if ($departmentId) {
             $acl = VolunteersHelper::acl('department', $departmentId);
-            Factory::getApplication()->setUserState('com_volunteers.edit.report.departmentid', $departmentId);
+            $this->app->setUserState('com_volunteers.edit.report.departmentid', $departmentId);
         } elseif ($teamId) {
             $acl = VolunteersHelper::acl('team', $teamId);
-            Factory::getApplication()->setUserState('com_volunteers.edit.report.teamid', $teamId);
+            $this->app->setUserState('com_volunteers.edit.report.teamid', $teamId);
         }
 
         // Check if the user is authorized to edit this team
@@ -66,28 +62,27 @@ class ReportController extends FormController
     /**
      * Method to cancel member data.
      *
-     * @param   null  $key
+     * @param   string  $key  The name of the primary key of the URL variable.
      *
-     * @return  boolean
+     * @return  boolean  True if access level checks pass, false otherwise.
      * @since 4.0.0
      * @throws Exception
      */
     public function cancel($key = null): bool
     {
         // Get variables
-        $app          = Factory::getApplication();
-        $departmentId = $app->getUserState('com_volunteers.edit.report.departmentid');
-        $teamId       = $app->getUserState('com_volunteers.edit.report.teamid');
+        $departmentId = $this->app->getUserState('com_volunteers.edit.report.departmentid');
+        $teamId       = $this->app->getUserState('com_volunteers.edit.report.teamid');
 
         // Use parent save method
         $return = parent::cancel($key);
 
         // Department or team?
         if ($departmentId) {
-            Factory::getApplication()->setUserState('com_volunteers.edit.report.departmentid', null);
+            $this->app->setUserState('com_volunteers.edit.report.departmentid', null);
             $this->setRedirect(Route::_('index.php?option=com_volunteers&view=department&id=' . $departmentId . '#reports', false));
         } elseif ($teamId) {
-            Factory::getApplication()->setUserState('com_volunteers.edit.report.teamid', null);
+            $this->app->setUserState('com_volunteers.edit.report.teamid', null);
             $this->setRedirect(Route::_('index.php?option=com_volunteers&view=team&id=' . $teamId . '#reports', false));
         }
 
@@ -97,10 +92,11 @@ class ReportController extends FormController
     /**
      * Method to edit report data
      *
-     * @param   null  $key
-     * @param   null  $urlVar
+     * @param   string  $key     The name of the primary key of the URL variable.
+     * @param   string  $urlVar  The name of the URL variable if different from the primary key
+     *                           (sometimes required to avoid router collisions).
      *
-     * @return  boolean
+     * @return  boolean  True if access level check and checkout passes, false otherwise.
      * @since 4.0.0
      * @throws Exception
      */
@@ -109,16 +105,16 @@ class ReportController extends FormController
         // Get variables
         $reportId = $this->input->getInt('id');
         $report   = $this->getModel()->getItem($reportId);
-        $userId   = Factory::getApplication()->getSession()->get('user')->get('id');
+        $userId   = $this->app->getSession()->get('user')->get('id');
         $acl      = new stdClass();
 
         // Department or team?
         if ($report->department) {
             $acl = VolunteersHelper::acl('department', $report->department);
-            Factory::getApplication()->setUserState('com_volunteers.edit.report.departmentid', $report->department);
+            $this->app->setUserState('com_volunteers.edit.report.departmentid', $report->department);
         } elseif ($report->team) {
             $acl = VolunteersHelper::acl('team', $report->team);
-            Factory::getApplication()->setUserState('com_volunteers.edit.report.teamid', $report->team);
+            $this->app->setUserState('com_volunteers.edit.report.teamid', $report->team);
         }
 
         // Check if the user is authorized to edit this team
@@ -133,32 +129,31 @@ class ReportController extends FormController
     /**
      * Method to save report data.
      *
-     * @param   null  $key
-     * @param   null  $urlVar
+     * @param   string  $key     The name of the primary key of the URL variable.
+     * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions).
      *
-     * @return  boolean
+     * @return  boolean  True if successful, false otherwise.
      * @since 4.0.0
      * @throws Exception
      */
     public function save($key = null, $urlVar = null): bool
     {
         // Check for request forgeries.
-        $this::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+        $this->checkToken();
 
         // Get variables
-        $app          = Factory::getApplication();
         $reportId     = ($this->input->getInt('id')) ? $this->input->getInt('id') : null;
         $report       = $this->getModel()->getItem($reportId);
-        $departmentId = (int) ($reportId) ? $report->department : $app->getUserState('com_volunteers.edit.report.departmentid');
-        $teamId       = (int) ($reportId) ? $report->team : $app->getUserState('com_volunteers.edit.report.teamid');
-        $userId       = Factory::getApplication()->getSession()->get('user')->get('id');
+        $departmentId = (int) ($reportId) ? $report->department : $this->app->getUserState('com_volunteers.edit.report.departmentid');
+        $teamId       = (int) ($reportId) ? $report->team : $this->app->getUserState('com_volunteers.edit.report.teamid');
+        $userId       = $this->app->getSession()->get('user')->get('id');
         $acl          = new stdClass();
         // Department or team?
         if ($departmentId) {
-            Factory::getApplication()->setUserState('com_volunteers.edit.report.departmentid', null);
+            $this->app->setUserState('com_volunteers.edit.report.departmentid', null);
             $acl = VolunteersHelper::acl('department', $departmentId);
         } elseif ($teamId) {
-            Factory::getApplication()->setUserState('com_volunteers.edit.report.teamid', null);
+            $this->app->setUserState('com_volunteers.edit.report.teamid', null);
             $acl = VolunteersHelper::acl('team', $teamId);
         }
 

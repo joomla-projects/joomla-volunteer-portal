@@ -44,7 +44,7 @@ class VolunteerController extends FormController
         $volunteerId     = $this->input->getInt('id');
         $volunteerUserId = (int) $this->getModel()->getItem($volunteerId)->user_id;
 
-        $userId       = Factory::getApplication()->getSession()->get('user')->get('id');
+        $userId       = $this->app->getSession()->get('user')->get('id');
         // Check if the volunteer is editing own data
         if ($volunteerUserId != $userId) {
             throw new Exception(Text::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $volunteerId), 403);
@@ -71,12 +71,12 @@ class VolunteerController extends FormController
     public function save($key = null, $urlVar = null): bool
     {
         // Check for request forgeries.
-        $this::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+        $this->checkToken();
 
         // Get variables
         $volunteerId     = $this->input->getInt('id');
         $volunteerUserId = (int) $this->getModel()->getItem($volunteerId)->user_id;
-        $userId          = Factory::getApplication()->getSession()->get('user')->get('id');
+        $userId          = $this->app->getSession()->get('user')->get('id');
         // Check if the volunteer is saving own data
         if ($volunteerUserId != $userId) {
             throw new Exception(Text::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $volunteerId), 403);
@@ -86,7 +86,7 @@ class VolunteerController extends FormController
         $return = parent::save($key, $urlVar);
 
         // Remove session variable
-        Factory::getApplication()->getSession()->set('updateprofile', 0);
+        $this->app->getSession()->set('updateprofile', 0);
 
         // Redirect to the list screen.
         if ($return == true) {
@@ -100,9 +100,9 @@ class VolunteerController extends FormController
     /**
      * Method to cancel member data.
      *
-     * @param   null  $key
+     * @param   string  $key  The name of the primary key of the URL variable.
      *
-     * @return  boolean
+     * @return  boolean  True if access level checks pass, false otherwise.
      *
      * @since 4.0.0
      */
@@ -131,11 +131,11 @@ class VolunteerController extends FormController
     public function sendMail()
     {
         // Check for request forgeries.
-        $this::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+        $this->checkToken();
 
         // Get variables
         $app         = Factory::getApplication();
-        $session     = $app->getSession();
+        $session     = $this->app->getSession();
         $user        = $session->get('user');
         $volunteerId = $session->get('volunteer');
         $subject     = $this->input->getString('subject', '');
@@ -168,11 +168,11 @@ class VolunteerController extends FormController
 
         // Handle the message
         if ($send == true) {
-            $app->enqueueMessage(Text::_('COM_VOLUNTEERS_MESSAGE_SEND_SUCCESS'), 'message');
+            $this->app->enqueueMessage(Text::_('COM_VOLUNTEERS_MESSAGE_SEND_SUCCESS'), 'message');
         } else {
-            $app->enqueueMessage(Text::_('JERROR_SENDING_EMAIL'), 'warning');
+            $this->app->enqueueMessage(Text::_('JERROR_SENDING_EMAIL'), 'warning');
         }
 
-        $app->redirect(Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteerId, false));
+        $this->app->redirect(Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteerId, false));
     }
 }
