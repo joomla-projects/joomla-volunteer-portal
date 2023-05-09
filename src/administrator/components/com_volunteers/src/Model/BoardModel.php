@@ -275,7 +275,7 @@ class BoardModel extends AdminModel
                 $table->ordering = $max + 1;
             } else {
                 // Set the values
-                $table->modified = $date->toSql();
+                $table->modified    = $date->toSql();
                 $table->modified_by = $user->id;
             }
         }
