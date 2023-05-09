@@ -50,7 +50,7 @@ class VolunteersController extends AdminController
     public function resetspam()
     {
         // Check for request forgeries.
-        Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
+        $this->checkToken();
 
         /** @var $model VolunteersModel */
         $model = $this->getModel('volunteers');

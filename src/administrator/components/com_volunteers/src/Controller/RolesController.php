@@ -56,8 +56,7 @@ class RolesController extends AdminController
     public function getTeamRoles(): bool
     {
         // Get team ID from input
-        $app         = Factory::getApplication();
-        $input       = $app->input;
+        $input       = $this->app->input;
         $team        = $input->getInt('team', 0);
         $currentrole = $input->getInt('role', 0);
 
@@ -75,7 +74,7 @@ class RolesController extends AdminController
         echo HTMLHelper::_('select.options', $options, 'value', 'text', $currentrole, true);
 
         // Bye
-        $app->close();
+        $this->app->close();
         return true;
     }
 }

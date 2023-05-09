@@ -102,7 +102,7 @@ class MembersController extends AdminController
         }
 
         // Push to the browser so it starts a download
-        Factory::$application->close();
+        $this->app->close();
     }
 
     /**
@@ -133,7 +133,7 @@ class MembersController extends AdminController
             ];
         }
 
-        Factory::getApplication()->getSession()->set('volunteers.recipients', $members);
+        $this->app->getSession()->set('volunteers.recipients', $members);
 
         $this->setRedirect(Route::_('index.php?option=com_volunteers&view=contact', false));
     }

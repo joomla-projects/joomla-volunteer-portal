@@ -38,10 +38,8 @@ class ContactController extends FormController
      */
     public function send()
     {
-
         $mailer  = Factory::getMailer();
-        $app     = Factory::getApplication();
-        $session = Factory::getApplication()->getSession();
+        $session = $this->app->getSession();
         $user    = $session->get('user');
         $canDo   = ContentHelper::getActions('com_volunteers');
 
@@ -50,7 +48,7 @@ class ContactController extends FormController
             throw new Exception('No access to mail sending', 403);
         }
 
-        $mailData   = $app->input->get('jform', [], 'Array');
+        $mailData   = $this->app->input->get('jform', [], 'Array');
         //$from       = $app->get('mailfrom');
         //$fromName   = $app->get('fromname');
         $subject    = trim($mailData['subject']);
@@ -70,8 +68,8 @@ class ContactController extends FormController
 
         // Send mail
         $success = $mailer->sendMail(
-            $app->get('mailfrom'),
-            $app->get('fromname'),
+            $this->app->get('mailfrom'),
+            $this->app->get('fromname'),
             $user->email,
             $subject,
             $body,
@@ -84,7 +82,7 @@ class ContactController extends FormController
         );
 
         if (!$success) {
-            $app->enqueueMessage(Text::_('COM_VOLUNTEERS_MESSAGE_SENDING_FAILED'), 'warning');
+            $this->app->enqueueMessage(Text::_('COM_VOLUNTEERS_MESSAGE_SENDING_FAILED'), 'warning');
         }
 
         // Clear recipients

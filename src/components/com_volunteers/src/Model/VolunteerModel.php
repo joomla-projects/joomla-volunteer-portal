@@ -447,7 +447,7 @@ class VolunteerModel extends AdminModel
      *
      * @param   int|null  $pk  The id of the team.
      *
-     * @return  mixed  Data object on success, false on failure.
+     * @return  \stdClass  Data object on success, false on failure.
      * @since 4.0.0
      * @throws Exception
      */
@@ -456,7 +456,6 @@ class VolunteerModel extends AdminModel
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
         // Get members
-
         $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.volunteer', $pk);
         $items = $model->getItems();
