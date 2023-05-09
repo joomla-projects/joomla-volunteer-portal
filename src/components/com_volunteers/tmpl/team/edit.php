@@ -28,9 +28,6 @@ try {
     exit();
 }
 ?>
-
-?>
-
 <div class="team-edit">
 
     <form id="team"
@@ -59,7 +56,6 @@ try {
                     <?php echo Text::_('COM_VOLUNTEERS_TITLE_TEAMS_EDIT') ?>
                 </h1>
             </div>
-
         </div>
 
         <?php echo $this->form->renderField('title'); ?>
