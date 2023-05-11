@@ -143,7 +143,7 @@ class DepartmentController extends FormController
         if (empty($department->email)) {
             // Get lead
 
-            $lead = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
+            $lead = $this->createModel('Members', 'Administrator', ['ignore_request' => true]);
             $lead->setState('filter.department', $departmentId);
             $lead->setState('list.limit', 1);
             $lead->setState('list.ordering', 'position');

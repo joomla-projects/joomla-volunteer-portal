@@ -244,11 +244,7 @@ class VolunteersModel extends ListModel
             ->where($db->quoteName('spam') . ' <> 0');
         $db->setQuery($query);
 
-        try {
-            $db->execute();
-        } catch (JDatabaseExceptionExecuting $e) {
-            throw new Exception($e->getMessage(), 500);
-        }
+        $db->execute();
 
         return true;
     }
