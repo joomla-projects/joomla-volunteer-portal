@@ -197,33 +197,4 @@ class RolesModel extends ListModel
 
         return $roles;
     }
-    /**
-     * Method to get an array of data items.
-     *
-     * @return  array  An array of data items on success, false on failure.
-     * @since 4.0.0
-     * @throws Exception
-     */
-    public function getItems(): array
-    {
-        // Create a new query object.
-        $db = $this->getDatabase();
-
-        // Get the list query and add the extra WHERE clause.
-        $query = $this->getListQuery();
-
-        // Get the item to index.
-        $db->setQuery($query);
-        $items = $db->loadObjectList();
-
-        /*  $roles = array();
-        foreach ($items as $item)
-        {
-        $roles[$item->team_title][] = $item;
-        }
-        // Sort by team name
-        ksort($roles);
-        */
-        return $items;
-    }
 }

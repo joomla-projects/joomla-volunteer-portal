@@ -93,7 +93,7 @@ if ($saveOrder) {
                                 ?>
                                 <tr class="row<?php echo $i % 2; ?>" data-draggable-group="<?php echo $item->id ?>">
                                     <td class="text-center">
-                                        <?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->name); ?>
+                                        <?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->title); ?>
                                     </td>
                                     <td class="text=center d-none d-md-table-cell">
                                         <?php
@@ -113,7 +113,7 @@ if ($saveOrder) {
                                         <?php endif; ?>
                                     </td>
                                     <td class="text-center">
-                                        <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'teams.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
+                                        <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'teams.', $canChange, 'cb'); ?>
                                     </td>
                                     <th scope="row" class="has-context">
                                         <div>
