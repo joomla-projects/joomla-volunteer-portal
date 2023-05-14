@@ -15,6 +15,8 @@ use Joomla\CMS\Router\Route;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
+/** @var \Joomla\Component\Volunteers\Site\View\Team\HtmlView $this */
+
 HtmlHelper::_('behavior.keepalive');
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('formbehavior.chosen', 'select');

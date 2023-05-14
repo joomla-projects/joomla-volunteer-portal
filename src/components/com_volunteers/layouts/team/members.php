@@ -14,7 +14,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 
 defined('_JEXEC') or die('Restricted access');
-/* @var $displayData array */
+/* @var array $displayData */
 ?>
 
 <?php if ($displayData->item->active) { ?>

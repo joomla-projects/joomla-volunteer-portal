@@ -9,6 +9,8 @@
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
+
+/** @var \Joomla\Component\Volunteers\Site\View\My\HtmlView $this */
 ?>
 
 <div class="row-fluid">

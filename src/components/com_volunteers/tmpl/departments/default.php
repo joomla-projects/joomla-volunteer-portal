@@ -16,6 +16,8 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 use Joomla\CMS\Factory;
 
+/** @var \Joomla\Component\Volunteers\Site\View\Departments\HtmlView $this */
+
 HTMLHelper::_('jquery.framework');
 $active = $this->state->get('filter.active', 1);
 

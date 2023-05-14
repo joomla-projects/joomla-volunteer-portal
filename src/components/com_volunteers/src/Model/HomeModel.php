@@ -37,6 +37,7 @@ class HomeModel extends ListModel
     public function getLatestReports(): mixed
     {
         // Get reports
+        /** @var \Joomla\Component\Volunteers\Administrator\Model\ReportsModel $model */
         $model = $this->getMVCFactory()->createModel('Reports', 'Administrator', ['ignore_request' => true]);
         $model->setState('list.limit', 3);
 
@@ -53,6 +54,7 @@ class HomeModel extends ListModel
     public function getLatestVolunteers(): mixed
     {
         // Get volunteers
+        /** @var \Joomla\Component\Volunteers\Administrator\Model\VolunteersModel $model */
         $model = $this->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
         $model->setState('list.limit', 5);
         $model->setState('list.ordering', 'a.created');
@@ -65,7 +67,7 @@ class HomeModel extends ListModel
     /**
      * Method to get Markers for Google Map.
      *
-     * @return  mixed  Data object on success, false on failure.
+     * @return  string[]  Data object on success, false on failure.
      * @since 4.0.0
      */
     public function getMapMarkers(): array
@@ -116,6 +118,7 @@ class HomeModel extends ListModel
     public function getVolunteerStory(): mixed
     {
         // Get volunteers story
+        /** @var \Joomla\Component\Volunteers\Administrator\Model\VolunteersModel $model */
         $model = $this->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
         $model->setState('list.limit', 1);
         $model->setState('list.ordering', 'rand()');

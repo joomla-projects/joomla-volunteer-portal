@@ -14,6 +14,9 @@ use Joomla\CMS\Router\Route;
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
+
+/** @var \Joomla\Component\Volunteers\Site\View\Roles\HtmlView $this */
+
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();

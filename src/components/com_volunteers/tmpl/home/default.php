@@ -15,6 +15,9 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
+
+/** @var \Joomla\Component\Volunteers\Site\View\Home\HtmlView $this */
+
 // phpcs:enable PSR1.Files.SideEffects
 HTMLHelper::_('jquery.framework');
 // Import CSS
