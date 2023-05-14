@@ -285,7 +285,7 @@ class VolunteersHelper
     {
         try {
             $app = Factory::getApplication();
-            return $app->getSession()->get('user');
+            return $app->getIdentity();
         } catch (Exception $e) {
             return new User\User();
         }

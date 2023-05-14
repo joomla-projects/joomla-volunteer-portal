@@ -16,7 +16,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-/** @var $this \Joomla\Component\Volunteers\Site\View\Team\HtmlView */
+/** @var \Joomla\Component\Volunteers\Site\View\Team\HtmlView $this */
 
 // Import CSS and set up default tab
 try {

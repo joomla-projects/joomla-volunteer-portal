@@ -135,7 +135,7 @@ class TeamModel extends AdminModel
     protected function prepareTable($table)
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getSession()->get('user');
+        $user = Factory::getApplication()->getIdentity();
 
         $table->set('title', htmlspecialchars_decode($table->get('title'), ENT_QUOTES));
         $table->set('alias', ApplicationHelper::stringURLSafe($table->get('alias')));

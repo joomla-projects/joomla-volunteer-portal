@@ -128,7 +128,7 @@ class DepartmentController extends FormController
 
         // Get variables
         $session      = $this->app->getSession();
-        $user         = $session->get('user');
+        $user         = $this->app->getIdentity();
         $departmentId = $session->get('department');
         $subject      = $this->input->getString('subject', '');
         $message      = $this->input->getString('message', '');

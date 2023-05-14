@@ -15,7 +15,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-/** @var $this \Joomla\Component\Volunteers\Site\View\Team\HtmlView */
+/** @var \Joomla\Component\Volunteers\Site\View\Team\HtmlView $this */
 ?>
 <?php if ($this->acl->create_report): ?>
     <div class="row-fluid">

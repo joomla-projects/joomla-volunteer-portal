@@ -47,7 +47,7 @@ Joomla.submitform(task, document.getElementById('volunteer-form'));
                 </div>
             </div>
             <div class="col-lg-3">
-                <?php if (Factory::getApplication()->getSession()->get('user')->authorise('core.admin')): ?>
+                <?php if (Factory::getApplication()->getIdentity()->authorise('core.admin')): ?>
                     <h3>
                         <?php echo Text::_('COM_VOLUNTEERS_SECRETARY_ONLY') ?>
                     </h3>

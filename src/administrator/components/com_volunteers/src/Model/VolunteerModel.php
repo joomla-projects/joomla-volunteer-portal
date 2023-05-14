@@ -214,7 +214,7 @@ class VolunteerModel extends AdminModel
     protected function prepareTable($table)
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getSession()->get('user');
+        $user = Factory::getApplication()->getIdentity();
 
         if (empty($table->getId())) {
             // Set the values

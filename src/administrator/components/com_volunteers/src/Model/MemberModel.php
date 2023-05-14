@@ -167,13 +167,13 @@ class MemberModel extends AdminModel
     protected function prepareTable($table)
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getSession()->get('user');
+        $user = Factory::getApplication()->getIdentity();
 
         if (empty($table->getId())) {
             // Set the values
 
             // Set ordering to the last item if not set
-            if (empty($table->get('ordering'))) {
+            if (empty($table->ordering)) {
                 $db    = $this->getDatabase();
                 $query = $db->getQuery(true)
                     ->select('MAX(ordering)')
@@ -182,11 +182,11 @@ class MemberModel extends AdminModel
                 $db->setQuery($query);
                 $max = $db->loadResult();
 
-                $table->set('ordering', $max + 1);
+                $table->ordering = $max + 1;
             } else {
                 // Set the values
-                $table->set('modified', $date->toSql());
-                $table->set('modified_by', $user->id);
+                $table->modified = $date->toSql();
+                $table->modified_by = $user->id;
             }
         }
     }

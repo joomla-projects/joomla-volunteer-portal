@@ -9,6 +9,7 @@
 // No direct access.
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\Component\Volunteers\Administrator\Extension\VolunteersComponent;
 use Joomla\Component\Volunteers\Administrator\Model\VolunteersModel;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -16,8 +17,10 @@ use Joomla\Component\Volunteers\Administrator\Model\VolunteersModel;
 // phpcs:enable PSR1.Files.SideEffects
 
 $app = Factory::getApplication();
+/** @var VolunteersComponent $extension */
+$extension = $app->bootComponent('com_volunteers');
 /** @var VolunteersModel $model */
-$model = $app->bootComponent('com_volunteers')->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
+$model = $extension->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
 $model->setState('list.limit', 1);
 $model->setState('list.ordering', 'rand()');
 $model->setState('filter.image', 1);

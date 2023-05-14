@@ -45,7 +45,7 @@ class VolunteerController extends FormController
         $volunteerId     = $this->input->getInt('id');
         $volunteerUserId = (int) $this->getModel()->getItem($volunteerId)->user_id;
 
-        $userId       = $this->app->getSession()->get('user')->get('id');
+        $userId       = $this->app->getIdentity()->id;
         // Check if the volunteer is editing own data
         if ($volunteerUserId != $userId) {
             throw new Exception(Text::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $volunteerId), 403);
@@ -77,7 +77,7 @@ class VolunteerController extends FormController
         // Get variables
         $volunteerId     = $this->input->getInt('id');
         $volunteerUserId = (int) $this->getModel()->getItem($volunteerId)->user_id;
-        $userId          = $this->app->getSession()->get('user')->get('id');
+        $userId          = $this->app->getIdentity()->id;
         // Check if the volunteer is saving own data
         if ($volunteerUserId != $userId) {
             throw new Exception(Text::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $volunteerId), 403);
@@ -136,7 +136,7 @@ class VolunteerController extends FormController
 
         // Get variables
         $session     = $this->app->getSession();
-        $user        = $session->get('user');
+        $user        = $this->app->getIdentity();
         $volunteerId = $session->get('volunteer');
         $subject     = $this->input->getString('subject', '');
         $message     = $this->input->getString('message', '');

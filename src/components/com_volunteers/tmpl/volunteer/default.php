@@ -16,6 +16,8 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
+/** @var \Joomla\Component\Volunteers\Site\View\Volunteer\HtmlView $this */
+
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();

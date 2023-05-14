@@ -126,7 +126,7 @@ class ReportModel extends AdminModel
     protected function prepareTable($table)
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getSession()->get('user');
+        $user = Factory::getApplication()->getIdentity();
 
         $table->set('title', htmlspecialchars_decode($table->get('title'), ENT_QUOTES));
         $table->set('alias', ApplicationHelper::stringURLSafe($table->get('alias')));
@@ -299,7 +299,7 @@ class ReportModel extends AdminModel
     public function getVolunteer()
     {
         // Get user
-        $user = Factory::getApplication()->getSession()->get('user');
+        $user = Factory::getApplication()->getIdentity();
 
         // Get subteams
         $model       = $this->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);

@@ -14,7 +14,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-/** @var $this HtmlView */
+/** @var HtmlView $this */
 ?>
 
 <div class="row-fluid report">

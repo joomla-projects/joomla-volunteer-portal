@@ -14,7 +14,7 @@ use Joomla\CMS\Router\Route;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-/** @var $this \Joomla\Component\Volunteers\Site\View\Team\HtmlView */
+/** @var \Joomla\Component\Volunteers\Site\View\Team\HtmlView $this */
 ?>
 <?php if ($this->user->guest) : ?>
     <p class="alert alert-info">

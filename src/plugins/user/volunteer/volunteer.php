@@ -7,9 +7,9 @@
  */
 
 // No direct access.
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\CMS\User\User;
 use Joomla\Database\DatabaseInterface;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -46,11 +46,11 @@ class PlgUserVolunteer extends CMSPlugin
      *
      * Remove corresponding volunteer data for deleted user
      *
-     * @param $user
-     * @param $success
-     * @param $msg
+     * @param  array    $user
+     * @param  boolean  $success
+     * @param  string   $msg
      *
-     * @return false
+     * @return  boolean
      *
      * @since 4.0.0
      */
@@ -60,10 +60,9 @@ class PlgUserVolunteer extends CMSPlugin
             return false;
         }
 
-        $query      = $this->db->getQuery(true);
-        $conditions = [$this->db->quoteName('user_id') . ' = ' . $this->db->quote($user['id'])];
+        $query = $this->db->getQuery(true);
         $query->delete($this->db->quoteName('#__volunteers_volunteers'));
-        $query->where($conditions);
+        $query->where($this->db->quoteName('user_id') . ' = ' . $this->db->quote($user['id']));
         $this->db->setQuery($query);
 
         return $this->db->execute();
@@ -73,7 +72,7 @@ class PlgUserVolunteer extends CMSPlugin
      *
      * Checks to see if user being deleted was or is a Joomla! volunteer
      *
-     * @param $user
+     * @param array $user
      *
      * @return bool
      *
@@ -81,9 +80,6 @@ class PlgUserVolunteer extends CMSPlugin
      */
     public function onUserBeforeDelete($user): bool
     {
-        $this->db = Factory::getContainer()->get('DatabaseDriver');
-
-
         $query = $this->db->getQuery(true)
             ->select($this->db->quoteName('members.id'))
             ->from($this->db->quoteName('#__volunteers_members', 'members'))
@@ -93,9 +89,8 @@ class PlgUserVolunteer extends CMSPlugin
         $volunteer = $this->db->setQuery($query)->loadResult();
 
         if ($volunteer) {
-            $this->app->enqueueMessage(Text::sprintf('PLG_USER_VOLUNTEERS_CANNOT_DELETE', $user['name']), 'error');
-            $this->app->redirect('index.php?option=com_users&view=users');
-            jexit();
+            $this->getApplication()->enqueueMessage(Text::sprintf('PLG_USER_VOLUNTEERS_CANNOT_DELETE', $user['name']), 'error');
+            $this->getApplication()->redirect('index.php?option=com_users&view=users');
         }
 
         return true;

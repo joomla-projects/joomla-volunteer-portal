@@ -18,6 +18,7 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Router\Route;
+use Joomla\Component\Volunteers\Administrator\Extension\VolunteersComponent;
 use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
 
 /**
@@ -41,11 +42,13 @@ class HtmlView extends BaseHtmlView
     public function display($tpl = null)
     {
         $app = Factory::getApplication();
+        /** @var VolunteersComponent $extension */
+        $extension = $app->bootComponent('com_volunteers');
         /** @var VolunteerModel $model */
-        $model = $app->bootComponent('com_volunteers')->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
+        $model = $extension->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
 
         $user        = Factory::getApplication()->getIdentity();
-        $userId      = (int) $user->get('id');
+        $userId      = (int) $user->id;
         $volunteerId = (int) $model->getVolunteerId($userId);
 
         if ($volunteerId) {

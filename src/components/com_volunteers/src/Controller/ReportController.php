@@ -146,7 +146,7 @@ class ReportController extends FormController
         $report       = $this->getModel()->getItem($reportId);
         $departmentId = (int) ($reportId) ? $report->department : $this->app->getUserState('com_volunteers.edit.report.departmentid');
         $teamId       = (int) ($reportId) ? $report->team : $this->app->getUserState('com_volunteers.edit.report.teamid');
-        $userId       = $this->app->getSession()->get('user')->get('id');
+        $userId       = $this->app->getIdentity()->id;
         $acl          = new stdClass();
         // Department or team?
         if ($departmentId) {

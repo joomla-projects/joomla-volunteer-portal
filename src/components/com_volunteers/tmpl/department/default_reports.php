@@ -15,7 +15,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-/** @var $this \Joomla\Component\Volunteers\Site\View\Department\HtmlView */
+/** @var \Joomla\Component\Volunteers\Site\View\Department\HtmlView $this */
 ?>
 <div class="tab-pane" id="reports">
     <?php if ($this->acl->create_report): ?>
