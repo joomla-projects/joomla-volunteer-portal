@@ -26,9 +26,9 @@ class DepartmentsController extends AdminController
     /**
      * Proxy for getModel
      *
-     * @param   string $name   The model name. Optional.
-     * @param   string $prefix The class prefix. Optional.
-     * @param   array  $config The array of possible config values. Optional.
+     * @param   string   $name   The model name. Optional.
+     * @param   string   $prefix The class prefix. Optional.
+     * @param   mixed[]  $config The array of possible config values. Optional.
      *
      * @return  object  The model.
      *

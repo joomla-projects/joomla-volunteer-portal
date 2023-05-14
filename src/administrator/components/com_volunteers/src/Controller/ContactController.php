@@ -86,7 +86,7 @@ class ContactController extends FormController
         }
 
         // Clear recipients
-        $session->clear('volunteers.recipients');
+        $session->remove('volunteers.recipients');
 
         $this->setRedirect('index.php?option=com_volunteers&view=members', Text::_('COM_VOLUNTEERS_MESSAGE_SEND_SUCCESS'));
     }
@@ -94,11 +94,15 @@ class ContactController extends FormController
     /**
      * Method for closing the contact form.
      *
-     * @return  void
+     * @param   string  $key  The name of the primary key of the URL variable.
+     *
+     * @return  boolean  True if access level checks pass, false otherwise.
      * @since 1.0.0
      */
     public function cancel($key = null)
     {
         $this->setRedirect(Route::_('index.php?option=com_volunteers&view=members', false));
+
+        return true;
     }
 }

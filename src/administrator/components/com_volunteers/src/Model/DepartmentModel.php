@@ -49,17 +49,18 @@ class DepartmentModel extends AdminModel
     /**
          * Method to get Department Members.
          *
-         * @param   int|null  $pk  The id of the team.
+         * @param   ?int  $pk  The id of the team.
          *
-         * @return  mixed  Data object on success, false on failure.
+         * @return  stdClass  Data object on success, false on failure.
          * @since 4.0.0
          * @throws Exception
          */
     public function getDepartmentMembers(int $pk = null): stdClass
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
-        // Get members
 
+        // Get members
+        /** @var MembersModel $model */
         $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.department', $pk);
         $items = $model->getItems();
@@ -120,7 +121,9 @@ class DepartmentModel extends AdminModel
     public function getDepartmentReports(int $pk = null): mixed
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
+
         // Get reports
+        /** @var ReportsModel $model */
         $model = $this->getMVCFactory()->createModel('Reports', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.department', $pk);
         $model->setState('list.limit', 25);
@@ -139,7 +142,9 @@ class DepartmentModel extends AdminModel
     public function getDepartmentReportsTeams(int $pk = null): mixed
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
+
         // Get reports
+        /** @var ReportsModel $model */
         $model = $this->getMVCFactory()->createModel('Reports', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.departmentTeams', $pk);
         $model->setState('list.limit', 25);
@@ -180,6 +185,7 @@ class DepartmentModel extends AdminModel
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
         // Get teams
+        /** @var TeamsModel $model */
         $model = $this->getMVCFactory()->createModel('Teams', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.department', $pk);
         $model->setState('list.limit', 0);
@@ -236,6 +242,7 @@ class DepartmentModel extends AdminModel
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
         // Get team lead positions
+        /** @var PositionsModel $model */
         $model = $this->getMVCFactory()->createModel('Positions', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.type', 2);
         $model->setState('filter.acl', 'edit');
@@ -246,11 +253,12 @@ class DepartmentModel extends AdminModel
         }
 
         // Get team leads
-        $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
-        $model->setState('filter.team', $pk);
-        $model->setState('filter.position', $positionIds);
-        $model->setState('filter.active', 1);
-        return $model->getItems();
+        /** @var MembersModel $lmodel */
+        $lmodel = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
+        $lmodel->setState('filter.team', $pk);
+        $lmodel->setState('filter.position', $positionIds);
+        $lmodel->setState('filter.active', 1);
+        return $lmodel->getItems();
     }
 
     /**

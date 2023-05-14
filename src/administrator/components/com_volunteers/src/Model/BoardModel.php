@@ -76,7 +76,7 @@ class BoardModel extends AdminModel
     public function getDepartmentMembers(int $pk = null): stdClass
     {
         // Get members
-
+        /** @var MembersModel $model */
         $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.position', [11, 13]);
 
@@ -154,6 +154,7 @@ class BoardModel extends AdminModel
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
         // Get reports
+        /** @var ReportsModel $model */
         $model = $this->getMVCFactory()->createModel('Reports', 'Administrator', ['ignore_request' => true]);
         $model->setState('filter.department', $pk);
         $model->setState('list.limit', 10);

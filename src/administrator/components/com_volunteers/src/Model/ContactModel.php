@@ -25,7 +25,7 @@ class ContactModel extends AdminModel
     /**
      * Get active volunteers
      *
-     * @return  array|null
+     * @return  object[]
      * @since 4.0.0
      */
     public function getActiveVolunteers(): array
