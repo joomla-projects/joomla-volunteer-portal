@@ -133,11 +133,11 @@ class VolunteersModel extends ListModel
         }
 
         // Filter by image
-        $image = $this->getState('filter.image');
+        /*$image = $this->getState('filter.image');
 
         if ($image) {
             $query->where('a.image <> \'\'');
-        }
+        }*/
 
         // Filter by joomlastory
         $joomlastory = $this->getState('filter.joomlastory');
