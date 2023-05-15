@@ -65,13 +65,13 @@ class PlgSampledataJvp extends CMSPlugin
         $data->title       = Text::_('PLG_SAMPLEDATA_JVP_OVERVIEW_TITLE');
         $data->description = Text::_('PLG_SAMPLEDATA_JVP_OVERVIEW_DESC');
         $data->icon        = 'money';
-        $data->steps       = 7;
+        $data->steps       = 8;
 
         return $data;
     }
 
     /**
-     * Make sure we don't overwrite current admin user, move them to user_id=5
+     * First Step - Sample Data Make sure we don't overwrite current admin user, move them to user_id=5
      *
      * @return  array|void  Will be converted into the JSON response to the module.
      *
@@ -93,7 +93,7 @@ class PlgSampledataJvp extends CMSPlugin
     }
 
     /**
-     * First step to enter the sampledata. Tags
+     * Second step to enter the sampledata.
      *
      * @return  array|void  Will be converted into the JSON response to the module.
      *
@@ -115,7 +115,7 @@ class PlgSampledataJvp extends CMSPlugin
     }
 
     /**
-     * Second step to enter the sampledata. Banners
+     * Third step to enter the sampledata.
      *
      * @return  array|void  Will be converted into the JSON response to the module.
      *
@@ -137,7 +137,7 @@ class PlgSampledataJvp extends CMSPlugin
     }
 
     /**
-     * Third step to enter the sampledata. Content 1/2
+     * Fourth step to enter the sampledata.
      *
      * @return  array|void  Will be converted into the JSON response to the module.
      *
@@ -159,7 +159,7 @@ class PlgSampledataJvp extends CMSPlugin
     }
 
     /**
-     * Fourth step to enter the sampledata. Content 2/2
+     * Fifth step to enter the sampledata.
      *
      * @return  array|void  Will be converted into the JSON response to the module.
      *
@@ -181,7 +181,7 @@ class PlgSampledataJvp extends CMSPlugin
     }
 
     /**
-     * Fifth step to enter the sampledata. Contacts
+     * Sixth step to enter the sampledata.
      *
      * @return  array|void  Will be converted into the JSON response to the module.
      *
@@ -203,7 +203,7 @@ class PlgSampledataJvp extends CMSPlugin
     }
 
     /**
-     * Sixth step to enter the sampledata. Newsfeed.
+     * Seventh step to enter the sampledata.
      *
      * @return  array|void  Will be converted into the JSON response to the module.
      *
@@ -220,6 +220,28 @@ class PlgSampledataJvp extends CMSPlugin
         $response            = [];
         $response['success'] = true;
         $response['message'] = Text::_('PLG_SAMPLEDATA_JVP_STEP7_SUCCESS');
+
+        return $response;
+    }
+
+    /**
+     * Eigth step to enter the sampledata.
+     *
+     * @return  array|void  Will be converted into the JSON response to the module.
+     *
+     * @since  3.8.0
+     */
+    public function onAjaxSampledataApplyStep8()
+    {
+        if ($this->getApplication()->getInput()->get('type') !== $this->_name) {
+            return;
+        }
+
+        $this->importFile(__DIR__ . '/sql/step8.sql');
+
+        $response            = [];
+        $response['success'] = true;
+        $response['message'] = Text::_('PLG_SAMPLEDATA_JVP_STEP8_SUCCESS');
 
         return $response;
     }
