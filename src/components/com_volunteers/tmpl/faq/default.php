@@ -28,6 +28,7 @@ try {
 
 <div class="row-fluid">
     <div class="page-header">
+        <h1>
             <?php echo Text::_('COM_VOLUNTEERS_TITLE_FAQ'); ?>
         </h1>
     </div>
