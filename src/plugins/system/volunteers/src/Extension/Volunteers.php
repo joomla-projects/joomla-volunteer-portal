@@ -1,29 +1,33 @@
 <?php
 
 /**
- * @package    Joomla! Volunteers
- * @copyright  Copyright (C) 2016 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @package         Joomla.Plugins
+ * @subpackage      System.actionlogs
+ *
+ * @copyright   (C) 2018 Open Source Matters, Inc. <https://www.joomla.org>
+ * @license         GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Router\Route;
-use Joomla\CMS\Plugin\CMSPlugin;
-use Joomla\CMS\Uri\Uri;
-use Joomla\Component\Volunteers\Administrator\Extension\VolunteersComponent;
-use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
+namespace Joomla\Plugin\System\Volunteers\Extension;
 
-// No direct access.
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
+use Exception;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\CMS\Router\Route;
+use Joomla\Component\Volunteers\Administrator\Extension\VolunteersComponent;
+use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
+use Joomla\Uri\Uri;
+
 /**
- * Volunteers Plugin class
- * @since 4.0.0
+ * Joomla Identity Plugin class
+ *
+ * @since  4.0.0
  */
-class PlgSystemVolunteers extends CMSPlugin
+final class Volunteers extends CMSPlugin
 {
     /**
      * Affects constructor behavior. If true, language files will be loaded automatically.
@@ -60,7 +64,7 @@ class PlgSystemVolunteers extends CMSPlugin
             /** @var VolunteersComponent $extension */
             $extension   = $app->bootComponent('com_volunteers');
             /** @var VolunteerModel $model */
-            $model       = $extension->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
+            $model       = $extension->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
             $userId      = $app->getIdentity()->id;
             $volunteerId = (int) $model->getVolunteerId($userId);
 
@@ -111,7 +115,7 @@ class PlgSystemVolunteers extends CMSPlugin
             /** @var VolunteersComponent $extension */
             $extension   = $app->bootComponent('com_volunteers');
             /** @var VolunteerModel $model */
-            $model       = $extension->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
+            $model       = $extension->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
             $userId      = $app->getIdentity()->id;
             $volunteerId = (int) $model->getVolunteerId($userId);
 

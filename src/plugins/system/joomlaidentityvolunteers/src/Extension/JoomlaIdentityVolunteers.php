@@ -1,18 +1,22 @@
 <?php
 
 /**
- * @package     Joomla.Plugin
- * @subpackage  System.joomlaidentityvolunteers
+ * @package         Joomla.Plugins
+ * @subpackage      System.actionlogs
  *
- * @copyright   Copyright (C) 2005 - 2023 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright   (C) 2018 Open Source Matters, Inc. <https://www.joomla.org>
+ * @license         GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+namespace Joomla\Plugin\System\JoomlaIdentityVolunteers\Extension;
+
+use Exception;
+use InvalidArgumentException;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Plugin\CMSPlugin;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseAwareTrait;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -21,17 +25,11 @@ use Joomla\Database\DatabaseDriver;
 /**
  * Joomla Identity Plugin class
  *
- * @since 4.0.0
+ * @since  4.0.0
  */
-class PlgSystemJoomlaIdentityVolunteers extends CMSPlugin
+final class JoomlaIdentityVolunteers extends CMSPlugin
 {
-    /**
-     * Database object.
-     *
-     * @var    DatabaseDriver
-     * @since  1.0.0
-     */
-    protected $db;
+    use DatabaseAwareTrait;
 
     /**
      * Affects constructor behavior. If true, language files will be loaded automatically.
@@ -127,7 +125,7 @@ class PlgSystemJoomlaIdentityVolunteers extends CMSPlugin
     private function updateVolunteer(int $userId, string $guid, object $data)
     {
         // Consent date
-        $volunteer = (object) [
+        $volunteer = (object)[
             'user_id'             => $userId,
             'alias'               => ApplicationHelper::stringURLSafe($data->name),
             'address'             => $data->address,

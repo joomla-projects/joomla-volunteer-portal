@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<extension version="4.0" type="plugin" group="system">
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="plugin" group="system" method="upgrade">
     <name>PLG_SYSTEM_VOLUNTEERS</name>
     <author>Joomla! Project</author>
     <creationDate>July 2016 / December 2022</creationDate>
@@ -9,9 +9,10 @@
     <authorUrl>www.joomla.org</authorUrl>
     <version>4.0.0</version>
     <description>PLG_SYSTEM_VOLUNTEERS_XML_DESCRIPTION</description>
-
+    <namespace path="src">Joomla\Plugin\System\Volunteers</namespace>
     <files>
-        <filename plugin="volunteers">volunteers.php</filename>
+        <folder plugin="volunteers">services</folder>
+        <folder>src</folder>
         <folder>language</folder>
     </files>
     <config>
