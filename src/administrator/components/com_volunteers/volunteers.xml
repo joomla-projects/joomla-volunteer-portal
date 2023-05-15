@@ -77,7 +77,7 @@
         </languages>
     </administration>
 
-    <media destination="media/com_volunteers" folder="media/com_volunteers">
+    <media destination="com_volunteers" folder="media/com_volunteers">
         <folder>images</folder>
         <folder>css</folder>
         <folder>js</folder>
