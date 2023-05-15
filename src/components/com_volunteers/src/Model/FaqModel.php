@@ -26,5 +26,4 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
  */
 class FaqModel extends ListModel
 {
-
 }
