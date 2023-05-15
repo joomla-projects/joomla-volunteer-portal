@@ -31,7 +31,6 @@ use Joomla\Component\Volunteers\Site\Model\VolunteersModel;
  */
 class HtmlView extends BaseHtmlView
 {
-
     protected CMSObject $state;
 
 
