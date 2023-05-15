@@ -44,6 +44,11 @@ Instructions for uninstalling
 -----------------------------
 * In Extensions Manage, just click to uninstall pkg_volunteers and this will uninstall all of the subcomponents.
 
+--------------------
+DO NOT ENABLE USER AND SYSTEM PLUGINS
+-----------
+These are currently being rewritten to use Joomla4/Joomla5 structure.
+
 ---------------------------------------------------------------
 Roll Call
 
