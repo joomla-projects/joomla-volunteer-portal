@@ -16,8 +16,7 @@ use Joomla\Component\Menus\Administrator\Table\MenuTypeTable;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 $wa = $this->document->getWebAssetManager();
-$wa->useScript('keepalive')
-    ->useScript('form.validate');
+$wa->useScript('keepalive')->useScript('form.validate');
 HTMLHelper::_('bootstrap.tooltip');
 ?>
 <div class="container">
@@ -41,16 +40,22 @@ HTMLHelper::_('bootstrap.tooltip');
     <div class="row">
         <div class="col-md-12">
             <?php
+
+
             if ($this->task === "GO") {
                 try {
                     $db    = Factory::getContainer()->get('DatabaseDriver');
-                    $query = $db->getQuery(true)
-                        ->select('extension_id')
-                        ->from($db->quoteName('#__extensions'))
-                        ->where('name = "com_volunteers"');
+                    $query = $db->getQuery(true)->select('extension_id')->from($db->quoteName('#__extensions'))->where('name = "com_volunteers"');
                     $db->setQuery($query);
                     $extension_id = $db->loadResult();
-                    echo "Extension com_volunteers found - " . $extension_id . '<br/>';
+                    echo  '<br/>' . 'Extension com_volunteers found - ' . $extension_id . '<br/>';
+                    $query = $db->getQuery(true)->select('extension_id')->from($db->quoteName('#__extensions'))->where('name = "com_login"');
+                    $db->setQuery($query);
+                    $login_component_id = $db->loadResult();
+                    echo '<br/>' . 'Extension com_login found - ' . $login_component_id . '<br/>';
+
+
+
                     $mtt              = new MenuTypeTable($db);
                     $mtt->menutype    = 'jvpdemo';
                     $mtt->title       = 'Joomla Volunteer Portal Demo Menu';
@@ -59,97 +64,94 @@ HTMLHelper::_('bootstrap.tooltip');
                     $mtt->store();
                     echo "<br/>Created jvpdemo Menu Type<br/><br/>";
                     $mi          = new MenuTable($db);
-                    $menuitems[] = array(
-                        'title'  => 'Home',
-                        'alias'  => 'homejvp',
-                        'path'   => 'homejvp',
-                        'link'   => 'index.php?option=com_volunteers&view=home',
-                        'params' => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
-                    );
-                    $menuitems[] = array(
-                        'title'  => 'Board of Directors',
-                        'alias'  => 'board-of-directors',
-                        'path'   => 'board-of-directors',
-                        'link'   => 'index.php?option=com_volunteers&view=board&id=3',
-                        'params' => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
-                    );
-                    $menuitems[] = array(
-                        'title'  => 'Departments',
-                        'alias'  => 'departments',
-                        'path'   => 'departments',
-                        'link'   => 'index.php?option=com_volunteers&view=departments',
-                        'params' => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
-                    );
-                    $menuitems[] = array(
-                        'title'  => 'Teams',
-                        'alias'  => 'teams',
-                        'path'   => 'teams',
-                        'link'   => 'index.php?option=com_volunteers&view=teams&id=50',
-                        'params' => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
-                    );
-                    $menuitems[] = array(
-                        'title'  => 'Groups',
-                        'alias'  => 'groups',
-                        'path'   => 'groups',
-                        'link'   => 'index.php?option=com_volunteers&view=teams&id=58',
-                        'params' => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
-                    );
-                    $menuitems[] = array(
-                        'title'  => 'Joomlers',
-                        'alias'  => 'joomlers',
-                        'path'   => 'joomlers',
-                        'link'   => 'index.php?option=com_volunteers&view=volunteers',
-                        'params' => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
-                    );
-                    $menuitems[] = array(
-                        'title'  => 'Reports',
-                        'alias'  => 'reports',
-                        'path'   => 'reports',
-                        'link'   => 'index.php?option=com_volunteers&view=reports',
-                        'params' => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
-                    );
-                    $menuitems[] = array(
-                        'title'  => 'Help Wanted',
-                        'alias'  => 'help-wanted',
-                        'path'   => 'help-wanted',
-                        'link'   => 'index.php?option=com_volunteers&view=roles',
-                        'params' => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
-                    );
-                    $menuitems[] = array(
-                        'title'  => 'FAQs',
-                        'alias'  => 'faqs',
-                        'path'   => 'faqs',
-                        'link'   => 'index.php?option=com_content&view=category&id=0',
-                        'params' => '{"show_category_title":"","show_description":"","show_description_image":"","maxLevel":"","show_empty_categories":"",' .
-                            '"show_no_articles":"","show_category_heading_title_text":"","show_subcat_desc":"","show_cat_num_articles":"","show_cat_tags":"",' .
-                            '"show_pagination_limit":"","filter_field":"","show_headings":"","list_show_date":"","date_format":"","list_show_hits":"",' .
-                            '"list_show_author":"","orderby_pri":"","orderby_sec":"","order_date":"","show_pagination":"","show_pagination_results":"",' .
-                            '"display_num":"",' .
-                            '"show_featured":"","article_layout":"_:default","show_title":"","link_titles":"","show_intro":"","show_category":"","link_category":"",' .
-                            '"show_parent_category":"","link_parent_category":"","show_author":"","link_author":"","show_create_date":"","show_modify_date":"",' .
-                            '"show_publish_date":"","show_item_navigation":"","show_readmore":"","show_readmore_title":"","show_hits":"","show_noauth":"",' .
-                            '"show_feed_link":"","feed_summary":"","menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"",' .
-                            '"menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"",' .
-                            '"robots":""}'
-                    );
-                    $menuitems[] = array(
-                        'title'  => 'Register',
-                        'alias'  => 'register',
-                        'path'   => 'register',
-                        'link'   => 'index.php?option=com_volunteers&view=registration',
-                        'params' => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
-                    );
-                    $menuitems[] = array(
-                        'title'  => 'Login',
-                        'alias'  => 'login',
-                        'path'   => 'login',
-                        'link'   => 'index.php?option=com_users&view=login',
-                        'params' => '{"loginredirectchoice":"1","login_redirect_url":"","login_redirect_menuitem":"","logindescription_show":"1",' .
-                            '"login_description":"","login_image":"","login_image_alt":"","logoutredirectchoice":"1","logout_redirect_url":"",' .
-                            '"logout_redirect_menuitem":"","logoutdescription_show":"1","logout_description":"","logout_image":"","logout_image_alt":"",' .
-                            '"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,' .
-                            '"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
-                    );
+                    $menuitems[] = [
+                        'title'        => 'Home',
+                        'alias'        => 'homejvp',
+                        'path'         => 'homejvp',
+                        'link'         => 'index.php?option=com_volunteers&view=home',
+                        'component_id' => $extension_id,
+                        'params'       => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
+                    ];
+                    $menuitems[] = [
+                        'title'        => 'Board of Directors',
+                        'alias'        => 'board-of-directors',
+                        'path'         => 'board-of-directors',
+                        'link'         => 'index.php?option=com_volunteers&view=board&id=3',
+                        'component_id' => $extension_id,
+                        'params'       => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
+                    ];
+                    $menuitems[] = [
+                        'title'        => 'Departments',
+                        'alias'        => 'departments',
+                        'path'         => 'departments',
+                        'link'         => 'index.php?option=com_volunteers&view=departments',
+                        'component_id' => $extension_id,
+                        'params'       => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
+                    ];
+                    $menuitems[] = [
+                        'title'        => 'Teams',
+                        'alias'        => 'teams',
+                        'path'         => 'teams',
+                        'link'         => 'index.php?option=com_volunteers&view=teams&id=50',
+                        'component_id' => $extension_id,
+                        'params'       => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
+                    ];
+                    $menuitems[] = [
+                        'title'        => 'Groups',
+                        'alias'        => 'groups',
+                        'path'         => 'groups',
+                        'link'         => 'index.php?option=com_volunteers&view=teams&id=58',
+                        'component_id' => $extension_id,
+                        'params'       => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
+                    ];
+                    $menuitems[] = [
+                        'title'        => 'Joomlers',
+                        'alias'        => 'joomlers',
+                        'path'         => 'joomlers',
+                        'link'         => 'index.php?option=com_volunteers&view=volunteers',
+                        'component_id' => $extension_id,
+                        'params'       => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
+                    ];
+                    $menuitems[] = [
+                        'title'        => 'Reports',
+                        'alias'        => 'reports',
+                        'path'         => 'reports',
+                        'link'         => 'index.php?option=com_volunteers&view=reports',
+                        'component_id' => $extension_id,
+                        'params'       => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
+                    ];
+                    $menuitems[] = [
+                        'title'        => 'Help Wanted',
+                        'alias'        => 'help-wanted',
+                        'path'         => 'help-wanted',
+                        'link'         => 'index.php?option=com_volunteers&view=roles',
+                        'component_id' => $extension_id,
+                        'params'       => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
+                    ];
+                    $menuitems[] = [
+                        'title'        => 'FAQs',
+                        'alias'        => 'faqs',
+                        'path'         => 'faqs',
+                        'link'         => 'index.php?option=com_volunteers&view=faq',
+                        'component_id' => $extension_id,
+                        'params'       => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
+                    ];
+                    $menuitems[] = [
+                        'title'        => 'Register',
+                        'alias'        => 'register',
+                        'path'         => 'register',
+                        'link'         => 'index.php?option=com_volunteers&view=registration',
+                        'component_id' => $extension_id,
+                        'params'       => '{"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
+                    ];
+                    $menuitems[] = [
+                        'title'        => 'Login',
+                        'alias'        => 'login',
+                        'path'         => 'login',
+                        'link'         => 'index.php?option=com_users&view=login',
+                        'component_id' => $login_component_id,
+                        'params'       => '{"loginredirectchoice":"1","login_redirect_url":"","login_redirect_menuitem":"","logindescription_show":"1",' . '"login_description":"","login_image":"","login_image_alt":"","logoutredirectchoice":"1","logout_redirect_url":"",' . '"logout_redirect_menuitem":"","logoutdescription_show":"1","logout_description":"","logout_image":"","logout_image_alt":"",' . '"menu-anchor_title":"","menu-anchor_css":"","menu_icon_css":"","menu_image":"","menu_image_css":"","menu_text":1,"menu_show":1,' . '"page_title":"","show_page_heading":"","page_heading":"","pageclass_sfx":"","menu-meta_description":"","robots":""}'
+                    ];
                     foreach ($menuitems as $m) {
                         $mi               = new MenuTable($db);
                         $mi->menutype     = 'jvpdemo';
@@ -163,7 +165,7 @@ HTMLHelper::_('bootstrap.tooltip');
                         $mi->parent_id    = 1;
                         $mi->client_id    = 0;
                         $mi->level        = 1;
-                        $mi->component_id = $extension_id;
+                        $mi->component_id = $m['component_id'];
                         $mi->setLocation(1, 'last-child');
                         $mi->img               = '';
                         $mi->language          = "*";
@@ -177,9 +179,9 @@ HTMLHelper::_('bootstrap.tooltip');
                             echo "Failed to create Menu Item - " . $m['title'] . '<br/>' . $mi->getError() . '<br/>';
                         }
                     }
-                } catch (Exception $e) {
-                    throw new Exception('Something went really wrong. ' . $e->getMessage(), 500);
-                }
+            } catch (Exception $e) {
+                throw new Exception('Something went really wrong. ' . $e->getMessage(), 500);
+            }
             }
 
             ?>
