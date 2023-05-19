@@ -50,7 +50,7 @@ try {
             </ul>
         <?php endforeach;
     }
-?>
+    ?>
     <a class="volunteer-mods-btn"
         href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>"><?php echo Text::_('MOD_VOLUNTEERS_READ_MORE_VOLUNTEERS') ?></a>
 </div>
