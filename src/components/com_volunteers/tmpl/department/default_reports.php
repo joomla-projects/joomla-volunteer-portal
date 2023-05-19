@@ -19,7 +19,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 ?>
 <div class="tab-pane" id="reports">
     <?php if ($this->acl->create_report): ?>
-        <div class="row-fluid">
+        <div class="row">
             <a class="btn pull-right"
                href="<?php echo Route::_('index.php?option=com_volunteers&task=report.add&department=' . $this->item->id) ?>">
                 <span class="icon-new" aria-hidden="true"></span>
@@ -30,14 +30,14 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
     <?php endif; ?>
     <?php if ($this->item->reports): ?>
         <?php foreach ($this->item->reports as $report): ?>
-            <div class="row-fluid report">
-                <div class="span2 volunteer-image">
+            <div class="row report">
+                <div class="col-2 volunteer-image">
                     <a
                         href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $report->volunteer_id) ?>">
                         <?php echo VolunteersHelper::image($report->volunteer_image, 'large', false, is_null($report->volunteer_name) ? '' : $report->volunteer_name); ?>
                     </a>
                 </div>
-                <div class="span10">
+                <div class="col-10">
                     <?php if ($this->acl->edit || ($report->created_by == $this->user->id)): ?>
                         <a class="btn btn-small pull-right"
                            href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $report->id) ?>">
@@ -72,7 +72,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                     <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>"
                        class="btn">
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>
-                        &nbsp;<?php echo ($report->title); ?>
+                        &nbsp;<?php echo($report->title); ?>
                     </a>
                 </div>
             </div>
@@ -92,7 +92,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
             <?php echo Text::_('COM_VOLUNTEERS_RSSFEED') ?>
         </a>
     <?php else: ?>
-        <div class="row-fluid">
+        <div class="row">
             <p class="alert alert-info">
                 <?php echo Text::_('COM_VOLUNTEERS_NOTE_NO_REPORTS') ?>
             </p>

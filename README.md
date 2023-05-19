@@ -27,9 +27,8 @@ Instructions for installation
 ------------------------------
 * Create new installation of Joomla 4.
 
-* Install Joomla 3 template from the dist folder (jtemplate_3.1.1.zip).
+* Install Joomla 4  template from the dist folder (jtemplate_4.0.3.zip).
 * Go to site System-> Templates-> Site Template Styles - enable Joomla-default as default template style.
-* Install the 4.0.1 Joomla Template from the dist folder (jtemplate_4.0.1-jvp) and install it.
 * Install the volunteers package from dist/pkg-volunteers-4.0.0.zip
 * Enable the plugin 'Sample Data - JVP'.
 * On the Home Dashboard, you will see JVP Sample Data under the Sample Data heading. Click to install the sample data for the Volunteers Portal (This takes some time...) (This will log you out when you next try and do anything in the admin area - This is due to it moving your admin user to a safe id).

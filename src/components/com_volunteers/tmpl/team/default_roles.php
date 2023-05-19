@@ -17,7 +17,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 /** @var \Joomla\Component\Volunteers\Site\View\Team\HtmlView $this */
 ?>
 <?php if ($this->acl->edit) : ?>
-    <div class="row-fluid">
+    <div class="row">
         <a class="btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.add&team=' . $this->item->id); ?>">
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_ROLE_ADD'); ?>
@@ -27,10 +27,10 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 <?php endif; ?>
 <?php if ($this->item->roles) : ?>
     <?php foreach ($this->item->roles as $role) : ?>
-        <div class="row-fluid">
+        <div class="row">
             <div class="team well">
-                <div class="row-fluid">
-                    <div class="span8">
+                <div class="row">
+                    <div class="col-8">
                         <?php if ($this->acl->edit) : ?>
                             <a class="btn btn-small pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.delete&id=' . $role->id); ?>">
                                 <span class="icon-delete" aria-hidden="true"></span>
@@ -50,7 +50,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                             </a>
                         <?php endif; ?>
                     </div>
-                    <div class="span4">
+                    <div class="col-4">
                         <div class="members">
                             <?php if (!empty($role->volunteers)) : ?>
                                 <?php foreach ($role->volunteers as $rolevolunteer) : ?>
@@ -72,7 +72,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
         </div>
     <?php endforeach; ?>
 <?php else : ?>
-    <div class="row-fluid">
+    <div class="row">
         <p class="alert alert-info"><?php echo Text::_('COM_VOLUNTEERS_NOTE_NO_ROLES'); ?></p>
     </div>
 <?php endif;

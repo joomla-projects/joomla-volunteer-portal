@@ -23,8 +23,7 @@ HTMLHelper::_('jquery.framework');
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-    $wa->useStyle('com_volunteers.j3template')
-        ->useStyle('com_volunteers.frontend')
+    $wa->useStyle('com_volunteers.frontend')
         ->useScript('com_volunteers.google_maps')
         ->useScript('com_volunteers.markerclusterer')
         ->useScript('com_volunteers.oms');
@@ -36,11 +35,11 @@ try {
 
 ?>
 
-<div class="row-fluid">
+<div class="row">
     <img style="width: 100%" src="media/com_volunteers/images/volunteer-header.png" alt="Become a Joomla! contributor">
 </div>
 <br>
-<div class="row-fluid">
+<div class="row">
     <div class="span6">
         <h2>
             <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_TITLE'); ?>
@@ -52,7 +51,7 @@ try {
             <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_ACTION'); ?>
         </p>
         <p>
-            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=roles'); ?>" class="btn"><col-
+            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=roles'); ?>" class="volunteers_btn"><col-
                     class="icon-chevron-right"></col->
                 <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_BUTTON'); ?>
             </a>
@@ -69,7 +68,7 @@ try {
             <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_ACTION'); ?>
         </p>
         <p>
-            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>" class="btn"><col-
+            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>" class="volunteers_btn"><col-
                     class="icon-chevron-right"></col->
                 <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_BUTTON'); ?>
             </a>
@@ -77,24 +76,24 @@ try {
     </div>
 </div>
 <br>
-<div class="row-fluid">
+<div class="row">
     <h2>
         <?php echo Text::_('COM_VOLUNTEERS_LATEST_REPORTS') ?>
     </h2>
     <?php if (!empty($this->reports)) {
         foreach ($this->reports as $i => $item): ?>
             <div class="row report">
-                <div class="span2">
+                <div class="col-2">
 
                     <a
                         href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->volunteer_id) ?>">
                         <?php echo VolunteersHelper::image($item->volunteer_image, 'large', false, $item->volunteer_name); ?>
                     </a>
                 </div>
-                <div class="span10">
+                <div class="col-10">
                     <h3 class="report-title">
                         <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>">
-                            <?php echo ($item->title); ?>
+                            <?php echo($item->title); ?>
                         </a>
                     </h3>
                     <p class="muted">
@@ -109,7 +108,7 @@ try {
                     <p>
                         <?php echo StringHelper::truncate(strip_tags(trim($item->description)), 380); ?>
                     </p>
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="btn">
+                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="volunteers_btn">
                         <col- class="icon-chevron-right"></col->
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>&nbsp;
                         <?php echo HtmlHelper::_('string.truncate', $item->title, 55); ?>
@@ -119,12 +118,12 @@ try {
             <hr>
         <?php endforeach;
     }
-    ?>
-    <a class="btn btn-large btn-block"
+?>
+    <a class="volunteers_btn volunteers_btn-large volunteers_btn-block"
         href="<?php echo Route::_('index.php?option=com_volunteers&view=reports'); ?>"><?php echo Text::_('COM_VOLUNTEERS_READ_MORE_REPORTS') ?></a>
 </div>
 <br>
-<div class="row-fluid">
+<div class="row">
     <h2>
         <?php echo count($this->markers) . ' ' . Text::_('COM_VOLUNTEERS_VOLUNTEERS_WORLD') ?>
     </h2>

@@ -25,8 +25,7 @@ $active = $this->state->get('filter.active', 1);
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-    $wa->useStyle('com_volunteers.j3template')
-    ->useStyle('com_volunteers.frontend');
+    $wa->useStyle('com_volunteers.frontend');
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
@@ -37,7 +36,7 @@ try {
 
 <form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="filter-bar">
             <div class="btn-group pull-right">
                 <label class="filter-search-lbl element-invisible" for="filter-search">
@@ -60,10 +59,10 @@ try {
     </div>
     <?php if (!empty($this->items)) {
         foreach ($this->items as $i => $item) : ?>
-        <div class="row-fluid">
+        <div class="row">
             <div class="team well team-<?php echo($item->id); ?>">
-                <div class="row-fluid">
-                    <div class="span8">
+                <div class="row">
+                    <div class="col-8">
                         <h2 style="margin-top: 0;">
                             <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $item->id) ?>">
                                         <?php echo($item->title); ?>
@@ -74,7 +73,7 @@ try {
                             <span class="fa fa-chevron-right"></span><?php echo Text::_('COM_VOLUNTEERS_READ_MORE') . ' ' . $item->title; ?>
                         </a>
                     </div>
-                    <div class="span4">
+                    <div class="col-4">
                         <div class="members">
                                     <?php $i = 0; ?>
 
@@ -84,9 +83,9 @@ try {
                                                                             <?php echo VolunteersHelper::image($member->volunteer_image, 'small', false, is_null($member->volunteer_name) ? '' : $member->volunteer_name); ?>
                                 </a>
                                                                             <?php $i++;
-                                                                            if ($i == 14) {
-                                                                                break;
-                                                                            } ?>
+                                            if ($i == 14) {
+                                                break;
+                                            } ?>
                                         <?php endforeach;
                                     } ?>
                             <?php if (count($item->members) > 14) : ?>

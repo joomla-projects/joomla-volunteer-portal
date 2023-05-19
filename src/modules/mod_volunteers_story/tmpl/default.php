@@ -25,8 +25,7 @@ use Joomla\CMS\Router\Route;
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-    $wa->useStyle('com_volunteers.j3template')
-        ->useStyle('com_volunteers.frontend');
+    $wa->useStyle('com_volunteers.frontend');
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
@@ -36,24 +35,23 @@ try {
     <div class="page-header"><strong>
             <?php echo Text::_('COM_VOLUNTEERS_JOOMLASTORY'); ?>
         </strong></div>
-    <ul class="media-list">
+    <ul class="media-list volunteer-mods">
         <li class="media">
-            <a class="pull-left"
-                href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $story->id) ?>">
-                <?php echo VolunteersHelper::image($story->image, 'small', false, $story->name); ?>
-            </a>
+            <a class="volunteer-link" href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $story->id) ?>">
+                <span class="pull-left">
+                    <?php echo VolunteersHelper::image($story->image, 'small', false, $story->name); ?>
+                </span>
             <div class="media-body">
-                <h3 class="media-heading">
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $story->id) ?>">
-
-                        <?php echo $story->name; ?>
-                    </a>
+                <h3 class="volunteer-name">
+                    <?php echo $story->name; ?>
                 </h3>
-                <p class="muted">
+                <p class="muted volunteer-location">
                     <span class="icon-location" aria-hidden="true"></span>
                     <?php echo VolunteersHelper::location($story->country, $story->city); ?>
                 </p>
             </div>
+
+            </a>
         </li>
         <li class="media">
             <p>

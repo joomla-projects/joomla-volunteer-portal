@@ -17,7 +17,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 /** @var \Joomla\Component\Volunteers\Site\View\Department\HtmlView $this */
 ?>
 <?php if ($this->acl->edit): ?>
-    <div class="row-fluid">
+    <div class="row">
         <a class="btn pull-right"
            href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&department=' . $this->item->id) ?>">
             <span class="icon-new" aria-hidden="true"></span>
@@ -26,7 +26,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
     </div>
     <hr>
 <?php endif; ?>
-<?php //echo "<pre>";print_r($this->item->members->active);echo "</pre>";exit(); ?>
+<?php //echo "<pre>";print_r($this->item->members->active);echo "</pre>";exit();?>
 <?php if ($this->item->members->active): ?>
     <table class="table table-striped table-hover table-vertical-align">
         <thead>

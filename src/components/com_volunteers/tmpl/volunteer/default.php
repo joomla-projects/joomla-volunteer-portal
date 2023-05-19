@@ -21,8 +21,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-    $wa->useStyle('com_volunteers.j3template')
-        ->useStyle('com_volunteers.frontend');
+    $wa->useStyle('com_volunteers.frontend');
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
@@ -40,13 +39,13 @@ try {
     </div>
 <?php } ?>
 
-<div class="row-fluid profile">
+<div class="row profile">
     <div class="span3 volunteer-image">
         <?php echo VolunteersHelper::image($this->item->image, 'large', false, $this->item->name); ?>
 
         <?php if ($this->item->certification) { ?>
             <div class="volunteer-certificated">
-                <a href="https://certification.joomla.org/certified-user-directory/<?php echo ($this->item->certification) ?>"
+                <a href="https://certification.joomla.org/certified-user-directory/<?php echo($this->item->certification) ?>"
                     target="_blank">
                     <img src="https://certification.joomla.org/images/Badges/3x_certified_administrator_badge.png"
                         class="img-responsive" />
@@ -77,21 +76,21 @@ try {
         <?php } ?>
 
         <p class="lead">
-            <?php echo ($this->item->intro) ?>
+            <?php echo($this->item->intro) ?>
         </p>
 
 
         <div class="btn-group">
             <?php if ($this->item->joomlaforum) { ?>
                 <a class="btn btn-joomlaforum" target="_blank"
-                    href="https://forum.joomla.org/memberlist.php?mode=viewprofile&u=<?php echo ($this->item->joomlaforum) ?>">
+                    href="https://forum.joomla.org/memberlist.php?mode=viewprofile&u=<?php echo($this->item->joomlaforum) ?>">
                     <span class="icon-joomla" aria-hidden="true"></span>
                     <?php echo Text::_('COM_VOLUNTEERS_CONNECT_JOOMLAFORUM') ?>
                 </a>
             <?php } ?>
             <?php if ($this->item->joomladocs) { ?>
                 <a class="btn btn-joomladocs" target="_blank"
-                    href="https://docs.joomla.org/User:<?php echo ($this->item->joomladocs) ?>">
+                    href="https://docs.joomla.org/User:<?php echo($this->item->joomladocs) ?>">
                     <span class="icon-joomla" aria-hidden="true"></span>
                     <?php echo Text::_('COM_VOLUNTEERS_CONNECT_JOOMLADOCS') ?>
                 </a>
@@ -101,7 +100,7 @@ try {
         <p>
         <div class="btn-group">
             <?php if ($this->item->github) { ?>
-                <a class="btn btn-gtihub" target="_blank" href="https://github.com/<?php echo ($this->item->github) ?>">
+                <a class="btn btn-gtihub" target="_blank" href="https://github.com/<?php echo($this->item->github) ?>">
                     <span class="icon-github" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_GITHUB') ?>
@@ -110,7 +109,7 @@ try {
             <?php } ?>
             <?php if ($this->item->crowdin) { ?>
                 <a class="btn btn-crowdin" target="_blank"
-                    href="https://crowdin.com/profile/<?php echo ($this->item->crowdin) ?>">
+                    href="https://crowdin.com/profile/<?php echo($this->item->crowdin) ?>">
                     <span class="icon-comments-2" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_CROWDIN') ?>
@@ -119,7 +118,7 @@ try {
             <?php } ?>
             <?php if ($this->item->stackexchange) { ?>
                 <a class="btn btn-stackexchange" target="_blank"
-                    href="https://stackexchange.com/users/<?php echo ($this->item->stackexchange) ?>">
+                    href="https://stackexchange.com/users/<?php echo($this->item->stackexchange) ?>">
                     <span class="icon-comments-2" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_STACKEXCHANGE') ?>
@@ -128,7 +127,7 @@ try {
             <?php } ?>
             <?php if ($this->item->joomlastackexchange) { ?>
                 <a class="btn btn-joomlastackexchange" target="_blank"
-                    href="https://joomla.stackexchange.com/users/<?php echo ($this->item->joomlastackexchange) ?>">
+                    href="https://joomla.stackexchange.com/users/<?php echo($this->item->joomlastackexchange) ?>">
                     <span class="icon-comments-2" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_JOOMLASTACKEXCHANGE') ?>
@@ -141,7 +140,7 @@ try {
         <p>
         <div class="btn-group">
             <?php if ($this->item->website && ($this->item->website != 'http://')) { ?>
-                <a class="btn" target="_blank" href="<?php echo ($this->item->website) ?>">
+                <a class="btn" target="_blank" href="<?php echo($this->item->website) ?>">
                     <span class="icon-link" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_WEBSITE') ?>
@@ -149,7 +148,7 @@ try {
                 </a>
             <?php } ?>
             <?php if ($this->item->twitter) { ?>
-                <a class="btn btn-twitter" target="_blank" href="https://twitter.com/<?php echo ($this->item->twitter) ?>">
+                <a class="btn btn-twitter" target="_blank" href="https://twitter.com/<?php echo($this->item->twitter) ?>">
                     <span class="icon-twitter" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_TWITTER') ?>
@@ -158,7 +157,7 @@ try {
             <?php } ?>
             <?php if ($this->item->facebook) { ?>
                 <a class="btn btn-facebook" target="_blank"
-                    href="https://www.facebook.com/<?php echo ($this->item->facebook) ?>">
+                    href="https://www.facebook.com/<?php echo($this->item->facebook) ?>">
                     <span class="icon-facebook" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_FACEBOOK') ?>
@@ -167,7 +166,7 @@ try {
             <?php } ?>
             <?php if ($this->item->linkedin) { ?>
                 <a class="btn btn-linkedin" target="_blank"
-                    href="https://www.linkedin.com/in/<?php echo ($this->item->linkedin) ?>">
+                    href="https://www.linkedin.com/in/<?php echo($this->item->linkedin) ?>">
                     <span class="icon-linkedin" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_LINKEDIN') ?>
@@ -181,13 +180,13 @@ try {
 
 <br>
 
-<div class="row-fluid">
-    <div class="span12">
+<div class="row">
+    <div class="col-12">
         <?php
         echo HTMLHelper::_('uitab.startTabSet', 'volunteerTab', ['active' => 'viewteamsinvolved', 'recall' => true, 'breakpoint' => 768]);
-        if ($this->item->teams->active) {
-            echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewteamsinvolved', Text::_('COM_VOLUNTEERS_TAB_TEAMSINVOLVED'));
-            ?>
+if ($this->item->teams->active) {
+    echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewteamsinvolved', Text::_('COM_VOLUNTEERS_TAB_TEAMSINVOLVED'));
+    ?>
             <table class="table table-striped table-hover table-vertical-align">
                 <thead>
                     <th width="30%">
@@ -210,10 +209,10 @@ try {
                                 <a href="<?php echo $team->link; ?>"><?php echo $team->name; ?></a>
                             </td>
                             <td>
-                                <?php echo ($team->position_title) ?>
+                                <?php echo($team->position_title) ?>
                             </td>
                             <td>
-                                <?php echo ($team->role_title) ?>
+                                <?php echo($team->role_title) ?>
                             </td>
                             <td>
                                 <?php echo VolunteersHelper::date($team->date_started, 'M Y'); ?>
@@ -223,11 +222,11 @@ try {
                 </tbody>
             </table>
             <?php
-            echo HTMLHelper::_('uitab.endTab');
-        }
-        if ($this->item->teams->honorroll) {
-            echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewhonorroll', Text::_('COM_VOLUNTEERS_TAB_HONORROLL'));
-            ?>
+    echo HTMLHelper::_('uitab.endTab');
+}
+if ($this->item->teams->honorroll) {
+    echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewhonorroll', Text::_('COM_VOLUNTEERS_TAB_HONORROLL'));
+    ?>
             <table class="table table-striped table-hover table-vertical-align">
                 <thead>
                     <th width="30%">
@@ -253,10 +252,10 @@ try {
                                 <a href="<?php echo $team->link; ?>"><?php echo $team->name; ?></a>
                             </td>
                             <td>
-                                <?php echo ($team->position_title) ?>
+                                <?php echo($team->position_title) ?>
                             </td>
                             <td>
-                                <?php echo ($team->role_title) ?>
+                                <?php echo($team->role_title) ?>
                             </td>
                             <td>
                                 <?php echo VolunteersHelper::date($team->date_started, 'M Y'); ?>
@@ -269,23 +268,23 @@ try {
                 </tbody>
             </table>
             <?php
-            echo HTMLHelper::_('uitab.endTab');
-        }
-        if ($this->item->joomlastory) {
-            echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewjoomlastory', Text::_('COM_VOLUNTEERS_TAB_JOOMLASTORY'));
-            echo (nl2br($this->item->joomlastory));
-            echo HTMLHelper::_('uitab.endTab');
-        }
+    echo HTMLHelper::_('uitab.endTab');
+}
+if ($this->item->joomlastory) {
+    echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewjoomlastory', Text::_('COM_VOLUNTEERS_TAB_JOOMLASTORY'));
+    echo(nl2br($this->item->joomlastory));
+    echo HTMLHelper::_('uitab.endTab');
+}
 
-        if ($this->user->id != $this->item->user_id) {
-            echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewcontact', Text::_('COM_VOLUNTEERS_TAB_CONTACT'));
+if ($this->user->id != $this->item->user_id) {
+    echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewcontact', Text::_('COM_VOLUNTEERS_TAB_CONTACT'));
 
-            if ($this->user->guest) { ?>
+    if ($this->user->guest) { ?>
                 <p class="alert alert-info">
                     <?php echo Text::_('COM_VOLUNTEERS_NOTE_LOGIN_CONTACT_VOLUNTEER') ?>
                 </p>
                 <?php
-            } else { ?>
+    } else { ?>
                 <form class="form form-horizontal" name="sendmail" action="<?php echo Route::_('index.php') ?>" method="post"
                     enctype="multipart/form-data">
                     <div class="control-group">
@@ -309,7 +308,7 @@ try {
                         </div>
                     </div>
                     <div class="control-group">
-                        <div class="controls span12">
+                        <div class="controls col-12">
                             <input type="text" name="subject" id="subject" class="input-block-level"
                                 placeholder="<?php echo Text::_('COM_VOLUNTEERS_MESSAGE_SUBJECT') ?>" required />
                         </div>
@@ -338,8 +337,8 @@ try {
                 </a>
             <?php }
 
-            echo HTMLHelper::_('uitab.endTab');
-        } ?>
+    echo HTMLHelper::_('uitab.endTab');
+} ?>
 
 
 

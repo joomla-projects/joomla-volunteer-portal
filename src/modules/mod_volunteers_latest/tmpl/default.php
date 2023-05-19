@@ -18,8 +18,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-    $wa->useStyle('com_volunteers.j3template')
-        ->useStyle('com_volunteers.frontend');
+    $wa->useStyle('com_volunteers.frontend');
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
@@ -31,17 +30,17 @@ try {
         </strong></div>
     <?php if (!empty($volunteers)) {
         foreach ($volunteers as $i => $item) : ?>
-            <ul class="media-list latest-volunteers">
+            <ul class="media-list volunteer-mods">
                 <li class="media">
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->id) ?>">
+                    <a class="volunteer_link" href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->id) ?>">
                         <span class="pull-left">
                             <?php echo VolunteersHelper::image($item->image, 'small', false, $item->name); ?>
                         </span>
                         <div class="media-body">
-                            <h3 class="media-heading">
+                            <h3 class="volunteer-name">
                                 <?php echo $item->name; ?>
                             </h3>
-                            <p class="muted">
+                            <p class="muted volunteer-location">
                                 <span class="icon-location" aria-hidden="true"></span>
                                 <?php echo VolunteersHelper::location($item->country, $item->city); ?>
                             </p>
@@ -51,7 +50,7 @@ try {
             </ul>
         <?php endforeach;
     }
-    ?>
-    <a class="btn btn-large btn-block"
+?>
+    <a class="volunteer-mods-btn"
         href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>"><?php echo Text::_('MOD_VOLUNTEERS_READ_MORE_VOLUNTEERS') ?></a>
 </div>

@@ -21,8 +21,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-    $wa->useStyle('com_volunteers.j3template')
-        ->useStyle('com_volunteers.frontend');
+    $wa->useStyle('com_volunteers.frontend');
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
@@ -34,7 +33,7 @@ $active = $this->state->get('filter.active', 1);
     id="adminForm">
 
     <div class="volunteers">
-        <div class="row-fluid">
+        <div class="row">
             <div class="filter-bar">
                 <div class="btn-group pull-right">
                     <label class="filter-search-lbl element-invisible" for="filter-search">
@@ -80,11 +79,11 @@ $active = $this->state->get('filter.active', 1);
             </div>
         </div>
 
-        <div class="row-fluid">
+        <div class="row">
             <?php $i = 0; ?>
             <?php if (!empty($this->items)) {
                 foreach ($this->items as $item): ?>
-                    <div class="span2">
+                    <div class="col-2">
                         <div class="well well-small">
                             <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->id) ?>">
                                 <?php echo VolunteersHelper::image($item->image, 'large', false, $item->name); ?>
@@ -100,12 +99,12 @@ $active = $this->state->get('filter.active', 1);
                     <?php $i++; ?>
                     <?php if ($i == 6): ?>
                     </div>
-                    <div class="row-fluid">
+                    <div class="row">
                         <?php $i = 0; ?>
                     <?php endif; ?>
                 <?php endforeach;
             }
-            ?>
+?>
         </div>
 
         <div class="pagination">

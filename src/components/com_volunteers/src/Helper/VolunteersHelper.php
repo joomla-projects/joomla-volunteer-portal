@@ -292,22 +292,22 @@ class VolunteersHelper
      * @param $volunteer
      *
      *
-     * @since version
+     * @since 4.0.0
      */
     public static function outputVolunteer($volunteer)
     {
-
         echo '<a  class="pull-left" href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->volunteer) . '">';
         echo self::image($volunteer->volunteer_image, 'small', false, $volunteer->volunteer_image);
         echo '</a>';
         echo '<a href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->volunteer) . '">';
         echo $volunteer->volunteer_name;
-        echo '</a> <br/>';
+        echo '</a>';
         echo '<span class="muted volunteer-location">';
         echo '<span class="icon-location" aria-hidden="true"></span> ';
         echo VolunteersHelper::location($volunteer->volunteer_country);
-        echo '</span>';
+        echo '</span';
     }
+
 
     /**
      * @param $type

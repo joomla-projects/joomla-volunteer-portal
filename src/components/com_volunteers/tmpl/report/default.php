@@ -17,14 +17,14 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 /** @var HtmlView $this */
 ?>
 
-<div class="row-fluid report">
-    <div class="span2 volunteer-image">
+<div class="row report">
+    <div class="col-2 volunteer-image">
         <a
             href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $this->item->volunteer_id) ?>">
             <?php echo VolunteersHelper::image($this->item->volunteer_image, 'large', false, $this->item->volunteer_name); ?>
         </a>
     </div>
-    <div class="span10">
+    <div class="col-10">
         <div class="filter-bar">
             <?php if ($this->acl->edit || ($this->item->created_by == $this->user->id)): ?>
                 <a class="btn pull-right"
@@ -51,7 +51,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
             <a href="<?php echo $this->item->link; ?>"><?php echo $this->item->name; ?></a>
         </p>
 
-        <?php echo ($this->item->description) ?>
+        <?php echo($this->item->description) ?>
 
     </div>
 </div>

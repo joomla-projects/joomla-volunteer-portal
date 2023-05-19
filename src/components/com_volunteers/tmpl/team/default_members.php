@@ -17,7 +17,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 /** @var \Joomla\Component\Volunteers\Site\View\Team\HtmlView $this */
 ?>
 <?php if ($this->acl->edit) : ?>
-    <div class="row-fluid">
+    <div class="row">
         <a class="btn pull-right"
            href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&team=' . $this->item->id) ?>">
             <span class="icon-new" aria-hidden="true"></span>

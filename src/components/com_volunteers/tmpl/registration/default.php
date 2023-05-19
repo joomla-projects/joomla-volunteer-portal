@@ -7,7 +7,9 @@
  */
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -15,7 +17,7 @@ use Joomla\CMS\Language\Text;
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-    $wa->useStyle('com_volunteers.j3template')->useStyle('com_volunteers.frontend');
+    $wa->useStyle('com_volunteers.frontend');
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
@@ -23,14 +25,13 @@ try {
 
 
 ?>
-<div class="row-fluid">
-    <div class="page-header">
+
+        <div class="row">
+            <div class="page-header">
         <h1>
-            <?php
-            echo Text::_('COM_VOLUNTEERS_REGISTRATION_HEADING'); ?>
+            <?php echo Text::_('COM_VOLUNTEERS_REGISTRATION_HEADING'); ?>
         </h1>
-    </div>
-    <?php
-    echo Text::_('COM_VOLUNTEERS_REGISITRATION_BODY'); ?>
-</div>
+            </div>
+    <?php  echo Text::_('COM_VOLUNTEERS_REGISITRATION_BODY'); ?>
+        </div>
 

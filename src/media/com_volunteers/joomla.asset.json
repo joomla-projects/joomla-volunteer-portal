@@ -8,12 +8,9 @@
     {
       "name": "com_volunteers.frontend",
       "type": "style",
-      "uri": "media/com_volunteers/css/frontend.css"
-    },
-    {
-      "name": "com_volunteers.j3template",
-      "type": "style",
-      "uri": "media/com_volunteers/css/template_3.0.0.min.css"
+      "uri": "media/com_volunteers/css/frontend.css",
+      "package": "volunteers",
+      "version": "4.0.0"
     },
     {
       "name": "com_volunteers.icons",
@@ -53,12 +50,12 @@
     {
       "name": "com_volunteers.google_maps",
       "type": "script",
-      "uri": "https://maps.googleapis.com/maps/api/js?key=AIzaSyC04czYnPuPFkO6eDAKX-j_lfrpanAAo-U'",
+      "uri": "media/com_volunteers/js/google-maps.js",
       "attributes": {
         "defer": true
       },
       "package": "volunteers",
-      "version": "4.0.0"
+      "version": "4.0.1"
     }
   ]
 }

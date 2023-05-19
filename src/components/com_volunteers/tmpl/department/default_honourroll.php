@@ -18,7 +18,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 ?>
 <div class="tab-pane" id="honorroll">
     <?php if ($this->acl->edit): ?>
-        <div class="row-fluid">
+        <div class="row">
             <a class="btn pull-right"
                href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&department=' . $this->item->id) ?>">
                 <span class="icon-new" aria-hidden="true"></span>

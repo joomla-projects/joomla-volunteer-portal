@@ -35,12 +35,12 @@ use Joomla\CMS\Router\Route;
                 <label class="control-label" for="from_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_FROM') ?></label>
                 <div class="controls">
                     <input type="text" name="from_name" id="from_name"
-                           value="<?php echo ($this->user->name); ?> <<?php echo ($this->user->email); ?>>"
+                           value="<?php echo($this->user->name); ?> <<?php echo($this->user->email); ?>>"
                            class="input-block-level" disabled="disabled" />
                 </div>
             </div>
             <div class="control-group">
-                <div class="controls span12">
+                <div class="controls col-12">
                     <input type="text" name="subject" id="subject" class="input-block-level"
                            placeholder="<?php echo Text::_('COM_VOLUNTEERS_MESSAGE_SUBJECT') ?>" required />
                 </div>

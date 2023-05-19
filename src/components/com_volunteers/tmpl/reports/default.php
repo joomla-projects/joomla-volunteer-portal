@@ -22,8 +22,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-    $wa->useStyle('com_volunteers.j3template')
-        ->useStyle('com_volunteers.frontend');
+    $wa->useStyle('com_volunteers.frontend');
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
@@ -34,7 +33,7 @@ try {
 
 <form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm"
     id="adminForm">
-    <div class="row-fluid">
+    <div class="row">
         <div class="filter-bar">
             <div class="btn-group pull-right">
                 <?php echo HtmlHelper::_('select.groupedlist', VolunteersHelper::reportcategories(), 'filter_category', ['list.attr' => 'class="input-xlarge form-select"']); ?>
@@ -54,14 +53,14 @@ try {
 
     <?php if (!empty($this->items)): ?>
         <?php foreach ($this->items as $i => $item): ?>
-            <div class="row-fluid report">
-                <div class="span2">
+            <div class="row report">
+                <div class="col-2">
                     <a
                         href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->volunteer_id) ?>">
                         <?php echo VolunteersHelper::image($item->volunteer_image, 'large', false, $item->volunteer_name); ?>
                     </a>
                 </div>
-                <div class="span10">
+                <div class="col-10">
                     <?php if ($item->acl->edit || ($this->user->id == $item->created_by)): ?>
                         <a class="btn pull-right"
                             href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $item->id) ?>">
@@ -71,7 +70,7 @@ try {
                     <?php endif; ?>
                     <h2 class="report-title">
                         <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>">
-                            <?php echo ($item->title); ?>
+                            <?php echo($item->title); ?>
                         </a>
                     </h2>
                     <p class="muted">
@@ -97,14 +96,14 @@ try {
             <hr>
         <?php endforeach; ?>
     <?php else: ?>
-        <div class="row-fluid">
+        <div class="row">
             <p class="alert alert-info">
                 <?php echo Text::_('COM_VOLUNTEERS_NOTE_NO_REPORTS') ?>
             </p>
         </div>
     <?php endif; ?>
 
-    <div class="row-fluid">
+    <div class="row">
         <a class="btn pull-right btn-warning"
             href="<?php echo Route::_('index.php?option=com_volunteers&view=reports&filter_category=' . $this->state->get('filter.category') . '&format=feed&type=rss') ?>">
             <span class="icon-feed" aria-hidden="true"></span>

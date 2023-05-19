@@ -23,8 +23,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-    $wa->useStyle('com_volunteers.j3template')
-        ->useStyle('com_volunteers.frontend');
+    $wa->useStyle('com_volunteers.frontend');
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
@@ -35,7 +34,7 @@ try {
     <form id="team"
         action="<?php echo Route::_('index.php?option=com_volunteers&task=team.save&id=' . (int) $this->item->id); ?>"
         method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
-        <div class="row-fluid">
+        <div class="row">
 
             <div class="filter-bar">
                 <div class="btn-toolbar pull-right">
@@ -84,7 +83,7 @@ try {
 
         <hr>
 
-        <div class="row-fluid">
+        <div class="row">
             <div class="btn-toolbar pull-right">
                 <div id="toolbar-cancel" class="btn-group">
                     <a class="btn btn-danger"

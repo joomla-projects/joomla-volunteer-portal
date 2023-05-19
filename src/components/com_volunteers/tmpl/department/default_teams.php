@@ -18,7 +18,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 ?>
 <div class="tab-pane" id="teams">
     <?php if ($this->acl->create_team): ?>
-        <div class="row-fluid">
+        <div class="row">
             <a class="btn pull-right"
                href="<?php echo Route::_('index.php?option=com_volunteers&task=team.add&department=' . $this->item->id) ?>">
                 <span class="icon-new" aria-hidden="true"></span>
@@ -45,7 +45,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                 <td>
                     <a
                         href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $team->id) ?>">
-                        <?php echo ($team->title) ?>
+                        <?php echo($team->title) ?>
                     </a>
                 </td>
                 <td>
@@ -57,7 +57,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                             </a>
                         <?php endforeach;
                     }
-                    ?>
+            ?>
                 </td>
                 <td>
                     <?php if (!empty($team->assistantleader)) {
@@ -68,7 +68,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                             </a>
                         <?php endforeach;
                     }
-                    ?>
+            ?>
                 </td>
             </tr>
         <?php endforeach; ?>

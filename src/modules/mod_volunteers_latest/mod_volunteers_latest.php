@@ -28,5 +28,4 @@ $model->setState('list.direction', 'desc');
 $model->setState('filter.image', 1);
 
 $volunteers = $model->getItems();
-
 require ModuleHelper::getLayoutPath('mod_volunteers_latest', 'default');

@@ -13,8 +13,8 @@
 /** @var \Joomla\Component\Volunteers\Site\View\My\HtmlView $this */
 ?>
 
-<div class="row-fluid">
-    <div class="span12">
+<div class="row">
+    <div class="col-12">
         <div class="page-header">
             <h1>We need your consent</h1>
         </div>

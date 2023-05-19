@@ -40,7 +40,7 @@ use Joomla\CMS\Router\Route;
         </div>
     </div>
     <div class="control-group">
-        <div class="controls span12">
+        <div class="controls col-12">
             <input type="text" name="subject" id="subject" class="input-block-level"
                 placeholder="<?php echo Text::_('COM_VOLUNTEERS_MESSAGE_SUBJECT') ?>" required />
         </div>

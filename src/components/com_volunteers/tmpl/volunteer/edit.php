@@ -26,7 +26,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
     <form id="volunteer"
         action="<?php echo Route::_('index.php?option=com_volunteers&task=volunteer.save&id=' . (int) $this->item->id); ?>"
         method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
-        <div class="row-fluid">
+        <div class="row">
             <div class="filter-bar">
                 <div class="btn-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
@@ -230,7 +230,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
         <hr>
 
-        <div class="row-fluid">
+        <div class="row">
             <div class="btn-toolbar pull-right">
 
                 <div id="toolbar-cancel" class="btn-group">

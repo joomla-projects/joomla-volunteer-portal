@@ -22,10 +22,10 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
 if ($this->item->department) {
     $view = 'department';
-    $id = $this->item->department;
+    $id   = $this->item->department;
 } elseif ($this->item->team) {
     $view = 'team';
-    $id = $this->item->team;
+    $id   = $this->item->team;
 }
 ?>
 
@@ -34,7 +34,7 @@ if ($this->item->department) {
     <form id="member"
         action="<?php echo Route::_('index.php?option=com_volunteers&task=member.save&id=' . (int) $this->item->id); ?>"
         method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
-        <div class="row-fluid">
+        <div class="row">
             <div class="filter-bar">
                 <div class="btn-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
@@ -90,7 +90,7 @@ if ($this->item->department) {
 
         <hr>
 
-        <div class="row-fluid">
+        <div class="row">
             <div class="btn-toolbar pull-right">
                 <div id="toolbar-cancel" class="btn-group">
                     <a class="btn btn-danger"

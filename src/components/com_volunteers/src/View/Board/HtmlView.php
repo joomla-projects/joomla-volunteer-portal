@@ -56,13 +56,13 @@ class HtmlView extends BaseHtmlView
         /** @var BoardModel $model */
 
         $model      = $this->getModel();
-        $this->item = $model->getItem();
+        $this->item = $model->getBoardItem();
 
         $this->state         = $model->getState();
         $this->form          = $model->getForm();
         $this->user          = Factory::getApplication()->getIdentity();
-        $this->item->reports = $model->getDepartmentReports();
-        $this->item->members = $model->getDepartmentMembers();
+        $this->item->reports = $model->getDepartmentReports(58);
+        $this->item->members = $model->getDepartmentMembers(58);
 
 
         $this->acl = VolunteersHelper::acl('department', $this->item->id);

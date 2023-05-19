@@ -20,15 +20,14 @@ use Joomla\CMS\Router\Route;
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-    $wa->useStyle('com_volunteers.j3template')
-        ->useStyle('com_volunteers.frontend');
+    $wa->useStyle('com_volunteers.frontend');
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
 }
 ?>
 
-<div class="row-fluid">
+<div class="row">
     <div class="page-header">
         <h1>
             <?php echo Text::_('COM_VOLUNTEERS_TITLE_ROLESOPEN') ?>
@@ -39,8 +38,8 @@ try {
     </p>
 </div>
 
-<div class="row-fluid">
-    <div class="span12">
+<div class="row">
+    <div class="col-12">
         <?php foreach ($this->items as $team => $roles): ?>
             <div class="well well">
                 <h2 style="margin-top: 0;">
