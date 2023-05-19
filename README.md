@@ -7,6 +7,8 @@ Build Status
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|  ------------- |
 | [![Build Status](http://ci.joomla.org/api/badges/joomla-projects/joomla-volunteer-portal/status.svg)](http://ci.joomla.org/joomla-projects/joomla-volunteer-portal) | [![PHP](https://img.shields.io/badge/PHP-V8.1.0-green)](https://www.php.net/) |
 ---
+DO NOT TEST YET - PLEASE CONTACT MARK IF WANTING UPDATE. THANKS.
+---
 Building on Windows
 --
 **Make sure you have php and composer installed**
