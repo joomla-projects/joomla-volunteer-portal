@@ -40,7 +40,7 @@ try {
 <?php } ?>
 
 <div class="row profile">
-    <div class="span3 volunteer-image">
+    <div class="col-3 volunteer-image">
         <?php echo VolunteersHelper::image($this->item->image, 'large', false, $this->item->name); ?>
 
         <?php if ($this->item->certification) { ?>
@@ -53,7 +53,7 @@ try {
             </div>
         <?php } ?>
     </div>
-    <div class="span9">
+    <div class="col-9">
         <div class="filter-bar">
             <?php if (($this->user->id == $this->item->user_id) && $this->item->user_id) { ?>
                 <a class="btn pull-right" href="https://identity.joomla.org/profile?layout=edit">

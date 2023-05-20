@@ -44,11 +44,11 @@ $active = $this->state->get('filter.active', 1);
                             value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox"
                             onchange="document.adminForm.submit();"
                             placeholder="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_VOLUNTEER'); ?>" />
-                        <button class="btn btn-primary" type="submit"
+                        <button class="volunteers_btn btn-primary" type="submit"
                             value="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_VOLUNTEER'); ?>">
                             <span class="icon-search"></span></button>
                         <?php if ($this->state->get('filter.search')): ?>
-                            <button class="btn" type="reset"
+                            <button class="volunteers_btn" type="reset"
                                 onclick="jQuery('#filter-search').attr('value', null);document.adminForm.submit();">
                                 <span class="icon-remove"></span>
                             </button>
@@ -60,14 +60,14 @@ $active = $this->state->get('filter.active', 1);
                     <input type="radio" id="filter_active1" name="filter_active" value="1" <?php if ($active == 1):
                         ?>selected="selected" <?php
                     endif; ?>>
-                    <label for="filter_active1" class="btn<?php if ($active == 1):
+                    <label for="filter_active1" class="volunteers_btn<?php if ($active == 1):
                         ?> btn-success<?php
                     endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ACTIVE') ?></label>
 
                     <input type="radio" id="filter_active2" name="filter_active" value="2" <?php if ($active == 2):
                         ?>selected="selected" <?php
                     endif; ?>>
-                    <label for="filter_active2" class="btn<?php if ($active == 2):
+                    <label for="filter_active2" class="volunteers_btn<?php if ($active == 2):
                         ?> btn-inverse<?php
                     endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ALL') ?></label>
                 </fieldset>
@@ -85,15 +85,7 @@ $active = $this->state->get('filter.active', 1);
                 foreach ($this->items as $item): ?>
                     <div class="col-2">
                         <div class="well well-small">
-                            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->id) ?>">
-                                <?php echo VolunteersHelper::image($item->image, 'large', false, $item->name); ?>
-                            </a>
-                            <h4 class="text-center">
-                                <a
-                                    href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->id) ?>">
-                                    <?php echo $item->name; ?>
-                                </a>
-                            </h4>
+                            <?php VolunteersHelper::outputHorizontalVolunteer($item); ?>
                         </div>
                     </div>
                     <?php $i++; ?>

@@ -40,7 +40,7 @@ try {
 </div>
 <br>
 <div class="row">
-    <div class="span6">
+    <div class="col-6">
         <h2>
             <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_TITLE'); ?>
         </h2>
@@ -57,7 +57,7 @@ try {
             </a>
         </p>
     </div>
-    <div class="span6">
+    <div class="col-6">
         <h2>
             <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_TITLE'); ?>
         </h2>
@@ -75,7 +75,7 @@ try {
         </p>
     </div>
 </div>
-<br>
+<hr>
 <div class="row">
     <h2>
         <?php echo Text::_('COM_VOLUNTEERS_LATEST_REPORTS') ?>
@@ -122,7 +122,7 @@ try {
     <a class="volunteers_btn volunteers_btn-large volunteers_btn-block"
         href="<?php echo Route::_('index.php?option=com_volunteers&view=reports'); ?>"><?php echo Text::_('COM_VOLUNTEERS_READ_MORE_REPORTS') ?></a>
 </div>
-<br>
+<hr>
 <div class="row">
     <h2>
         <?php echo count($this->markers) . ' ' . Text::_('COM_VOLUNTEERS_VOLUNTEERS_WORLD') ?>

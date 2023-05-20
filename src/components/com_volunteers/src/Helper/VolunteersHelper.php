@@ -308,6 +308,25 @@ class VolunteersHelper
         echo '</span';
     }
 
+    /**
+     * Displays Volunteer Block Horizontaly
+     *
+     * @param $volunteer
+     *
+     *
+     * @since 4.0.0
+     */
+    public static function outputHorizontalVolunteer($volunteer)
+    {
+        echo '<a href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->id) . '">';
+        echo self::image($volunteer->image, 'small', false, $volunteer->name,'joomlers img_rounded');
+        echo '</a>';
+        echo '<h4 class="text-center">';
+        echo '<a href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->id) . '">';
+        echo $volunteer->name;
+        echo '</a>';
+        echo '</h4>';
+    }
 
     /**
      * @param $type
