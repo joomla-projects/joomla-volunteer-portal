@@ -18,7 +18,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 ?>
 <?php if ($this->acl->create_team) { ?>
     <div class="row">
-        <a class="btn pull-right"
+        <a class="volunteers_btn pull-right"
             href="<?php echo Route::_('index.php?option=com_volunteers&task=team.add&team=' . $this->item->id) ?>">
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_SUBTEAM_ADD') ?>
@@ -28,16 +28,16 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 <?php } ?>
 <?php foreach ($this->item->subteams as $i => $item) { ?>
     <div class="row">
-        <div class="team well team-<?php echo($item->id); ?>">
+        <div class="team well team-<?php echo ($item->id); ?>">
             <div class="row">
                 <div class="col-8">
-                    <h2 style="margin-top: 0;">
+                    <h2 class="vol_h2" style="margin-top: 0;">
                         <a
                             href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $item->id) ?>">
-                            <?php echo($item->title); ?>
+                            <?php echo ($item->title); ?>
 
                             <?php if ($item->acronym) {
-                                ?> (<?php echo($item->acronym) ?>)<?php
+                                ?> (<?php echo ($item->acronym) ?>)<?php
                             } ?>
                         </a>
                         <?php if ($item->date_ended != '0000-00-00') { ?>
@@ -47,10 +47,10 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                         <?php } ?>
                     </h2>
                     <p>
-                        <?php echo($item->description); ?>
+                        <?php echo ($item->description); ?>
                     </p>
                     <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $item->id) ?>"
-                        class="btn">
+                        class="volunteers_btn">
                         <span class="icon-chevron-right"></span>
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') . ' ' . $item->title; ?>
                     </a>
@@ -58,25 +58,25 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                 <div class="col-4">
                     <div class="members">
                         <?php $i = 0;
-    if (!empty($item->members)) {
-        foreach ($item->members as $member) { ?>
+                        if (!empty($item->members)) {
+                            foreach ($item->members as $member) { ?>
                                 <a class="tip hasTooltip" title="<?php echo $member->volunteer_name; ?>"
                                     href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $member->volunteer) ?>">
                                     <?php echo VolunteersHelper::image($member->volunteer_image, 'small', false, $member->volunteer_image); ?>
                                 </a>
                                 <?php $i++;
-            if ($i == 14) {
-                break;
-            }
-        }
-    }
-    if (count($item->members) > 14) {
-        ?>
+                                if ($i == 14) {
+                                    break;
+                                }
+                            }
+                        }
+                        if (count($item->members) > 14) {
+                            ?>
                         <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $item->id) ?>"
                             class="all-members">
                             <span class="all">
                                 <?php echo Text::_('COM_VOLUNTEERS_ALL') ?>
-                            </span><span class="number"><?php echo(' ' . count($item->members)); ?></span>
+                            </span><span class="number"><?php echo (' ' . count($item->members)); ?></span>
                         </a>
                         <?php } ?>
                 </div>

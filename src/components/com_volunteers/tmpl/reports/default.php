@@ -40,9 +40,9 @@ try {
             </div>
         </div>
         <div class="page-header">
-            <h1>
+            <h1 class="vol_h1">
                 <?php echo Text::_('COM_VOLUNTEERS_TITLE_REPORTS') ?>
-                <?php if ($this->category):
+                <?php if ($this->category) :
                     ?>:
                     <?php echo $this->category; ?>
                     <?php
@@ -51,8 +51,8 @@ try {
         </div>
     </div>
 
-    <?php if (!empty($this->items)): ?>
-        <?php foreach ($this->items as $i => $item): ?>
+    <?php if (!empty($this->items)) : ?>
+        <?php foreach ($this->items as $i => $item) : ?>
             <div class="row report">
                 <div class="col-2">
                     <a
@@ -61,16 +61,16 @@ try {
                     </a>
                 </div>
                 <div class="col-10">
-                    <?php if ($item->acl->edit || ($this->user->id == $item->created_by)): ?>
-                        <a class="btn pull-right"
+                    <?php if ($item->acl->edit || ($this->user->id == $item->created_by)) : ?>
+                        <a class="volunteers_btn pull-right"
                             href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $item->id) ?>">
                             <span class="icon-edit" aria-hidden="true"></span>
                             <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
                         </a>
                     <?php endif; ?>
-                    <h2 class="report-title">
+                    <h2 class="vol_h2">
                         <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>">
-                            <?php echo($item->title); ?>
+                            <?php echo ($item->title); ?>
                         </a>
                     </h2>
                     <p class="muted">
@@ -85,7 +85,7 @@ try {
                     <p>
                         <?php echo HtmlHelper::_('string.truncate', strip_tags(trim($item->description)), 500); ?>
                     </p>
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="btn">
+                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="volunteers_btn">
                         <span class="icon-chevron-right" aria-hidden="true"></span>
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>
                         &nbsp;
@@ -95,7 +95,7 @@ try {
             </div>
             <hr>
         <?php endforeach; ?>
-    <?php else: ?>
+    <?php else : ?>
         <div class="row">
             <p class="alert alert-info">
                 <?php echo Text::_('COM_VOLUNTEERS_NOTE_NO_REPORTS') ?>
@@ -104,7 +104,7 @@ try {
     <?php endif; ?>
 
     <div class="row">
-        <a class="btn pull-right btn-warning"
+        <a class="volunteers_btn pull-right btn-warning"
             href="<?php echo Route::_('index.php?option=com_volunteers&view=reports&filter_category=' . $this->state->get('filter.category') . '&format=feed&type=rss') ?>">
             <span class="icon-feed" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_RSSFEED') ?>

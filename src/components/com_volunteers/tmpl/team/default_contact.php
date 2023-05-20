@@ -55,12 +55,12 @@ use Joomla\CMS\Router\Route;
     </div>
     <div class="control-group">
         <input type="submit" value="<?php echo Text::_('COM_VOLUNTEERS_MESSAGE_SUBMIT') ?>" name="submit"
-            id="submitButton" class="btn btn-success pull-right" />
+            id="submitButton" class="volunteers_btn btn-success pull-right" />
     </div>
 
     <input type="hidden" name="option" value="com_volunteers" />
     <input type="hidden" name="task" value="team.sendmail" />
     <?php echo HtmlHelper::_('form.token'); ?>
 </form>
-<?php
+    <?php
 endif;

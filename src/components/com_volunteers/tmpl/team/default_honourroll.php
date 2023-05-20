@@ -18,7 +18,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 ?>
 <?php if ($this->acl->edit) : ?>
     <div class="row">
-        <a class="btn pull-right"
+        <a class="volunteers_btn pull-right"
             href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&team=' . $this->item->id) ?>">
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_MEMBER_ADD') ?>
@@ -67,7 +67,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                 </td>
                 <?php if ($this->acl->edit) { ?>
                     <td>
-                        <a class="btn btn-small pull-right"
+                        <a class="volunteers_btn btn-small pull-right"
                             href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id) ?>">
                             <span class="icon-edit" aria-hidden="true"></span>
                             <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>

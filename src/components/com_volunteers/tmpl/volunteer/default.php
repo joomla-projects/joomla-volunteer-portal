@@ -29,7 +29,7 @@ try {
 ?>
 <?php if ($this->item->new) { ?>
     <div class="alert alert-success">
-        <h1>
+        <h1 class="vol_h1">
             <?php echo Text::_('COM_VOLUNTEERS_PROFILE_NEW_COMPLETED') ?>
         </h1>
 
@@ -45,7 +45,7 @@ try {
 
         <?php if ($this->item->certification) { ?>
             <div class="volunteer-certificated">
-                <a href="https://certification.joomla.org/certified-user-directory/<?php echo($this->item->certification) ?>"
+                <a href="https://certification.joomla.org/certified-user-directory/<?php echo ($this->item->certification) ?>"
                     target="_blank">
                     <img src="https://certification.joomla.org/images/Badges/3x_certified_administrator_badge.png"
                         class="img-responsive" />
@@ -56,14 +56,14 @@ try {
     <div class="col-9">
         <div class="filter-bar">
             <?php if (($this->user->id == $this->item->user_id) && $this->item->user_id) { ?>
-                <a class="btn pull-right" href="https://identity.joomla.org/profile?layout=edit">
+                <a class="volunteers_btn pull-right" href="https://identity.joomla.org/profile?layout=edit">
                     <span class="icon-edit" aria-hidden="true"></span>
                     <?php echo Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS_EDIT_MY') ?>
                 </a>
             <?php } ?>
         </div>
         <div class="page-header">
-            <h1>
+            <h1 class="vol_h1">
                 <?php echo $this->item->name; ?>
             </h1>
         </div>
@@ -76,21 +76,21 @@ try {
         <?php } ?>
 
         <p class="lead">
-            <?php echo($this->item->intro) ?>
+            <?php echo ($this->item->intro) ?>
         </p>
 
 
         <div class="btn-group">
             <?php if ($this->item->joomlaforum) { ?>
-                <a class="btn btn-joomlaforum" target="_blank"
-                    href="https://forum.joomla.org/memberlist.php?mode=viewprofile&u=<?php echo($this->item->joomlaforum) ?>">
+                <a class="volunteers_btn btn-joomlaforum" target="_blank"
+                    href="https://forum.joomla.org/memberlist.php?mode=viewprofile&u=<?php echo ($this->item->joomlaforum) ?>">
                     <span class="icon-joomla" aria-hidden="true"></span>
                     <?php echo Text::_('COM_VOLUNTEERS_CONNECT_JOOMLAFORUM') ?>
                 </a>
             <?php } ?>
             <?php if ($this->item->joomladocs) { ?>
-                <a class="btn btn-joomladocs" target="_blank"
-                    href="https://docs.joomla.org/User:<?php echo($this->item->joomladocs) ?>">
+                <a class="volunteers_btn btn-joomladocs" target="_blank"
+                    href="https://docs.joomla.org/User:<?php echo ($this->item->joomladocs) ?>">
                     <span class="icon-joomla" aria-hidden="true"></span>
                     <?php echo Text::_('COM_VOLUNTEERS_CONNECT_JOOMLADOCS') ?>
                 </a>
@@ -100,7 +100,7 @@ try {
         <p>
         <div class="btn-group">
             <?php if ($this->item->github) { ?>
-                <a class="btn btn-gtihub" target="_blank" href="https://github.com/<?php echo($this->item->github) ?>">
+                <a class="volunteers_btn btn-gtihub" target="_blank" href="https://github.com/<?php echo ($this->item->github) ?>">
                     <span class="icon-github" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_GITHUB') ?>
@@ -108,8 +108,8 @@ try {
                 </a>
             <?php } ?>
             <?php if ($this->item->crowdin) { ?>
-                <a class="btn btn-crowdin" target="_blank"
-                    href="https://crowdin.com/profile/<?php echo($this->item->crowdin) ?>">
+                <a class="volunteers_btn btn-crowdin" target="_blank"
+                    href="https://crowdin.com/profile/<?php echo ($this->item->crowdin) ?>">
                     <span class="icon-comments-2" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_CROWDIN') ?>
@@ -117,8 +117,8 @@ try {
                 </a>
             <?php } ?>
             <?php if ($this->item->stackexchange) { ?>
-                <a class="btn btn-stackexchange" target="_blank"
-                    href="https://stackexchange.com/users/<?php echo($this->item->stackexchange) ?>">
+                <a class="volunteers_btn btn-stackexchange" target="_blank"
+                    href="https://stackexchange.com/users/<?php echo ($this->item->stackexchange) ?>">
                     <span class="icon-comments-2" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_STACKEXCHANGE') ?>
@@ -126,8 +126,8 @@ try {
                 </a>
             <?php } ?>
             <?php if ($this->item->joomlastackexchange) { ?>
-                <a class="btn btn-joomlastackexchange" target="_blank"
-                    href="https://joomla.stackexchange.com/users/<?php echo($this->item->joomlastackexchange) ?>">
+                <a class="volunteers_btn btn-joomlastackexchange" target="_blank"
+                    href="https://joomla.stackexchange.com/users/<?php echo ($this->item->joomlastackexchange) ?>">
                     <span class="icon-comments-2" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_JOOMLASTACKEXCHANGE') ?>
@@ -140,7 +140,7 @@ try {
         <p>
         <div class="btn-group">
             <?php if ($this->item->website && ($this->item->website != 'http://')) { ?>
-                <a class="btn" target="_blank" href="<?php echo($this->item->website) ?>">
+                <a class="volunteers_btn" target="_blank" href="<?php echo ($this->item->website) ?>">
                     <span class="icon-link" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_WEBSITE') ?>
@@ -148,7 +148,7 @@ try {
                 </a>
             <?php } ?>
             <?php if ($this->item->twitter) { ?>
-                <a class="btn btn-twitter" target="_blank" href="https://twitter.com/<?php echo($this->item->twitter) ?>">
+                <a class="volunteers_btn btn-twitter" target="_blank" href="https://twitter.com/<?php echo ($this->item->twitter) ?>">
                     <span class="icon-twitter" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_TWITTER') ?>
@@ -156,8 +156,8 @@ try {
                 </a>
             <?php } ?>
             <?php if ($this->item->facebook) { ?>
-                <a class="btn btn-facebook" target="_blank"
-                    href="https://www.facebook.com/<?php echo($this->item->facebook) ?>">
+                <a class="volunteers_btn btn-facebook" target="_blank"
+                    href="https://www.facebook.com/<?php echo ($this->item->facebook) ?>">
                     <span class="icon-facebook" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_FACEBOOK') ?>
@@ -165,8 +165,8 @@ try {
                 </a>
             <?php } ?>
             <?php if ($this->item->linkedin) { ?>
-                <a class="btn btn-linkedin" target="_blank"
-                    href="https://www.linkedin.com/in/<?php echo($this->item->linkedin) ?>">
+                <a class="volunteers_btn btn-linkedin" target="_blank"
+                    href="https://www.linkedin.com/in/<?php echo ($this->item->linkedin) ?>">
                     <span class="icon-linkedin" aria-hidden="true"></span>
                     <span class="hidden-phone">
                         <?php echo Text::_('COM_VOLUNTEERS_CONNECT_LINKEDIN') ?>
@@ -184,9 +184,9 @@ try {
     <div class="col-12">
         <?php
         echo HTMLHelper::_('uitab.startTabSet', 'volunteerTab', ['active' => 'viewteamsinvolved', 'recall' => true, 'breakpoint' => 768]);
-if ($this->item->teams->active) {
-    echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewteamsinvolved', Text::_('COM_VOLUNTEERS_TAB_TEAMSINVOLVED'));
-    ?>
+        if ($this->item->teams->active) {
+            echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewteamsinvolved', Text::_('COM_VOLUNTEERS_TAB_TEAMSINVOLVED'));
+            ?>
             <table class="table table-striped table-hover table-vertical-align">
                 <thead>
                     <th width="30%">
@@ -209,10 +209,10 @@ if ($this->item->teams->active) {
                                 <a href="<?php echo $team->link; ?>"><?php echo $team->name; ?></a>
                             </td>
                             <td>
-                                <?php echo($team->position_title) ?>
+                                <?php echo ($team->position_title) ?>
                             </td>
                             <td>
-                                <?php echo($team->role_title) ?>
+                                <?php echo ($team->role_title) ?>
                             </td>
                             <td>
                                 <?php echo VolunteersHelper::date($team->date_started, 'M Y'); ?>
@@ -222,11 +222,11 @@ if ($this->item->teams->active) {
                 </tbody>
             </table>
             <?php
-    echo HTMLHelper::_('uitab.endTab');
-}
-if ($this->item->teams->honorroll) {
-    echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewhonorroll', Text::_('COM_VOLUNTEERS_TAB_HONORROLL'));
-    ?>
+            echo HTMLHelper::_('uitab.endTab');
+        }
+        if ($this->item->teams->honorroll) {
+            echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewhonorroll', Text::_('COM_VOLUNTEERS_TAB_HONORROLL'));
+            ?>
             <table class="table table-striped table-hover table-vertical-align">
                 <thead>
                     <th width="30%">
@@ -252,10 +252,10 @@ if ($this->item->teams->honorroll) {
                                 <a href="<?php echo $team->link; ?>"><?php echo $team->name; ?></a>
                             </td>
                             <td>
-                                <?php echo($team->position_title) ?>
+                                <?php echo ($team->position_title) ?>
                             </td>
                             <td>
-                                <?php echo($team->role_title) ?>
+                                <?php echo ($team->role_title) ?>
                             </td>
                             <td>
                                 <?php echo VolunteersHelper::date($team->date_started, 'M Y'); ?>
@@ -268,23 +268,23 @@ if ($this->item->teams->honorroll) {
                 </tbody>
             </table>
             <?php
-    echo HTMLHelper::_('uitab.endTab');
-}
-if ($this->item->joomlastory) {
-    echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewjoomlastory', Text::_('COM_VOLUNTEERS_TAB_JOOMLASTORY'));
-    echo(nl2br($this->item->joomlastory));
-    echo HTMLHelper::_('uitab.endTab');
-}
+            echo HTMLHelper::_('uitab.endTab');
+        }
+        if ($this->item->joomlastory) {
+            echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewjoomlastory', Text::_('COM_VOLUNTEERS_TAB_JOOMLASTORY'));
+            echo (nl2br($this->item->joomlastory));
+            echo HTMLHelper::_('uitab.endTab');
+        }
 
-if ($this->user->id != $this->item->user_id) {
-    echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewcontact', Text::_('COM_VOLUNTEERS_TAB_CONTACT'));
+        if ($this->user->id != $this->item->user_id) {
+            echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewcontact', Text::_('COM_VOLUNTEERS_TAB_CONTACT'));
 
-    if ($this->user->guest) { ?>
+            if ($this->user->guest) { ?>
                 <p class="alert alert-info">
                     <?php echo Text::_('COM_VOLUNTEERS_NOTE_LOGIN_CONTACT_VOLUNTEER') ?>
                 </p>
                 <?php
-    } else { ?>
+            } else { ?>
                 <form class="form form-horizontal" name="sendmail" action="<?php echo Route::_('index.php') ?>" method="post"
                     enctype="multipart/form-data">
                     <div class="control-group">
@@ -323,22 +323,22 @@ if ($this->user->id != $this->item->user_id) {
                     </div>
                     <div class="control-group">
                         <input type="submit" value="<?php echo Text::_('COM_VOLUNTEERS_MESSAGE_SUBMIT') ?>" name="submit"
-                            id="submitButton" class="btn btn-success pull-right" />
+                            id="submitButton" class="volunteers_btn btn-success pull-right" />
                     </div>
 
                     <input type="hidden" name="option" value="com_volunteers" />
                     <input type="hidden" name="task" value="volunteer.sendmail" />
                     <?php echo HtmlHelper::_('form.token'); ?>
                 </form>
-                <a class="btn btn-danger js-reportspam" data-volunteer="<?php echo $this->item->id; ?>"
+                <a class="volunteers_btn btn-danger js-reportspam" data-volunteer="<?php echo $this->item->id; ?>"
                     data-success="<?php echo Text::_('COM_VOLUNTEERS_SPAM_REPORT_SUCCESS') ?>">
                     <span class="icon-warning" aria-hidden="true"></span>
                     <?php echo Text::_('COM_VOLUNTEERS_SPAM_REPORT') ?>
                 </a>
             <?php }
 
-    echo HTMLHelper::_('uitab.endTab');
-} ?>
+            echo HTMLHelper::_('uitab.endTab');
+        } ?>
 
 
 

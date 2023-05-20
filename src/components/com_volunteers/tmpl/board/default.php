@@ -29,7 +29,7 @@ try {
 ?>
 <div class="row">
     <div class="filter-bar">
-        <?php if ($this->acl->edit): ?>
+        <?php if ($this->acl->edit) : ?>
             <a class="volunteers_btn pull-right"
                 href="<?php echo Route::_('index.php?option=com_volunteers&task=department.edit&id=' . $this->item->id) ?>"><br />
 
@@ -39,7 +39,7 @@ try {
         <?php endif; ?>
     </div>
     <div class="page-header">
-        <h1>
+        <h1 class="vol_h1">
             <?php echo $this->escape($this->item->title) ?>
         </h1>
     </div>
@@ -49,11 +49,11 @@ try {
     </p>
 
     <dl class="dl-horizontal">
-        <?php if ($this->item->website): ?>
+        <?php if ($this->item->website) : ?>
             <dt>
                 <?php echo Text::_('COM_VOLUNTEERS_FIELD_WEBSITE') ?>
             </dt>
-            <dd><a href="<?php echo($this->item->website) ?>"><?php echo($this->item->website) ?></a></dd>
+            <dd><a href="<?php echo ($this->item->website) ?>"><?php echo ($this->item->website) ?></a></dd>
         <?php endif; ?>
     </dl>
 </div>
@@ -62,9 +62,9 @@ try {
     <div class="col-12">
         <?php
         echo HTMLHelper::_('uitab.startTabSet', 'departmentTab', ['active' => 'viewmembers', 'recall' => true, 'breakpoint' => 768]);
-echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewmembers', Text::_('COM_VOLUNTEERS_TAB_MEMBERS'));
-?>
-        <?php if ($this->acl->edit): ?>
+        echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewmembers', Text::_('COM_VOLUNTEERS_TAB_MEMBERS'));
+        ?>
+        <?php if ($this->acl->edit) : ?>
             <div class="row">
                 <a class="volunteers_btn pull-right"
                     href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&department=' . $this->item->id) ?>">
@@ -74,7 +74,7 @@ echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewmembers', Text::_('COM_
             </div>
             <hr>
         <?php endif; ?>
-        <?php if ($this->item->members->active): ?>
+        <?php if ($this->item->members->active) : ?>
             <table class="table table-striped table-hover table-vertical-align">
                 <thead>
                     <th width="30%">
@@ -86,33 +86,33 @@ echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewmembers', Text::_('COM_
                     <th width="12%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_STARTED') ?>
                     </th>
-                    <?php if ($this->acl->edit): ?>
+                    <?php if ($this->acl->edit) : ?>
                         <th width="10%">
                             <?php echo Text::_('COM_VOLUNTEERS_TITLE_MEMBERS_EDIT') ?>
                         </th>
                     <?php endif; ?>
                 </thead>
                 <tbody>
-                    <?php foreach ($this->item->members->active as $volunteer): ?>
+                    <?php foreach ($this->item->members->active as $volunteer) : ?>
                         <tr>
                             <td class="volunteer-image">
                                 <?php VolunteersHelper::OutputVolunteer($volunteer); ?>
                             </td>
                             <td>
-                                <?php if ($volunteer->position == 11): ?>
+                                <?php if ($volunteer->position == 11) : ?>
                                     <?php echo $volunteer->position_title; ?>:
                                     <a
                                         href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $volunteer->department) ?>">
                                         <?php echo $volunteer->department_title; ?>
                                     </a>
-                                <?php else: ?>
+                                <?php else : ?>
                                     <?php echo $volunteer->role_title; ?>
                                 <?php endif; ?>
                             </td>
                             <td>
                                 <?php echo VolunteersHelper::date($volunteer->date_started, 'M Y'); ?>
                             </td>
-                            <?php if ($this->acl->edit): ?>
+                            <?php if ($this->acl->edit) : ?>
                                 <td>
                                     <a class="volunteers_btn volunteers_btn-small pull-right"
                                         href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id) ?>">
@@ -126,12 +126,12 @@ echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewmembers', Text::_('COM_
                 </tbody>
             </table>
         <?php endif;
-echo HTMLHelper::_('uitab.endTab');
+        echo HTMLHelper::_('uitab.endTab');
 
-if ($this->item->members->honorroll) {
-    echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewhonourroll', Text::_('COM_VOLUNTEERS_TAB_HONORROLL'));
-    ?>
-            <?php if ($this->acl->edit): ?>
+        if ($this->item->members->honorroll) {
+            echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewhonourroll', Text::_('COM_VOLUNTEERS_TAB_HONORROLL'));
+            ?>
+            <?php if ($this->acl->edit) : ?>
                 <div class="row">
                     <a class="volunteers_btn pull-right"
                         href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&department=' . $this->item->id) ?>">
@@ -155,26 +155,26 @@ if ($this->item->members->honorroll) {
                     <th width="12%">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_ENDED') ?>
                     </th>
-                    <?php if ($this->acl->edit): ?>
+                    <?php if ($this->acl->edit) : ?>
                         <th width="10%">
                             <?php echo Text::_('COM_VOLUNTEERS_TITLE_MEMBERS_EDIT') ?>
                         </th>
                     <?php endif; ?>
                 </thead>
                 <tbody>
-                    <?php foreach ($this->item->members->honorroll as $volunteer): ?>
+                    <?php foreach ($this->item->members->honorroll as $volunteer) : ?>
                         <tr>
                             <td class="volunteer-image">
                                 <?php VolunteersHelper::OutputVolunteer($volunteer); ?>
                             </td>
                             <td>
-                                <?php if ($volunteer->position == 11): ?>
+                                <?php if ($volunteer->position == 11) : ?>
                                     <?php echo $volunteer->position_title; ?>:
                                     <a
                                         href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $volunteer->department) ?>">
                                         <?php echo $volunteer->department_title; ?>
                                     </a>
-                                <?php else: ?>
+                                <?php else : ?>
                                     <?php echo $volunteer->role_title; ?>
                                 <?php endif; ?>
                             </td>
@@ -184,7 +184,7 @@ if ($this->item->members->honorroll) {
                             <td>
                                 <?php echo VolunteersHelper::date($volunteer->date_ended, 'M Y'); ?>
                             </td>
-                            <?php if ($this->acl->edit): ?>
+                            <?php if ($this->acl->edit) : ?>
                                 <td>
                                     <a class="volunteers_btn volunteers_btn-small pull-right"
                                         href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id) ?>">
@@ -200,11 +200,11 @@ if ($this->item->members->honorroll) {
 
 
             <?php echo HTMLHelper::_('uitab.endTab');
-}
+        }
 
-echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewreports', Text::_('COM_VOLUNTEERS_TAB_REPORTS'));
-?>
-        <?php if ($this->acl->create_report): ?>
+        echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewreports', Text::_('COM_VOLUNTEERS_TAB_REPORTS'));
+        ?>
+        <?php if ($this->acl->create_report) : ?>
             <div class="row">
                 <a class="volunteers_btn pull-right"
                     href="<?php echo Route::_('index.php?option=com_volunteers&task=report.add&department=' . $this->item->id) ?>">
@@ -214,8 +214,8 @@ echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewreports', Text::_('COM_
             </div>
             <hr>
         <?php endif; ?>
-        <?php if ($this->item->reports): ?>
-            <?php foreach ($this->item->reports as $report): ?>
+        <?php if ($this->item->reports) : ?>
+            <?php foreach ($this->item->reports as $report) : ?>
                 <div class="row report">
                     <div class="col-2 volunteer-image">
                         <a
@@ -224,14 +224,14 @@ echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewreports', Text::_('COM_
                         </a>
                     </div>
                     <div class="col-8">
-                        <?php if ($this->acl->edit || ($report->created_by == $this->user->id)): ?>
+                        <?php if ($this->acl->edit || ($report->created_by == $this->user->id)) : ?>
                             <a class="volunteers_btn volunteers_btn-small pull-right"
                                 href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $report->id) ?>">
                                 <span class="icon-edit" aria-hidden="true"></span>
                                 <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
                             </a>
                         <?php endif; ?>
-                        <h2 class="report-title">
+                        <h2 class="vol_h2">
                             <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>">
                                 <?php echo $report->title; ?>
                             </a>
@@ -251,13 +251,13 @@ echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewreports', Text::_('COM_
                         </p>
                         <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>"
                             class="volunteers_btn">
-                            <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>&nbsp;<?php echo($report->title); ?>
+                            <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>&nbsp;<?php echo ($report->title); ?>
                         </a>
                     </div>
                 </div>
-                <hr style="margin: 22px 0;	border: 0;	border-top: 1px solid #eee;	border-bottom: 1px solid #fff">
+                <hr style="margin: 22px 0;  border: 0;  border-top: 1px solid #eee; border-bottom: 1px solid #fff">
             <?php endforeach; ?>
-            <?php if (count($this->item->reports) == 10): ?>
+            <?php if (count($this->item->reports) == 10) : ?>
                 <a href="<?php echo Route::_('index.php?option=com_volunteers&view=reports') ?>?filter_category=d.<?php echo $this->item->id; ?>"
                     class="report_volunteers_btn">
                     <span class="icon-chevron-right" aria-hidden="true"></span>
@@ -269,22 +269,22 @@ echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewreports', Text::_('COM_
                 <span class="icon-feed" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_RSSFEED') ?>
             </a>
-        <?php else: ?>
+        <?php else : ?>
             <div class="row">
                 <p class="alert alert-info">
                     <?php echo Text::_('COM_VOLUNTEERS_NOTE_NO_REPORTS') ?>
                 </p>
             </div>
         <?php endif;
-echo HTMLHelper::_('uitab.endTab');
+        echo HTMLHelper::_('uitab.endTab');
 
-echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewreports', Text::_('COM_VOLUNTEERS_TAB_CONTACT'));
-?>
-        <?php if ($this->user->guest): ?>
+        echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewreports', Text::_('COM_VOLUNTEERS_TAB_CONTACT'));
+        ?>
+        <?php if ($this->user->guest) : ?>
             <p class="alert alert-info">
                 <?php echo Text::_('COM_VOLUNTEERS_NOTE_LOGIN_CONTACT_DEPARTMENT') ?>
             </p>
-        <?php else: ?>
+        <?php else : ?>
             <form class="form form-horizontal" name="sendmail" action="<?php echo Route::_('index.php') ?>" method="post"
                 enctype="multipart/form-data">
                 <div class="control-group">
@@ -298,7 +298,7 @@ echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewreports', Text::_('COM_
                     <label class="control-label" for="from_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_FROM') ?></label>
                     <div class="controls">
                         <input type="text" name="from_name" id="from_name"
-                            value="<?php echo($this->user->name); ?> <<?php echo($this->user->email); ?>>"
+                            value="<?php echo ($this->user->name); ?> <<?php echo ($this->user->email); ?>>"
                             class="input-block-level" disabled="disabled" />
                     </div>
                 </div>
@@ -326,5 +326,5 @@ echo HTMLHelper::_('uitab.addTab', 'departmentTab', 'viewreports', Text::_('COM_
                 <?php echo HtmlHelper::_('form.token'); ?>
             </form>
         <?php endif;
-echo HTMLHelper::_('uitab.endTab');
-?>
+        echo HTMLHelper::_('uitab.endTab');
+        ?>

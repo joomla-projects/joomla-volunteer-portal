@@ -44,9 +44,9 @@ try {
                 </label>
                 <div class="input-append">
                     <input type="text" name="filter_search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" placeholder="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_DEPARTMENT'); ?>"/>
-                    <button class="btn btn-primary" type="submit" value="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_DEPARTMENT'); ?>"><span class="fa fa-search"></span></button>
+                    <button class="volunteers_btn btn-primary" type="submit" value="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_DEPARTMENT'); ?>"><span class="fa fa-search"></span></button>
                     <?php if ($this->state->get('filter.search')) : ?>
-                        <button class="btn" type="reset" onclick="jQuery('#filter-search').attr('value', null);document.adminForm.submit();">
+                        <button class="volunteers_btn" type="reset" onclick="jQuery('#filter-search').attr('value', null);document.adminForm.submit();">
                             <span class="icon-remove"></span>
                         </button>
                     <?php endif; ?>
@@ -54,7 +54,7 @@ try {
             </div>
         </div>
         <div class="page-header">
-            <h1><?php echo Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS') ?></h1>
+            <h1 class="vol_h1"><?php echo Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS') ?></h1>
         </div>
     </div>
     <?php if (!empty($this->items)) {
@@ -63,13 +63,13 @@ try {
             <div class="team well team-<?php echo($item->id); ?>">
                 <div class="row">
                     <div class="col-8">
-                        <h2 style="margin-top: 0;">
+                        <h2 class="vol_h2" style="margin-top: 0;">
                             <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $item->id) ?>">
                                         <?php echo($item->title); ?>
                             </a>
                         </h2>
                         <p><?php echo($item->description); ?></p>
-                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $item->id) ?>" class="btn">
+                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $item->id) ?>" class="volunteers_btn">
                             <span class="fa fa-chevron-right"></span><?php echo Text::_('COM_VOLUNTEERS_READ_MORE') . ' ' . $item->title; ?>
                         </a>
                     </div>
@@ -83,9 +83,9 @@ try {
                                                                             <?php echo VolunteersHelper::image($member->volunteer_image, 'small', false, is_null($member->volunteer_name) ? '' : $member->volunteer_name); ?>
                                 </a>
                                                                             <?php $i++;
-                                            if ($i == 14) {
-                                                break;
-                                            } ?>
+                                                                            if ($i == 14) {
+                                                                                break;
+                                                                            } ?>
                                         <?php endforeach;
                                     } ?>
                             <?php if (count($item->members) > 14) : ?>

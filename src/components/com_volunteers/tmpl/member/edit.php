@@ -22,10 +22,10 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
 if ($this->item->department) {
     $view = 'department';
-    $id   = $this->item->department;
+    $id = $this->item->department;
 } elseif ($this->item->team) {
     $view = 'team';
-    $id   = $this->item->team;
+    $id = $this->item->team;
 }
 ?>
 
@@ -38,13 +38,13 @@ if ($this->item->department) {
             <div class="filter-bar">
                 <div class="btn-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
-                        <button class="btn btn-danger" onclick="Joomla.submitbutton('member.cancel')">
+                        <button class="volunteers_btn btn-danger" onclick="Joomla.submitbutton('member.cancel')">
                             <span class="icon-cancel" aria-hidden="true"></span>
                             <?php echo Text::_('JCANCEL') ?>
                         </button>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
-                        <button class="btn btn-success" type="submit">
+                        <button class="volunteers_btn btn-success" type="submit">
                             <span class="icon-pencil" aria-hidden="true"></span>
                             <?php echo Text::_('JSAVE') ?>
                         </button>
@@ -52,16 +52,16 @@ if ($this->item->department) {
                 </div>
             </div>
             <div class="page-header">
-                <h1>
+                <h1 class="vol_h1">
                     <?php echo Text::_('COM_VOLUNTEERS_TITLE_MEMBERS_EDIT') ?>
                 </h1>
             </div>
         </div>
 
-        <?php if ($this->item->department): ?>
+        <?php if ($this->item->department) : ?>
             <?php echo $this->form->renderField('department'); ?>
         <?php endif; ?>
-        <?php if ($this->item->team): ?>
+        <?php if ($this->item->team) : ?>
             <?php echo $this->form->renderField('team'); ?>
         <?php endif; ?>
 
@@ -93,14 +93,14 @@ if ($this->item->department) {
         <div class="row">
             <div class="btn-toolbar pull-right">
                 <div id="toolbar-cancel" class="btn-group">
-                    <a class="btn btn-danger"
+                    <a class="volunteers_btn btn-danger"
                         href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $this->item->team) ?>">
                         <span class="icon-cancel" aria-hidden="true"></span>
                         <?php echo Text::_('JCANCEL') ?>
                     </a>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
-                    <button class="btn btn-success" type="submit">
+                    <button class="volunteers_btn btn-success" type="submit">
                         <span class="icon-pencil" aria-hidden="true"></span>
                         <?php echo Text::_('JSAVE') ?>
                     </button>

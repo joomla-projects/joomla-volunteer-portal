@@ -30,7 +30,7 @@ try {
 <div class="row">
     <div class="filter-bar">
         <?php if ($this->acl->edit) { ?>
-            <a class="btn pull-right"
+            <a class="volunteers_btn pull-right"
                 href="<?php echo Route::_('index.php?option=com_volunteers&task=team.edit&id=' . $this->item->id) ?>">
                 <span class="icon-edit" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_TITLE_TEAMS_EDIT') ?>
@@ -38,11 +38,11 @@ try {
         <?php } ?>
     </div>
     <div class="page-header">
-        <h1>
+        <h1 class="vol_h1">
             <?php echo $this->escape($this->item->title) ?>
             <?php if ($this->item->acronym) { ?>
                 (
-                <?php echo($this->item->acronym) ?>)
+                <?php echo ($this->item->acronym) ?>)
             <?php } ?>
             <?php if (!$this->item->active) { ?>
                 <small>
@@ -70,7 +70,7 @@ try {
             <dt>
                 <?php echo Text::_('COM_VOLUNTEERS_FIELD_WEBSITE') ?>
             </dt>
-            <dd><a href="<?php echo($this->item->website) ?>"><?php echo($this->item->website) ?></a></dd>
+            <dd><a href="<?php echo ($this->item->website) ?>"><?php echo ($this->item->website) ?></a></dd>
         <?php } ?>
 
         <?php if (($this->item->department_title) && ($this->item->department != 58)) { ?>
@@ -117,58 +117,58 @@ try {
         <?php
         echo HTMLHelper::_('uitab.startTabSet', 'teamsTab', ['active' => 'viewmembers', 'recall' => true, 'breakpoint' => 768]);
 
-/************************ TAB ***********************************/
-if ($this->item->active) {
-    echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewmembers', Text::_('COM_VOLUNTEERS_TAB_MEMBERS'));
-    echo $this->loadTemplate('members');
-    echo HTMLHelper::_('uitab.endTab');
-}
+        /************************ TAB ***********************************/
+        if ($this->item->active) {
+            echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewmembers', Text::_('COM_VOLUNTEERS_TAB_MEMBERS'));
+            echo $this->loadTemplate('members');
+            echo HTMLHelper::_('uitab.endTab');
+        }
 
-/************************ TAB ***********************************/
-if ($this->item->members->honorroll) {
-    echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewhonourroll', Text::_('COM_VOLUNTEERS_TAB_HONORROLL'));
-    echo $this->loadTemplate('honourroll');
-    echo HTMLHelper::_('uitab.endTab');
-}
+        /************************ TAB ***********************************/
+        if ($this->item->members->honorroll) {
+            echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewhonourroll', Text::_('COM_VOLUNTEERS_TAB_HONORROLL'));
+            echo $this->loadTemplate('honourroll');
+            echo HTMLHelper::_('uitab.endTab');
+        }
 
-/************************ TAB ***********************************/
-if (!$this->item->parent_id && ($this->item->subteams || $this->acl->create_team)) {
-    echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewsubteams', Text::_('COM_VOLUNTEERS_TAB_SUBTEAMS'));
-    echo $this->loadTemplate('subteams');
-    echo HTMLHelper::_('uitab.endTab');
-}
+        /************************ TAB ***********************************/
+        if (!$this->item->parent_id && ($this->item->subteams || $this->acl->create_team)) {
+            echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewsubteams', Text::_('COM_VOLUNTEERS_TAB_SUBTEAMS'));
+            echo $this->loadTemplate('subteams');
+            echo HTMLHelper::_('uitab.endTab');
+        }
 
-/************************ TAB ***********************************/
-if ($this->item->active) {
-    echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewroles', Text::_('COM_VOLUNTEERS_TAB_ROLES'));
-    echo $this->loadTemplate('roles');
-    echo HTMLHelper::_('uitab.endTab');
-}
+        /************************ TAB ***********************************/
+        if ($this->item->active) {
+            echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewroles', Text::_('COM_VOLUNTEERS_TAB_ROLES'));
+            echo $this->loadTemplate('roles');
+            echo HTMLHelper::_('uitab.endTab');
+        }
 
-/************************ TAB ***********************************/
-echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewreports', Text::_('COM_VOLUNTEERS_TAB_REPORTS'));
-echo $this->loadTemplate('reports');
-echo HTMLHelper::_('uitab.endTab');
+        /************************ TAB ***********************************/
+        echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewreports', Text::_('COM_VOLUNTEERS_TAB_REPORTS'));
+        echo $this->loadTemplate('reports');
+        echo HTMLHelper::_('uitab.endTab');
 
-/************************ TAB ***********************************/
-if ($this->item->active) {
-    echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewgetinvolved', Text::_('COM_VOLUNTEERS_TAB_GETINVOLVED'));
+        /************************ TAB ***********************************/
+        if ($this->item->active) {
+            echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewgetinvolved', Text::_('COM_VOLUNTEERS_TAB_GETINVOLVED'));
 
-    if ($this->item->getinvolved) {
-        echo $this->item->getinvolved;
-    } else {
-        echo '<a  class="btn" data-toggle="tab"  onclick="document.getElementById(\'teamsTab\').activateTab(document.getElementById(\'viewcontact\'));">' . Text::_('COM_VOLUNTEERS_USE_CONTACT') . '</a>';
-    }
+            if ($this->item->getinvolved) {
+                echo $this->item->getinvolved;
+            } else {
+                echo '<a  class="volunteers_btn" data-toggle="tab"  onclick="document.getElementById(\'teamsTab\').activateTab(document.getElementById(\'viewcontact\'));">' . Text::_('COM_VOLUNTEERS_USE_CONTACT') . '</a>';
+            }
 
-    echo HTMLHelper::_('uitab.endTab');
+            echo HTMLHelper::_('uitab.endTab');
 
-    /************************ TAB ***********************************/
-    echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewcontact', Text::_('COM_VOLUNTEERS_TAB_CONTACT'));
-    echo $this->loadTemplate('contact');
-    echo HTMLHelper::_('uitab.endTab');
-}
+            /************************ TAB ***********************************/
+            echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewcontact', Text::_('COM_VOLUNTEERS_TAB_CONTACT'));
+            echo $this->loadTemplate('contact');
+            echo HTMLHelper::_('uitab.endTab');
+        }
 
-echo HTMLHelper::_('uitab.endTabSet');
-?>
+        echo HTMLHelper::_('uitab.endTabSet');
+        ?>
     </div>
 </div>

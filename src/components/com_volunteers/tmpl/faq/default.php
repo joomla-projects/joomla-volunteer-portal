@@ -28,7 +28,7 @@ try {
 
 <div class="row">
     <div class="page-header">
-        <h1>
+        <h1 class="vol_h1">
             <?php echo Text::_('COM_VOLUNTEERS_TITLE_FAQ'); ?>
         </h1>
     </div>

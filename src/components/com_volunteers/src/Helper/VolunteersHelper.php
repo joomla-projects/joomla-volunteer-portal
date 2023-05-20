@@ -321,7 +321,7 @@ class VolunteersHelper
         echo '<a href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->id) . '">';
         echo self::image($volunteer->image, 'small', false, $volunteer->name, 'joomlers img_rounded');
         echo '</a>';
-        echo '<h4 class="text-center">';
+        echo '<h4 class="text-center vol_h4">';
         echo '<a href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->id) . '">';
         echo $volunteer->name;
         echo '</a>';
@@ -497,7 +497,7 @@ class VolunteersHelper
      *
      * @since version
      */
-    public static function image($image, $size, bool $urlonly = false, string|null $alt = '')
+    public static function image($image, $size, bool $urlonly = false, string|null $alt = '', string $class = 'img-rounded')
     {
         if (empty($image)) {
             $image = Uri::base() . 'media/com_volunteers/images/joomlaperson.png';
@@ -506,9 +506,9 @@ class VolunteersHelper
         if ($urlonly) {
             $html = $image;
         } elseif ($size === 'small') {
-            $html = '<img class="img-rounded" alt="' . $alt . '" src="' . $image . '" width="50px"/>';
+            $html = '<img class="'.$class.'" alt="' . $alt . '" src="' . $image . '" width="50px"/>';
         } else {
-            $html = '<img class="img-rounded" alt="' . $alt . '" src="' . $image . '"/>';
+            $html = '<img class="'.$class.'" alt="' . $alt . '" src="' . $image . '" width="100%"/>';
         }
 
         return $html;

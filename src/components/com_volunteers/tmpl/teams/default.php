@@ -57,31 +57,31 @@ try {
             <fieldset id="filter_active" class="btn-group radio pull-right" onchange="document.adminForm.submit();">
                 <input type="radio" id="filter_active1" name="filter_active" value="1" <?php if ($active == 1) :
                     ?>selected="selected"<?php
-                endif; ?>>
+                                                                                       endif; ?>>
                 <label for="filter_active1" class="volunteers_btn<?php if ($active == 1) :
                     ?> btn-success<?php
-                endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ACTIVE') ?></label>
+                                                                 endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ACTIVE') ?></label>
 
                 <input type="radio" id="filter_active0" name="filter_active" value="0" <?php if ($active == 0) :
                     ?>selected="selected"<?php
-                endif; ?>>
+                                                                                       endif; ?>>
                 <label for="filter_active0" class="volunteers_btn<?php if ($active == 0) :
                     ?> btn-danger<?php
-                endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ARCHIVED') ?></label>
+                                                                 endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ARCHIVED') ?></label>
 
                 <input type="radio" id="filter_active2" name="filter_active" value="2" <?php if ($active == 2) :
                     ?>selected="selected"<?php
-                endif; ?>>
+                                                                                       endif; ?>>
                 <label for="filter_active2" class="volunteers_btn<?php if ($active == 2) :
                     ?> btn-inverse<?php
-                endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ALL') ?></label>
+                                                                 endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ALL') ?></label>
             </fieldset>
         </div>
         <div class="page-header">
             <?php if ($this->state->get('filter.groups')) : ?>
-                <h1><?php echo Text::_('COM_VOLUNTEERS_TITLE_GROUPS') ?></h1>
+                <h1 class="vol_h1"><?php echo Text::_('COM_VOLUNTEERS_TITLE_GROUPS') ?></h1>
             <?php else : ?>
-                <h1><?php echo Text::_('COM_VOLUNTEERS_TITLE_TEAMS') ?></h1>
+                <h1 class="vol_h1"><?php echo Text::_('COM_VOLUNTEERS_TITLE_TEAMS') ?></h1>
             <?php endif; ?>
         </div>
     </div>
@@ -91,7 +91,7 @@ try {
             <div class="team well team-<?php echo($item->id); ?>">
                 <div class="row">
                     <div class="col-8">
-                        <h2 style="margin-top: 0;">
+                        <h2 class="vol_h2" style="margin-top: 0;">
                             <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $item->id) ?>">
                                         <?php echo($item->title); ?><?php if ($item->acronym) :
                                             ?> (<?php echo($item->acronym) ?>)<?php
@@ -113,7 +113,7 @@ try {
                         <p><?php echo($item->description); ?></p>
 
                                 <?php if (count($item->subteams)) : ?>
-                            <h3><?php echo Text::_('COM_VOLUNTEERS_SUBTEAMS') ?></h3>
+                            <h3 class="vol_h3"><?php echo Text::_('COM_VOLUNTEERS_SUBTEAMS') ?></h3>
                             <ul class="nav nav-tabs nav-stacked">
                                     <?php foreach ($item->subteams as $subteam) : ?>
                                     <li>
@@ -135,7 +135,7 @@ try {
                                     <?php endforeach; ?>
                             </ul>
                                 <?php endif; ?>
-                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $item->id) ?>" class="btn">
+                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $item->id) ?>" class="volunteers_btn">
                             <span class="icon-chevron-right" aria-hidden="true"></span><?php echo Text::_('COM_VOLUNTEERS_READ_MORE') . ' ' . $item->title; ?>
                         </a>
                     </div>
@@ -148,9 +148,9 @@ try {
                                                                             <?php echo VolunteersHelper::image($member->volunteer_image, 'small', false, $member->volunteer_name); ?>
                                 </a>
                                                                             <?php $i++;
-                                            if ($i == 14) {
-                                                break;
-                                            } ?>
+                                                                            if ($i == 14) {
+                                                                                break;
+                                                                            } ?>
                                         <?php endforeach;
                                     } ?>
                             <?php if (count($item->members) > 14) : ?>

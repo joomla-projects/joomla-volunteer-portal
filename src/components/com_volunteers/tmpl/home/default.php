@@ -41,7 +41,7 @@ try {
 <br>
 <div class="row">
     <div class="col-6">
-        <h2>
+        <h2 class="vol_h2">
             <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_TITLE'); ?>
         </h2>
         <p>
@@ -58,7 +58,7 @@ try {
         </p>
     </div>
     <div class="col-6">
-        <h2>
+        <h2 class="vol_h2">
             <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_TITLE'); ?>
         </h2>
         <p>
@@ -77,11 +77,11 @@ try {
 </div>
 <hr>
 <div class="row">
-    <h2>
+    <h2 class="vol_h2">
         <?php echo Text::_('COM_VOLUNTEERS_LATEST_REPORTS') ?>
     </h2>
     <?php if (!empty($this->reports)) {
-        foreach ($this->reports as $i => $item): ?>
+        foreach ($this->reports as $i => $item) : ?>
             <div class="row report">
                 <div class="col-2">
 
@@ -91,9 +91,9 @@ try {
                     </a>
                 </div>
                 <div class="col-10">
-                    <h3 class="report-title">
+                    <h3 class="vol_h3">
                         <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>">
-                            <?php echo($item->title); ?>
+                            <?php echo ($item->title); ?>
                         </a>
                     </h3>
                     <p class="muted">
@@ -118,13 +118,13 @@ try {
             <hr>
         <?php endforeach;
     }
-?>
+    ?>
     <a class="volunteers_btn volunteers_btn-large volunteers_btn-block"
         href="<?php echo Route::_('index.php?option=com_volunteers&view=reports'); ?>"><?php echo Text::_('COM_VOLUNTEERS_READ_MORE_REPORTS') ?></a>
 </div>
 <hr>
 <div class="row">
-    <h2>
+    <h2 class="vol_h2">
         <?php echo count($this->markers) . ' ' . Text::_('COM_VOLUNTEERS_VOLUNTEERS_WORLD') ?>
     </h2>
     <div id="map-canvas"></div>

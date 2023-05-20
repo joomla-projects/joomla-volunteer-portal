@@ -7,6 +7,7 @@
  */
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
@@ -47,7 +48,7 @@ $active = $this->state->get('filter.active', 1);
                         <button class="volunteers_btn btn-primary" type="submit"
                             value="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_VOLUNTEER'); ?>">
                             <span class="icon-search"></span></button>
-                        <?php if ($this->state->get('filter.search')): ?>
+                        <?php if ($this->state->get('filter.search')) : ?>
                             <button class="volunteers_btn" type="reset"
                                 onclick="jQuery('#filter-search').attr('value', null);document.adminForm.submit();">
                                 <span class="icon-remove"></span>
@@ -57,23 +58,23 @@ $active = $this->state->get('filter.active', 1);
                 </div>
 
                 <fieldset id="filter_active" class="btn-group radio pull-right" onchange="document.adminForm.submit();">
-                    <input type="radio" id="filter_active1" name="filter_active" value="1" <?php if ($active == 1):
+                    <input type="radio" id="filter_active1" name="filter_active" value="1" <?php if ($active == 1) :
                         ?>selected="selected" <?php
-                    endif; ?>>
-                    <label for="filter_active1" class="volunteers_btn<?php if ($active == 1):
+                                                                                           endif; ?>>
+                    <label for="filter_active1" class="volunteers_btn<?php if ($active == 1) :
                         ?> btn-success<?php
-                    endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ACTIVE') ?></label>
+                                                                     endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ACTIVE') ?></label>
 
-                    <input type="radio" id="filter_active2" name="filter_active" value="2" <?php if ($active == 2):
+                    <input type="radio" id="filter_active2" name="filter_active" value="2" <?php if ($active == 2) :
                         ?>selected="selected" <?php
-                    endif; ?>>
-                    <label for="filter_active2" class="volunteers_btn<?php if ($active == 2):
+                                                                                           endif; ?>>
+                    <label for="filter_active2" class="volunteers_btn<?php if ($active == 2) :
                         ?> btn-inverse<?php
-                    endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ALL') ?></label>
+                                                                     endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ALL') ?></label>
                 </fieldset>
             </div>
             <div class="page-header">
-                <h1>
+                <h1 class="vol_h1">
                     <?php echo Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS') ?>
                 </h1>
             </div>
@@ -82,21 +83,21 @@ $active = $this->state->get('filter.active', 1);
         <div class="row">
             <?php $i = 0; ?>
             <?php if (!empty($this->items)) {
-                foreach ($this->items as $item): ?>
+                foreach ($this->items as $item) : ?>
                     <div class="col-2">
                         <div class="well well-small">
                             <?php VolunteersHelper::outputHorizontalVolunteer($item); ?>
                         </div>
                     </div>
                     <?php $i++; ?>
-                    <?php if ($i == 6): ?>
+                    <?php if ($i == 6) : ?>
                     </div>
                     <div class="row">
                         <?php $i = 0; ?>
                     <?php endif; ?>
                 <?php endforeach;
             }
-?>
+            ?>
         </div>
 
         <div class="pagination">

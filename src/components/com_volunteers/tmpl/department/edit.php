@@ -31,13 +31,13 @@ HtmlHelper::_('formbehavior.chosen', 'select');
             <div class="filter-bar">
                 <div class="btn-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
-                        <button class="btn btn-danger" onclick="Joomla.submitbutton('department.cancel')">
+                        <button class="volunteers_btn btn-danger" onclick="Joomla.submitbutton('department.cancel')">
                             <span class="icon-cancel" aria-hidden="true"></span>
                             <?php echo Text::_('JCANCEL') ?>
                         </button>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
-                        <button class="btn btn-success" type="submit">
+                        <button class="volunteers_btn btn-success" type="submit">
                             <span class="icon-pencil" aria-hidden="true"></span>
                             <?php echo Text::_('JSAVE') ?>
                         </button>
@@ -45,7 +45,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
                 </div>
             </div>
             <div class="page-header">
-                <h1>
+                <h1 class="vol_h1">
                     <?php echo Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS_EDIT') ?>
                 </h1>
             </div>
@@ -69,14 +69,14 @@ HtmlHelper::_('formbehavior.chosen', 'select');
         <div class="row">
             <div class="btn-toolbar pull-right">
                 <div id="toolbar-cancel" class="btn-group">
-                    <a class="btn btn-danger"
+                    <a class="volunteers_btn btn-danger"
                         href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $this->item->id) ?>">
                         <span class="icon-cancel" aria-hidden="true"></span>
                         <?php echo Text::_('JCANCEL') ?>
                     </a>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
-                    <button class="btn btn-success" type="submit">
+                    <button class="volunteers_btn btn-success" type="submit">
                         <span class="icon-pencil" aria-hidden="true"></span>
                         <?php echo Text::_('JSAVE') ?>
                     </button>

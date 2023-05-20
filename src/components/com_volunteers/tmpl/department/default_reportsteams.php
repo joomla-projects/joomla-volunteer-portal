@@ -18,8 +18,8 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 /** @var \Joomla\Component\Volunteers\Site\View\Department\HtmlView $this */
 ?>
 <div class="tab-pane" id="reportsTeams">
-    <?php if ($this->item->reportsTeams): ?>
-        <?php foreach ($this->item->reportsTeams as $report): ?>
+    <?php if ($this->item->reportsTeams) : ?>
+        <?php foreach ($this->item->reportsTeams as $report) : ?>
             <div class="row report">
                 <div class="col-2 volunteer-image">
                     <a
@@ -28,14 +28,14 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                     </a>
                 </div>
                 <div class="col-10">
-                    <?php if ($this->acl->edit || ($report->created_by == $this->user->id)): ?>
-                        <a class="btn btn-small pull-right"
+                    <?php if ($this->acl->edit || ($report->created_by == $this->user->id)) : ?>
+                        <a class="volunteers_btn btn-small pull-right"
                            href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $report->id) ?>">
                             <span class="icon-edit" aria-hidden="true"></span>
                             <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
                         </a>
                     <?php endif; ?>
-                    <h2 class="report-title">
+                    <h2 class="vol_h2">
                         <a
                             href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>">
                             <?php echo $report->title; ?>
@@ -48,10 +48,10 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                         <?php echo Text::_('COM_VOLUNTEERS_ON') ?>
                         <?php echo VolunteersHelper::date($report->created, 'Y-m-d H:i'); ?>
                         <?php echo Text::_('COM_VOLUNTEERS_IN') ?>
-                        <?php if ($report->department): ?>
+                        <?php if ($report->department) : ?>
                             <a
                                 href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $report->department) ?>"><?php echo $report->department_title; ?></a>
-                        <?php elseif ($report->team): ?>
+                        <?php elseif ($report->team) : ?>
                             <a
                                 href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $report->team) ?>"><?php echo $report->team_title; ?></a>
                         <?php endif; ?>
@@ -60,22 +60,22 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                         <?php echo HtmlHelper::_('string.truncate', strip_tags(trim($report->description)), 300); ?>
                     </p>
                     <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>"
-                       class="btn">
+                       class="volunteers_btn">
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>
-                        &nbsp;<?php echo($report->title); ?>
+                        &nbsp;<?php echo ($report->title); ?>
                     </a>
                 </div>
             </div>
             <hr>
         <?php endforeach; ?>
 
-        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=reports') ?>" class="btn">
+        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=reports') ?>" class="volunteers_btn">
             <span class="icon-chevron-right" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_READ_MORE_REPORTS'); ?>
             &nbsp
         </a>
 
-    <?php else: ?>
+    <?php else : ?>
         <div class="row">
             <p class="alert alert-info">
                 <?php echo Text::_('COM_VOLUNTEERS_NOTE_NO_REPORTS') ?>

@@ -17,11 +17,11 @@ use Joomla\CMS\Router\Route;
 /** @var \Joomla\Component\Volunteers\Site\View\Department\HtmlView $this */
 ?>
 <div class="tab-pane" id="contact">
-    <?php if ($this->user->guest): ?>
+    <?php if ($this->user->guest) : ?>
         <p class="alert alert-info">
             <?php echo Text::_('COM_VOLUNTEERS_NOTE_LOGIN_CONTACT_DEPARTMENT') ?>
         </p>
-    <?php else: ?>
+    <?php else : ?>
         <form class="form form-horizontal" name="sendmail" action="<?php echo Route::_('index.php') ?>"
               method="post" enctype="multipart/form-data">
             <div class="control-group">
@@ -35,7 +35,7 @@ use Joomla\CMS\Router\Route;
                 <label class="control-label" for="from_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_FROM') ?></label>
                 <div class="controls">
                     <input type="text" name="from_name" id="from_name"
-                           value="<?php echo($this->user->name); ?> <<?php echo($this->user->email); ?>>"
+                           value="<?php echo ($this->user->name); ?> <<?php echo ($this->user->email); ?>>"
                            class="input-block-level" disabled="disabled" />
                 </div>
             </div>
@@ -55,7 +55,7 @@ use Joomla\CMS\Router\Route;
             </div>
             <div class="control-group">
                 <input type="submit" value="<?php echo Text::_('COM_VOLUNTEERS_MESSAGE_SUBMIT') ?>" name="submit"
-                       id="submitButton" class="btn btn-success pull-right" />
+                       id="submitButton" class="volunteers_btn btn-success pull-right" />
             </div>
 
             <input type="hidden" name="option" value="com_volunteers" />

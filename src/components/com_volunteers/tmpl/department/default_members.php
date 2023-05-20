@@ -16,9 +16,9 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 
 /** @var \Joomla\Component\Volunteers\Site\View\Department\HtmlView $this */
 ?>
-<?php if ($this->acl->edit): ?>
+<?php if ($this->acl->edit) : ?>
     <div class="row">
-        <a class="btn pull-right"
+        <a class="volunteers_btn pull-right"
            href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&department=' . $this->item->id) ?>">
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_MEMBER_ADD') ?>
@@ -26,8 +26,8 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
     </div>
     <hr>
 <?php endif; ?>
-<?php //echo "<pre>";print_r($this->item->members->active);echo "</pre>";exit();?>
-<?php if ($this->item->members->active): ?>
+<?php //echo "<pre>";print_r($this->item->members->active);echo "</pre>";exit(); ?>
+<?php if ($this->item->members->active) : ?>
     <table class="table table-striped table-hover table-vertical-align">
         <thead>
         <th width="30%">
@@ -39,14 +39,14 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
         <th width="12%">
             <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_STARTED') ?>
         </th>
-        <?php if ($this->acl->edit): ?>
+        <?php if ($this->acl->edit) : ?>
             <th width="10%">
                 <?php echo Text::_('COM_VOLUNTEERS_TITLE_MEMBERS_EDIT') ?>
             </th>
         <?php endif; ?>
         </thead>
         <tbody>
-        <?php foreach ($this->item->members->active as $volunteer): ?>
+        <?php foreach ($this->item->members->active as $volunteer) : ?>
             <tr>
                 <td class="volunteer-image">
 
@@ -60,9 +60,9 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                 <td>
                     <?php echo VolunteersHelper::date($volunteer->date_started, 'M Y'); ?>
                 </td>
-                <?php if ($this->acl->edit): ?>
+                <?php if ($this->acl->edit) : ?>
                     <td>
-                        <a class="btn btn-small pull-right"
+                        <a class="volunteers_btn btn-small pull-right"
                            href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id) ?>">
                             <span class="icon-edit" aria-hidden="true"></span>
                             <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>

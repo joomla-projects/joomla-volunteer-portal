@@ -18,7 +18,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 ?>
 <?php if ($this->acl->edit) : ?>
     <div class="row">
-        <a class="btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.add&team=' . $this->item->id); ?>">
+        <a class="volunteers_btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.add&team=' . $this->item->id); ?>">
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_ROLE_ADD'); ?>
         </a>
@@ -32,19 +32,19 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                 <div class="row">
                     <div class="col-8">
                         <?php if ($this->acl->edit) : ?>
-                            <a class="btn btn-small pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.delete&id=' . $role->id); ?>">
+                            <a class="volunteers_btn btn-small pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.delete&id=' . $role->id); ?>">
                                 <span class="icon-delete" aria-hidden="true"></span>
                                 <?php echo Text::_('COM_VOLUNTEERS_DELETE'); ?>
                             </a>
-                            <a class="btn btn-small pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.edit&id=' . $role->id); ?>">
+                            <a class="volunteers_btn btn-small pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.edit&id=' . $role->id); ?>">
                                 <span class="icon-delete" aria-hidden="true"></span>
                                 <?php echo Text::_('COM_VOLUNTEERS_EDIT'); ?>
                             </a>
                         <?php endif; ?>
-                        <h2><?php echo $role->title; ?></h2>
+                        <h2 class="vol_h2"><?php echo $role->title; ?></h2>
                         <p><?php echo $role->description; ?></p>
                         <?php if ($role->open) : ?>
-                            <a class="btn" data-toggle="tab" onclick="document.getElementById('teamsTab').activateTab(document.getElementById('viewcontact'));">
+                            <a class="volunteers_btn" data-toggle="tab" onclick="document.getElementById('teamsTab').activateTab(document.getElementById('viewcontact'));">
                                 <span class="icon-chevron-right" aria-hidden="true"></span>
                                 <?php echo Text::_('COM_VOLUNTEERS_ROLE_APPLY'); ?>
                             </a>

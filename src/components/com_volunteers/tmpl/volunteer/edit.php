@@ -30,13 +30,13 @@ HtmlHelper::_('formbehavior.chosen', 'select');
             <div class="filter-bar">
                 <div class="btn-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
-                        <button class="btn btn-danger" onclick="Joomla.submitbutton('volunteer.cancel')">
+                        <button class="volunteers_btn btn-danger" onclick="Joomla.submitbutton('volunteer.cancel')">
                             <span class="icon-cancel" aria-hidden="true"></span>
                             <?php echo Text::_('JCANCEL') ?>
                         </button>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
-                        <button class="btn btn-success" type="submit">
+                        <button class="volunteers_btn btn-success" type="submit">
                             <span class="icon-pencil" aria-hidden="true"></span>
                             <?php echo Text::_('JSAVE') ?>
                         </button>
@@ -44,13 +44,13 @@ HtmlHelper::_('formbehavior.chosen', 'select');
                 </div>
             </div>
             <div class="page-header">
-                <h1>
+                <h1 class="vol_h1">
                     <?php echo Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS_EDIT_MY') ?>
                 </h1>
             </div>
         </div>
 
-        <h3>
+        <h3 class="vol_h3">
             <?php echo Text::_('COM_VOLUNTEERS_PROFILE_ACCOUNT') ?>
         </h3>
 
@@ -68,7 +68,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
         <hr>
 
-        <h3>
+        <h3 class="vol_h3">
             <?php echo Text::_('COM_VOLUNTEERS_PROFILE_BIRTHDAY') ?>
         </h3>
 
@@ -84,7 +84,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
         <hr>
 
-        <h3>
+        <h3 class="vol_h3">
             <?php echo Text::_('COM_VOLUNTEERS_PROFILE_PHOTO') ?>
         </h3>
 
@@ -100,7 +100,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
         <hr>
 
-        <h3>
+        <h3 class="vol_h3">
             <?php echo Text::_('COM_VOLUNTEERS_PROFILE_LOCATION') ?>
         </h3>
 
@@ -118,7 +118,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
         <hr>
 
-        <h3>
+        <h3 class="vol_h3">
             <?php echo Text::_('COM_VOLUNTEERS_PROFILE_ADDRESS') ?>
         </h3>
 
@@ -130,7 +130,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
             </div>
         </div>
 
-        <?php if ($this->item->teams->activemember): ?>
+        <?php if ($this->item->teams->activemember) : ?>
             <div class="control-group">
                 <div class="controls">
                     <div class="alert alert-warning">
@@ -163,7 +163,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
         <hr>
 
-        <h3>
+        <h3 class="vol_h3">
             <?php echo Text::_('COM_VOLUNTEERS_PROFILE_JOOMLA') ?>
         </h3>
 
@@ -173,7 +173,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
         <hr>
 
-        <h3>
+        <h3 class="vol_h3">
             <?php echo Text::_('COM_VOLUNTEERS_PROFILE_SOCIAL') ?>
         </h3>
 
@@ -188,7 +188,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
         <hr>
 
-        <h3>
+        <h3 class="vol_h3">
             <?php echo Text::_('COM_VOLUNTEERS_PROFILE_INTRODUCTION') ?>
         </h3>
 
@@ -214,7 +214,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
         <hr>
 
-        <h3>
+        <h3 class="vol_h3">
             <?php echo Text::_('COM_VOLUNTEERS_PROFILE_SETTINGS') ?>
         </h3>
 
@@ -234,13 +234,13 @@ HtmlHelper::_('formbehavior.chosen', 'select');
             <div class="btn-toolbar pull-right">
 
                 <div id="toolbar-cancel" class="btn-group">
-                    <a class="btn btn-danger" href="<?php echo Route::_('index.php?option=com_volunteers&view=my') ?>">
+                    <a class="volunteers_btn btn-danger" href="<?php echo Route::_('index.php?option=com_volunteers&view=my') ?>">
                         <span class="icon-cancel" aria-hidden="true"></span>
                         <?php echo Text::_('JCANCEL') ?>
                     </a>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
-                    <button class="btn btn-success" type="submit">
+                    <button class="volunteers_btn btn-success" type="submit">
                         <span class="icon-pencil" aria-hidden="true"></span>
                         <?php echo Text::_('JSAVE') ?>
                     </button>
