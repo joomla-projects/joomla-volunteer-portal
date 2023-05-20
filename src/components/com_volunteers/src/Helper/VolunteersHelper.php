@@ -506,9 +506,9 @@ class VolunteersHelper
         if ($urlonly) {
             $html = $image;
         } elseif ($size === 'small') {
-            $html = '<img class="'.$class.'" alt="' . $alt . '" src="' . $image . '" width="50px"/>';
+            $html = '<img class="' . $class . '" alt="' . $alt . '" src="' . $image . '" width="50px"/>';
         } else {
-            $html = '<img class="'.$class.'" alt="' . $alt . '" src="' . $image . '" width="100%"/>';
+            $html = '<img class="' . $class . '" alt="' . $alt . '" src="' . $image . '" width="100%"/>';
         }
 
         return $html;
