@@ -13,7 +13,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use Joomla\Jorobo\Tasks\loadTasks as loadReleaseTasks;
+use Joomla\Jorobo\Tasks\Tasks as ReleaseTasks;
 use Robo\Tasks;
 
 require_once 'vendor/autoload.php';
@@ -32,14 +32,7 @@ if (!defined('JPATH_BASE')) {
 class RoboFile extends Tasks
 {
     // Load tasks from composer, see composer.json
-    use loadReleaseTasks;
-
-    /**
-     * File extension for executables
-     *
-     * @var string
-     */
-    private $executableExtension = '';
+    use ReleaseTasks;
 
     /**
      * Local configuration parameters
@@ -56,12 +49,6 @@ class RoboFile extends Tasks
     private $cmsPath = '';
 
     /**
-     * @var array | null
-     * @since  version
-     */
-    private $suiteConfig;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -70,24 +57,8 @@ class RoboFile extends Tasks
 
         $this->cmsPath = $this->getCmsPath();
 
-        $this->executableExtension = $this->getExecutableExtension();
-
         // Set default timezone (so no warnings are generated if it is not set)
         date_default_timezone_set('UTC');
-    }
-
-    /**
-     * Get the executable extension according to Operating System
-     *
-     * @return string
-     */
-    private function getExecutableExtension()
-    {
-        if ($this->isWindows()) {
-            return '.exe';
-        }
-
-        return '';
     }
 
     /**
@@ -216,7 +187,7 @@ class RoboFile extends Tasks
     {
         $branch = empty($this->configuration->branch) ? '4.0-dev' : $this->configuration->branch;
 
-        return "git" . $this->executableExtension . " clone -b $branch --single-branch --depth 1 https://github.com/joomla/joomla-cms.git tests/cache";
+        return "git clone -b $branch --single-branch --depth 1 https://github.com/joomla/joomla-cms.git tests/cache";
     }
 
     /**
@@ -247,25 +218,6 @@ class RoboFile extends Tasks
         }
 
         return $this->configuration->cmsPath;
-    }
-
-    /**
-     * Downloads Composer
-     *
-     * @return void
-     */
-    private function getComposer()
-    {
-        // Make sure we have Composer
-        if (!file_exists('./composer.phar')) {
-            $insecure = '';
-
-            if (!empty($this->configuration->insecure)) {
-                $insecure = '--insecure';
-            }
-
-            $this->_exec('curl ' . $insecure . ' --retry 3 --retry-delay 5 -sS https://getcomposer.org/installer | php');
-        }
     }
 
     /**
@@ -325,46 +277,7 @@ class RoboFile extends Tasks
             $this->_copy('jorobo.dist.ini', 'jorobo.ini');
         }
 
-        (new \Joomla\Jorobo\Tasks\CopyrightHeader())->run();
-    }
-
-    /**
-     * Get the suite configuration
-     *
-     * @param   string  $suite  The suite
-     *
-     * @return array
-     */
-    private function getSuiteConfig($suite = 'acceptance')
-    {
-        if (!$this->suiteConfig) {
-            $this->suiteConfig = Symfony\Component\Yaml\Yaml::parse(file_get_contents("tests/{$suite}.suite.yml"));
-        }
-
-        return $this->suiteConfig;
-    }
-
-    /**
-     * Return the os name
-     *
-     * @return string
-     *
-     * @since version
-     */
-    private function getOs()
-    {
-        $os = php_uname('s');
-
-        if (strpos(strtolower($os), 'windows') !== false) {
-            $os = 'windows';
-        } elseif (strpos(strtolower($os), 'darwin') !== false) {
-            // Who have thought that Mac is actually Darwin???
-            $os = 'mac';
-        } else {
-            $os = 'linux';
-        }
-
-        return $os;
+        $this->task(\Joomla\Jorobo\Tasks\CopyrightHeader::class)->run();
     }
 
     /**
@@ -374,7 +287,7 @@ class RoboFile extends Tasks
      */
     public function bump()
     {
-        (new \Joomla\Jorobo\Tasks\BumpVersion())->run();
+        $this->task(\Joomla\Jorobo\Tasks\BumpVersion::class)->run();
     }
 
     /**
@@ -388,6 +301,6 @@ class RoboFile extends Tasks
      */
     public function map($target)
     {
-        (new \Joomla\Jorobo\Tasks\Map($target))->run();
+        $this->task(\Joomla\Jorobo\Tasks\Map::class, $target)->run();
     }
 }
