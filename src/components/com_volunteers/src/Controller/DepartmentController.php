@@ -88,7 +88,7 @@ class DepartmentController extends FormController
             $this->setRedirect(Route::_('index.php?option=com_volunteers&view=board' , false));
         }
         else {
-        $this->setRedirect(Route::_('index.php?option=com_volunteers&view=department&id=' . $departmentId, false));
+            $this->setRedirect(Route::_('index.php?option=com_volunteers&view=department&id=' . $departmentId, false));
         }
 
         return $return;
