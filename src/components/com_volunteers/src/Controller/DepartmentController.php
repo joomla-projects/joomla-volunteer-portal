@@ -85,7 +85,7 @@ class DepartmentController extends FormController
         // Redirect to the department
         $this->setMessage(Text::_('COM_VOLUNTEERS_LBL_DEPARTMENT_SAVED'));
         if($departmentId == 58) {
-            $this->setRedirect(Route::_('index.php?option=com_volunteers&view=board' , false));
+            $this->setRedirect(Route::_('index.php?option=com_volunteers&view=board', false));
         } else {
             $this->setRedirect(Route::_('index.php?option=com_volunteers&view=department&id=' . $departmentId, false));
         }
