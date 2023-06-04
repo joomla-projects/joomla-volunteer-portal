@@ -19,12 +19,13 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 ?>
 <div class="tab-pane" id="reports">
     <?php if ($this->acl->create_report) : ?>
-        <div class="row">
-            <a class="volunteers_btn pull-right"
-               href="<?php echo Route::_('index.php?option=com_volunteers&task=report.add&department=' . $this->item->id) ?>">
+    <div class="row">
+        <div class="filter-bar">
+            <a class="volunteers_btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=report.add&department=' . $this->item->id) ?>">
                 <span class="icon-new" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_REPORT_ADD') ?>
             </a>
+            </div>
         </div>
         <hr>
     <?php endif; ?>
@@ -39,9 +40,10 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                 </div>
                 <div class="col-10">
                     <?php if ($this->acl->edit || ($report->created_by == $this->user->id)) : ?>
-                        <a class="volunteers_btn btn-small pull-right"
+                        <a class="volunteers_btn pull-right"
                            href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $report->id) ?>">
-                            <span class="icon-edit" aria-hidden="true"></span>
+
+<span class="icon-edit" aria-hidden="true"></span>
                             <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
                         </a>
                     <?php endif; ?>

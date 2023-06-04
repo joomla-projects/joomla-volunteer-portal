@@ -29,9 +29,9 @@ try {
 <div class="row">
     <div class="filter-bar">
         <?php if ($this->acl->edit) : ?>
-            <a class="volunteers_btn pull-right"
-                href="<?php echo Route::_('index.php?option=com_volunteers&task=department.edit&id=' . $this->item->id) ?>">
-                <span class="icon-edit" aria-hidden="true"></span>
+            <a class="volunteers_btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=department.edit&id=' . $this->item->id) ?>">
+
+<span class="icon-edit" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS_EDIT') ?>
             </a>
         <?php endif; ?>

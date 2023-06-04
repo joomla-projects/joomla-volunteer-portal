@@ -16,10 +16,6 @@ use Joomla\CMS\Router\Route;
 // phpcs:enable PSR1.Files.SideEffects
 
 /** @var \Joomla\Component\Volunteers\Site\View\Team\HtmlView $this */
-
-HtmlHelper::_('behavior.keepalive');
-HtmlHelper::_('behavior.formvalidator');
-HtmlHelper::_('formbehavior.chosen', 'select');
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
@@ -28,6 +24,10 @@ try {
     echo $e->getMessage();
     exit();
 }
+HtmlHelper::_('behavior.keepalive');
+HtmlHelper::_('behavior.formvalidator');
+HtmlHelper::_('formbehavior.chosen', 'select');
+
 ?>
 <div class="team-edit">
 
@@ -36,16 +36,18 @@ try {
         method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
         <div class="row">
 
-            <div class="filter-bar">
-                <div class="btn-toolbar pull-right">
+            <div class="top-toolbar">
+                <div class="btn-bottom-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
-                        <button class="volunteers_btn btn-danger" onclick="Joomla.submitbutton('team.cancel')">
+                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&task=team.cancel&id=' . $this->item->id) ?>">
+                            <div class="vol-button-admin-cancel">
                             <span class="icon-cancel" aria-hidden="true"></span>
                             <?php echo Text::_('JCANCEL') ?>
-                        </button>
+                            </div>
+                        </a>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
-                        <button class="volunteers_btn btn-success" type="submit">
+                        <button class="vol-button-admin-success" type="submit">
                             <span class="icon-pencil" aria-hidden="true"></span>
                             <?php echo Text::_('JSAVE') ?>
                         </button>
@@ -83,17 +85,18 @@ try {
 
         <hr>
 
-        <div class="row">
-            <div class="btn-toolbar pull-right">
+        <div class="bottom-toolbar">
+            <div class="btn-bottom-toolbar pull-right">
                 <div id="toolbar-cancel" class="btn-group">
                     <a class="volunteers_btn btn-danger"
                         href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $this->item->id) ?>">
                         <span class="icon-cancel" aria-hidden="true"></span>
                         <?php echo Text::_('JCANCEL') ?>
+                        </div>
                     </a>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
-                    <button class="volunteers_btn btn-success" type="submit">
+                    <button class="vol-button-admin-success" type="submit">
                         <span class="icon-pencil" aria-hidden="true"></span>
                         <?php echo Text::_('JSAVE') ?>
                     </button>

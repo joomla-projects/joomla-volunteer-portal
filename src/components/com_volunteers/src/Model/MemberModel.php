@@ -13,10 +13,14 @@ namespace Joomla\Component\Volunteers\Site\Model;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
+use Jed\Component\Jed\Site\Helper\JedHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Table\Table;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Member model.
@@ -93,7 +97,7 @@ class MemberModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Member', $prefix = 'VolunteersTable', $options = []): Table
+    public function getTable($name = 'Member', $prefix = 'Administrator', $options = []): Table
     {
         return parent::getTable($name, $prefix, $options);
     }

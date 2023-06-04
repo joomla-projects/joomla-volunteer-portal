@@ -30,11 +30,10 @@ try {
 <div class="row">
     <div class="filter-bar">
         <?php if ($this->acl->edit) : ?>
-            <a class="volunteers_btn pull-right"
-                href="<?php echo Route::_('index.php?option=com_volunteers&task=department.edit&id=' . $this->item->id) ?>"><br />
-
+            <a  href="<?php echo Route::_('index.php?option=com_volunteers&task=department.edit&id=' . $this->item->id) ?>">
+                <button class="vol-button-admin" role="button">
                 <span class="icon-edit" aria-hidden="true"></span>
-                <?php echo Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS_EDIT') ?>
+                    <?php echo Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS_EDIT') ?></button>
             </a>
         <?php endif; ?>
     </div>
@@ -66,10 +65,10 @@ try {
         ?>
         <?php if ($this->acl->edit) : ?>
             <div class="row">
-                <a class="volunteers_btn pull-right"
-                    href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&department=' . $this->item->id) ?>">
+                <a href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&department=' . $this->item->id) ?>">
+                    <button class="vol-button-admin" role="button">
                     <span class="icon-new" aria-hidden="true"></span>
-                    <?php echo Text::_('COM_VOLUNTEERS_MEMBER_ADD') ?>
+                        <?php echo Text::_('COM_VOLUNTEERS_MEMBER_ADD') ?></button>
                 </a>
             </div>
             <hr>
@@ -114,10 +113,11 @@ try {
                             </td>
                             <?php if ($this->acl->edit) : ?>
                                 <td>
-                                    <a class="volunteers_btn volunteers_btn-small pull-right"
+                                    <a 
                                         href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id) ?>">
+                                        <button class="vol-button-admin" role="button">
                                         <span class="icon-edit" aria-hidden="true"></span>
-                                        <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
+                                            <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?></button>
                                     </a>
                                 </td>
                             <?php endif; ?>
@@ -133,10 +133,10 @@ try {
             ?>
             <?php if ($this->acl->edit) : ?>
                 <div class="row">
-                    <a class="volunteers_btn pull-right"
-                        href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&department=' . $this->item->id) ?>">
-                        <span class="icon-new" aria-hidden="true"></span>
-                        <?php echo Text::_('COM_VOLUNTEERS_MEMBER_ADD') ?>
+                    <a href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&department=' . $this->item->id) ?>">
+                        <button class="vol-button-admin" role="button">
+                            <span class="icon-new" aria-hidden="true"></span>
+                            <?php echo Text::_('COM_VOLUNTEERS_MEMBER_ADD') ?></button>
                     </a>
                 </div>
                 <hr>
@@ -186,10 +186,11 @@ try {
                             </td>
                             <?php if ($this->acl->edit) : ?>
                                 <td>
-                                    <a class="volunteers_btn volunteers_btn-small pull-right"
+                                    <a 
                                         href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id) ?>">
+                                        <button class="vol-button-admin" role="button">
                                         <span class="icon-edit" aria-hidden="true"></span>
-                                        <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
+                                            <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?></button>
                                     </a>
                                 </td>
                             <?php endif; ?>
@@ -206,10 +207,10 @@ try {
         ?>
         <?php if ($this->acl->create_report) : ?>
             <div class="row">
-                <a class="volunteers_btn pull-right"
-                    href="<?php echo Route::_('index.php?option=com_volunteers&task=report.add&department=' . $this->item->id) ?>">
+                <a href="<?php echo Route::_('index.php?option=com_volunteers&task=report.add&department=' . $this->item->id) ?>">
+                    <button class="vol-button-admin" role="button">
                     <span class="icon-new" aria-hidden="true"></span>
-                    <?php echo Text::_('COM_VOLUNTEERS_REPORT_ADD') ?>
+                        <?php echo Text::_('COM_VOLUNTEERS_REPORT_ADD') ?></button>
                 </a>
             </div>
             <hr>
@@ -225,10 +226,11 @@ try {
                     </div>
                     <div class="col-8">
                         <?php if ($this->acl->edit || ($report->created_by == $this->user->id)) : ?>
-                            <a class="volunteers_btn volunteers_btn-small pull-right"
+                            <a 
                                 href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $report->id) ?>">
+                                <button class="vol-button-admin" role="button">
                                 <span class="icon-edit" aria-hidden="true"></span>
-                                <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
+                                    <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?></button>
                             </a>
                         <?php endif; ?>
                         <h2 class="vol_h2">

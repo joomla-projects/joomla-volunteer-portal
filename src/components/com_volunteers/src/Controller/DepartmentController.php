@@ -1,10 +1,8 @@
 <?php
 
 /**
- * @package    Com_Volunteers
- * @version    4.0.0
- * @author     The Joomla Project <secretary@opensourcematters.org>
- * @copyright  2023 The Joomla Project
+ * @package    Joomla! Volunteers
+ * @copyright  Copyright (C) 2016 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -85,8 +83,13 @@ class DepartmentController extends FormController
         $return = parent::save($key, $urlVar);
 
         // Redirect to the department
-        $this->setMessage(Text::_('COM_VOLUNTEERS_LBL_TEAM_SAVED'));
+        $this->setMessage(Text::_('COM_VOLUNTEERS_LBL_DEPARTMENT_SAVED'));
+        if($departmentId == 58) {
+            $this->setRedirect(Route::_('index.php?option=com_volunteers&view=board' , false));
+        }
+        else {
         $this->setRedirect(Route::_('index.php?option=com_volunteers&view=department&id=' . $departmentId, false));
+        }
 
         return $return;
     }
@@ -105,12 +108,12 @@ class DepartmentController extends FormController
         // Get variables
         $departmentId = $this->input->getInt('id');
 
-        // Use parent save method
-        $return = parent::cancel($key);
+        // Use parent cancel method
+        //$return = parent::cancel($key);
 
         $this->setRedirect(Route::_('index.php?option=com_volunteers&view=department&id=' . $departmentId, false));
 
-        return $return;
+        return true;
     }
 
     /**

@@ -76,6 +76,7 @@
 }
 
 .btn-group.pull-right + .btn-group {
+    float: right;
     margin-right: 5px;
 }
 
@@ -456,8 +457,9 @@ h6 {
     *margin-left: .3em;
     padding: 4px 12px;
     text-align: center;
+    text-decoration: none;
     vertical-align: middle;
-    *zoom: 1
+    *zoom: 1;
 }
 
 
@@ -501,10 +503,17 @@ fieldset.radio.btn-group {
 }
 
 div.filter-bar div.btn-group.pull-right,
-.btn-group.radio.pull-right {
+.btn-group.radio.pull-right,
+div.filter-bar a.volunteers_btn.pull-right,
+.pull-right,
+div.btn-toolbar.pull-right,
+div.btn-bottom-toolbar.pull-right {
     float: right;
 }
 
+.td-editbtn {
+    text-align: center;
+}
 
 .element-invisible {
     border: 0;
@@ -784,21 +793,94 @@ a.label:hover, a.label:focus, a.badge:hover, a.badge:focus {
 
 /* Getting Headers Sorted */
 .vol_h1, .vol_h2, .vol_h3, .vol_h4 {
+    font-size: 28px;
     font-weight: bold;
-    font-size:28px;
-    margin: 0 0 .6rem;
     line-height: 1.4;
+    margin: 0 0 .6rem;
     text-rendering: optimizelegibility;
 }
+
 .vol_h2 {
-    font-size:22px
+    font-size: 22px
 }
+
 .vol_h3 {
-    font-size:18px
+    font-size: 18px
 }
+
 .vol_h4 {
-    font-size:18px
+    font-size: 18px
 }
-h1 a,h2 a,h3 a,h4 a,h5 a, h6 a {
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    text-decoration: none;
+}
+
+.vol-button-admin, .vol-button-admin-cancel, .vol-button-admin-success {
+    /*background-image: linear-gradient(#f7f8fa, #e7e9ec);
+    border-color: #adb1b8 #a2a6ac #8d9096;*/
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: rgba(255, 255, 255, .6) 0 1px 0 inset;
+    box-sizing: border-box;
+    /*color: #0f1111;*/
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    font-size: 14px;
+    height: 29px;
+    outline: 0;
+    overflow: hidden;
+    padding: 0 11px;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.vol-button-admin-cancel {
+    background-color: #bd362f;
+
+    color: white;
+    padding: 0 11px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.vol-button-admin-success {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0 11px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.vol-button-admin:active {
+    border-bottom-color: #a2a6ac;
+}
+
+.vol-button-admin:active:hover {
+    border-bottom-color: #a2a6ac;
+}
+
+.vol-button-admin:hover {
+    border-color: #a2a6ac #979aa1 #82858a;
+}
+
+.vol-button-admin:focus {
+    border-color: #e77600;
+    box-shadow: rgba(228, 121, 17, .5) 0 0 3px 2px;
+    outline: 0;
+}
+
+div#toolbar-cancel.btn-group a {
     text-decoration: none;
 }

@@ -18,15 +18,16 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 ?>
 <?php if ($this->acl->edit) : ?>
     <div class="row">
-        <a class="volunteers_btn pull-right"
-           href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&department=' . $this->item->id) ?>">
+        <div class="filter-bar">
+        <a class="volunteers_btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&department=' . $this->item->id) ?>">
+
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_MEMBER_ADD') ?>
         </a>
+         </div>
     </div>
     <hr>
 <?php endif; ?>
-<?php //echo "<pre>";print_r($this->item->members->active);echo "</pre>";exit(); ?>
 <?php if ($this->item->members->active) : ?>
     <table class="table table-striped table-hover table-vertical-align">
         <thead>
@@ -61,10 +62,10 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                     <?php echo VolunteersHelper::date($volunteer->date_started, 'M Y'); ?>
                 </td>
                 <?php if ($this->acl->edit) : ?>
-                    <td>
-                        <a class="volunteers_btn btn-small pull-right"
+                    <td class="td-editbtn">
+                        <a class="volunteers_btn"
                            href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id) ?>">
-                            <span class="icon-edit" aria-hidden="true"></span>
+                        <span class="icon-edit" aria-hidden="true"></span>
                             <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
                         </a>
                     </td>
