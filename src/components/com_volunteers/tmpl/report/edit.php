@@ -6,6 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
@@ -15,7 +16,14 @@ use Joomla\CMS\Router\Route;
 // phpcs:enable PSR1.Files.SideEffects
 
 /** @var \Joomla\Component\Volunteers\Site\View\Report\HtmlView $this */
-
+// Import CSS
+try {
+    $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+    $wa->useStyle('com_volunteers.frontend');
+} catch (Exception $e) {
+    echo $e->getMessage();
+    exit();
+}
 HtmlHelper::_('behavior.keepalive');
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('formbehavior.chosen', 'select');
@@ -24,75 +32,90 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 <div class="report-edit">
 
     <form id="report"
-        action="<?php echo Route::_('index.php?option=com_volunteers&task=report.save&id=' . (int) $this->item->id); ?>"
-        method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
+          action="<?php
+            echo Route::_('index.php?option=com_volunteers&task=report.save&id=' . (int)$this->item->id); ?>"
+          method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
         <div class="row">
             <div class="filter-bar">
-
-                <div class="btn-toolbar pull-right">
+                <div class="btn-bottom-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
-                        <button class="volunteers_btn btn-danger" onclick="Joomla.submitbutton('report.cancel')">
+                        <button class="volunteers_btn btn-danger" type="button" onclick="history.back();return false;">
                             <span class="icon-cancel" aria-hidden="true"></span>
-                            <?php echo Text::_('JCANCEL') ?>
+                            <?php
+                            echo Text::_('JCANCEL') ?>
                         </button>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
                         <button class="volunteers_btn btn-success" type="submit">
                             <span class="icon-pencil" aria-hidden="true"></span>
-                            <?php echo Text::_('JSAVE') ?>
+                            <?php
+                            echo Text::_('JSAVE') ?>
                         </button>
                     </div>
                 </div>
             </div>
             <div class="page-header">
                 <h1 class="vol_h1">
-                    <?php echo Text::_('COM_VOLUNTEERS_TITLE_REPORTS_EDIT') ?>
+                    <?php
+                    echo Text::_('COM_VOLUNTEERS_TITLE_REPORTS_EDIT') ?>
                 </h1>
             </div>
         </div>
 
-        <?php if ($this->item->department) : ?>
-            <?php echo $this->form->renderField('department'); ?>
-        <?php endif; ?>
-        <?php if ($this->item->team) : ?>
-            <?php echo $this->form->renderField('team'); ?>
-        <?php endif; ?>
+        <?php
+        if ($this->item->department) : ?>
+            <?php
+            echo $this->form->renderField('department'); ?>
+            <?php
+        endif; ?>
+        <?php
+        if ($this->item->team) : ?>
+            <?php
+            echo $this->form->renderField('team'); ?>
+            <?php
+        endif; ?>
 
         <hr>
 
-        <?php echo $this->form->renderField('title'); ?>
-        <?php echo $this->form->renderField('alias'); ?>
+        <?php
+        echo $this->form->renderField('title'); ?>
+        <?php
+        echo $this->form->renderField('alias'); ?>
 
         <hr>
 
-        <?php echo $this->form->renderField('created'); ?>
+        <?php
+        echo $this->form->renderField('created'); ?>
 
         <hr>
 
-        <?php echo $this->form->renderField('description'); ?>
+        <?php
+        echo $this->form->renderField('description'); ?>
 
         <hr>
-
-        <div class="row">
-            <div class="btn-toolbar pull-right">
+        <p><br/><br/><br/></p>
+        <div class="filter-bar">
+            <div class="btn-bottom-toolbar pull-right">
                 <div id="toolbar-cancel" class="btn-group">
-                    <a class="volunteers_btn btn-danger"
-                        href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $this->item->team . '#reports') ?>">
+                    <button class="volunteers_btn btn-danger" type="button" onclick="history.back();return false;">
                         <span class="icon-cancel" aria-hidden="true"></span>
-                        <?php echo Text::_('JCANCEL') ?>
-                    </a>
+                        <?php
+                        echo Text::_('JCANCEL') ?>
+                    </button>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
                     <button class="volunteers_btn btn-success" type="submit">
                         <span class="icon-pencil" aria-hidden="true"></span>
-                        <?php echo Text::_('JSAVE') ?>
+                        <?php
+                        echo Text::_('JSAVE') ?>
                     </button>
                 </div>
             </div>
         </div>
 
-        <input type="hidden" name="option" value="com_volunteers" />
-        <input type="hidden" name="task" value="report.save" />
-        <?php echo HtmlHelper::_('form.token'); ?>
+        <input type="hidden" name="option" value="com_volunteers"/>
+        <input type="hidden" name="task" value="report.save"/>
+        <?php
+        echo HtmlHelper::_('form.token'); ?>
     </form>
 </div>

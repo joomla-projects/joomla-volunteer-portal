@@ -27,8 +27,8 @@ try {
 HtmlHelper::_('behavior.keepalive');
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('formbehavior.chosen', 'select');
-
 ?>
+
 <div class="team-edit">
 
     <form id="team"
@@ -36,18 +36,16 @@ HtmlHelper::_('formbehavior.chosen', 'select');
         method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
         <div class="row">
 
-            <div class="top-toolbar">
+            <div class="filter-bar">
                 <div class="btn-bottom-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
-                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&task=team.cancel&id=' . $this->item->id) ?>">
-                            <div class="vol-button-admin-cancel">
+                        <button class="volunteers_btn btn-danger"  type="button" onclick="history.back();return false;">
                             <span class="icon-cancel" aria-hidden="true"></span>
                             <?php echo Text::_('JCANCEL') ?>
-                            </div>
-                        </a>
+                        </button>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
-                        <button class="vol-button-admin-success" type="submit">
+                        <button class="volunteers_btn btn-success" type="submit">
                             <span class="icon-pencil" aria-hidden="true"></span>
                             <?php echo Text::_('JSAVE') ?>
                         </button>
@@ -85,27 +83,28 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
         <hr>
 
-        <div class="bottom-toolbar">
-            <div class="btn-bottom-toolbar pull-right">
-                <div id="toolbar-cancel" class="btn-group">
-                    <a class="volunteers_btn btn-danger"
-                        href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $this->item->id) ?>">
-                        <span class="icon-cancel" aria-hidden="true"></span>
-                        <?php echo Text::_('JCANCEL') ?>
-                        </div>
-                    </a>
-                </div>
-                <div id="toolbar-apply" class="btn-group">
-                    <button class="vol-button-admin-success" type="submit">
-                        <span class="icon-pencil" aria-hidden="true"></span>
-                        <?php echo Text::_('JSAVE') ?>
-                    </button>
+<p><br/><br/><br/><br/></p>
+
+            <div class="filter-bar">
+                <div class="btn-bottom-toolbar pull-right">
+                    <div id="toolbar-cancel" class="btn-group">
+                        <button class="volunteers_btn btn-danger"  type="button" onclick="history.back();return false;">
+                            <span class="icon-cancel" aria-hidden="true"></span>
+                            <?php echo Text::_('JCANCEL') ?>
+                        </button>
+                    </div>
+                    <div id="toolbar-apply" class="btn-group">
+                        <button class="volunteers_btn btn-success" type="submit">
+                            <span class="icon-pencil" aria-hidden="true"></span>
+                            <?php echo Text::_('JSAVE') ?>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+
 
         <input type="hidden" name="option" value="com_volunteers" />
         <input type="hidden" name="task" value="team.save" />
         <?php echo HtmlHelper::_('form.token'); ?>
     </form>
-</div>
+

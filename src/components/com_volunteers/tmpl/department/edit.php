@@ -36,16 +36,13 @@ HtmlHelper::_('formbehavior.chosen', 'select');
         action="<?php echo Route::_('index.php?option=com_volunteers&task=department.save&id=' . (int) $this->item->id); ?>"
         method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
         <div class="row">
-
             <div class="top-toolbar">
                 <div class="btn-bottom-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
-                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&task=department.cancel&id=' . $this->item->id) ?>">
-                            <div class="vol-button-admin-cancel">
-                                <span class="icon-cancel" aria-hidden="true"></span>
-                                <?php echo Text::_('JCANCEL') ?>
-                            </div>
-                        </a>
+                        <button class="volunteers_btn btn-danger"  type="button" onclick="history.back();return false;">
+                            <span class="icon-cancel" aria-hidden="true"></span>
+                            <?php echo Text::_('JCANCEL') ?>
+                        </button>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
                         <button class="vol-button-admin-success" type="submit">
@@ -80,12 +77,10 @@ HtmlHelper::_('formbehavior.chosen', 'select');
         <div class="bottom-toolbar">
             <div class="btn-bottom-toolbar pull-right">
                 <div id="toolbar-cancel" class="btn-group">
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&task=department.cancel&id=' . $this->item->id) ?>">
-                        <div class="vol-button-admin-cancel">
-                            <span class="icon-cancel" aria-hidden="true"></span>
-                            <?php echo Text::_('JCANCEL') ?>
-                        </div>
-                    </a>
+                    <button class="volunteers_btn btn-danger"  type="button" onclick="history.back();return false;">
+                        <span class="icon-cancel" aria-hidden="true"></span>
+                        <?php echo Text::_('JCANCEL') ?>
+                    </button>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
                     <button class="vol-button-admin-success" type="submit">

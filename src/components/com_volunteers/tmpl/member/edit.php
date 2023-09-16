@@ -44,18 +44,16 @@ if ($this->item->department) {
         method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
         <div class="row">
 
-            <div class="top-toolbar">
+            <div class="filter-bar">
                 <div class="btn-bottom-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
-                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view='.$view.'&task='.$view.'.cancel&id=' . $this->item->id) ?>">
-                            <div class="vol-button-admin-cancel">
-                            <span class="icon-cancel" aria-hidden="true"></span>
+                        <button class="volunteers_btn btn-danger"  type="button" onclick="history.back();return false;">
+                             <span class="icon-cancel" aria-hidden="true"></span>
                             <?php echo Text::_('JCANCEL') ?>
-                            </div>
-                        </a>
+                        </button>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
-                        <button class="vol-button-admin-success" type="submit">
+                        <button class="volunteers_btn btn-success" type="submit" >
                             <span class="icon-pencil" aria-hidden="true"></span>
                             <?php echo Text::_('JSAVE') ?>
                         </button>
@@ -101,18 +99,16 @@ if ($this->item->department) {
 
         <hr>
 
-        <div class="bottom-toolbar">
+        <div class="filter-bar">
             <div class="btn-bottom-toolbar pull-right">
                 <div id="toolbar-cancel" class="btn-group">
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view='.$view.'&task='.$view.'.cancel&id=' . $this->item->id) ?>">
-                        <div class="vol-button-admin-cancel">
+                    <button class="volunteers_btn btn-danger"  type="button" onclick="history.back();return false;">
                         <span class="icon-cancel" aria-hidden="true"></span>
                         <?php echo Text::_('JCANCEL') ?>
-                        </div>
-                    </a>
+                    </button>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
-                    <button class="vol-button-admin-success" type="submit">
+                    <button class="volunteers_btn btn-success" type="submit">
                         <span class="icon-pencil" aria-hidden="true"></span>
                         <?php echo Text::_('JSAVE') ?>
                     </button>

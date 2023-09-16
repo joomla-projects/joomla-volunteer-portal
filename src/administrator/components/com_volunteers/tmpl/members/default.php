@@ -35,14 +35,14 @@ $wa->useScript('table.columns');
 <form action="<?php echo Route::_('index.php?option=com_volunteers&view=members'); ?>" method="post" name="adminForm" id="adminForm">
     <div id="j-main-container" class="j-main-container">
         <?php echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
-        <?php if (empty($this->items)):
+        <?php if (empty($this->items)) :
             ?>
                 <div class="alert alert-info">
                     <span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden"><?php echo Text::_('INFO'); ?></span>
                     <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                 </div>
                 <?php
-        else:
+        else :
             ?>
                 <h3><?php echo count($this->items); ?> members (matching filters)</h3>
                 <table class="table table-striped" id="itemsList">
@@ -73,18 +73,18 @@ $wa->useScript('table.columns');
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($this->items as $i => $item):
+                    <?php foreach ($this->items as $i => $item) :
                         $ordering = ($listOrder == 'a.ordering');
                         $canCreate = $user->authorise('core.create', 'com_volunteers');
                         $canEdit = $user->authorise('core.edit', 'com_volunteers');
                         $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
                         $canChange = $user->authorise('core.edit.state', 'com_volunteers') && $canCheckin;
                         ?>
-                            <tr class="row<?php echo $i % 2; ?><?php if ($item->date_ended == '0000-00-00'):
-                                     ?> success<?php
-                                 else:
-                                     ?> error<?php
-                                 endif; ?>" sortable-volunteer-id="<?php echo $item->id ?>">
+                            <tr class="row<?php echo $i % 2; ?><?php if ($item->date_ended == '0000-00-00') :
+                                ?> success<?php
+                                          else :
+                                                ?> error<?php
+                                          endif; ?>" sortable-volunteer-id="<?php echo $item->id ?>">
                                 <td>
                                     <a class="btn btn-small" href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . (int) $item->id); ?>">
                                         <span class="icon-edit" aria-hidden="true"></span>Edit
@@ -95,26 +95,26 @@ $wa->useScript('table.columns');
                                     <?php echo $item->teamdepartment_title; ?>
                                 </td>
                                 <td class="nowrap">
-                                    <?php if ($item->team_title):
+                                    <?php if ($item->team_title) :
                                         ?>
                                             <?php echo $item->team_title; ?>
                                             <br><small>
-                                                <?php if ($item->team_status == 0):
+                                                <?php if ($item->team_status == 0) :
                                                     ?>
                                                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_STATUS_INFORMATION'); ?>
                                                         <?php
-                                                elseif ($item->team_status == 1):
+                                                elseif ($item->team_status == 1) :
                                                     ?>
                                                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_STATUS_OFFICIAL'); ?>
                                                         <?php
-                                                elseif ($item->team_status == 2):
+                                                elseif ($item->team_status == 2) :
                                                     ?>
                                                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_STATUS_UNOFFICIAL'); ?>
                                                         <?php
                                                 endif; ?>
                                             </small>
                                             <?php
-                                    else:
+                                    else :
                                         ?>
                                             -
                                             <?php
@@ -122,20 +122,20 @@ $wa->useScript('table.columns');
                                 </td>
                                 <td class="nowrap">
                                     <?php echo $item->position_title; ?>
-                                    <?php if ($item->role_title):
+                                    <?php if ($item->role_title) :
                                         ?>
                                             <br><small><?php echo $item->role_title; ?></small>
                                             <?php
                                     endif; ?>
                                 </td>
                                 <td class="nowrap">
-                                    <?php if ($canEdit):
+                                    <?php if ($canEdit) :
                                         ?>
                                             <a href="<?php echo Route::_('index.php?option=com_volunteers&task=volunteer.edit&id=' . (int) $item->volunteer); ?>">
                                                 <?php echo $this->escape($item->volunteer_name); ?>
                                             </a>
                                             <?php
-                                    else:
+                                    else :
                                         ?>
                                             <?php echo $this->escape($item->volunteer_name); ?>
                                             <?php

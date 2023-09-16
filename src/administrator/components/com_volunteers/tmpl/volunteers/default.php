@@ -43,14 +43,14 @@ if ($saveOrder) {
         <div class="col-md-12">
             <div id="j-main-container" class="j-main-container">
                 <?php echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
-                <?php if (empty($this->items)): ?>
+                <?php if (empty($this->items)) : ?>
                     <div class="alert alert-info">
                         <span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden">
                             <?php echo Text::_('INFO'); ?>
                         </span>
                         <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
-                <?php else: ?>
+                <?php else : ?>
                     <h3>
                         <?php echo count($this->items); ?> volunteers (matching filters)
                     </h3>
@@ -98,11 +98,11 @@ if ($saveOrder) {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody <?php if ($saveOrder):
+                        <tbody <?php if ($saveOrder) :
                             ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>"
                                 data-direction="<?php echo strtolower($listDirn); ?>" data-nested="true" <?php
-                        endif; ?>>
-                            <?php foreach ($this->items as $i => $item):
+                               endif; ?>>
+                            <?php foreach ($this->items as $i => $item) :
                                 $ordering = ($listOrder == 'a.ordering');
                                 $canCreate = $user->authorise('core.create', 'com_volunteers');
                                 $canEdit = $user->authorise('core.edit', 'com_volunteers');
@@ -125,7 +125,7 @@ if ($saveOrder) {
                                         <span class="sortable-handler<?php echo $iconClass; ?>">
                                             <span class="icon-ellipsis-v" aria-hidden="true"></span>
                                         </span>
-                                        <?php if ($canChange && $saveOrder): ?>
+                                        <?php if ($canChange && $saveOrder) : ?>
                                             <input type="text" name="order[]" size="5" value="<?php echo $item->ordering; ?>"
                                                 class="width-20 text-area-order hidden" />
                                         <?php endif; ?>
@@ -134,10 +134,10 @@ if ($saveOrder) {
                                         <?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'volunteers.', $canChange, 'cb'); ?>
                                     </td>
                                     <td class="volunteer-image">
-                                        <?php if ($item->image): ?>
+                                        <?php if ($item->image) : ?>
                                             <img class="img-rounded" src="<?php echo $item->image; ?>"
                                                 alt="<?php echo $this->escape($item->user_username); ?>">
-                                        <?php else: ?>
+                                        <?php else : ?>
                                             <img class="img-rounded"
                                                 src="<?php echo URI::root() . 'media/com_volunteers/images/joomlaperson.png'; ?>"
                                                 alt="">
@@ -145,23 +145,23 @@ if ($saveOrder) {
                                     </td>
                                     <th scope="row" class="has-context">
                                         <div>
-                                            <?php if ($item->checked_out): ?>
+                                            <?php if ($item->checked_out) : ?>
                                                 <?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'volunteers.', $canCheckin); ?>
                                             <?php endif; ?>
-                                            <?php if ($canEdit): ?>
+                                            <?php if ($canEdit) : ?>
                                                 <a href="<?php echo Route::_('index.php?option=com_volunteers&task=volunteer.edit&id=' . (int) $item->id); ?>"
                                                     title="<?php echo Text::_('JACTION_EDIT'); ?>">
                                                     <?php echo $this->escape($item->name); ?></a>
-                                            <?php else: ?>
+                                            <?php else : ?>
                                                 <?php echo $this->escape($item->name); ?>
                                             <?php endif; ?>
                                             <div class="small">
                                                 <span class="icon-user" aria-hidden="true"></span>
-                                                <?php if ($canEdit): ?>
+                                                <?php if ($canEdit) : ?>
                                                     <a
                                                         href="<?php echo Route::_('index.php?option=com_users&task=user.edit&id=' . (int) $item->user_id); ?>">
                                                         <?php echo $this->escape($item->user_username); ?></a>
-                                                <?php else: ?>
+                                                <?php else : ?>
                                                     <?php echo $this->escape($item->user_username); ?>
                                                 <?php endif; ?>
                                             </div>
@@ -172,9 +172,9 @@ if ($saveOrder) {
                                             <div class="small">
                                                 <span class="icon-location" aria-hidden="true"></span>
                                                 <?php echo $item->city; ?>,
-                                                <?php if ($item->country): ?>
+                                                <?php if ($item->country) : ?>
                                                     <?php echo VolunteersHelper::$countries[$item->country]; ?>
-                                                <?php else: ?>
+                                                <?php else : ?>
                                                     <?php echo $item->country; ?>
                                                 <?php endif; ?>
                                             </div>

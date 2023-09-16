@@ -42,14 +42,14 @@ if ($saveOrder) {
         <div class="col-md-12">
             <div id="j-main-container" class="j-main-container">
                 <?php echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
-                <?php if (empty($this->items)): ?>
+                <?php if (empty($this->items)) : ?>
                     <div class="alert alert-info">
                         <span class="icon-info-circle" aria-hidden="true"></span><span class="visually-hidden">
                             <?php echo Text::_('INFO'); ?>
                         </span>
                         <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
-                <?php else: ?>
+                <?php else : ?>
                     <h3>
                         <?php echo count($this->items); ?> positions (matching filters)
                     </h3>
@@ -79,11 +79,11 @@ if ($saveOrder) {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody <?php if ($saveOrder):
+                        <tbody <?php if ($saveOrder) :
                             ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>"
                                 data-direction="<?php echo strtolower($listDirn); ?>" data-nested="true" <?php
-                        endif; ?>>
-                            <?php foreach ($this->items as $i => $item):
+                               endif; ?>>
+                            <?php foreach ($this->items as $i => $item) :
                                 $ordering = ($listOrder == 'a.ordering');
                                 $canCreate = $user->authorise('core.create', 'com_volunteers');
                                 $canEdit = $user->authorise('core.edit', 'com_volunteers');
@@ -106,7 +106,7 @@ if ($saveOrder) {
                                         <span class="sortable-handler<?php echo $iconClass; ?>">
                                             <span class="icon-ellipsis-v" aria-hidden="true"></span>
                                         </span>
-                                        <?php if ($canChange && $saveOrder): ?>
+                                        <?php if ($canChange && $saveOrder) : ?>
                                             <input type="text" name="order[]" size="5" value="<?php echo $item->ordering; ?>"
                                                 class="width-20 text-area-order hidden" />
                                         <?php endif; ?>
@@ -116,15 +116,15 @@ if ($saveOrder) {
                                     </td>
                                     <th scope="row" class="has-context">
                                         <div>
-                                            <?php if ($item->checked_out):
+                                            <?php if ($item->checked_out) :
                                                 ?>
                                                 <?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'positions.', $canCheckin); ?>
                                             <?php endif; ?>
-                                            <?php if ($canEdit): ?>
+                                            <?php if ($canEdit) : ?>
                                                 <a href="<?php echo Route::_('index.php?option=com_volunteers&task=position.edit&id=' . (int) $item->id); ?>"
                                                     title="<?php echo Text::_('JACTION_EDIT'); ?>">
                                                     <?php echo $this->escape($item->title); ?></a>
-                                            <?php else: ?>
+                                            <?php else : ?>
                                                 <?php echo $this->escape($item->title); ?>
                                             <?php endif; ?>
                                             <div class="small">

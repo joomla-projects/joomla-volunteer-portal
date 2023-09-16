@@ -29,7 +29,7 @@ Instructions for installation
 ------------------------------
 * Create new installation of Joomla 4.
 
-* Install Joomla 4  template from the dist folder (jtemplate_4.0.3.zip).
+* Install Joomla 4  template from the dist folder (jtemplate_4.0.7.zip).
 * Go to site System-> Templates-> Site Template Styles - enable Joomla-default as default template style.
 * Install the volunteers package from dist/pkg-volunteers-4.0.0.zip
 * Enable the plugin 'Sample Data - JVP'.

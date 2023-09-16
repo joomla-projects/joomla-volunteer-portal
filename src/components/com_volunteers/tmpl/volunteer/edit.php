@@ -6,6 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
@@ -15,7 +16,14 @@ use Joomla\CMS\Router\Route;
 // phpcs:enable PSR1.Files.SideEffects
 
 /** @var \Joomla\Component\Volunteers\Site\View\Volunteer\HtmlView $this */
-
+// Import CSS
+try {
+    $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+    $wa->useStyle('com_volunteers.frontend');
+} catch (Exception $e) {
+    echo $e->getMessage();
+    exit();
+}
 HtmlHelper::_('behavior.keepalive');
 HtmlHelper::_('behavior.formvalidator');
 HtmlHelper::_('formbehavior.chosen', 'select');
@@ -30,7 +38,7 @@ HtmlHelper::_('formbehavior.chosen', 'select');
             <div class="filter-bar">
                 <div class="btn-toolbar pull-right">
                     <div id="toolbar-cancel" class="btn-group">
-                        <button class="volunteers_btn btn-danger" onclick="Joomla.submitbutton('volunteer.cancel')">
+                        <button class="volunteers_btn btn-danger"  type="button" onclick="history.back();return false;">
                             <span class="icon-cancel" aria-hidden="true"></span>
                             <?php echo Text::_('JCANCEL') ?>
                         </button>
@@ -230,14 +238,13 @@ HtmlHelper::_('formbehavior.chosen', 'select');
 
         <hr>
 
-        <div class="row">
+        <div class="filter-bar">
             <div class="btn-toolbar pull-right">
-
                 <div id="toolbar-cancel" class="btn-group">
-                    <a class="volunteers_btn btn-danger" href="<?php echo Route::_('index.php?option=com_volunteers&view=my') ?>">
+                        <button class="volunteers_btn btn-danger"  type="button" onclick="history.back();return false;">
                         <span class="icon-cancel" aria-hidden="true"></span>
                         <?php echo Text::_('JCANCEL') ?>
-                    </a>
+                        </button>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
                     <button class="volunteers_btn btn-success" type="submit">

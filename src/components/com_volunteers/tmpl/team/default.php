@@ -116,7 +116,7 @@ try {
     <div class="col-12">
         <?php
         echo HTMLHelper::_('uitab.startTabSet', 'teamsTab', ['active' => 'viewmembers', 'recall' => true, 'breakpoint' => 768]);
-
+//echo "<pre>";print_r($this->item);echo "</pre>";exit();
         /************************ TAB ***********************************/
         if ($this->item->active) {
             echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewmembers', Text::_('COM_VOLUNTEERS_TAB_MEMBERS'));
@@ -132,7 +132,7 @@ try {
         }
 
         /************************ TAB ***********************************/
-        if (!$this->item->parent_id && ($this->item->subteams || $this->acl->create_team)) {
+        if (!$this->item->parent_id && (count($this->item->subteams) > 0 || $this->acl->create_team)) {
             echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewsubteams', Text::_('COM_VOLUNTEERS_TAB_SUBTEAMS'));
             echo $this->loadTemplate('subteams');
             echo HTMLHelper::_('uitab.endTab');

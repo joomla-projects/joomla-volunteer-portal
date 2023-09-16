@@ -16,12 +16,15 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 
 /** @var \Joomla\Component\Volunteers\Site\View\Team\HtmlView $this */
 ?>
+<div class="tab-pane" id="roles">
 <?php if ($this->acl->edit) : ?>
     <div class="row">
+        <div class="filter-bar">
         <a class="volunteers_btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.add&team=' . $this->item->id); ?>">
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_ROLE_ADD'); ?>
         </a>
+    </div>
     </div>
     <hr>
 <?php endif; ?>
@@ -30,17 +33,23 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
         <div class="row">
             <div class="team well">
                 <div class="row">
+<div class="col-12">
+        <?php if ($this->acl->edit) : ?>
+        <a class="volunteers_btn btn-small pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.delete&id=' . $role->id); ?>">
+            <span class="icon-delete" aria-hidden="true"></span>
+            <?php echo Text::_('COM_VOLUNTEERS_DELETE'); ?>
+        </a>
+        <a class="volunteers_btn btn-small pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.edit&id=' . $role->id); ?>">
+            <span class="icon-edit" aria-hidden="true"></span>
+            <?php echo Text::_('COM_VOLUNTEERS_EDIT'); ?>
+        </a>
+        <?php endif; ?>
+</div>
+                </div>
+                    <div class="row">
+
                     <div class="col-8">
-                        <?php if ($this->acl->edit) : ?>
-                            <a class="volunteers_btn btn-small pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.delete&id=' . $role->id); ?>">
-                                <span class="icon-delete" aria-hidden="true"></span>
-                                <?php echo Text::_('COM_VOLUNTEERS_DELETE'); ?>
-                            </a>
-                            <a class="volunteers_btn btn-small pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.edit&id=' . $role->id); ?>">
-                                <span class="icon-delete" aria-hidden="true"></span>
-                                <?php echo Text::_('COM_VOLUNTEERS_EDIT'); ?>
-                            </a>
-                        <?php endif; ?>
+
                         <h2 class="vol_h2"><?php echo $role->title; ?></h2>
                         <p><?php echo $role->description; ?></p>
                         <?php if ($role->open) : ?>
@@ -76,3 +85,6 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
         <p class="alert alert-info"><?php echo Text::_('COM_VOLUNTEERS_NOTE_NO_ROLES'); ?></p>
     </div>
 <?php endif;
+?>
+
+</div>

@@ -179,9 +179,9 @@ HTMLHelper::_('bootstrap.tooltip');
                             echo "Failed to create Menu Item - " . $m['title'] . '<br/>' . $mi->getError() . '<br/>';
                         }
                     }
-            } catch (Exception $e) {
-                throw new Exception('Something went really wrong. ' . $e->getMessage(), 500);
-            }
+                } catch (Exception $e) {
+                    throw new Exception('Something went really wrong. ' . $e->getMessage(), 500);
+                }
             }
 
             ?>

@@ -194,4 +194,20 @@ class MemberModel extends AdminModel
             }
         }
     }
+
+    /**
+     * Method to get an object.
+     *
+     * @param   int|null  $id  The id of the object to get.
+     *
+     * @return Object|boolean Object on success, false on failure.
+     *
+     * @since 4.0.0
+     * @throws Exception
+     */
+    public function getItem($pk = null)
+    {
+
+        return parent::getItem($pk);
+    }
 }

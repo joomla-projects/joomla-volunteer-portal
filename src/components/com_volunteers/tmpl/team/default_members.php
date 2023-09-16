@@ -18,11 +18,12 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 ?>
 <?php if ($this->acl->edit) : ?>
     <div class="row">
-        <a class="volunteers_btn pull-right"
-           href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&team=' . $this->item->id) ?>">
+        <div class="filter-bar">
+        <a class="volunteers_btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&team=' . $this->item->id) ?>">
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_MEMBER_ADD') ?>
         </a>
+        </div>
     </div>
     <hr>
 <?php endif; ?>

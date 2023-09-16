@@ -74,7 +74,11 @@ final class Volunteer extends CMSPlugin
     public function onUserBeforeDelete(array $user): bool
     {
         $db    = $this->getDatabase();
-        $query = $db->getQuery(true)->select($this->db->quoteName('members.id'))->from($this->db->quoteName('#__volunteers_members', 'members'))->leftJoin($this->db->quoteName('#__volunteers_volunteers') . ' AS volunteers ON ' . $this->db->quoteName('volunteers.id') . ' = ' . $this->db->quoteName('members.volunteer'))->where($this->db->quoteName('volunteers.user_id') . ' = ' . $this->db->quote($user['id']));
+        $query = $db->getQuery(true)
+                          ->select($this->db->quoteName('members.id'))
+                          ->from($this->db->quoteName('#__volunteers_members', 'members'))
+                          ->leftJoin($this->db->quoteName('#__volunteers_volunteers') . ' AS volunteers ON ' . $this->db->quoteName('volunteers.id') . ' = ' . $this->db->quoteName('members.volunteer'))
+                          ->where($this->db->quoteName('volunteers.user_id') . ' = ' . $this->db->quote($user['id']));
 
         $volunteer = $db->setQuery($query)->loadResult();
 
