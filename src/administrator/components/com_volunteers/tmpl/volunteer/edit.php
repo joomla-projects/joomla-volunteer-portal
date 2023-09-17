@@ -16,8 +16,12 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
-HTMLHelper::_('jquery.framework');
-HTMLHelper::_('behavior.formvalidator');
+$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+$wa->useScript('jquery');
+$wa->useScript('jquery-noconflict');
+$wa->useScript('jquery-migrate');
+
+$wa->useScript('form.validate');
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 /*$this->document->getWebAssetManager()->addScriptDeclaration("

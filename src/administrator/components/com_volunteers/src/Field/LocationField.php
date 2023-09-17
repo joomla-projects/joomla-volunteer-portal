@@ -8,6 +8,7 @@
 
 namespace Joomla\Component\Volunteers\Administrator\Field;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\TextField;
 use Joomla\CMS\HTML\HTMLHelper;
 
@@ -37,7 +38,11 @@ class LocationField extends TextField
      */
     public function getInput(): string
     {
-        HTMLHelper::_('jquery.framework');
+        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+        $wa->useScript('jquery');
+        $wa->useScript('jquery-noconflict');
+        $wa->useScript('jquery-migrate');
+
         HTMLHelper::script('//maps.googleapis.com/maps/api/js?key=AIzaSyC04czYnPuPFkO6eDAKX-j_lfrpanAAo-U');
         HTMLHelper::script('com_volunteers/jquery-gmaps-latlon-picker.js', false, true);
 

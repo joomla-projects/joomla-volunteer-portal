@@ -18,7 +18,11 @@ use Joomla\CMS\Factory;
 
 /** @var \Joomla\Component\Volunteers\Site\View\Departments\HtmlView $this */
 
-HTMLHelper::_('jquery.framework');
+$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+$wa->useScript('jquery');
+$wa->useScript('jquery-noconflict');
+$wa->useScript('jquery-migrate');
+;
 $active = $this->state->get('filter.active', 1);
 
 

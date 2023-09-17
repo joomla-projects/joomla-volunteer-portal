@@ -25,7 +25,7 @@ $canOrder = $user->authorise('core.edit.state', 'com_volunteers');
 $saveOrder = $listOrder == 'a.ordering';
 if ($saveOrder) {
     $saveOrderingUrl = 'index.php?option=com_volunteers&task=members.saveOrderAjax&tmpl=component';
-    HTMLHelper::_('sortablelist.sortable', 'itemsList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
+    HTMLHelper::_('draggablelist.draggable');
 }
 
 $wa = $this->document->getWebAssetManager();
@@ -72,7 +72,10 @@ $wa->useScript('table.columns');
                         </th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody <?php if ($saveOrder) :
+                        ?> class="js-draggable" data-url="<?php echo $saveOrderingUrl; ?>"
+                        data-direction="<?php echo strtolower($listDirn); ?>" data-nested="true" <?php
+                           endif; ?>>
                     <?php foreach ($this->items as $i => $item) :
                         $ordering = ($listOrder == 'a.ordering');
                         $canCreate = $user->authorise('core.create', 'com_volunteers');

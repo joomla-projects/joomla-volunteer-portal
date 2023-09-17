@@ -18,7 +18,11 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 
 /** @var \Joomla\Component\Volunteers\Site\View\Teams\HtmlView $this */
 
-HTMLHelper::_('jquery.framework');
+$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+$wa->useScript('jquery');
+$wa->useScript('jquery-noconflict');
+$wa->useScript('jquery-migrate');
+;
 $active = $this->state->get('filter.active', 1);
 
 

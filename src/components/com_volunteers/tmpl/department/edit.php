@@ -24,8 +24,8 @@ try {
     echo $e->getMessage();
     exit();
 }
-HtmlHelper::_('behavior.keepalive');
-HtmlHelper::_('behavior.formvalidator');
+$wa->useScript('keepalive');
+$wa->useScript('form.validate');
 HtmlHelper::_('formbehavior.chosen', 'select');
 
 ?>

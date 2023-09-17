@@ -13,7 +13,7 @@ use Joomla\CMS\Router\Route;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-HTMLHelper::_('behavior.formvalidator');
+Factory::getApplication()->getDocument()->getWebAssetManager()->useScript('form.validate');
 ?>
 
 <form action="<?php echo Route::_('index.php?option=com_volunteers&view=contact'); ?>"
