@@ -16,7 +16,9 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Table\Table;
+use Joomla\Component\Volunteers\Administrator\Helper\VolunteersHelper;
 
 /**
  * Member model.
@@ -189,5 +191,32 @@ class MemberModel extends AdminModel
                 $table->modified_by = $user->id;
             }
         }
+    }
+
+    /**
+     * Method to get a single record.
+     *
+     * @param   null  $pk  The id of the primary key.
+     *
+     * @return CMSObject|bool Object on success
+     *
+     * @since  4.0.0
+     * @throws Exception
+     */
+    public function getItem($pk = null)
+    {
+        $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
+
+        $item =  parent::getItem($pk);
+
+        if ($item->department == 0) {
+            $db = $this->getDatabase();
+            $query = $db->getQuery(true);
+            $query->select('a.department')->from('#__volunteers_teams AS a')->where('a.id = '.(int) $item->team);
+
+            $db->setQuery($query);
+            $item->department = $db->loadResult();
+        }
+        return $item;
     }
 }

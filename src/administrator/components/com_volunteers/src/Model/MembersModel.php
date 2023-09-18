@@ -250,7 +250,6 @@ class MembersModel extends ListModel
 
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
 
-
         return $query;
     }
 
