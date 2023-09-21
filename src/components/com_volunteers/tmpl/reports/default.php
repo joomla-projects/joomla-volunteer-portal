@@ -36,7 +36,16 @@ try {
     <div class="row">
         <div class="filter-bar">
             <div class="btn-group pull-right">
-                <?php echo HtmlHelper::_('select.groupedlist', VolunteersHelper::reportcategories(), 'filter_category', ['list.attr' => 'class="input-xlarge form-select"']); ?>
+
+                <?php echo HtmlHelper::_(
+                    'select.groupedlist',
+                    VolunteersHelper::reportcategories(),
+                    'filter_category',
+                    ['list.attr' => [
+                                    'class' => 'input-xlarge form-select',
+                                    'onchange' => 'document.adminForm.submit();'
+                                    ]]
+                ); ?>
             </div>
         </div>
         <div class="page-header">
