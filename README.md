@@ -1,5 +1,5 @@
 # joomla-volunteer-portal
-Based on the live Joomla 3 version code base ported to Joomla 4 and updated.
+Based on the live Joomla 3 version code base ported to Joomla 4 and updated and now ported to Joomla 5.
 ---------------------------------------------------------------
 Build Status
 ---------------------
@@ -7,7 +7,7 @@ Build Status
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|  ------------- |
 | [![Build Status](http://ci.joomla.org/api/badges/joomla-projects/joomla-volunteer-portal/status.svg)](http://ci.joomla.org/joomla-projects/joomla-volunteer-portal) | [![PHP](https://img.shields.io/badge/PHP-V8.1.0-green)](https://www.php.net/) |
 ---
-DO NOT TEST YET - PLEASE CONTACT MARK IF WANTING UPDATE. THANKS.
+PLEASE DO TEST. See below for missing functionality
 ---
 Building on Windows
 --
@@ -27,7 +27,7 @@ In shell run
 ------------------------------
 Instructions for installation
 ------------------------------
-* Create new installation of Joomla 4.
+* Create new installation of Joomla 5.
 
 * Install Joomla 4  template from the dist folder (jtemplate_4.0.7.zip).
 * Go to site System-> Templates-> Site Template Styles - enable Joomla-default as default template style.
@@ -46,6 +46,13 @@ Instructions for uninstalling
 -----------------------------
 * In Extensions Manage, just click to uninstall pkg_volunteers and this will uninstall all of the subcomponents.
 
+------------------------------
+Awaiting functionality
+-----------------------------
+* All mapping code is currently not implemented.
+
+* Adding new users/editing departments needs further testing.
+
 ---------------------------------------------------------------
 Roll Call
 
@@ -53,3 +60,6 @@ Roll Call
 * Joomla 4 Port by [Mark Fleeson](https://github.com/mfleeson) and [Roland Dalmulder](https://github.com/roland-d)
 * Code Clean Up, adding drone and jorobo by [Hannes Papenberg](https://github.com/hackwar)
 * Code Clean Up and improvements by [Brian Teeman](https://github.com/brianteeman)
+* Code port to Joomla 5 by [Mark Fleeson](https://github.com/mfleeson)
+
+
