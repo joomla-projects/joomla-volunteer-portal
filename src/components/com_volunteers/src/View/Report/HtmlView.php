@@ -20,7 +20,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\User;
@@ -36,7 +36,7 @@ use stdClass;
  */
 class HtmlView extends BaseHtmlView
 {
-    protected CMSObject $state;
+    protected mixed $state;
     protected mixed $item;
     protected mixed $form;
     protected User|null $user;
@@ -55,7 +55,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         /** @var ReportModel $model */
 
@@ -106,7 +106,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    protected function manipulateForm()
+    protected function manipulateForm(): void
     {
         $app      = Factory::getApplication();
         $jinput   = $app->input;
@@ -138,7 +138,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    protected function prepareDocument()
+    protected function prepareDocument(): void
     {
         $layout = Factory::getApplication()->input->get('layout');
 
@@ -147,7 +147,8 @@ class HtmlView extends BaseHtmlView
             $title = Text::_('COM_VOLUNTEERS_TITLE_REPORTS_EDIT');
 
             // Set meta
-            $this->document->setTitle($title);
+            $this->getDocument()->
+            setTitle($title);
 
             return;
         }
@@ -160,20 +161,30 @@ class HtmlView extends BaseHtmlView
         $url         = Uri::getInstance()->toString(['scheme', 'host', 'port']) . $itemURL;
 
         // Set meta
-        $this->document->setTitle($title);
-        $this->document->setDescription($description);
+        $this->getDocument()->
+        setTitle($title);
+        $this->getDocument()->
+        setDescription($description);
 
         // Twitter Card metadata
-        $this->document->setMetaData('twitter:title', $title);
-        $this->document->setMetaData('twitter:description', $description);
-        $this->document->setMetaData('twitter:image', Uri::base() . 'images/reports-twitter.jpg');
+        $this->getDocument()->
+        setMetaData('twitter:title', $title);
+        $this->getDocument()->
+        setMetaData('twitter:description', $description);
+        $this->getDocument()->
+        setMetaData('twitter:image', Uri::base() . 'images/reports-twitter.jpg');
 
         // OpenGraph metadata
-        $this->document->setMetaData('og:title', $title, 'property');
-        $this->document->setMetaData('og:description', $description, 'property');
-        $this->document->setMetaData('og:image', Uri::base() . 'images/reports-og.jpg', 'property');
-        $this->document->setMetaData('og:type', 'article', 'property');
-        $this->document->setMetaData('og:url', $url, 'property');
+        $this->getDocument()->
+        setMetaData('og:title', $title, 'property');
+        $this->getDocument()->
+        setMetaData('og:description', $description, 'property');
+        $this->getDocument()->
+        setMetaData('og:image', Uri::base() . 'images/reports-og.jpg', 'property');
+        $this->getDocument()->
+        setMetaData('og:type', 'article', 'property');
+        $this->getDocument()->
+        setMetaData('og:url', $url, 'property');
 
         // Share Buttons
         $layout = new FileLayout('joomlarrssb');

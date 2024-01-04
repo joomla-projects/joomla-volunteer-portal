@@ -17,7 +17,7 @@ namespace Joomla\Component\Volunteers\Site\View\Registration;
 use Exception;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\Component\Volunteers\Site\Model\RegistrationModel;
 
 /**
@@ -30,7 +30,7 @@ class HtmlView extends BaseHtmlView
     protected mixed $data;
     protected mixed $form;
     protected mixed $params;
-    protected CMSObject $state;
+    protected mixed $state;
 
     /**
      * Display the view
@@ -43,7 +43,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         /** @var RegistrationModel $model */
         $model = $this->getModel();

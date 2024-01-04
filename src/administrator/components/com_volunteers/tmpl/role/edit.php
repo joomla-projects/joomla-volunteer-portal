@@ -9,6 +9,7 @@
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Router\Route;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -16,7 +17,8 @@ use Joomla\CMS\Router\Route;
 // phpcs:enable PSR1.Files.SideEffects
 /** @var $this HtmlView */
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->
+getWebAssetManager();
 $wa->useScript('keepalive')
     ->useScript('form.validate');
 ?>

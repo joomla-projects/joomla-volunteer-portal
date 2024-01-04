@@ -17,7 +17,7 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Table\Table;
 use Joomla\String\StringHelper;
 use stdClass;
@@ -55,13 +55,13 @@ class BoardModel extends AdminModel
 
     /**
      * Hard codes board of directors
-     * @return bool|CMSObject
+     * @return bool|stdClass
      *
      * @since 4.0.0
      */
-    public function getBoardItem(): bool|CMSObject
+    public function getBoardItem(): bool|stdClass
     {
-        return parent::getItem(58);
+        return json_decode(json_encode(parent::getItem(58)));
     }
 
     /**
@@ -234,7 +234,7 @@ class BoardModel extends AdminModel
         }
         $this->preprocessData('com_volunteers.department', $data);
 
-        return $data;
+        return (array) $data;
     }
 
     /**
@@ -247,7 +247,7 @@ class BoardModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table)
+    protected function prepareTable($table): void
     {
         $date = Factory::getDate();
         $user = Factory::getApplication()->getIdentity();

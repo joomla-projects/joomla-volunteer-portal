@@ -16,10 +16,10 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Component\Volunteers\Administrator\Model\ReportModel;
 
@@ -30,7 +30,7 @@ use Joomla\Component\Volunteers\Administrator\Model\ReportModel;
  */
 class HtmlView extends BaseHtmlView
 {
-    protected CMSObject $state;
+    protected mixed $state;
     protected mixed $item;
     protected mixed $form;
 
@@ -44,19 +44,13 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         /** @var ReportModel $model */
         $model       = $this->getModel();
         $this->state = $model->getState();
         $this->item  = $model->getItem();
         $this->form  = $model->getForm();
-
-        $errors = $model->getErrors();
-
-        if ($errors && count($errors) > 0) {
-            throw new GenericDataException(implode("\n", $errors));
-        }
 
         $this->addToolbar();
         parent::display($tpl);
@@ -70,14 +64,14 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    protected function addToolbar()
+    protected function addToolbar(): void
     {
         Factory::getApplication()->getInput()->set('hidemainmenu', true);
         $user       = $this->getCurrentUser();
         $userId     = $user->id;
         $isNew      = ($this->item->id == 0);
         $checkedOut = !(is_null($this->item->checked_out) || $this->item->checked_out == $userId);
-        $toolbar    = Toolbar::getInstance();
+        $toolbar    = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar();
         $canDo      = ContentHelper::getActions('com_volunteers');
 
         ToolbarHelper::title($isNew ? Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_REPORTS_NEW') : Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_REPORTS_EDIT'), 'joomla');

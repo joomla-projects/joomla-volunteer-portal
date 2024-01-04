@@ -8,6 +8,7 @@
 
 namespace Joomla\Component\Volunteers\Administrator\Field;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\TextField;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -35,6 +36,7 @@ class LocationField extends TextField
      *
      * @return  string  The field input markup.
      * @since 4.0.0
+     * @throws Exception
      */
     public function getInput(): string
     {

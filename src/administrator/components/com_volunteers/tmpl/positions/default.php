@@ -18,14 +18,15 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->
+getWebAssetManager();
 $wa->useScript('table.columns')
     ->useScript('multiselect');
 
 /** @var $this HtmlView */
 
 $user = Factory::getApplication()->getIdentity();
-$userId = $user->get('id');
+$userId = $user->id;
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn = $this->escape($this->state->get('list.direction'));
 $canOrder = $user->authorise('core.edit.state', 'com_volunteers');
@@ -87,7 +88,7 @@ if ($saveOrder) {
                                 $ordering = ($listOrder == 'a.ordering');
                                 $canCreate = $user->authorise('core.create', 'com_volunteers');
                                 $canEdit = $user->authorise('core.edit', 'com_volunteers');
-                                $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
+                                $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->id || $item->checked_out == 0;
                                 $canChange = $user->authorise('core.edit.state', 'com_volunteers') && $canCheckin;
                                 ?>
                                 <tr class="row<?php echo $i % 2; ?>" data-draggable-group="<?php echo $item->id ?>">

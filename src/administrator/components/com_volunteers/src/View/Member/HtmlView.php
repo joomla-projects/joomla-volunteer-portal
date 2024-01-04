@@ -18,7 +18,7 @@ use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
@@ -28,7 +28,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
  */
 class HtmlView extends BaseHtmlView
 {
-    protected CMSObject $state;
+    protected mixed $state;
     protected mixed $item;
     protected mixed $form;
 
@@ -42,7 +42,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         /* @var MemberModel $model */
         $model = $this->getModel();
@@ -75,7 +75,7 @@ class HtmlView extends BaseHtmlView
 
         $user       = Factory::getApplication()->getIdentity();
         $isNew      = ($this->item->id == 0);
-        $checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->get('id'));
+        $checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->id);
         $canDo      = ContentHelper::getActions('com_volunteers');
 
         // Set toolbar title

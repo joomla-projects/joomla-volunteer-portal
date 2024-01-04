@@ -39,7 +39,7 @@ class FeedView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         // Parameters
         $app            = Factory::getApplication();

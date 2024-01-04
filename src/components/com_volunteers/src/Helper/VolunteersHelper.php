@@ -294,7 +294,7 @@ class VolunteersHelper
      *
      * @since 4.0.0
      */
-    public static function outputVolunteer($volunteer)
+    public static function outputVolunteer($volunteer): void
     {
         echo '<a  class="pull-left" href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->volunteer) . '">';
         echo self::image($volunteer->volunteer_image, 'small', false, $volunteer->volunteer_image);
@@ -316,7 +316,7 @@ class VolunteersHelper
      *
      * @since 4.0.0
      */
-    public static function outputHorizontalVolunteer($volunteer)
+    public static function outputHorizontalVolunteer($volunteer): void
     {
         echo '<a href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->id) . '">';
         echo self::image($volunteer->image, 'small', false, $volunteer->name, 'joomlers img_rounded');
@@ -488,16 +488,17 @@ class VolunteersHelper
     }
 
     /**
-     * @param           $image
-     * @param           $size
-     * @param   bool    $urlonly
-     * @param   string  $alt
+     * @param                $image
+     * @param                $size
+     * @param   bool         $urlonly
+     * @param   string|null  $alt
+     * @param   string       $class
      *
      * @return mixed|string
      *
      * @since version
      */
-    public static function image($image, $size, bool $urlonly = false, string|null $alt = '', string $class = 'img-rounded')
+    public static function image($image, $size, bool $urlonly = false, string|null $alt = '', string $class = 'img-rounded'): mixed
     {
         if (empty($image)) {
             $image = Uri::base() . 'media/com_volunteers/images/joomlaperson.png';

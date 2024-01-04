@@ -18,7 +18,7 @@ use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Component\Volunteers\Administrator\Model\PositionModel;
@@ -30,7 +30,7 @@ use Joomla\Component\Volunteers\Administrator\Model\PositionModel;
  */
 class HtmlView extends BaseHtmlView
 {
-    protected CMSObject $state;
+    protected mixed $state;
     protected mixed $item;
     protected mixed $form;
 
@@ -44,7 +44,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         /** @var PositionModel $model */
         $model       = $this->getModel();
@@ -77,7 +77,7 @@ class HtmlView extends BaseHtmlView
         $userId     = $user->id;
         $isNew      = ($this->item->id == 0);
         $checkedOut = !(is_null($this->item->checked_out) || $this->item->checked_out == $userId);
-        $toolbar    = Toolbar::getInstance();
+        $toolbar    = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar();
         $canDo      = ContentHelper::getActions('com_volunteers');
 
         ToolbarHelper::title($isNew ? Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_POSITIONS_NEW') : Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_POSITIONS_EDIT'), 'joomla');

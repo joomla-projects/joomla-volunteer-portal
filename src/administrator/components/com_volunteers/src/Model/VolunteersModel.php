@@ -29,7 +29,8 @@ class VolunteersModel extends ListModel
     /**
      * Constructor.
      *
-     * @param   array  An optional associative array of configuration settings.
+     * @param array $config  An optional associative array of configuration settings.
+* @param $factory MVCFactoryInterface
      *
      * @see     JController
      * @since   4.0.0
@@ -207,7 +208,7 @@ class VolunteersModel extends ListModel
      * @note    Calling getState in this method will result in recursion.
      * @since   4.0.0
      */
-    protected function populateState($ordering = 'user.name', $direction = 'asc')
+    protected function populateState($ordering = 'user.name', $direction = 'asc'): void
     {
         // Load the filter state.
         $this->setState('filter.search', $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search'));

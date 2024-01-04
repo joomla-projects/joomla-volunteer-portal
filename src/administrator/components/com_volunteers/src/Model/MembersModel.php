@@ -315,7 +315,8 @@ class MembersModel extends ListModel
     /**
      * Constructor.
      *
-     * @param   array  An optional associative array of configuration settings.
+     * @param array $config  An optional associative array of configuration settings.
+* @param $factory MVCFactoryInterface
      *
      * @see     JController
      * @since   4.0.0

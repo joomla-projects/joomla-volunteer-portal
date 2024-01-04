@@ -17,12 +17,13 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Pagination\Pagination;
-use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\Button\DropdownButton;
+use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\Registry\Registry;
 
 /**
  * View class for a list of teams.
@@ -35,27 +36,35 @@ class HtmlView extends BaseHtmlView
      * An array of items
      *
      * @var  array
+     *
+     * @since 4.0.0
      */
     protected array $items;
 
     /**
      * The pagination object
      *
-     * @var  \Joomla\CMS\Pagination\Pagination
+     * @var Pagination
+     *
+     * @since 4.0.0
      */
     protected Pagination $pagination;
 
     /**
      * The model state
      *
-     * @var   \Joomla\CMS\Object\CMSObject
+     * @var   Registry
+     *
+     * @since 4.0.0
      */
-    protected CMSObject $state;
+    protected mixed $state;
 
     /**
      * Form object for search filters
      *
-     * @var  \Joomla\CMS\Form\Form
+     * @var  Form
+     *
+     * @since 4.0.0
      */
     public Form $filterForm;
 
@@ -63,6 +72,8 @@ class HtmlView extends BaseHtmlView
      * The active search filters
      *
      * @var  array
+     *
+     * @since 4.0.0
      */
     public array $activeFilters;
 
@@ -72,7 +83,7 @@ class HtmlView extends BaseHtmlView
      * @var   boolean
      * @since 4.0.0
      */
-    private $isEmptyState = false;
+    private bool $isEmptyState = false;
 
     /**
      * Display the view
@@ -85,7 +96,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         /** @var TeamsModel $model */
         $model               = $this->getModel();
@@ -94,11 +105,6 @@ class HtmlView extends BaseHtmlView
         $this->pagination    = $model->getPagination();
         $this->filterForm    = $model->getFilterForm();
         $this->activeFilters = $model->getActiveFilters();
-        $errors              = $model->getErrors();
-
-        if ($errors && count($errors) > 0) {
-            throw new GenericDataException(implode("\n", $errors));
-        }
 
         $this->addToolbar();
 
@@ -119,7 +125,7 @@ class HtmlView extends BaseHtmlView
         $user  = Factory::getApplication()->getIdentity();
 
         // Get the toolbar object instance
-        $toolbar = Toolbar::getInstance();
+        $toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar();
 
         ToolbarHelper::title(Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_teamS'), 'joomla');
 

@@ -100,11 +100,12 @@ class RoleModel extends AdminModel
     /**
      * Method to get the data that should be injected in the form.
      *
-     * @return  mixed  The default data is an empty array.
-     * @since 4.0.0
+     * @return  array  The default data is an empty array.
+     *
      * @throws Exception
+     * @since 4.0.0
      */
-    protected function loadFormData()
+    protected function loadFormData(): array
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.role.data', []);
@@ -117,7 +118,7 @@ class RoleModel extends AdminModel
         }
         $this->preprocessData('com_volunteers.role', $data);
 
-        return $data;
+        return (array) $data;
     }
 
     /**
@@ -129,23 +130,23 @@ class RoleModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table)
+    protected function prepareTable($table): void
     {
         $date = Factory::getDate();
         $user = Factory::getApplication()->getIdentity();
 
-        $table->set('title', htmlspecialchars_decode($table->get('title'), ENT_QUOTES));
-        $table->set('alias', ApplicationHelper::stringURLSafe($table->get('alias')));
+        $table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
+        $table->alias = ApplicationHelper::stringURLSafe($table->alias);
 
-        if (empty($table->get('alias'))) {
-            $table->set('alias', ApplicationHelper::stringURLSafe($table->get('title')));
+        if (empty($table->alias)) {
+            $table->alias = ApplicationHelper::stringURLSafe($table->title);
         }
 
         if (empty($table->getId())) {
             // Set the values
 
             // Set ordering to the last item if not set
-            if (empty($table->get('ordering'))) {
+            if (empty($table->ordering)) {
                 $db    = $this->getDatabase();
                 $query = $db->getQuery(true)
                     ->select('MAX(ordering)')
@@ -154,18 +155,18 @@ class RoleModel extends AdminModel
                 $db->setQuery($query);
                 $max = $db->loadResult();
 
-                $table->set('ordering', $max + 1);
+                $table->ordering = $max + 1;
             } else {
                 // Set the values
-                $table->set('modified', $date->toSql());
-                $table->set('modified_by', $user->id);
+                $table->modified    = $date->toSql();
+                $table->modified_by = $user->id;
             }
         }
 
         // Increment the version number.
-        $v = $table->get('version');
+        $v  = $table->version;
         $v++;
-        $table->set('version', $v);
+        $table->version = $v;
     }
 
     /**

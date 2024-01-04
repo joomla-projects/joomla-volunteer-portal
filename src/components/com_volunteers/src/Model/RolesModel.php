@@ -27,7 +27,8 @@ class RolesModel extends ListModel
     /**
      * Constructor.
      *
-     * @param   array  An optional associative array of configuration settings.
+     * @param   array                     $config   An optional associative array of configuration settings.
+     * @param   MVCFactoryInterface|null  $factory  MVCFactoryInterface
      *
      * @see     JController
      * @since   4.0.0
@@ -116,10 +117,10 @@ class RolesModel extends ListModel
     /**
      * Method to get an array of open roles.
      *
-     * @return  mixed  An array of data items on success, false on failure.
+     * @return  array  An array of data items on success, false on failure.
      * @since 4.0.0
      */
-    public function getOpenRoles()
+    public function getOpenRoles(): array
     {
         // Create a new query object.
         $db = $this->getDatabase();
@@ -157,7 +158,7 @@ class RolesModel extends ListModel
      * @return  string  A store id.
      * @since 4.0.0
      */
-    protected function getStoreId($id = '')
+    protected function getStoreId($id = ''): string
     {
         // Compile the store id.
         $id .= ':' . $this->getState('filter.search');
@@ -170,12 +171,15 @@ class RolesModel extends ListModel
     /**
      * Method to auto-populate the model state.
      *
+     * @param   string  $ordering
+     * @param   string  $direction
+     *
      * @return  void
      *
      * @note    Calling getState in this method will result in recursion.
      * @since   4.0.0
      */
-    protected function populateState($ordering = 'a.title', $direction = 'asc')
+    protected function populateState($ordering = 'a.title', $direction = 'asc'): void
     {
         // Load the filter state.
         $this->setState('filter.search', $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search'));

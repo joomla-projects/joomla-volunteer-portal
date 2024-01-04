@@ -13,7 +13,6 @@ namespace Joomla\Component\Volunteers\Administrator\Controller;
 use DateTimeZone;
 use Exception;
 use Joomla\CMS\Date\Date;
-use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Volunteers\Administrator\Model\MembersModel;
@@ -67,7 +66,7 @@ class MembersController extends AdminController
      *
      * @throws Exception
      */
-    public function export()
+    public function export(): void
     {
         // Check for request forgeries.
         $this->checkToken();
@@ -112,14 +111,13 @@ class MembersController extends AdminController
      * @since 1.0.0
      * @throws Exception
      */
-    public function mail()
+    public function mail(): void
     {
         // Check for request forgeries.
         $this->checkToken();
 
         /** @var MembersModel $model */
         $model = $this->getModel('Members', 'VolunteersModel', ['ignore_request' => false]);
-        //      $model = JModelLegacy::getInstance('Members', 'VolunteersModel', array('ignore_request' => false));
         $items = $model->getItems();
 
         $members = [];

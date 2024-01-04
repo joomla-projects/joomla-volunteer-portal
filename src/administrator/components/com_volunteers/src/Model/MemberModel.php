@@ -16,7 +16,7 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Table\Table;
 use Joomla\Component\Volunteers\Administrator\Helper\VolunteersHelper;
 
@@ -140,7 +140,7 @@ class MemberModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData()
+    protected function loadFormData(): array
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.member.data', []);
@@ -166,7 +166,7 @@ class MemberModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table)
+    protected function prepareTable($table): void
     {
         $date = Factory::getDate();
         $user = Factory::getApplication()->getIdentity();
@@ -210,9 +210,9 @@ class MemberModel extends AdminModel
         $item =  parent::getItem($pk);
 
         if ($item->department == 0) {
-            $db = $this->getDatabase();
+            $db    = $this->getDatabase();
             $query = $db->getQuery(true);
-            $query->select('a.department')->from('#__volunteers_teams AS a')->where('a.id = '.(int) $item->team);
+            $query->select('a.department')->from('#__volunteers_teams AS a')->where('a.id = ' . (int) $item->team);
 
             $db->setQuery($query);
             $item->department = $db->loadResult();

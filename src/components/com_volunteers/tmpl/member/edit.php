@@ -10,6 +10,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
+use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -35,6 +36,7 @@ if ($this->item->department) {
     $view = 'team';
     $id = $this->item->team;
 }
+
 ?>
 
 <div class="member-edit">

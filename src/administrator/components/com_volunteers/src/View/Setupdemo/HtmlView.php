@@ -17,7 +17,7 @@ use Exception;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Registry\Registry;
 use SimpleXMLElement;
@@ -39,17 +39,19 @@ class HtmlView extends BaseHtmlView
     /**
          * The model state
          *
-         * @var    CMSObject
+         * @var    Registry
+     *
          * @since  4.0.0
          */
-    protected CMSObject $state;
+    protected mixed $state;
     /**
          * Component Parameters
          *
-         * @var    Registry
+         * @var    Registry|null
+     *
          * @since  4.0.0
          */
-    protected $params = null;
+    protected ?Registry $params = null;
     /**
          * Migration SQL
          *

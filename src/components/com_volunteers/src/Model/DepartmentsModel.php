@@ -28,12 +28,15 @@ class DepartmentsModel extends ListModel
     /**
      * Method to auto-populate the model state.
      *
+     * @param   string  $ordering
+     * @param   string  $direction
+     *
      * @return  void
      *
      * @note    Calling getState in this method will result in recursion.
      * @since   4.0.0
      */
-    protected function populateState($ordering = 'a.ordering', $direction = 'asc')
+    protected function populateState($ordering = 'a.ordering', $direction = 'asc'): void
     {
         // Load the filter state.
         $this->setState('filter.search', $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search'));
@@ -170,7 +173,7 @@ class DepartmentsModel extends ListModel
     /**
      * Constructor.
      *
-     * @param   array  An optional associative array of configuration settings.
+     * @param   $config array  An optional associative array of configuration settings.
      *
      * @see     JController
      * @since   4.0.0

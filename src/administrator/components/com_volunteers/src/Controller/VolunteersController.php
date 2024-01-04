@@ -12,7 +12,6 @@ use Exception;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Session\Session;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -47,7 +46,7 @@ class VolunteersController extends AdminController
      * @since 1.0
      * @throws Exception
      */
-    public function resetspam()
+    public function resetspam(): void
     {
         // Check for request forgeries.
         $this->checkToken();

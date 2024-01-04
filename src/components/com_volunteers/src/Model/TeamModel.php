@@ -21,7 +21,6 @@ use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 use Joomla\String\StringHelper;
 use Joomla\Utilities\ArrayHelper;
-use RuntimeException;
 use stdClass;
 
 /**
@@ -109,7 +108,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    protected function loadFormData()
+    protected function loadFormData(): array
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.team.data', []);
@@ -120,7 +119,7 @@ class TeamModel extends AdminModel
 
         $this->preprocessData('com_volunteers.team', $data);
 
-        return $data;
+        return (array) $data;
     }
 
     /**
@@ -132,23 +131,23 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    protected function prepareTable($table)
+    protected function prepareTable($table): void
     {
         $date = Factory::getDate();
         $user = Factory::getApplication()->getIdentity();
 
-        $table->set('title', htmlspecialchars_decode($table->get('title'), ENT_QUOTES));
-        $table->set('alias', ApplicationHelper::stringURLSafe($table->get('alias')));
+        $table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
+        $table->alias = ApplicationHelper::stringURLSafe($table->alias);
 
-        if (empty($table->get('alias'))) {
-            $table->set('alias', ApplicationHelper::stringURLSafe($table->get('title')));
+        if (empty($table->alias)) {
+            $table->alias = ApplicationHelper::stringURLSafe($table->title);
         }
 
         if (empty($table->getId())) {
             // Set the values
 
             // Set ordering to the last item if not set
-            if (empty($table->get('ordering'))) {
+            if (empty($table->ordering)) {
                 $db    = $this->getDatabase();
                 $query = $db->getQuery(true)
                     ->select('MAX(ordering)')
@@ -157,83 +156,18 @@ class TeamModel extends AdminModel
                 $db->setQuery($query);
                 $max = $db->loadResult();
 
-                $table->set('ordering', $max + 1);
+                $table->ordering = $max + 1;
             } else {
                 // Set the values
-                $table->set('modified', $date->toSql());
-                $table->set('modified_by', $user->id);
+                $table->modified    = $date->toSql();
+                $table->modified_by = $user->id;
             }
         }
 
         // Increment the version number.
-        $v = $table->get('version');
+        $v  = $table->version;
         $v++;
-        $table->set('version', $v);
-    }
-
-    /**
-     * Method to save the form data.
-     *
-     * @param   array  $data  The form data.
-     *
-     * @return  boolean  True on success.
-     * @throws Exception
-     * @since 4.0.0
-     */
-    public function save($data): bool
-    {
-        $app = Factory::getApplication();
-
-        // Alter the title for save as copy
-        if ($app->input->get('task') == 'save2copy') {
-            list($name, $alias) = $this->generateNewTitle(0, $data['alias'], $data['title']);
-            $data['title']      = $name;
-            $data['alias']      = $alias;
-            $data['state']      = 0;
-        }
-
-        // Move team members to the honour roll if team end-date is set
-        if ($data['date_ended']) {
-            $members    = $this->getTeamMembers($data['id']);
-            $membersIds = array_map(
-                function ($member) {
-                    return $member->id;
-                },
-                $members->active
-            );
-
-            if (count($membersIds)) {
-                // Set date_ended for active members
-                $db    = $this->getDatabase();
-                $query = $db->getQuery(true);
-                $query
-                    ->update('#__volunteers_members')
-                    ->set('date_ended = ' . $db->quote($data['date_ended']))
-                    ->where('id IN (' . implode(',', $membersIds) . ')');
-
-                try {
-                    $db->setQuery($query)->execute();
-                } catch (RuntimeException $e) {
-                    throw new Exception($e->getMessage(), 500);
-                }
-            }
-
-            // Close all open positions for team
-            $db    = $this->getDatabase();
-            $query = $db->getQuery(true);
-            $query
-                ->update('#__volunteers_roles')
-                ->set('open = 0')
-                ->where('team = ' . $db->quote($data['id']));
-
-            try {
-                $db->setQuery($query)->execute();
-            } catch (RuntimeException $e) {
-                throw new Exception($e->getMessage(), 500);
-            }
-        }
-
-        return parent::save($data);
+        $table->version = $v;
     }
 
     /**
@@ -253,7 +187,7 @@ class TeamModel extends AdminModel
         $table = $this->getTable();
 
         while ($table->load(['alias' => $alias])) {
-            if ($title == $table->get('title')) {
+            if ($title == $table->title) {
                 $title = StringHelper::increment($title);
             }
 
@@ -443,11 +377,9 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function getItem($pk = null)
+    public function getItem($pk = null): mixed
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
-
-        $item = new stdClass();
 
         if ($pk > 0) {
             try {
@@ -497,9 +429,7 @@ class TeamModel extends AdminModel
         }
 
         // Convert to the stdClass before adding other data.
-        $properties = $this->getTable()->getProperties(1);
-        $item       = ArrayHelper::toObject($properties);
-
-        return $item;
+        $properties = $this->getTable()->getTableProperties(1);
+        return ArrayHelper::toObject($properties);
     }
 }

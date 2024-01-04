@@ -14,6 +14,7 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Mail\MailerFactoryInterface;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
 
@@ -36,9 +37,9 @@ class ContactController extends FormController
      * @since 4.0.0
      * @throws  Exception
      */
-    public function send()
+    public function send(): void
     {
-        $mailer  = Factory::getMailer();
+        $mailer  = Factory::getContainer()->get(MailerFactoryInterface::class)->createMailer();
         $session = $this->app->getSession();
         $user    = $session->get('user');
         $canDo   = ContentHelper::getActions('com_volunteers');
@@ -99,7 +100,7 @@ class ContactController extends FormController
      * @return  boolean  True if access level checks pass, false otherwise.
      * @since 1.0.0
      */
-    public function cancel($key = null)
+    public function cancel($key = null): bool
     {
         $this->setRedirect(Route::_('index.php?option=com_volunteers&view=members', false));
 

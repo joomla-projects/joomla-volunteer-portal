@@ -114,7 +114,7 @@ class SetupdemoModel extends AdminModel
      *
      * @throws Exception
      */
-    protected function loadFormData()
+    protected function loadFormData(): array
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteer.edit.setupdemo.data', []);

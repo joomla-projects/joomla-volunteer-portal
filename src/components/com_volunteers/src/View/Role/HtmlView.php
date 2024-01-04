@@ -14,11 +14,10 @@ namespace Joomla\Component\Volunteers\Site\View\Role;
 
 use Exception;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\User\User;
 use Joomla\Component\Volunteers\Site\Model\RoleModel;
 
@@ -29,11 +28,8 @@ use Joomla\Component\Volunteers\Site\Model\RoleModel;
  */
 class HtmlView extends BaseHtmlView
 {
-    protected CMSObject $state;
+    protected mixed $state;
     protected mixed $item;
-    /**
-     * @var Form
-     */
     protected mixed $form;
     protected User|null $user;
 
@@ -47,7 +43,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         /** @var RoleModel $model */
 
@@ -80,7 +76,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    protected function manipulateForm()
+    protected function manipulateForm(): void
     {
         $app      = Factory::getApplication();
         $jinput   = $app->input;
@@ -101,12 +97,13 @@ class HtmlView extends BaseHtmlView
      * @return  void.
      * @since 4.0.0
      */
-    protected function prepareDocument()
+    protected function prepareDocument(): void
     {
         // Prepare variables
         $title = Text::_('COM_VOLUNTEERS_TITLE_ROLES_EDIT');
 
         // Set meta
-        $this->document->setTitle($title);
+        $this->getDocument()->
+        setTitle($title);
     }
 }

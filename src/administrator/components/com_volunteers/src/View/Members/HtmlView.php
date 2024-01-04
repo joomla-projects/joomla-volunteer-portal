@@ -19,7 +19,7 @@ use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Pagination\Pagination;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Component\Volunteers\Administrator\Model\MembersModel;
@@ -33,7 +33,7 @@ class HtmlView extends BaseHtmlView
 {
     protected array $items;
     protected Pagination $pagination;
-    protected CMSObject $state;
+    protected mixed $state;
     public Form $filterForm;
     public array $activeFilters;
     /**
@@ -47,7 +47,7 @@ class HtmlView extends BaseHtmlView
      *
      * @since 4.0.0
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         /** @var MembersModel $model */
         $model               = $this->getModel();

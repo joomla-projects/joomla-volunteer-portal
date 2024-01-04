@@ -15,7 +15,8 @@ use Joomla\CMS\Router\Route;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->
+getWebAssetManager();
 $wa->useScript('keepalive')
     ->useScript('form.validate');
 ?>

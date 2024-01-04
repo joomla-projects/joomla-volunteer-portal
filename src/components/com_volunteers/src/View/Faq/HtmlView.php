@@ -18,7 +18,7 @@ use Exception;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Volunteers\Site\Model\HomeModel;
@@ -31,7 +31,7 @@ use Joomla\Component\Volunteers\Site\Model\VolunteersModel;
  */
 class HtmlView extends BaseHtmlView
 {
-    protected CMSObject $state;
+    protected mixed $state;
 
 
     /**
@@ -45,7 +45,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
 
         /** @var FaqModel $model */
@@ -72,7 +72,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    protected function prepareDocument()
+    protected function prepareDocument(): void
     {
         $title   = Text::_('COM_VOLUNTEERS_TITLE_FAQ');
         $image   = 'https://cdn.joomla.org/images/joomla-org-og.jpg';
@@ -80,16 +80,23 @@ class HtmlView extends BaseHtmlView
         $url     = Uri::getInstance()->toString(['scheme', 'host', 'port']) . $itemURL;
 
         // Set meta
-        $this->document->setTitle($title);
+        $this->getDocument()->
+        setTitle($title);
 
         // Twitter Card metadata
-        $this->document->setMetaData('twitter:title', $title);
-        $this->document->setMetaData('twitter:image', $image);
+        $this->getDocument()->
+        setMetaData('twitter:title', $title);
+        $this->getDocument()->
+        setMetaData('twitter:image', $image);
 
         // OpenGraph metadata
-        $this->document->setMetaData('og:title', $title, 'property');
-        $this->document->setMetaData('og:image', $image, 'property');
-        $this->document->setMetaData('og:type', 'article', 'property');
-        $this->document->setMetaData('og:url', $url, 'property');
+        $this->getDocument()->
+        setMetaData('og:title', $title, 'property');
+        $this->getDocument()->
+        setMetaData('og:image', $image, 'property');
+        $this->getDocument()->
+        setMetaData('og:type', 'article', 'property');
+        $this->getDocument()->
+        setMetaData('og:url', $url, 'property');
     }
 }

@@ -207,7 +207,7 @@ class VolunteersHelper
      * @return  void
      * @since 4.0.0
      */
-    public static function addSubmenu(string $vName = 'volunteers')
+    public static function addSubmenu(string $vName = 'volunteers'): void
     {
         SideBar::addEntry(Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS'), 'index.php?option=com_volunteers&view=volunteers', $vName == 'volunteers');
         SideBar::addEntry(Text::_('COM_VOLUNTEERS_TITLE_TEAMS'), 'index.php?option=com_volunteers&view=teams', $vName == 'teams');
@@ -286,7 +286,7 @@ class VolunteersHelper
         try {
             $app = Factory::getApplication();
             return $app->getIdentity();
-        } catch (Exception $e) {
+        } catch (Exception) {
             return new User\User();
         }
     }
@@ -304,11 +304,10 @@ class VolunteersHelper
     {
 
         try {
-            //$user   = Factory::getUser();
             $container   = Factory::getContainer();
             $userFactory = $container->get('user.factory');
             return $userFactory->loadUserById($userId);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return new User\User();
         }
     }

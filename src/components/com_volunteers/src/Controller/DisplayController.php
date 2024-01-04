@@ -11,6 +11,9 @@
 namespace Joomla\Component\Volunteers\Site\Controller;
 
 // phpcs:disable PSR1.Files.SideEffects
+use Exception;
+use Joomla\CMS\MVC\Controller\BaseController;
+
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
@@ -19,7 +22,7 @@ namespace Joomla\Component\Volunteers\Site\Controller;
  *
  * @since  4.0.0
  */
-class DisplayController extends \Joomla\CMS\MVC\Controller\BaseController
+class DisplayController extends BaseController
 {
     /**
      * Method to display a view.
@@ -27,9 +30,10 @@ class DisplayController extends \Joomla\CMS\MVC\Controller\BaseController
      * @param   boolean  $cachable   If true, the view output will be cached
      * @param   array    $urlparams  An array of safe url parameters and their variable types, for valid values see {@link InputFilter::clean()}.
      *
-     * @return  \Joomla\CMS\MVC\Controller\BaseController  This object to support chaining.
+     * @return  BaseController  This object to support chaining.
      *
      * @since   4.0.0
+     * @throws Exception
      */
     public function display($cachable = false, $urlparams = [])
     {

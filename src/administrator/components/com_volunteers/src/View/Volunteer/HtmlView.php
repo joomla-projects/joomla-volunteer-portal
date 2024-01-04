@@ -18,8 +18,9 @@ use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
@@ -29,7 +30,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
  */
 class HtmlView extends BaseHtmlView
 {
-    protected CMSObject $state;
+    protected mixed $state;
     protected mixed $item;
     protected mixed $form;
 
@@ -43,7 +44,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         /** @var VolunteerModel $model */
         $model       = $this->getModel();
@@ -69,14 +70,14 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    protected function addToolbar()
+    protected function addToolbar(): void
     {
         Factory::getApplication()->getInput()->set('hidemainmenu', true);
         $user       = $this->getCurrentUser();
         $userId     = $user->id;
         $isNew      = ($this->item->id == 0);
         $checkedOut = !(is_null($this->item->checked_out) || $this->item->checked_out == $userId);
-        $toolbar    = Toolbar::getInstance();
+        $toolbar    = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar();
         $canDo      = ContentHelper::getActions('com_volunteers');
 
         ToolbarHelper::title($isNew ? Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS_NEW') : Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS_EDIT'), 'joomla');
@@ -134,7 +135,7 @@ class HtmlView extends BaseHtmlView
      * @return  void.
      * @since 4.0.0
      */
-    protected function manipulateForm()
+    protected function manipulateForm(): void
     {
         $this->form->removeField('password1');
         $this->form->removeField('password2');

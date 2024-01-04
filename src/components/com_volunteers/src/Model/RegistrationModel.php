@@ -19,6 +19,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Mail\MailerFactoryInterface;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\FormModel;
 use Joomla\CMS\Uri\Uri;
@@ -72,13 +73,13 @@ class RegistrationModel extends FormModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData()
+    protected function loadFormData(): array
     {
         $data = $this->getData();
 
         $this->preprocessData('com_volunteers.registration', $data);
 
-        return $data;
+        return (array)$data;
     }
 
     /**
@@ -146,13 +147,13 @@ class RegistrationModel extends FormModel
      *
      * @param   array  $temp  The form data.
      *
-     * @return  mixed  The user id on success, false on failure.
+     * @return  bool|VolunteerModel  The user id on success, false on failure.
      *
      * @since 4.0.0
      * @throws \PHPMailer\PHPMailer\Exception
      * @throws Exception
      */
-    public function register(array $temp)
+    public function register(array $temp): bool|VolunteerModel
     {
         $data = (array) $this->getData();
 
@@ -166,13 +167,13 @@ class RegistrationModel extends FormModel
 
         if (!$volunteer->save($data)) {
             //Change to enqeue message MF
-            $this->setError(Text::sprintf('COM_VOLUNTEERS_REGISTRATION_SAVE_FAILED', $volunteer->getError()));
+            Factory::getApplication()->enqueueMessage(Text::sprintf('COM_VOLUNTEERS_REGISTRATION_SAVE_FAILED'));
 
             return false;
         }
 
         // Global config
-        $config = Factory::getConfig();
+        $config = Factory::getApplication()->getConfig();
 
         // Compile the notification mail values.
         $data['fromname'] = $config->get('fromname');
@@ -194,7 +195,8 @@ class RegistrationModel extends FormModel
         );
 
         // Send the registration email.
-        Factory::getMailer()->sendMail($data['mailfrom'], $data['fromname'], $data['email'], $emailSubject, $emailBody);
+        $mailer = Factory::getContainer()->get(MailerFactoryInterface::class)->createMailer();
+        $mailer->sendMail($data['mailfrom'], $data['fromname'], $data['email'], $emailSubject, $emailBody);
 
         return $volunteer;
     }

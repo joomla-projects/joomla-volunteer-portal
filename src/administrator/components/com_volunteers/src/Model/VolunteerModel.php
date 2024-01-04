@@ -24,7 +24,6 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\String\PunycodeHelper;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\User\User;
-use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 use RuntimeException;
 use stdClass;
@@ -188,7 +187,7 @@ class VolunteerModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData()
+    protected function loadFormData(): array
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.volunteer.data', []);
@@ -211,7 +210,7 @@ class VolunteerModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table)
+    protected function prepareTable($table): void
     {
         $date = Factory::getDate();
         $user = Factory::getApplication()->getIdentity();
