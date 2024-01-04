@@ -17,16 +17,15 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\MVC\Model\FormModel;
+use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 use Joomla\String\StringHelper;
-use Joomla\Utilities\ArrayHelper;
 
 /**
  * Report model.
  * @since 4.0.0
  */
-class ReportModel extends FormModel
+class ReportModel extends AdminModel
 {
     /**
      * The type alias for this content type.
@@ -34,7 +33,7 @@ class ReportModel extends FormModel
      * @var    string
      * @since 4.0.0
      */
-    public string $typeAlias = 'com_volunteers.report';
+    public $typeAlias = 'com_volunteers.report';
 
     /**
      * The prefix to use with controller messages.
@@ -42,132 +41,13 @@ class ReportModel extends FormModel
      * @var    string
      * @since 4.0.0
      */
-    protected string $text_prefix = 'COM_VOLUNTEERS';
-
-    /**
-     * Method to get volunteer info.
-     *
-     * @return  mixed  Data object on success, false on failure.
-     * @since 4.0.0
-     * @throws Exception
-     */
-    public function getVolunteer(): mixed
-    {
-        // Get user
-        $user = Factory::getApplication()->getIdentity();
-
-        // Get subteams
-        $model = $this->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
-
-        $volunteerId = $model->getVolunteerId($user->id);
-
-        return $model->getItem($volunteerId);
-    }
-
-    /**
-     * Prepare and sanitise the table data prior to saving.
-     *
-     * @param   Table  $table  A reference to a Table object.
-     *
-     * @return  void
-     * @since 4.0.0
-     * @throws Exception
-     */
-    protected function prepareTable(Table $table)
-    {
-        $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
-
-        $table->set('title', htmlspecialchars_decode($table->get('title'), ENT_QUOTES));
-        $table->set('alias', ApplicationHelper::stringURLSafe($table->get('alias')));
-
-        if (empty($table->get('alias'))) {
-            $table->set('alias', ApplicationHelper::stringURLSafe($table->get('title')));
-        }
-
-        if (empty($table->getId())) {
-            // Set the values
-
-            // Set ordering to the last item if not set
-            if (empty($table->get('ordering'))) {
-                $db    = $this->getDatabase();
-                $query = $db->getQuery(true)
-                    ->select('MAX(ordering)')
-                    ->from($db->quoteName('#__volunteers_reports'));
-
-                $db->setQuery($query);
-                $max = $db->loadResult();
-
-                $table->set('ordering', $max + 1);
-            } else {
-                // Set the values
-                $table->set('modified', $date->toSql());
-                $table->set('modified_by', $user->id);
-            }
-        }
-
-        // Increment the version number.
-        $v = $table->get('version');
-        $v++;
-        $table->set('version', $v);
-    }
-
-    /**
-     * Method to save the form data.
-     *
-     * @param   array  $data  The form data.
-     *
-     * @return  boolean  True on success.
-     * @since 4.0.0
-     * @throws Exception
-     */
-    public function save(array $data): bool
-    {
-        $app = Factory::getApplication();
-
-        // Alter the title for save as copy
-        if ($app->input->get('task') == 'save2copy') {
-            list($name, $alias) = $this->generateNewTitle(0, $data['alias'], $data['title']);
-            $data['title']      = $name;
-            $data['alias']      = $alias;
-            $data['state']      = 0;
-        }
-
-        return parent::save($data);
-    }
-
-    /**
-     * Method to change the title & alias.
-     *
-     * @param   integer  $categoryId  The id of the parent.
-     * @param   string   $alias       The alias.
-     * @param   string   $title       The title.
-     *
-     * @return  array  Contains the modified title and alias.
-     * @since 4.0.0
-     * @throws Exception
-     */
-    protected function generateNewTitle(int $categoryId, string $alias, string $title): array
-    {
-        // Alter the title & alias
-        $table = $this->getTable();
-
-        while ($table->load(['alias' => $alias])) {
-            if ($title == $table->get('title')) {
-                $title = StringHelper::increment($title);
-            }
-
-            $alias = StringHelper::increment($alias, 'dash');
-        }
-
-        return [$title, $alias];
-    }
+    protected $text_prefix = 'COM_VOLUNTEERS';
 
     /**
      * Method to get a table object, load it if necessary.
      *
-     * @param   string  $name     The table name. Optional.
-     * @param   string  $prefix   The class prefix. Optional.
+     * @param   string  $name    The table name. Optional.
+     * @param   string  $prefix  The class prefix. Optional.
      * @param   array   $options  Configuration array for model. Optional.
      *
      * @return  Table  A Table object
@@ -198,8 +78,142 @@ class ReportModel extends FormModel
             return false;
         }
 
+        // Modify the form based on access controls.
+        if (!$this->canEditState((object) $data)) {
+            // Disable fields for display.
+            $form->setFieldAttribute('ordering', 'disabled', 'true');
+            $form->setFieldAttribute('state', 'disabled', 'true');
+
+            // Disable fields while saving.
+            $form->setFieldAttribute('ordering', 'filter', 'unset');
+            $form->setFieldAttribute('state', 'filter', 'unset');
+        }
+
         return $form;
     }
+
+    /**
+     * Method to get volunteer info.
+     *
+     * @return  mixed  Data object on success, false on failure.
+     * @since 4.0.0
+     * @throws Exception
+     */
+    public function getVolunteer(): mixed
+    {
+        // Get user
+        $user = Factory::getApplication()->getIdentity();
+
+        // Get subteams
+        $model = $this->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
+
+        $volunteerId = $model->getVolunteerId($user->id);
+
+        return $model->getItem($volunteerId);
+    }
+
+    /**
+     * Prepare and sanitise the table data prior to saving.
+     *
+     * @param   Table  $table  A reference to a Table object.
+     *
+     * @return  void
+     * @since 4.0.0
+     * @throws Exception
+     */
+    protected function prepareTable($table): void
+    {
+        $date = Factory::getDate();
+        $user = Factory::getApplication()->getIdentity();
+
+        $table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
+        $table->alias = ApplicationHelper::stringURLSafe($table->alias);
+
+        if (empty($table->alias)) {
+            $table->alias = ApplicationHelper::stringURLSafe($table->title);
+        }
+
+        if (empty($table->getId())) {
+            // Set the values
+
+            // Set ordering to the last item if not set
+            if (empty($table->ordering)) {
+                $db    = $this->getDatabase();
+                $query = $db->getQuery(true)
+                    ->select('MAX(ordering)')
+                    ->from($db->quoteName('#__volunteers_reports'));
+
+                $db->setQuery($query);
+                $max = $db->loadResult();
+
+                $table->ordering = $max + 1;
+            } else {
+                // Set the values
+                $table->modified    = $date->toSql();
+                $table->modified_by = $user->id;
+            }
+        }
+
+        // Increment the version number.
+        $v  = $table->version;
+        $v++;
+        $table->version = $v;
+    }
+
+    /**
+     * Method to save the form data.
+     *
+     * @param   array  $data  The form data.
+     *
+     * @return  boolean  True on success.
+     * @since 4.0.0
+     * @throws Exception
+     */
+    public function save($data): bool
+    {
+        $app = Factory::getApplication();
+
+        // Alter the title for save as copy
+        if ($app->input->get('task') == 'save2copy') {
+            [$name, $alias]     = $this->generateNewTitle(0, $data['alias'], $data['title']);
+            $data['title']      = $name;
+            $data['alias']      = $alias;
+            $data['state']      = 0;
+        }
+
+        return parent::save($data);
+    }
+
+    /**
+     * Method to change the title & alias.
+     *
+     * @param   integer  $categoryId  The id of the parent.
+     * @param   string   $alias       The alias.
+     * @param   string   $title       The title.
+     *
+     * @return  array  Contains the modified title and alias.
+     * @since 4.0.0
+     * @throws Exception
+     */
+    protected function generateNewTitle($categoryId, $alias, $title): array
+    {
+        // Alter the title & alias
+        $table = $this->getTable();
+
+        while ($table->load(['alias' => $alias])) {
+            if ($title == $table->title) {
+                $title = StringHelper::increment($title);
+            }
+
+            $alias = StringHelper::increment($alias, 'dash');
+        }
+
+        return [$title, $alias];
+    }
+
+
+
+
 
     /**
      * Method to get the data that should be injected in the form.
@@ -208,18 +222,17 @@ class ReportModel extends FormModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData()
+    protected function loadFormData(): array
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.report.data', []);
-
         if (empty($data)) {
             $data = $this->getItem();
         }
 
         $this->preprocessData('com_volunteers.report', $data);
 
-        return $data;
+        return (array)$data;
     }
 
     /**
@@ -233,7 +246,7 @@ class ReportModel extends FormModel
      *
      * @throws Exception
      */
-    protected function populateState()
+    protected function populateState(): void
     {
         $app  = Factory::getApplication();
         $user = $app->getIdentity();
@@ -264,13 +277,13 @@ class ReportModel extends FormModel
     /**
      * Method to get team data.
      *
-     * @param   int|null  $pk  The id of the team.
+     * @param   int|null $pk  The id of the team.
      *
      * @return  mixed  Data object on success, false on failure.
      * @since 4.0.0
      * @throws Exception
      */
-    public function getItem(int $pk = null): mixed
+    public function getItem($pk = null): mixed
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -280,7 +293,7 @@ class ReportModel extends FormModel
                 $query = $db->getQuery(true)
                     ->select($this->getState('item.select', 'a.*'))
                     ->from('#__volunteers_reports AS a')
-                    ->where('a.id = ' . $pk);
+                    ->where('a.id = ' . (int) $pk);
 
                 // Join on volunteer table.
                 $query->select('volunteer.id AS volunteer_id, volunteer.image AS volunteer_image')
@@ -323,16 +336,9 @@ class ReportModel extends FormModel
 
                 return $data;
             } catch (Exception $e) {
-                $this->setError($e);
-
-                return false;
+                throw new Exception($e);
             }
         }
-
-        // Convert to the JObject before adding other data.
-        $properties = $this->getTable()->getProperties(1);
-        $item       = ArrayHelper::toObject($properties);
-
-        return $item;
+        return null;
     }
 }

@@ -18,7 +18,7 @@ use Joomla\CMS\Router\Route;
 /** @var $this HtmlView */
 
 $user = Factory::getApplication()->getIdentity();
-$userId = $user->get('id');
+$userId = $user->id;
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn = $this->escape($this->state->get('list.direction'));
 $canOrder = $user->authorise('core.edit.state', 'com_volunteers');
@@ -28,7 +28,8 @@ if ($saveOrder) {
     HTMLHelper::_('draggablelist.draggable');
 }
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->
+getWebAssetManager();
 $wa->useScript('table.columns');
 ?>
 
@@ -80,7 +81,7 @@ $wa->useScript('table.columns');
                         $ordering = ($listOrder == 'a.ordering');
                         $canCreate = $user->authorise('core.create', 'com_volunteers');
                         $canEdit = $user->authorise('core.edit', 'com_volunteers');
-                        $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
+                        $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->id || $item->checked_out == 0;
                         $canChange = $user->authorise('core.edit.state', 'com_volunteers') && $canCheckin;
                         ?>
                             <tr class="row<?php echo $i % 2; ?><?php if ($item->date_ended == '0000-00-00') :

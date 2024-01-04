@@ -24,7 +24,8 @@ $wa->useScript('jquery-migrate');
 $wa->useScript('form.validate');
 HTMLHelper::_('formbehavior.chosen', 'select');
 
-/*$this->document->getWebAssetManager()->addScriptDeclaration("
+/*$this->getDocument()->
+getWebAssetManager()->addScriptDeclaration("
 Joomla.submitbutton = function(task)
 {
 if (task == 'volunteer.cancel' || document.formvalidator.isValid(document.getElementById('volunteer-form'))) {

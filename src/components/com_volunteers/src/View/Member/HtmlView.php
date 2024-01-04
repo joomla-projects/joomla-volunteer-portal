@@ -17,7 +17,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\User\User;
 use Joomla\Component\Volunteers\Site\Model\VolunteerModel;
 
@@ -28,12 +28,10 @@ use Joomla\Component\Volunteers\Site\Model\VolunteerModel;
  */
 class HtmlView extends BaseHtmlView
 {
-    protected CMSObject $state;
+    protected mixed $state;
     protected mixed $item;
     protected mixed $form;
     protected User|null $user;
-
-
     /**
      * Execute and display a template script.
      *
@@ -44,7 +42,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         /** @var MemberModel $model */
 
@@ -53,6 +51,7 @@ class HtmlView extends BaseHtmlView
 
         $this->state = $model->getState();
         $this->form  = $model->getForm();
+
         $this->user  = Factory::getApplication()->getIdentity();
 
         $errors = $model->getErrors();
@@ -76,7 +75,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    protected function manipulateForm()
+    protected function manipulateForm(): void
     {
         $app          = Factory::getApplication();
         $jinput       = $app->input;
@@ -116,12 +115,13 @@ class HtmlView extends BaseHtmlView
      * @return  void.
      * @since 4.0.0
      */
-    protected function prepareDocument()
+    protected function prepareDocument(): void
     {
         // Prepare variables
         $title = Text::_('COM_VOLUNTEERS_TITLE_MEMBERS_EDIT');
 
         // Set meta
-        $this->document->setTitle($title);
+        $this->getDocument()->
+        setTitle($title);
     }
 }

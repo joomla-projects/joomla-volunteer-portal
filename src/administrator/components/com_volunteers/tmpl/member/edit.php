@@ -16,7 +16,8 @@ use Joomla\Component\Volunteers\Administrator\View\Member\HtmlView;
 // phpcs:enable PSR1.Files.SideEffects
 /** @var $this HtmlView */
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->
+getWebAssetManager();
 $wa->useScript('keepalive')
     ->useScript('form.validate');
 ?>

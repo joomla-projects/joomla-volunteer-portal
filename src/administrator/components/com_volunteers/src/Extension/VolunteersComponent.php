@@ -23,9 +23,12 @@ use Joomla\CMS\Extension\BootableExtensionInterface;
 use Joomla\CMS\Extension\MVCComponent;
 use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
 use Joomla\CMS\Helper\ContentHelper;
+use Joomla\CMS\Mail\MailerFactoryInterface;
+use Joomla\CMS\Mail\MailerInterface;
 use Joomla\CMS\Tag\TagServiceInterface;
 use Joomla\CMS\Tag\TagServiceTrait;
 use Joomla\Component\Volunteers\Administrator\Service\Html\Volunteers;
+use Joomla\Registry\Registry;
 use Psr\Container\ContainerInterface;
 use stdClass;
 
@@ -60,10 +63,8 @@ class VolunteersComponent extends MVCComponent implements
      *
      * @since  4.0.0
      */
-    public function boot(ContainerInterface $container)
+    public function boot(ContainerInterface $container): void
     {
-        //$db = $container->get('DatabaseDriver');
-        //      $this->getRegistry()->register('volunteers', new Volunteers($db));
         $this->getRegistry()->register('volunteers', new Volunteers());
     }
 
@@ -116,9 +117,6 @@ class VolunteersComponent extends MVCComponent implements
      */
     public function getDispatcher(CMSApplicationInterface $application): DispatcherInterface
     {
-        // Load our custom Composer dependencies before dispatching the component
-        //require_once __DIR__ . '/../../vendor/autoload.php';
-
         return parent::getDispatcher($application);
     }
 }

@@ -17,7 +17,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\Helpers\StringHelper;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\User;
@@ -32,7 +32,7 @@ use stdClass;
  */
 class HtmlView extends BaseHtmlView
 {
-    protected CMSObject $state;
+    protected mixed $state;
     protected mixed $item;
     protected mixed $form;
     protected User|null $user;
@@ -49,7 +49,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
 
         /** @var DepartmentModel $model */
@@ -89,7 +89,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    protected function prepareDocument()
+    protected function prepareDocument(): void
     {
 
         $title       = $this->item->title;
@@ -99,20 +99,30 @@ class HtmlView extends BaseHtmlView
         $url         = Uri::getInstance()->toString(['scheme', 'host', 'port']) . $itemURL;
 
         // Set meta
-        $this->document->setTitle($title);
-        $this->document->setDescription($description);
+        $this->getDocument()->
+        setTitle($title);
+        $this->getDocument()->
+        setDescription($description);
 
         // Twitter Card metadata
-        $this->document->setMetaData('twitter:title', $title);
-        $this->document->setMetaData('twitter:description', $description);
-        $this->document->setMetaData('twitter:image', $image);
+        $this->getDocument()->
+        setMetaData('twitter:title', $title);
+        $this->getDocument()->
+        setMetaData('twitter:description', $description);
+        $this->getDocument()->
+        setMetaData('twitter:image', $image);
 
         // OpenGraph metadata
-        $this->document->setMetaData('og:title', $title, 'property');
-        $this->document->setMetaData('og:description', $description, 'property');
-        $this->document->setMetaData('og:image', $image, 'property');
-        $this->document->setMetaData('og:type', 'article', 'property');
-        $this->document->setMetaData('og:url', $url, 'property');
+        $this->getDocument()->
+        setMetaData('og:title', $title, 'property');
+        $this->getDocument()->
+        setMetaData('og:description', $description, 'property');
+        $this->getDocument()->
+        setMetaData('og:image', $image, 'property');
+        $this->getDocument()->
+        setMetaData('og:type', 'article', 'property');
+        $this->getDocument()->
+        setMetaData('og:url', $url, 'property');
 
         // Add to pathway
         $pathway = Factory::getApplication()->getPathway();
@@ -121,11 +131,11 @@ class HtmlView extends BaseHtmlView
         // Add the RSS link.
         $props = ['type' => 'application/rss+xml', 'title' => 'RSS 2.0'];
         $route = Route::_('index.php?option=com_volunteers&view=reports&filter_category=d.' . $this->item->id . '&format=feed&type=rss', false);
-        $this->document->addHeadLink($route, 'alternate', 'rel', $props);
+        $this->getDocument()->addHeadLink($route, 'alternate', 'rel', $props);
 
         // Add the ATOM link.
         $props = ['type' => 'application/atom+xml', 'title' => 'Atom 1.0'];
         $route = Route::_('index.php?option=com_volunteers&view=reports&filter_category=d.' . $this->item->id . '&format=feed&type=atom', false);
-        $this->document->addHeadLink($route, 'alternate', 'rel', $props);
+        $this->getDocument()->addHeadLink($route, 'alternate', 'rel', $props);
     }
 }

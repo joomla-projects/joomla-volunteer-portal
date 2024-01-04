@@ -100,7 +100,7 @@ class ReportModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData()
+    protected function loadFormData(): array
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.report.data', []);
@@ -123,23 +123,23 @@ class ReportModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table)
+    protected function prepareTable($table): void
     {
         $date = Factory::getDate();
         $user = Factory::getApplication()->getIdentity();
 
-        $table->set('title', htmlspecialchars_decode($table->get('title'), ENT_QUOTES));
-        $table->set('alias', ApplicationHelper::stringURLSafe($table->get('alias')));
+        $table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
+        $table->alias = ApplicationHelper::stringURLSafe($table->alias);
 
-        if (empty($table->get('alias'))) {
-            $table->set('alias', ApplicationHelper::stringURLSafe($table->get('title')));
+        if (empty($table->alias)) {
+            $table->alias = ApplicationHelper::stringURLSafe($table->title);
         }
 
         if (empty($table->getId())) {
             // Set the values
 
             // Set ordering to the last item if not set
-            if (empty($table->get('ordering'))) {
+            if (empty($table->ordering)) {
                 $db    = $this->getDatabase();
                 $query = $db->getQuery(true)
                     ->select('MAX(ordering)')
@@ -148,18 +148,18 @@ class ReportModel extends AdminModel
                 $db->setQuery($query);
                 $max = $db->loadResult();
 
-                $table->set('ordering', $max + 1);
+                $table->ordering = $max + 1;
             } else {
                 // Set the values
-                $table->set('modified', $date->toSql());
-                $table->set('modified_by', $user->id);
+                $table->modified    = $date->toSql();
+                $table->modified_by = $user->id;
             }
         }
 
         // Increment the version number.
-        $v = $table->get('version');
+        $v  = $table->version;
         $v++;
-        $table->set('version', $v);
+        $table->version = $v;
     }
 
 
@@ -204,7 +204,7 @@ class ReportModel extends AdminModel
         $table = $this->getTable();
 
         while ($table->load(['alias' => $alias])) {
-            if ($title == $table->get('title')) {
+            if ($title == $table->title) {
                 $title = StringHelper::increment($title);
             }
 
@@ -259,8 +259,8 @@ class ReportModel extends AdminModel
                 $archived  = $this->getState('filter.archived');
 
                 if (is_numeric($published)) {
-                    $query->where('(a.published = ' . (int) $published . ' OR a.published =' . (int) $archived . ')')
-                        ->where('(c.published = ' . (int) $published . ' OR c.published =' . (int) $archived . ')');
+                    $query->where('(a.state = ' . (int) $published . ' OR a.state =' . (int) $archived . ')');
+                    //  ->where('(c.published = ' . (int) $published . ' OR c.published =' . (int) $archived . ')');
                 }
 
                 $db->setQuery($query);
@@ -272,7 +272,7 @@ class ReportModel extends AdminModel
                 }
 
                 // Check for published state if filter set.
-                if (((is_numeric($published)) || (is_numeric($archived))) && (($data->published != $published) && ($data->published != $archived))) {
+                if (((is_numeric($published)) || (is_numeric($archived))) && (($data->state != $published) && ($data->state != $archived))) {
                     throw new Exception(Text::_('COM_VOLUNTEERS_ERROR_REPORT_NOT_FOUND'), 404);
                 }
 
@@ -283,7 +283,7 @@ class ReportModel extends AdminModel
         }
 
         // Convert to the JObject before adding other data.
-        $properties = $this->getTable()->getProperties(1);
+        $properties = $this->getTable()->getTableProperties(1);
         $item       = ArrayHelper::toObject($properties);
 
         return $item;

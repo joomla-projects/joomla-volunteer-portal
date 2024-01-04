@@ -29,7 +29,8 @@ class TeamsModel extends ListModel
     /**
      * Constructor.
      *
-     * @param   array  An optional associative array of configuration settings.
+     * @param   array                     $config  An optional associative array of configuration settings.
+     * @param   MVCFactoryInterface|null  $factory
      *
      * @see     JController
      * @since   4.0.0
@@ -68,13 +69,16 @@ class TeamsModel extends ListModel
     /**
      * Method to auto-populate the model state.
      *
+     * @param   string  $ordering
+     * @param   string  $direction
+     *
      * @return  void
      *
-     * @note    Calling getState in this method will result in recursion.
      * @since   4.0.0
-     * @throws Exception
+     * @throws  Exception
+     * @note    Calling getState in this method will result in recursion.
      */
-    protected function populateState($ordering = 'a.title', $direction = 'asc')
+    protected function populateState($ordering = 'a.title', $direction = 'asc'): void
     {
         // Load the filter state.
         $this->setState('filter.search', $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search'));
@@ -292,7 +296,7 @@ class TeamsModel extends ListModel
      *
      * @since version
      */
-    public function getSubteams($parent = null, bool $getmembers = false)
+    public function getSubteams($parent = null, bool $getmembers = false): mixed
     {
         $db = $this->getDatabase();
 

@@ -19,7 +19,7 @@ use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Pagination\Pagination;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
@@ -42,16 +42,16 @@ class HtmlView extends BaseHtmlView
     /**
      * The pagination object
      *
-     * @var  \Joomla\CMS\Pagination\Pagination
+     * @var Pagination
      */
     protected Pagination $pagination;
 
     /**
      * The model state
      *
-     * @var   \Joomla\CMS\Object\CMSObject
+     * @var   Registry
      */
-    protected CMSObject $state;
+    protected mixed $state;
 
     /**
      * Form object for search filters
@@ -86,7 +86,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    public function display($tpl = null)
+    public function display($tpl = null): void
     {
         /** @var PositionsModel $model */
         $model               = $this->getModel();
@@ -120,7 +120,7 @@ class HtmlView extends BaseHtmlView
         $user  = Factory::getApplication()->getIdentity();
 
         // Get the toolbar object instance
-        $toolbar = Toolbar::getInstance();
+        Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar();
 
         ToolbarHelper::title(Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_POSITIONS'), 'joomla');
 

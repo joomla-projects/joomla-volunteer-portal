@@ -18,7 +18,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
-use Joomla\CMS\Object\CMSObject;
+
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
 
@@ -116,7 +116,6 @@ class MemberModel extends AdminModel
     {
         // Get the form.
         $form = $this->loadForm('com_volunteers.member', 'member', ['control' => 'jform', 'load_data' => $loadData]);
-
         if (empty($form)) {
             return false;
         }
@@ -142,7 +141,7 @@ class MemberModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData()
+    protected function loadFormData(): array
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.member.data', []);
@@ -156,7 +155,7 @@ class MemberModel extends AdminModel
 
         $this->preprocessData('com_volunteers.member', $data);
 
-        return $data;
+        return (array) $data;
     }
 
     /**
@@ -168,7 +167,7 @@ class MemberModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table)
+    protected function prepareTable($table): void
     {
         $date = Factory::getDate();
         $user = Factory::getApplication()->getIdentity();

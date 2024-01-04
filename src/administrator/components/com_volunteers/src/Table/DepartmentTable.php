@@ -21,6 +21,7 @@ use Joomla\CMS\Versioning\VersionableTableInterface;
 use Joomla\CMS\Tag\TaggableTableInterface;
 use Joomla\CMS\Tag\TaggableTableTrait;
 use Joomla\Database\DatabaseDriver;
+use stdClass;
 
 /**
  * Department Table class
@@ -32,7 +33,7 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
     use TaggableTableTrait;
 
 
-
+    protected stdClass $myData;
 
     /**
      * Constructor
@@ -43,13 +44,41 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
      */
     public function __construct(DatabaseDriver $db)
     {
-
+        $this->myData    = new stdClass();
         $this->typeAlias = 'com_volunteers.department';
         parent::__construct('#__volunteers_departments', 'id', $db);
 
         // Set the published column alias
         $this->setColumnAlias('published', 'state');
     }
+
+    /**
+     * get
+     *
+     * @param   string  $property  lookup variable
+     *
+     * @return  mixed  variable looked up.
+     *
+     * @since 4.0.0
+     */
+    public function get($property, $default = null): mixed
+    {
+        return $this->myData->{$property};
+    }
+
+    /**
+     * set
+     *
+     * @param   string  $property  lookup variable
+     * @param   mixed  $value  set variable
+     *
+     * @since 4.0.0
+     */
+    public function set($property, $value = null): void
+    {
+        $this->myData->{$property} = $value;
+    }
+
 
     /**
      * Overloaded check method to ensure data integrity.
@@ -110,7 +139,7 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
     /**
      * Overload the store method for the table.
      *
-     * @param   boolean    Toggle whether null values should be updated.
+     * @param   boolean  $updateNulls  Toggle whether null values should be updated.
      *
      * @return  boolean  True on success, false on failure.
      *

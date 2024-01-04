@@ -30,7 +30,8 @@ class ReportsModel extends ListModel
     /**
      * Constructor.
      *
-     * @param   array  An optional associative array of configuration settings.
+     * @param   array                     $config   An optional associative array of configuration settings.
+     * @param   MVCFactoryInterface|null  $factory  MVCFactoryInterface
      *
      * @see     JController
      * @since   4.0.0
@@ -69,12 +70,15 @@ class ReportsModel extends ListModel
     /**
      * Method to auto-populate the model state.
      *
+     * @param   string  $ordering
+     * @param   string  $direction
+     *
      * @return  void
      *
      * @note    Calling getState in this method will result in recursion.
      * @since   4.0.0
      */
-    protected function populateState($ordering = 'a.created', $direction = 'desc')
+    protected function populateState($ordering = 'a.created', $direction = 'desc'): void
     {
         // Load the filter state.
         $this->setState('filter.search', $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search'));
@@ -227,7 +231,7 @@ class ReportsModel extends ListModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getItems()
+    public function getItems(): mixed
     {
         $items = parent::getItems();
 
@@ -257,7 +261,7 @@ class ReportsModel extends ListModel
      * @return  mixed  Data object on success, false on failure.
      * @since 4.0.0
      */
-    public function getCategory()
+    public function getCategory(): mixed
     {
         $category = $this->getState('filter.category');
         $title    = '';

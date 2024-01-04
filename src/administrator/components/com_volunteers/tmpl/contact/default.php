@@ -6,6 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 
@@ -13,7 +14,9 @@ use Joomla\CMS\Router\Route;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
+
 Factory::getApplication()->getDocument()->getWebAssetManager()->useScript('form.validate');
+
 ?>
 
 <form action="<?php echo Route::_('index.php?option=com_volunteers&view=contact'); ?>"

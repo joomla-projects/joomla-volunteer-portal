@@ -42,7 +42,7 @@ class CreatedbyField extends FormField
      * @since   4.0.0
      * @throws Exception
      */
-    protected function getInput()
+    protected function getInput(): string
     {
         // Initialize variables.
         $html = [];

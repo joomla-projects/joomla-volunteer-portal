@@ -8,6 +8,8 @@
 
 namespace Joomla\Component\Volunteers\Site\Field;
 
+use Exception;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\TextField;
 use Joomla\CMS\HTML\HTMLHelper;
 
@@ -34,6 +36,7 @@ class LocationField extends TextField
      *
      * @return  string  The field input markup.
      * @since 4.0.0
+     * @throws Exception
      */
     public function getInput(): string
     {
@@ -41,7 +44,7 @@ class LocationField extends TextField
         $wa->useScript('jquery');
         $wa->useScript('jquery-noconflict');
         $wa->useScript('jquery-migrate');
-        ;
+
         HTMLHelper::script('//maps.googleapis.com/maps/api/js?key=AIzaSyC04czYnPuPFkO6eDAKX-j_lfrpanAAo-U');
         HTMLHelper::script('com_volunteers/jquery-gmaps-latlon-picker.js', ['version' => 'auto', 'relative' => true]);
 
