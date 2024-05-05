@@ -1,5 +1,5 @@
 # joomla-volunteer-portal
-Based on the live Joomla 3 version code base ported to Joomla 4 and updated and now ported to Joomla 5.
+Based on the live Joomla 3 version code base ported to Joomla 4 and updated and now ported to Joomla 5. It does not need the backwards compatibility plugin.
 ---------------------------------------------------------------
 Build Status
 ---------------------
