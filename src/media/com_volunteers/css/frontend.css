@@ -3,7 +3,7 @@
     -webkit-border-radius: 6px;
     border-radius: 6px;
     height: 50px;
-    padding-right: 0px;
+    padding-right: 0;
     width: 50px;
 }
 
@@ -261,8 +261,8 @@ p.volunteer-location {
     display: block;
     font-size: 17.5px;
     line-height: 22px;
-    margin-bottom: 0px;
-    padding: 11px 0px;
+    margin-bottom: 0;
+    padding: 11px 0;
     text-align: center;
     text-decoration-line: none;
     vertical-align: middle;
@@ -443,9 +443,8 @@ h6 {
 .volunteers_btn {
     background-color: #eee;
     *background-color: #e6e6e6;
-    border: 1px solid #dfdfdf;
     *border: 0;
-    border-color: #e6e6e6;
+    border: 1px solid #e6e6e6;
     color: #333;
     cursor: pointer;
     display: inline-block;

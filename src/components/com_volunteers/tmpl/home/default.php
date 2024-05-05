@@ -20,17 +20,21 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 
 // phpcs:enable PSR1.Files.SideEffects
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-$wa->useScript('jquery');
-$wa->useScript('jquery-noconflict');
-$wa->useScript('jquery-migrate');
-;
+
 // Import CSS
 try {
+    $js_config = [
+        'markers'   => json_encode($this->markers)
+    ];
+    Factory::getApplication()->getDocument()->addScriptOptions('com_volunteers_maps', $js_config);
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
     $wa->useStyle('com_volunteers.frontend')
-        ->useScript('com_volunteers.google_maps')
-        ->useScript('com_volunteers.markerclusterer')
-        ->useScript('com_volunteers.oms');
+        ->useStyle('com_volunteers.leaflet-css')
+        ->useStyle('com_volunteers.marker-cluster-css')
+        ->useStyle('com_volunteers.marker-cluster-default-css')
+        ->useScript('com_volunteers.leaflet-js')
+        ->useScript('com_volunteers.marker-cluster-js')
+        ->useScript('com_volunteers.home-page-map-js');
 } catch (Exception $e) {
     echo $e->getMessage();
     exit();
@@ -133,131 +137,4 @@ try {
     </h2>
     <div id="map-canvas"></div>
 </div>
-<script>
-    function initialise() {
-        var mapOptions = {
-            zoom: 2,
-            zoomControl: true,
-            zoomControlOptions: {
-                style: google.maps.ZoomControlStyle.SMALL
-            },
-            center: { lat: 25, lng: 15 },
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            panControl: false,
-            mapTypeControl: false,
-            scaleControl: false,
-            streetViewControl: false,
-            overviewMapControl: false,
-            rotateControl: false,
-            draggable: !("ontouchend" in document)
-        },
-            mcOptions = {
-                maxZoom: 14,
-                styles: [{
-                    height: 53,
-                    url: "media/com_volunteers/images/m1.png",
-                    width: 53
-                },
-                {
-                    height: 56,
-                    url: "media/com_volunteers/images/m2.png",
-                    width: 56
-                },
-                {
-                    height: 66,
-                    url: "media/com_volunteers/images/m3.png",
-                    width: 66
-                },
-                {
-                    height: 78,
-                    url: "media/com_volunteers/images/m4.png",
-                    width: 78
-                },
-                {
-                    height: 90,
-                    url: "media/com_volunteers/images/m5.png",
-                    width: 90
-                }
-                ]
-            }
 
-        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-        var oms = new OverlappingMarkerSpiderfier(map, { keepSpiderfied: true, circleFootSeparation: 100 });
-
-        map.addListener('click', function () {
-            map.set('draggable', true);
-        });
-
-        var markers = [];
-        var bounds = new google.maps.LatLngBounds();
-        var infoWindow = new google.maps.InfoWindow();
-        var locations = [<?php echo implode(',', $this->markers) ?>];
-
-        var icon = {
-            url: "media/com_volunteers/images/joomla.png", // url
-            scaledSize: new google.maps.Size(50, 50), // scaled size
-            origin: new google.maps.Point(0, 0), // origin
-            anchor: new google.maps.Point(25, 25) // anchor
-        };
-
-        for (i = 0; i < locations.length; i++) {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i].lat, locations[i].lng),
-                map: map,
-                icon: icon
-            });
-
-            google.maps.event.addListener(marker, 'click', (function (marker, i, infoWindow) {
-                return function () {
-                    infoWindow.setContent('<div style="width:200px;"><img width="40" class="pull-left" style="padding-right: 10px" src="' + locations[i].image + '" /><a href="' + locations[i].url + '">' + locations[i].title + '</a></div>');
-                    infoWindow.open(map, marker);
-                }
-            })(marker, i, infoWindow));
-
-            markers.push(marker);
-            bounds.extend(marker.position);
-            oms.addMarker(marker);
-        }
-
-        var markerCluster = new MarkerClusterer(map, markers, mcOptions);
-
-        var styles = [
-            {
-                featureType: "road",
-                elementType: "geometry",
-                stylers: [
-                    { lightness: 100 },
-                    { visibility: "simplified" }
-                ]
-            }, {
-                featureType: "road",
-                elementType: "labels",
-                stylers: [
-                    { visibility: "simplified" }
-                ]
-            }, {
-                featureType: "poi",
-                elementType: "labels",
-                stylers: [
-                    { visibility: "on" }
-                ]
-            }, {
-                featureType: "poi.business",
-                elementType: "labels",
-                stylers: [
-                    { visibility: "off" }
-                ]
-            }, {
-                featureType: "water",
-                elementType: "labels",
-                stylers: [
-                    { visibility: "on" }
-                ]
-            }
-        ];
-        map.fitBounds(bounds);
-        map.setOptions({ styles: styles });
-    }
-
-    google.maps.event.addDomListener(window, 'load', initialise);
-</script>
