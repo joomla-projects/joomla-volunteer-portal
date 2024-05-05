@@ -36,9 +36,9 @@ Instructions for installation
 * On the Home Dashboard, you will see JVP Sample Data under the Sample Data heading. Click to install the sample data for the Volunteers Portal (This takes some time...) (This will log you out when you next try and do anything in the admin area - This is due to it moving your admin user to a safe id).
 * Log back in and Click on Components -> Joomla Volunteers -> Set up Demo Menu and then Click the button GO (this will create a front end menu).
 * Go to System -> Site Modules and click to edit 'Main Menu'.
-* From the Select Menu dropdown choose 'Joomla Volunteer Portal Demo Menu',  enter 'Navigation [position-1]' in the position box, click on Advanced Tab and type 'nav menu nav-pills mod-list' in Menu Class . Then hit save and close.
+* From the Select Menu dropdown choose 'Joomla Volunteer Portal Demo Menu',  enter 'Navigation [position-1]' in the position box, click on 'Title Show' and change to 'Title Hide'. Click on Advanced Tab and type 'nav menu nav-pills mod-list' in Menu Class . Then hit save and close.
 * Whilst in the list of modules, edit and publish 'Module - Volunteers - Display Latest Joomlers' and 'Module - Display a Joomlers Story' setting both to 'Right [position-7]', and Menu Assignment to 'Only on the pages selected' and 'Joomla Volunteer Portal Demo Menu -> Home'.
-* Click into plugins and enable the Volunteer three plugins.
+* Go to System -> Plugins and search for volunteer. This will show the three Volunteer plugins. Click on `Status` to publish them.
 * Finally click into Menus and Joomla Volunteer Portal Demo and open the Login entry. Then hit save and close. For some reason this one does not like being installed through code but opening and saving seems to fix it. And then click on the Home entry in the list and make sure it's set to be the default Home for the site.
 
 ------------------------------
@@ -49,7 +49,6 @@ Instructions for uninstalling
 ------------------------------
 Awaiting functionality
 -----------------------------
-* All mapping code is currently not implemented.
 
 * Adding new users/editing departments needs further testing.
 
@@ -60,6 +59,6 @@ Roll Call
 * Joomla 4 Port by [Mark Fleeson](https://github.com/mfleeson) and [Roland Dalmulder](https://github.com/roland-d)
 * Code Clean Up, adding drone and jorobo by [Hannes Papenberg](https://github.com/hackwar)
 * Code Clean Up and improvements by [Brian Teeman](https://github.com/brianteeman)
-* Code port to Joomla 5 by [Mark Fleeson](https://github.com/mfleeson)
+* Code port to Joomla 5 and move from Google Maps to OpenStreetMap by [Mark Fleeson](https://github.com/mfleeson)
 
 
