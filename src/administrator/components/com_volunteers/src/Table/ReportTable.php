@@ -131,7 +131,7 @@ class ReportTable extends Table implements VersionableTableInterface, TaggableTa
     public function store($updateNulls = false): bool
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $this->set('modified', $date->toSql());
 

@@ -58,7 +58,7 @@ class HtmlView extends BaseHtmlView
         $this->state      = $model->getState();
         $this->items      = $model->getItems();
         $this->pagination = $model->getPagination();
-        $this->user       = Factory::getApplication()->getIdentity();
+        $this->user       = $this->getCurrentUser();
         $this->category   = $model->getCategory();
 
         $errors = $model->getErrors();

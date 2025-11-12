@@ -149,7 +149,7 @@ class VolunteerTable extends Table implements VersionableTableInterface, Taggabl
     public function store($updateNulls = false): bool
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $this->set('modified', $date->toSql());
 

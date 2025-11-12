@@ -169,7 +169,7 @@ class MemberModel extends AdminModel
     protected function prepareTable($table): void
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         if (empty($table->getId())) {
             // Set the values
@@ -211,7 +211,7 @@ class MemberModel extends AdminModel
 
         if ($item->department == 0) {
             $db    = $this->getDatabase();
-            $query = $db->getQuery(true);
+            $query = $db->createQuery();
             $query->select('a.department')->from('#__volunteers_teams AS a')->where('a.id = ' . (int) $item->team);
 
             $db->setQuery($query);

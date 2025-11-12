@@ -132,7 +132,7 @@ class RoleModel extends AdminModel
     protected function prepareTable($table): void
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
         $table->alias = ApplicationHelper::stringURLSafe($table->alias);
@@ -177,7 +177,7 @@ class RoleModel extends AdminModel
     {
         // Reset role for members
         $db    = $this->getDatabase();
-        $query = $db->getQuery(true);
+        $query = $db->createQuery();
         $query
             ->update('#__volunteers_members')
             ->set('role = 0')

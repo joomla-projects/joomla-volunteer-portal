@@ -74,7 +74,7 @@ class HomeModel extends ListModel
     {
         // Create a new query object.
         $db    = $this->getDatabase();
-        $query = $db->getQuery(true);
+        $query = $db->createQuery();
 
         $query
             ->select($db->quoteName(['a.id', 'a.alias', 'user.name', 'a.latitude', 'a.longitude', 'a.image']))

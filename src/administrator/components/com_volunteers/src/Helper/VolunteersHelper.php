@@ -118,7 +118,7 @@ class VolunteersHelper
          * @since version
          * @throws Exception
          */
-    public static function acl($type, $id): stdClass
+    public static function acl($type, $id)
     {
         // Base ACL
         $acl                  = new stdClass();
@@ -130,7 +130,8 @@ class VolunteersHelper
         $departmentId = ($type == 'department') ? $id : null;
         $teamId       = ($type == 'team') ? $id : null;
         // Get User ID
-        $user = Factory::getApplication()->getIdentity();
+        $app  = Factory::getApplication();
+        $user = $app->getIdentity();
         // Guest
         if ($user->guest) {
             return $acl;
@@ -207,7 +208,7 @@ class VolunteersHelper
      * @return  void
      * @since 4.0.0
      */
-    public static function addSubmenu(string $vName = 'volunteers'): void
+    public static function addSubmenu(string $vName = 'volunteers')
     {
         SideBar::addEntry(Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS'), 'index.php?option=com_volunteers&view=volunteers', $vName == 'volunteers');
         SideBar::addEntry(Text::_('COM_VOLUNTEERS_TITLE_TEAMS'), 'index.php?option=com_volunteers&view=teams', $vName == 'teams');
@@ -228,7 +229,7 @@ class VolunteersHelper
      *
      * @since 4.0.0
      */
-    public static function countries(): array
+    public static function countries()
     {
         $items = self::$countries;
         asort($items);
@@ -249,7 +250,7 @@ class VolunteersHelper
      * @since 4.0.0
      * @throws Exception
      */
-    public static function departments($prefix = false): array
+    public static function departments($prefix = false)
     {
         $db      = Factory::getContainer()->get('DatabaseDriver');
         $query   = $db->getQuery(true);
@@ -281,7 +282,7 @@ class VolunteersHelper
      *
      * @since    4.0.0
      */
-    public static function getUser(): User\User
+    public static function getUser()
     {
         try {
             $app = Factory::getApplication();
@@ -300,7 +301,7 @@ class VolunteersHelper
      *
      * @since    4.0.0
      */
-    public static function getUserById($userId): User\User
+    public static function getUserById($userId)
     {
 
         try {
@@ -320,7 +321,7 @@ class VolunteersHelper
      * @since 4.0.0
      * @throws Exception
      */
-    public static function positions(): array
+    public static function positions()
     {
         $departmentId = Factory::getApplication()->getUserState('com_volunteers.edit.member.departmentid');
         $teamId       = Factory::getApplication()->getUserState('com_volunteers.edit.member.teamid');
@@ -359,7 +360,7 @@ class VolunteersHelper
      *
      * @throws Exception
      */
-    public static function reportcategories(): array
+    public static function reportcategories()
     {
         $department[] = HtmlHelper::_('select.optgroup', Text::_('COM_VOLUNTEERS_FIELD_DEPARTMENTS'));
         $departments  = array_merge($department, self::departments(true));
@@ -376,7 +377,7 @@ class VolunteersHelper
      * @since 4.0.0
      * @throws Exception
      */
-    public static function roles($team = null): array
+    public static function roles($team = null)
     {
         $options = null;
         if (empty($team)) {
@@ -410,7 +411,7 @@ class VolunteersHelper
      * @since 4.0.0
      * @throws Exception
      */
-    public static function teams($parent = false, $prefix = false): array
+    public static function teams($parent = false, $prefix = false)
     {
         $db      = Factory::getContainer()->get('DatabaseDriver');
         $query   = $db->getQuery(true);
@@ -449,7 +450,7 @@ class VolunteersHelper
      * @since 4.0.0
      * @throws Exception
      */
-    public static function volunteers(): array
+    public static function volunteers()
     {
         $db      = Factory::getContainer()->get('DatabaseDriver');
         $options = null;

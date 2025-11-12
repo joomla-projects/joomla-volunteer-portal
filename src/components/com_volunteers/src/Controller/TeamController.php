@@ -204,7 +204,7 @@ class TeamController extends FormController
 
         // Get email department coordinator for CC
         $db    = Factory::getContainer()->get('DatabaseDriver');
-        $query = $db->getQuery(true);
+        $query = $db->createQuery();
         $query
             ->select('user.email, user.name')
             ->from('#__volunteers_members as member')

@@ -135,7 +135,7 @@ class TeamModel extends AdminModel
     protected function prepareTable($table): void
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $table->set('title', htmlspecialchars_decode($table->get('title'), ENT_QUOTES));
         $table->set('alias', ApplicationHelper::stringURLSafe($table->get('alias')));
@@ -205,7 +205,7 @@ class TeamModel extends AdminModel
             if (count($membersIds)) {
                 // Set date_ended for active members
                 $db    = $this->getDatabase();
-                $query = $db->getQuery(true);
+                $query = $db->createQuery();
                 $query
                     ->update('#__volunteers_members')
                     ->set('date_ended = ' . $db->quote($data['date_ended']))
@@ -220,7 +220,7 @@ class TeamModel extends AdminModel
 
             // Close all open positions for team
             $db    = $this->getDatabase();
-            $query = $db->getQuery(true);
+            $query = $db->createQuery();
             $query
                 ->update('#__volunteers_roles')
                 ->set('open = 0')

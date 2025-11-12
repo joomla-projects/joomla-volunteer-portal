@@ -123,7 +123,7 @@ class HtmlView extends BaseHtmlView
     private function addToolbar(): void
     {
         $canDo = ContentHelper::getActions('com_volunteers');
-        $user  = Factory::getApplication()->getIdentity();
+        $user  = $this->getCurrentUser();
 
         // Get the toolbar object instance
         $toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar();

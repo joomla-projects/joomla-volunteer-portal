@@ -13,15 +13,12 @@ namespace Joomla\Component\Volunteers\Administrator\View\Departments;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
-use Joomla\CMS\Factory;
-use Joomla\CMS\Form\Form;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 
-use Joomla\CMS\Pagination\Pagination;
-use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\Button\DropdownButton;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Component\Volunteers\Administrator\Model\DepartmentsModel;
 
@@ -120,13 +117,9 @@ class HtmlView extends BaseHtmlView
     private function addToolbar(): void
     {
         $canDo = ContentHelper::getActions('com_volunteers');
-        $user  = Factory::getApplication()->getIdentity();
-
-        // Get the toolbar object instance
-        Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar();
-
+        $user  = $this->getCurrentUser();
         ToolbarHelper::title(Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS'), 'joomla');
-
+        $toolbar = $this->getDocument()->getToolbar();
         if ($canDo->get('core.create')) {
             $toolbar->addNew('department.add');
         }

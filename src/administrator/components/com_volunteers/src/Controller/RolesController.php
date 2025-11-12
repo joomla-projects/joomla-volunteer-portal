@@ -38,7 +38,7 @@ class RolesController extends AdminController
      *
      * @since   4.0.0
      */
-    public function getModel($name = 'Role', $prefix = 'Administrator', $config = []): object
+    public function getModel($name = 'Role', $prefix = 'Administrator', $config = [])
     {
         return parent::getModel($name, $prefix, ['ignore_request' => true]);
     }

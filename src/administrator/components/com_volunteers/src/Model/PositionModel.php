@@ -151,7 +151,7 @@ class PositionModel extends AdminModel
     protected function prepareTable($table): void
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $table->set('title', htmlspecialchars_decode($table->get('title'), ENT_QUOTES));
         $table->set('alias', ApplicationHelper::stringURLSafe($table->get('alias')));

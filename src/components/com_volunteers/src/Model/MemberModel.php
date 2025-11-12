@@ -170,7 +170,7 @@ class MemberModel extends AdminModel
     protected function prepareTable($table): void
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         if (empty($table->getId())) {
             // Set the values

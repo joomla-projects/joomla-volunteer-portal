@@ -17,7 +17,7 @@ use Joomla\CMS\Router\Route;
 // phpcs:enable PSR1.Files.SideEffects
 /** @var $this HtmlView */
 
-$user = Factory::getApplication()->getIdentity();
+$user = $this->getCurrentUser();
 $userId = $user->id;
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn = $this->escape($this->state->get('list.direction'));

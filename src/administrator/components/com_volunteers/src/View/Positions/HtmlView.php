@@ -117,10 +117,10 @@ class HtmlView extends BaseHtmlView
     private function addToolbar(): void
     {
         $canDo = ContentHelper::getActions('com_volunteers');
-        $user  = Factory::getApplication()->getIdentity();
+        $user  = $this->getCurrentUser();
 
         // Get the toolbar object instance
-        Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar();
+       $toolbar = $this->getDocument()->getToolbar();
 
         ToolbarHelper::title(Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_POSITIONS'), 'joomla');
 

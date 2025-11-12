@@ -37,7 +37,7 @@ class ContactController extends FormController
      * @since 4.0.0
      * @throws  Exception
      */
-    public function send(): void
+    public function send()
     {
         $mailer  = Factory::getContainer()->get(MailerFactoryInterface::class)->createMailer();
         $session = $this->app->getSession();
@@ -100,7 +100,7 @@ class ContactController extends FormController
      * @return  boolean  True if access level checks pass, false otherwise.
      * @since 1.0.0
      */
-    public function cancel($key = null): bool
+    public function cancel($key = null)
     {
         $this->setRedirect(Route::_('index.php?option=com_volunteers&view=members', false));
 

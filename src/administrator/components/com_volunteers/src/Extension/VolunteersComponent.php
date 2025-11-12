@@ -23,12 +23,9 @@ use Joomla\CMS\Extension\BootableExtensionInterface;
 use Joomla\CMS\Extension\MVCComponent;
 use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
 use Joomla\CMS\Helper\ContentHelper;
-use Joomla\CMS\Mail\MailerFactoryInterface;
-use Joomla\CMS\Mail\MailerInterface;
 use Joomla\CMS\Tag\TagServiceInterface;
 use Joomla\CMS\Tag\TagServiceTrait;
 use Joomla\Component\Volunteers\Administrator\Service\Html\Volunteers;
-use Joomla\Registry\Registry;
 use Psr\Container\ContainerInterface;
 use stdClass;
 
@@ -63,7 +60,7 @@ class VolunteersComponent extends MVCComponent implements
      *
      * @since  4.0.0
      */
-    public function boot(ContainerInterface $container): void
+    public function boot(ContainerInterface $container)
     {
         $this->getRegistry()->register('volunteers', new Volunteers());
     }
@@ -77,7 +74,7 @@ class VolunteersComponent extends MVCComponent implements
      *
      * @since  4.0.0
      */
-    protected function getTableNameForSection(string $section = null): string
+    protected function getTableNameForSection(string $section = null)
     {
         return '';
     }

@@ -32,7 +32,7 @@ class PositionsController extends AdminController
      *
      * @since   4.0.0
      */
-    public function getModel($name = 'Position', $prefix = 'Administrator', $config = []): object
+    public function getModel($name = 'Position', $prefix = 'Administrator', $config = [])
     {
         return parent::getModel($name, $prefix, ['ignore_request' => true]);
     }

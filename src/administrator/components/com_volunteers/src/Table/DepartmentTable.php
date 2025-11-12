@@ -97,7 +97,7 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
 
         // Check for existing name
 
-        $db = $this->getDbo();
+        $db = $this->getDatabase();
 
         $query = $db->getQuery(true)
             ->select($db->quoteName('id'))
@@ -149,7 +149,7 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
     public function store($updateNulls = false): bool
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $this->set('modified', $date->toSql());
 

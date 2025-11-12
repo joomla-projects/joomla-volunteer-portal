@@ -75,7 +75,7 @@ class HtmlView extends BaseHtmlView
     private function addToolbar(): void
     {
         ToolBarHelper::title('Setup Demo Menu');
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         if (
             $user->authorise('core.admin', 'com_volunteer')

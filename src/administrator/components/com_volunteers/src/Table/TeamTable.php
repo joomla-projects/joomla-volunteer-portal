@@ -97,7 +97,7 @@ class TeamTable extends Table implements VersionableTableInterface, TaggableTabl
         }
 
         // Check for existing name
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $db = $this->getDatabase();
 
         $query = $db->getQuery(true)
             ->select($db->quoteName('id'))
@@ -149,7 +149,7 @@ class TeamTable extends Table implements VersionableTableInterface, TaggableTabl
     public function store($updateNulls = false): bool
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $this->set('modified', $date->toSql());
 

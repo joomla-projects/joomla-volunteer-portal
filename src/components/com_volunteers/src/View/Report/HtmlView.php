@@ -65,7 +65,7 @@ class HtmlView extends BaseHtmlView
         $this->state = $model->getState();
 
         $this->form = $model->getForm();
-        $this->user = Factory::getApplication()->getIdentity();
+        $this->user = $this->getCurrentUser();
         // Load volunteer data for new report
         if (!$this->item->id) {
             $this->volunteer = $model->getVolunteer();

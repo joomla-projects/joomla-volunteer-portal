@@ -94,7 +94,7 @@ class PositionTable extends Table implements VersionableTableInterface, Taggable
         }
 
         // Check for existing name
-        $db = Factory::getContainer()->get('DatabaseDriver');
+        $db = $this->getDatabase();
 
         $query = $db->getQuery(true)
             ->select($db->quoteName('id'))
@@ -146,7 +146,7 @@ class PositionTable extends Table implements VersionableTableInterface, Taggable
     public function store($updateNulls = false): bool
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $this->set('modified', $date->toSql());
 

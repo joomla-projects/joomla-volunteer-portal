@@ -75,12 +75,12 @@ class DepartmentsModel extends ListModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function getListQuery(): QueryInterface
+    protected function getListQuery()
     {
 
         // Create a new query object.
         $db    = $this->getDatabase();
-        $query = $db->getQuery(true);
+        $query = $db->createQuery();
 
         // Select the required fields from the table.
         $query

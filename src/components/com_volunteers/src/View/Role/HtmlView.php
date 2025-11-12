@@ -52,7 +52,7 @@ class HtmlView extends BaseHtmlView
 
         $this->state = $model->getState();
         $this->form  = $model->getForm();
-        $this->user  = Factory::getApplication()->getIdentity();
+        $this->user  = $this->getCurrentUser();
 
         $errors = $model->getErrors();
         if ($errors && count($errors) > 0) {

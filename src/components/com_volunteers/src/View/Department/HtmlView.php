@@ -59,7 +59,7 @@ class HtmlView extends BaseHtmlView
 
         $this->state         = $model->getState();
         $this->form          = $model->getForm();
-        $this->user          = Factory::getApplication()->getIdentity();
+        $this->user          = $this->getCurrentUser();
         $this->item->reports = $model->getDepartmentReports();
 
         $this->item->reportsTeams = $model->getDepartmentReportsTeams();

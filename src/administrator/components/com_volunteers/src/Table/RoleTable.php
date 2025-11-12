@@ -131,7 +131,7 @@ class RoleTable extends Table implements VersionableTableInterface, TaggableTabl
     public function store($updateNulls = false): bool
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $this->set('modified', $date->toSql());
 
