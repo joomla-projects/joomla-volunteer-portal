@@ -294,7 +294,7 @@ class VolunteersHelper
      *
      * @since 4.0.0
      */
-    public static function outputVolunteer($volunteer): void
+    public static function outputVolunteer($volunteer)
     {
         echo '<a  class="pull-left" href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->volunteer) . '">';
         echo self::image($volunteer->volunteer_image, 'small', false, $volunteer->volunteer_image);
@@ -316,7 +316,7 @@ class VolunteersHelper
      *
      * @since 4.0.0
      */
-    public static function outputHorizontalVolunteer($volunteer): void
+    public static function outputHorizontalVolunteer($volunteer)
     {
         echo '<a href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->id) . '">';
         echo self::image($volunteer->image, 'small', false, $volunteer->name, 'joomlers img_rounded');
@@ -337,7 +337,7 @@ class VolunteersHelper
      * @since version
      * @throws Exception
      */
-    public static function acl($type, $id): stdClass
+    public static function acl($type, $id)
     {
         // Base ACL
         $acl                  = new stdClass();
@@ -351,7 +351,8 @@ class VolunteersHelper
         $teamId       = ($type == 'team') ? $id : null;
 
         // Get User ID
-        $user = Factory::getApplication()->getIdentity();
+        $app  = Factory::getApplication();
+        $user = $app->getIdentity();
 
 
         // Guest
@@ -438,7 +439,7 @@ class VolunteersHelper
      *
      * @since version
      */
-    public static function date($date, $format): string
+    public static function date($date, $format)
     {
         if ($date == '0000-00-00') {
             $date = '';
@@ -460,7 +461,7 @@ class VolunteersHelper
      * @since 4.0.0
      * @throws Exception
      */
-    public static function departments($prefix = false): array
+    public static function departments($prefix = false)
     {
         $db      = Factory::getContainer()->get('DatabaseDriver');
         $query   = $db->getQuery(true);
@@ -498,7 +499,7 @@ class VolunteersHelper
      *
      * @since version
      */
-    public static function image($image, $size, bool $urlonly = false, string|null $alt = '', string $class = 'img-rounded'): mixed
+    public static function image($image, $size, bool $urlonly = false, string|null $alt = '', string $class = 'img-rounded')
     {
         if (empty($image)) {
             $image = Uri::base() . 'media/com_volunteers/images/joomlaperson.png';
@@ -523,7 +524,7 @@ class VolunteersHelper
      *
      * @since version
      */
-    public static function location($country = null, $city = null): string
+    public static function location($country = null, $city = null)
     {
         $countries = VolunteersHelper::$countries;
 
@@ -552,7 +553,7 @@ class VolunteersHelper
      * @since 4.0.0
      * @throws Exception
      */
-    public static function positions(): array
+    public static function positions()
     {
         $departmentId = Factory::getApplication()->getUserState('com_volunteers.edit.member.departmentid');
         $teamId       = Factory::getApplication()->getUserState('com_volunteers.edit.member.teamid');
@@ -595,7 +596,7 @@ class VolunteersHelper
      *
      * @throws Exception
      */
-    public static function reportcategories(): array
+    public static function reportcategories()
     {
         $groups                         = [];
         $groups[]['items'][]            = HTMLHelper::_('select.option', '', Text::_('COM_VOLUNTEERS_SELECT_REPORTCATEGORY'));
@@ -626,7 +627,7 @@ class VolunteersHelper
      * @since 4.0.0
      * @throws Exception
      */
-    public static function roles($team = null): array
+    public static function roles($team = null)
     {
         $options = null;
 
@@ -663,7 +664,7 @@ class VolunteersHelper
      * @since 4.0.0
      * @throws Exception
      */
-    public static function teams($parent = false, $prefix = false): array
+    public static function teams($parent = false, $prefix = false)
     {
         $db      = Factory::getContainer()->get('DatabaseDriver');
         $query   = $db->getQuery(true);
@@ -705,7 +706,7 @@ class VolunteersHelper
      * @since 4.0.0
      * @throws Exception
      */
-    public static function volunteers(): array
+    public static function volunteers()
     {
         $db      = Factory::getContainer()->get('DatabaseDriver');
         $options = null;

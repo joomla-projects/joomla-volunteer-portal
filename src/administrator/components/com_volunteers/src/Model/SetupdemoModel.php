@@ -55,7 +55,7 @@ class SetupdemoModel extends AdminModel
      *
      * @throws Exception
      */
-    public function getForm($data = [], $loadData = true, $formname = 'jform'): Form
+    public function getForm($data = [], $loadData = true, $formname = 'jform')
     {
         // Get the form.
         $form = $this->loadForm(
@@ -100,7 +100,7 @@ class SetupdemoModel extends AdminModel
      * @since  4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Volunteer', $prefix = 'Administrator', $options = []): Table
+    public function getTable($name = 'Volunteer', $prefix = 'Administrator', $options = [])
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -114,7 +114,7 @@ class SetupdemoModel extends AdminModel
      *
      * @throws Exception
      */
-    protected function loadFormData(): array
+    protected function loadFormData()
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteer.edit.setupdemo.data', []);

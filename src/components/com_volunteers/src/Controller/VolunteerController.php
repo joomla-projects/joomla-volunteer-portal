@@ -39,7 +39,7 @@ class VolunteerController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function edit($key = null, $urlVar = null): bool
+    public function edit($key = null, $urlVar = null)
     {
         // Get variables
         $volunteerId     = $this->input->getInt('id');
@@ -69,7 +69,7 @@ class VolunteerController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function save($key = null, $urlVar = null): bool
+    public function save($key = null, $urlVar = null)
     {
         // Check for request forgeries.
         $this->checkToken();
@@ -107,7 +107,7 @@ class VolunteerController extends FormController
      *
      * @since 4.0.0
      */
-    public function cancel($key = null): bool
+    public function cancel($key = null)
     {
         // Get variables
         $volunteerId = $this->input->getInt('id');

@@ -59,7 +59,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getDepartmentMembers(int $pk = null): stdClass
+    public function getDepartmentMembers(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -127,7 +127,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getDepartmentReports(int $pk = null): mixed
+    public function getDepartmentReports(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -148,7 +148,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getDepartmentReportsTeams(int $pk = null): mixed
+    public function getDepartmentReportsTeams(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -169,7 +169,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getDepartmentReportsTotal(int $pk = null): int
+    public function getDepartmentReportsTotal(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -192,7 +192,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getDepartmentTeams(int $pk = null): array
+    public function getDepartmentTeams(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -232,7 +232,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getAllDepartmentTeamLeads(array $teams): array
+    public function getAllDepartmentTeamLeads(array $teams)
     {
         $out = [];
         foreach ($teams as $team_id) {
@@ -251,7 +251,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getDepartmentTeamLeads(int $pk = null): mixed
+    public function getDepartmentTeamLeads(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -287,7 +287,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Department', $prefix = 'VolunteersTable', $options = []): Table
+    public function getTable($name = 'Department', $prefix = 'VolunteersTable', $options = [])
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -302,7 +302,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = [], $loadData = true): Form|bool
+    public function getForm($data = [], $loadData = true)
     {
         // Get the form.
         $form = $this->loadForm('com_volunteers.department', 'department', ['control' => 'jform', 'load_data' => $loadData]);
@@ -332,7 +332,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData(): mixed
+    protected function loadFormData()
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.department.data', []);
@@ -358,7 +358,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table): void
+    protected function prepareTable($table)
     {
         $date = Factory::getDate();
         $user = $this->getCurrentUser();
@@ -407,7 +407,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function save($data): bool
+    public function save($data)
     {
         $app = Factory::getApplication();
 
@@ -433,7 +433,7 @@ class DepartmentModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function generateNewTitle($categoryId, $alias, $title): array
+    protected function generateNewTitle($categoryId, $alias, $title)
     {
         // Alter the title & alias
         $table = $this->getTable();

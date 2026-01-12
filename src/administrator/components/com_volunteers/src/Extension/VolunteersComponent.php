@@ -8,9 +8,6 @@
 
 namespace Joomla\Component\Volunteers\Administrator\Extension;
 
-// phpcs:disable PSR1.Files.SideEffects
-\defined('_JEXEC') or die;
-// phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
 use Joomla\CMS\Application\CMSApplicationInterface;
@@ -28,6 +25,10 @@ use Joomla\CMS\Tag\TagServiceTrait;
 use Joomla\Component\Volunteers\Administrator\Service\Html\Volunteers;
 use Psr\Container\ContainerInterface;
 use stdClass;
+
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * Component class for com_volunteers

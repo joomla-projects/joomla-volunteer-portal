@@ -28,7 +28,7 @@ class ContactModel extends AdminModel
      * @return  object[]
      * @since 4.0.0
      */
-    public function getActiveVolunteers(): array
+    public function getActiveVolunteers()
     {
         $query = $this->getDatabase()->getQuery(true);
 
@@ -59,7 +59,7 @@ class ContactModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = [], $loadData = false): Form
+    public function getForm($data = [], $loadData = false)
     {
         // Get the form.
         $form = $this->loadForm('com_volunteers.contact', 'contact', ['control' => 'jform', 'load_data' => $loadData]);

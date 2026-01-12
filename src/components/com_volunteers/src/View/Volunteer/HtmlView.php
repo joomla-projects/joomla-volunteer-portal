@@ -48,7 +48,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /** @var VolunteerModel $model */
 
@@ -90,7 +90,7 @@ class HtmlView extends BaseHtmlView
      *
      * @since 4.0.0
      */
-    protected function manipulateForm(): void
+    protected function manipulateForm()
     {
         // Clear birthday field if not set
         if ($this->item->birthday == '0000-00-00') {
@@ -112,7 +112,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareDocument(): void
+    protected function prepareDocument()
     {
         // Prepare variables
         $title       = Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEER') . ': ' . $this->item->name;

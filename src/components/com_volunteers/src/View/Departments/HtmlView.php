@@ -44,7 +44,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /** @var DepartmentsModel $model */
 
@@ -74,7 +74,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    protected function prepareDocument(): void
+    protected function prepareDocument()
     {
 
         $title   = Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS');
@@ -112,7 +112,7 @@ class HtmlView extends BaseHtmlView
      *
      * @since 4.0.0
      */
-    public function getState(mixed $state): bool
+    public function getState(mixed $state)
     {
         return $this->state->{$state} ?? false;
     }

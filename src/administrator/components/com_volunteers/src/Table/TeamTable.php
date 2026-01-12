@@ -63,7 +63,7 @@ class TeamTable extends Table implements VersionableTableInterface, TaggableTabl
      *
      * @since 4.0.0
      */
-    public function get($property, $default = null): mixed
+    public function get($property, $default = null)
     {
         return $this->myData->{$property};
     }
@@ -76,7 +76,7 @@ class TeamTable extends Table implements VersionableTableInterface, TaggableTabl
      *
      * @since 4.0.0
      */
-    public function set($property, $value = null): void
+    public function set($property, $value = null)
     {
         $this->myData->{$property} = $value;
     }
@@ -89,7 +89,7 @@ class TeamTable extends Table implements VersionableTableInterface, TaggableTabl
      * @since 4.0.0
      * @throws Exception
      */
-    public function check(): bool
+    public function check()
     {
         // check for valid name
         if (trim($this->get('title')) == '') {
@@ -131,7 +131,7 @@ class TeamTable extends Table implements VersionableTableInterface, TaggableTabl
      *
      * @since   4.0.0
      */
-    public function getTypeAlias(): string
+    public function getTypeAlias()
     {
         return $this->typeAlias;
     }
@@ -146,7 +146,7 @@ class TeamTable extends Table implements VersionableTableInterface, TaggableTabl
      * @since 4.0.0
      * @throws Exception
      */
-    public function store($updateNulls = false): bool
+    public function store($updateNulls = false)
     {
         $date = Factory::getDate();
         $user = $this->getCurrentUser();
@@ -188,7 +188,7 @@ class TeamTable extends Table implements VersionableTableInterface, TaggableTabl
      *
      * @since 4.0.0
      */
-    public function getTableProperties(bool $public = true): array
+    public function getTableProperties(bool $public = true)
     {
         $vars = get_object_vars($this);
 

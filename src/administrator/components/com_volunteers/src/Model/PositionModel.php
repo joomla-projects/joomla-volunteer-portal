@@ -53,7 +53,7 @@ class PositionModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function generateNewTitle($categoryId, $alias, $title): array
+    protected function generateNewTitle($categoryId, $alias, $title)
     {
         // Alter the title & alias
         $table = $this->getTable();
@@ -113,7 +113,7 @@ class PositionModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Position', $prefix = 'VolunteersTable', $options = []): Table
+    public function getTable($name = 'Position', $prefix = 'VolunteersTable', $options = [])
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -125,7 +125,7 @@ class PositionModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData(): array
+    protected function loadFormData()
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.position.data', []);
@@ -148,7 +148,7 @@ class PositionModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table): void
+    protected function prepareTable($table)
     {
         $date = Factory::getDate();
         $user = $this->getCurrentUser();
@@ -196,7 +196,7 @@ class PositionModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function save($data): bool
+    public function save($data)
     {
         $app = Factory::getApplication();
 

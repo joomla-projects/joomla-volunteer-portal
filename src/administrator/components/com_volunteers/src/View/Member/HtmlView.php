@@ -42,7 +42,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /* @var MemberModel $model */
         $model = $this->getModel();

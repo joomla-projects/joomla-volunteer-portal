@@ -51,7 +51,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /** @var BoardModel $model */
 
@@ -102,7 +102,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    protected function prepareDocument(): void
+    protected function prepareDocument()
     {
 
         $title       = $this->item->title;

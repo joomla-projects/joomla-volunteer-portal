@@ -44,7 +44,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /** @var VolunteerModel $model */
         $model       = $this->getModel();
@@ -70,14 +70,14 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    protected function addToolbar(): void
+    protected function addToolbar()
     {
         Factory::getApplication()->getInput()->set('hidemainmenu', true);
         $user       = $this->getCurrentUser();
         $userId     = $user->id;
         $isNew      = ($this->item->id == 0);
         $checkedOut = !(is_null($this->item->checked_out) || $this->item->checked_out == $userId);
-        $toolbar    = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar();
+        $toolbar    = $this->getDocument()->getToolbar();
         $canDo      = ContentHelper::getActions('com_volunteers');
 
         ToolbarHelper::title($isNew ? Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS_NEW') : Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS_EDIT'), 'joomla');
@@ -135,7 +135,7 @@ class HtmlView extends BaseHtmlView
      * @return  void.
      * @since 4.0.0
      */
-    protected function manipulateForm(): void
+    protected function manipulateForm()
     {
         $this->form->removeField('password1');
         $this->form->removeField('password2');

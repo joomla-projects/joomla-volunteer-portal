@@ -52,7 +52,7 @@ class RolesController extends AdminController
      *
      * @since 4.0.0
      */
-    public function getTeamRoles(): bool
+    public function getTeamRoles()
     {
         // Get team ID from input
         $input       = $this->app->input;

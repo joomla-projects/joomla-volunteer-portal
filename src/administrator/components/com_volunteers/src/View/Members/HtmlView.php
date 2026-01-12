@@ -47,7 +47,7 @@ class HtmlView extends BaseHtmlView
      *
      * @since 4.0.0
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /** @var MembersModel $model */
         $model               = $this->getModel();
@@ -73,7 +73,7 @@ class HtmlView extends BaseHtmlView
      * @since   4.0.0
      * @throws Exception
      */
-    private function addToolbar(): void
+    private function addToolbar()
     {
         $canDo = ContentHelper::getActions('com_volunteers');
         $user  = $this->getCurrentUser();

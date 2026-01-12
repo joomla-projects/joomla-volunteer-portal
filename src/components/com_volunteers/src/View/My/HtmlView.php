@@ -39,7 +39,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         $app = Factory::getApplication();
         /** @var VolunteersComponent $extension */

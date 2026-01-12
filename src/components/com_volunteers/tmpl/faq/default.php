@@ -17,7 +17,7 @@ $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $wa->useScript('jquery');
 $wa->useScript('jquery-noconflict');
 $wa->useScript('jquery-migrate');
-;
+
 // Import CSS
 try {
     $wa = Factory::getApplication()->getDocument()->getWebAssetManager();

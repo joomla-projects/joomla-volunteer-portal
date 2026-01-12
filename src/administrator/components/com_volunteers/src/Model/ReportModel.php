@@ -55,7 +55,7 @@ class ReportModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Report', $prefix = 'VolunteersTable', $options = []): Table
+    public function getTable($name = 'Report', $prefix = 'VolunteersTable', $options = [])
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -70,7 +70,7 @@ class ReportModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = [], $loadData = true): Form
+    public function getForm($data = [], $loadData = true)
     {
         // Get the form.
         $form = $this->loadForm('com_volunteers.report', 'report', ['control' => 'jform', 'load_data' => $loadData]);
@@ -100,7 +100,7 @@ class ReportModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData(): array
+    protected function loadFormData()
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.report.data', []);
@@ -123,7 +123,7 @@ class ReportModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table): void
+    protected function prepareTable($table)
     {
         $date = Factory::getDate();
         $user = $this->getCurrentUser();
@@ -172,7 +172,7 @@ class ReportModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function save($data): bool
+    public function save($data)
     {
         $app = Factory::getApplication();
 
@@ -198,7 +198,7 @@ class ReportModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function generateNewTitle($categoryId, $alias, $title): array
+    protected function generateNewTitle($categoryId, $alias, $title)
     {
         // Alter the title & alias
         $table = $this->getTable();

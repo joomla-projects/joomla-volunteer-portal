@@ -59,7 +59,7 @@ class BoardModel extends AdminModel
      *
      * @since 4.0.0
      */
-    public function getBoardItem(): bool|stdClass
+    public function getBoardItem()
     {
         return json_decode(json_encode(parent::getItem(58)));
     }
@@ -73,7 +73,7 @@ class BoardModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getDepartmentMembers(int $pk = null): stdClass
+    public function getDepartmentMembers(int $pk = null)
     {
         // Get members
 
@@ -149,7 +149,7 @@ class BoardModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getDepartmentReports(int $pk = null): mixed
+    public function getDepartmentReports(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -173,7 +173,7 @@ class BoardModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Department', $prefix = 'VolunteersTable', $options = []): Table
+    public function getTable($name = 'Department', $prefix = 'VolunteersTable', $options = [])
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -189,7 +189,7 @@ class BoardModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = [], $loadData = true): Form
+    public function getForm($data = [], $loadData = true)
     {
         // Get the form.
         $form = $this->loadForm('com_volunteers.department', 'department', ['control' => 'jform', 'load_data' => $loadData]);
@@ -220,7 +220,7 @@ class BoardModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData(): mixed
+    protected function loadFormData()
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.department.data', []);
@@ -247,7 +247,7 @@ class BoardModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table): void
+    protected function prepareTable($table)
     {
         $date = Factory::getDate();
         $user = $this->getCurrentUser();
@@ -294,7 +294,7 @@ class BoardModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function save($data): bool
+    public function save($data)
     {
         $app = Factory::getApplication();
 
@@ -321,7 +321,7 @@ class BoardModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function generateNewTitle($categoryId, $alias, $title): array
+    protected function generateNewTitle($categoryId, $alias, $title)
     {
         // Alter the title & alias
         $table = $this->getTable();

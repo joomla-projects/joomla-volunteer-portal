@@ -28,14 +28,16 @@ class DepartmentsController extends AdminController
      *
      * @param   string   $name   The model name. Optional.
      * @param   string   $prefix The class prefix. Optional.
-     * @param   array  $config The array of possible config values. Optional.
+     * @param   array   $config  Configuration array for model. Optional.
      *
-     * @return  bool|BaseDatabaseModel|CurrentUserInterface  The model.
+     * @return  object  The model.
      *
      * @since 4.0.0
      */
-    public function getModel($name = 'Department', $prefix = 'Administrator', $config = ['ignore_request' => true])
+    public function getModel($name = 'Department', $prefix = 'Administrator', $config = [])
     {
         return parent::getModel($name, $prefix, $config);
     }
+
+   
 }

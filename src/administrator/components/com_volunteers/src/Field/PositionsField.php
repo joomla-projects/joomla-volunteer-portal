@@ -41,7 +41,7 @@ class PositionsField extends ListField
      * @since 4.0.0
      * @throws Exception
      */
-    public function getOptions(): array
+    public function getOptions()
     {
         $options   = VolunteersHelper::positions();
         $default[] = HTMLHelper::_('select.option', '', Text::_('COM_VOLUNTEERS_SELECT_POSITION'));

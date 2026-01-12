@@ -51,7 +51,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /** @var VolunteersModel $model */
 
@@ -79,7 +79,7 @@ class HtmlView extends BaseHtmlView
      * @return  void.
      * @since 4.0.0
      */
-    protected function prepareDocument(): void
+    protected function prepareDocument()
     {
         // Prepare variables
         $title   = Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS');

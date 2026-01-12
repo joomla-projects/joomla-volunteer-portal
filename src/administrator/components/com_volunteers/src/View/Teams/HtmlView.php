@@ -96,7 +96,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /** @var TeamsModel $model */
         $model               = $this->getModel();
@@ -119,13 +119,13 @@ class HtmlView extends BaseHtmlView
      * @since   4.0.0
      * @throws Exception
      */
-    private function addToolbar(): void
+    private function addToolbar()
     {
         $canDo = ContentHelper::getActions('com_volunteers');
         $user  = $this->getCurrentUser();
 
         // Get the toolbar object instance
-        $toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar();
+        $toolbar = $this->getDocument()->getToolbar();
 
         ToolbarHelper::title(Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_teamS'), 'joomla');
 

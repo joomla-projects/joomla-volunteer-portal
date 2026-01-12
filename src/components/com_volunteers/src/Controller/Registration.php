@@ -34,7 +34,7 @@ class RegistrationController extends FormController
      * @since   1.6
      * @throws Exception
      */
-    public function register(): bool
+    public function register()
     {
         // Check for request forgeries.
         $this->checkToken();

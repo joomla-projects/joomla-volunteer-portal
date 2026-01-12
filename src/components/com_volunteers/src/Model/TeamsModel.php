@@ -78,7 +78,7 @@ class TeamsModel extends ListModel
      * @throws  Exception
      * @note    Calling getState in this method will result in recursion.
      */
-    protected function populateState($ordering = 'a.title', $direction = 'asc'): void
+    protected function populateState($ordering = 'a.title', $direction = 'asc')
     {
         // Load the filter state.
         $this->setState('filter.search', $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search'));
@@ -111,7 +111,7 @@ class TeamsModel extends ListModel
      * @return  string  A store id.
      * @since 4.0.0
      */
-    protected function getStoreId($id = ''): string
+    protected function getStoreId($id = '')
     {
         // Compile the store id.
         $id .= ':' . $this->getState('filter.search');
@@ -130,7 +130,7 @@ class TeamsModel extends ListModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function getListQuery(): QueryInterface
+    protected function getListQuery()
     {
         // Create a new query object.
         $db    = $this->getDatabase();
@@ -243,7 +243,7 @@ class TeamsModel extends ListModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getItems(): array
+    public function getItems()
     {
         $items = parent::getItems();
 
@@ -296,7 +296,7 @@ class TeamsModel extends ListModel
      *
      * @since version
      */
-    public function getSubteams($parent = null, bool $getmembers = false): mixed
+    public function getSubteams($parent = null, bool $getmembers = false)
     {
         $db = $this->getDatabase();
 

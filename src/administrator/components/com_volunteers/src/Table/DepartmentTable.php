@@ -61,7 +61,7 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
      *
      * @since 4.0.0
      */
-    public function get($property, $default = null): mixed
+    public function get($property, $default = null)
     {
         return $this->myData->{$property};
     }
@@ -74,7 +74,7 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
      *
      * @since 4.0.0
      */
-    public function set($property, $value = null): void
+    public function set($property, $value = null)
     {
         $this->myData->{$property} = $value;
     }
@@ -88,7 +88,7 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
      * @since 4.0.0
      * @throws Exception
      */
-    public function check(): bool
+    public function check()
     {
         // check for valid name
         if (trim($this->get('title')) == '') {
@@ -131,7 +131,7 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
      *
      * @since   4.0.0
      */
-    public function getTypeAlias(): string
+    public function getTypeAlias()
     {
         return $this->typeAlias;
     }
@@ -146,7 +146,7 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
      * @since 4.0.0
      * @throws Exception
      */
-    public function store($updateNulls = false): bool
+    public function store($updateNulls = false)
     {
         $date = Factory::getDate();
         $user = $this->getCurrentUser();

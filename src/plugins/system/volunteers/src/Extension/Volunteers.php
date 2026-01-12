@@ -18,9 +18,10 @@ use Exception;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Volunteers\Administrator\Extension\VolunteersComponent;
 use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
-use Joomla\Uri\Uri;
+
 
 /**
  * Joomla Identity Plugin class
@@ -115,7 +116,7 @@ final class Volunteers extends CMSPlugin
             /** @var VolunteersComponent $extension */
             $extension   = $app->bootComponent('com_volunteers');
             /** @var VolunteerModel $model */
-            $model       = $extension->getMVCFactory()->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
+            $model       = $extension->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
             $userId      = $app->getIdentity()->id;
             $volunteerId = (int) $model->getVolunteerId($userId);
 

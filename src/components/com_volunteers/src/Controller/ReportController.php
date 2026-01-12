@@ -35,7 +35,7 @@ class ReportController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function add(): bool
+    public function add()
     {
         // Get variables
         $departmentId = $this->input->getInt('department');
@@ -68,7 +68,7 @@ class ReportController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function cancel($key = null): bool
+    public function cancel($key = null)
     {
         // Get variables
         $departmentId = $this->app->getUserState('com_volunteers.edit.report.departmentid');
@@ -100,7 +100,7 @@ class ReportController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function edit($key = null, $urlVar = null): bool
+    public function edit($key = null, $urlVar = null)
     {
         // Get variables
         $reportId = $this->input->getInt('id');
@@ -136,7 +136,7 @@ class ReportController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function save($key = null, $urlVar = null): bool
+    public function save($key = null, $urlVar = null)
     {
         // Check for request forgeries.
         $this->checkToken();
