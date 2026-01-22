@@ -39,7 +39,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         $app = Factory::getApplication();
         /** @var VolunteersComponent $extension */
@@ -47,7 +47,7 @@ class HtmlView extends BaseHtmlView
         /** @var VolunteerModel $model */
         $model = $extension->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
 
-        $user        = Factory::getApplication()->getIdentity();
+        $user        = $this->getCurrentUser();
         $userId      = (int) $user->id;
         $volunteerId = (int) $model->getVolunteerId($userId);
 

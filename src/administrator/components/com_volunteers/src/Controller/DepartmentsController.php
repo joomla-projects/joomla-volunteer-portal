@@ -11,8 +11,6 @@
 namespace Joomla\Component\Volunteers\Administrator\Controller;
 
 use Joomla\CMS\MVC\Controller\AdminController;
-use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Joomla\CMS\User\CurrentUserInterface;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -30,14 +28,16 @@ class DepartmentsController extends AdminController
      *
      * @param   string   $name   The model name. Optional.
      * @param   string   $prefix The class prefix. Optional.
-     * @param   array  $config The array of possible config values. Optional.
+     * @param   array   $config  Configuration array for model. Optional.
      *
-     * @return  bool|BaseDatabaseModel|CurrentUserInterface  The model.
+     * @return  object  The model.
      *
      * @since 4.0.0
      */
-    public function getModel($name = 'Department', $prefix = 'Administrator', $config = []): bool|BaseDatabaseModel|CurrentUserInterface
+    public function getModel($name = 'Department', $prefix = 'Administrator', $config = [])
     {
-        return parent::getModel($name, $prefix, ['ignore_request' => true]);
+        return parent::getModel($name, $prefix, $config);
     }
+
+   
 }

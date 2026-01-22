@@ -53,7 +53,7 @@ class RegistrationModel extends FormModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = [], $loadData = true): Form
+    public function getForm($data = [], $loadData = true)
     {
         // Get the form.
         $form = $this->loadForm('com_volunteers.registration', 'registration', ['control' => 'jform', 'load_data' => $loadData]);
@@ -73,7 +73,7 @@ class RegistrationModel extends FormModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData(): array
+    protected function loadFormData()
     {
         $data = $this->getData();
 
@@ -93,7 +93,7 @@ class RegistrationModel extends FormModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getData(): stdClass
+    public function getData()
     {
         if ($this->data === null) {
             $this->data = new stdClass();
@@ -153,7 +153,7 @@ class RegistrationModel extends FormModel
      * @throws \PHPMailer\PHPMailer\Exception
      * @throws Exception
      */
-    public function register(array $temp): bool|VolunteerModel
+    public function register(array $temp)
     {
         $data = (array) $this->getData();
 

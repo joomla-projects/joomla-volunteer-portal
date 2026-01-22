@@ -42,7 +42,7 @@ class CreatedbyField extends FormField
      * @since   4.0.0
      * @throws Exception
      */
-    protected function getInput(): string
+    protected function getInput()
     {
         // Initialize variables.
         $html = [];
@@ -55,7 +55,7 @@ class CreatedbyField extends FormField
             $userFactory = $container->get(UserFactoryInterface::class);
             $user        = $userFactory->loadUserById($user_id);
         } else {
-            $user   = Factory::getApplication()->getIdentity();
+            $user   = $this->getCurrentUser();
             $html[] = '<input type="hidden" name="' . $this->name . '" value="' . $user->id . '" />';
         }
 

@@ -34,7 +34,7 @@ class HomeModel extends ListModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getLatestReports(): mixed
+    public function getLatestReports()
     {
         // Get reports
         /** @var \Joomla\Component\Volunteers\Administrator\Model\ReportsModel $model */
@@ -51,7 +51,7 @@ class HomeModel extends ListModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getLatestVolunteers(): mixed
+    public function getLatestVolunteers()
     {
         // Get volunteers
         /** @var \Joomla\Component\Volunteers\Administrator\Model\VolunteersModel $model */
@@ -70,11 +70,11 @@ class HomeModel extends ListModel
      * @return  string[]  Data object on success, false on failure.
      * @since 4.0.0
      */
-    public function getMapMarkers(): array
+    public function getMapMarkers()
     {
         // Create a new query object.
         $db    = $this->getDatabase();
-        $query = $db->getQuery(true);
+        $query = $db->createQuery();
 
         $query
             ->select($db->quoteName(['a.id', 'a.alias', 'user.name', 'a.latitude', 'a.longitude', 'a.image']))
@@ -115,7 +115,7 @@ class HomeModel extends ListModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getVolunteerStory(): mixed
+    public function getVolunteerStory()
     {
         // Get volunteers story
         /** @var \Joomla\Component\Volunteers\Administrator\Model\VolunteersModel $model */

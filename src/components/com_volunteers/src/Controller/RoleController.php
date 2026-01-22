@@ -35,7 +35,7 @@ class RoleController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function add(): bool
+    public function add()
     {
         // Get variables
         $teamId = $this->input->getInt('team');
@@ -64,7 +64,7 @@ class RoleController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function edit($key = null, $urlVar = null): bool
+    public function edit($key = null, $urlVar = null)
     {
         // Get variables
         $roleId = $this->input->getInt('id');
@@ -94,7 +94,7 @@ class RoleController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function delete($key = null, $urlVar = null): bool
+    public function delete($key = null, $urlVar = null)
     {
         // Get variables
         $roleId = $this->input->getInt('id');
@@ -128,7 +128,7 @@ class RoleController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function save($key = null, $urlVar = null): bool
+    public function save($key = null, $urlVar = null)
     {
         // Check for request forgeries.
         $this->checkToken();
@@ -166,7 +166,7 @@ class RoleController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function cancel($key = null): bool
+    public function cancel($key = null)
     {
         // Get variables
         $teamId = $this->app->getUserState('com_volunteers.edit.role.teamid');

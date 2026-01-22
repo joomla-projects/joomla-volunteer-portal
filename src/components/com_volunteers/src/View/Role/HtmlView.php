@@ -43,7 +43,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /** @var RoleModel $model */
 
@@ -52,7 +52,7 @@ class HtmlView extends BaseHtmlView
 
         $this->state = $model->getState();
         $this->form  = $model->getForm();
-        $this->user  = Factory::getApplication()->getIdentity();
+        $this->user  = $this->getCurrentUser();
 
         $errors = $model->getErrors();
         if ($errors && count($errors) > 0) {
@@ -76,7 +76,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    protected function manipulateForm(): void
+    protected function manipulateForm()
     {
         $app      = Factory::getApplication();
         $jinput   = $app->input;
@@ -97,7 +97,7 @@ class HtmlView extends BaseHtmlView
      * @return  void.
      * @since 4.0.0
      */
-    protected function prepareDocument(): void
+    protected function prepareDocument()
     {
         // Prepare variables
         $title = Text::_('COM_VOLUNTEERS_TITLE_ROLES_EDIT');

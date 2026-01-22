@@ -22,7 +22,7 @@ $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $wa->useScript('jquery');
 $wa->useScript('jquery-noconflict');
 $wa->useScript('jquery-migrate');
-;
+
 $active = $this->state->get('filter.active', 1);
 
 

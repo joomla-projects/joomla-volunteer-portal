@@ -50,7 +50,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /** @var ReportsModel $model */
 
@@ -58,7 +58,7 @@ class HtmlView extends BaseHtmlView
         $this->state      = $model->getState();
         $this->items      = $model->getItems();
         $this->pagination = $model->getPagination();
-        $this->user       = Factory::getApplication()->getIdentity();
+        $this->user       = $this->getCurrentUser();
         $this->category   = $model->getCategory();
 
         $errors = $model->getErrors();
@@ -81,7 +81,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    protected function prepareDocument(): void
+    protected function prepareDocument()
     {
         // Prepare variables
         $title   = Text::_('COM_VOLUNTEERS_TITLE_REPORTS');

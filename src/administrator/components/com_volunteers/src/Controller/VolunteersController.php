@@ -35,7 +35,7 @@ class VolunteersController extends AdminController
      *
      * @since   4.0.0
      */
-    public function getModel($name = 'Volunteer', $prefix = 'Administrator', $config = []): object
+    public function getModel($name = 'Volunteer', $prefix = 'Administrator', $config = [])
     {
         return parent::getModel($name, $prefix, ['ignore_request' => true]);
     }
@@ -46,7 +46,7 @@ class VolunteersController extends AdminController
      * @since 1.0
      * @throws Exception
      */
-    public function resetspam(): void
+    public function resetspam()
     {
         // Check for request forgeries.
         $this->checkToken();

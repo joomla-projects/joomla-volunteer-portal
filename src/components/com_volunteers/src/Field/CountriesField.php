@@ -36,7 +36,7 @@ class CountriesField extends ListField
      * @return  array  The field option objects.
      * @since 4.0.0
      */
-    public function getOptions(): array
+    public function getOptions()
     {
         $options = VolunteersHelper::countries();
 

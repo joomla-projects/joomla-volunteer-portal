@@ -13,15 +13,12 @@ namespace Joomla\Component\Volunteers\Administrator\View\Departments;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
-use Joomla\CMS\Factory;
-use Joomla\CMS\Form\Form;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 
-use Joomla\CMS\Pagination\Pagination;
-use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\Button\DropdownButton;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Component\Volunteers\Administrator\Model\DepartmentsModel;
 
@@ -37,45 +34,48 @@ class HtmlView extends BaseHtmlView
      *
      * @var  array
      */
-    protected array $items;
+    protected $items;
 
     /**
      * The pagination object
      *
-     * @var Pagination
+     * @var    \Joomla\CMS\Pagination\Pagination
+     *
+     * @since  1.6
      */
-    protected Pagination $pagination;
+    protected $pagination;
 
     /**
      * The model state
      *
-     * @var   Registry
+     * @var    \Joomla\Registry\Registry
+     *
+     * @since  1.6
+     */
+    protected $state;
+
+    /**
+     * Is this view an Empty State
+     *
+     * @var    boolean
      *
      * @since 4.0.0
      */
-    protected mixed $state;
+    private $isEmptyState = false;
 
     /**
      * Form object for search filters
      *
      * @var  \Joomla\CMS\Form\Form
      */
-    public Form $filterForm;
+    public $filterForm;
 
     /**
      * The active search filters
      *
      * @var  array
      */
-    public array $activeFilters;
-
-    /**
-     * Is this view an Empty State
-     *
-     * @var   boolean
-     * @since 4.0.0
-     */
-    private $isEmptyState = false;
+    public $activeFilters;
 
     /**
      * Display the view
@@ -88,7 +88,7 @@ class HtmlView extends BaseHtmlView
      *
      * @since 4.0.0
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /** @var DepartmentsModel $model */
         $model               = $this->getModel();
@@ -98,14 +98,11 @@ class HtmlView extends BaseHtmlView
         $this->filterForm    = $model->getFilterForm();
         $this->activeFilters = $model->getActiveFilters();
         $errors              = $model->getErrors();
-        $this->isEmptyState  = $this->get('IsEmptyState');
-
         if ($errors && count($errors) > 0) {
             throw new GenericDataException(implode("\n", $errors));
         }
 
         $this->addToolbar();
-
         parent::display($tpl);
     }
 
@@ -117,16 +114,12 @@ class HtmlView extends BaseHtmlView
      * @since   4.0.0
      * @throws Exception
      */
-    private function addToolbar(): void
+    private function addToolbar()
     {
         $canDo = ContentHelper::getActions('com_volunteers');
-        $user  = Factory::getApplication()->getIdentity();
-
-        // Get the toolbar object instance
-        Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar();
-
+        $user  = $this->getCurrentUser();
         ToolbarHelper::title(Text::_('COM_VOLUNTEERS') . ': ' . Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS'), 'joomla');
-
+        $toolbar = $this->getDocument()->getToolbar();
         if ($canDo->get('core.create')) {
             $toolbar->addNew('department.add');
         }

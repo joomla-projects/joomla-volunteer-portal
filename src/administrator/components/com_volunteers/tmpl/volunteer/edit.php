@@ -22,7 +22,7 @@ $wa->useScript('jquery-noconflict');
 $wa->useScript('jquery-migrate');
 
 $wa->useScript('form.validate');
-HTMLHelper::_('formbehavior.chosen', 'select');
+//HTMLHelper::_('formbehavior.chosen', 'select');;
 
 /*$this->getDocument()->
 getWebAssetManager()->addScriptDeclaration("

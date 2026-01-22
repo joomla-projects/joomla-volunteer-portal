@@ -62,7 +62,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function getTable($name = 'Team', $prefix = 'VolunteersTable', $options = []): Table
+    public function getTable($name = 'Team', $prefix = 'VolunteersTable', $options = [])
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -77,7 +77,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function getForm($data = [], $loadData = true): Form
+    public function getForm($data = [], $loadData = true)
     {
         // Get the form.
         $form = $this->loadForm('com_volunteers.team', 'team', ['control' => 'jform', 'load_data' => $loadData]);
@@ -108,7 +108,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    protected function loadFormData(): array
+    protected function loadFormData()
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.team.data', []);
@@ -131,10 +131,10 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    protected function prepareTable($table): void
+    protected function prepareTable($table)
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
         $table->alias = ApplicationHelper::stringURLSafe($table->alias);
@@ -181,7 +181,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    protected function generateNewTitle($categoryId, $alias, $title): array
+    protected function generateNewTitle($categoryId, $alias, $title)
     {
         // Alter the title & alias
         $table = $this->getTable();
@@ -206,7 +206,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function getTeamMembers(int $pk = null): stdClass
+    public function getTeamMembers(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -273,7 +273,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function getTeamRoles(int $pk = null): array
+    public function getTeamRoles(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -309,7 +309,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function getTeamReports(int $pk = null): mixed
+    public function getTeamReports(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -330,7 +330,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function getTeamReportsTotal(int $pk = null): int
+    public function getTeamReportsTotal(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -353,7 +353,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function getTeamSubteams(int $pk = null): mixed
+    public function getTeamSubteams(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
@@ -377,7 +377,7 @@ class TeamModel extends AdminModel
      * @throws Exception
      * @since 4.0.0
      */
-    public function getItem($pk = null): mixed
+    public function getItem($pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 

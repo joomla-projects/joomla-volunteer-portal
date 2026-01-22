@@ -8,9 +8,6 @@
 
 namespace Joomla\Component\Volunteers\Administrator\Extension;
 
-// phpcs:disable PSR1.Files.SideEffects
-\defined('_JEXEC') or die;
-// phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
 use Joomla\CMS\Application\CMSApplicationInterface;
@@ -23,14 +20,15 @@ use Joomla\CMS\Extension\BootableExtensionInterface;
 use Joomla\CMS\Extension\MVCComponent;
 use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
 use Joomla\CMS\Helper\ContentHelper;
-use Joomla\CMS\Mail\MailerFactoryInterface;
-use Joomla\CMS\Mail\MailerInterface;
 use Joomla\CMS\Tag\TagServiceInterface;
 use Joomla\CMS\Tag\TagServiceTrait;
 use Joomla\Component\Volunteers\Administrator\Service\Html\Volunteers;
-use Joomla\Registry\Registry;
 use Psr\Container\ContainerInterface;
 use stdClass;
+
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * Component class for com_volunteers
@@ -63,7 +61,7 @@ class VolunteersComponent extends MVCComponent implements
      *
      * @since  4.0.0
      */
-    public function boot(ContainerInterface $container): void
+    public function boot(ContainerInterface $container)
     {
         $this->getRegistry()->register('volunteers', new Volunteers());
     }
@@ -77,7 +75,7 @@ class VolunteersComponent extends MVCComponent implements
      *
      * @since  4.0.0
      */
-    protected function getTableNameForSection(string $section = null): string
+    protected function getTableNameForSection(string $section = null)
     {
         return '';
     }

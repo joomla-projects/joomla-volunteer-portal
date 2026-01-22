@@ -38,7 +38,7 @@ class LocationField extends TextField
      * @since 4.0.0
      * @throws Exception
      */
-    public function getInput(): string
+    public function getInput()
     {
         $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
         $wa->useScript('jquery');

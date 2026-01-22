@@ -97,7 +97,7 @@ class RolesModel extends ListModel
      * @return  string  A store id.
      * @since 4.0.0
      */
-    protected function getStoreId($id = ''): string
+    protected function getStoreId($id = '')
     {
         // Compile the store id.
         $id .= ':' . $this->getState('filter.search');
@@ -113,11 +113,11 @@ class RolesModel extends ListModel
      * @return  QueryInterface
      * @since 4.0.0
      */
-    protected function getListQuery(): QueryInterface
+    protected function getListQuery()
     {
         // Create a new query object.
         $db    = $this->getDatabase();
-        $query = $db->getQuery(true);
+        $query = $db->createQuery();
 
         // Select the required fields from the table.
         $query
@@ -174,7 +174,7 @@ class RolesModel extends ListModel
      * @return  mixed  An array of data items on success, false on failure.
      * @since 4.0.0
      */
-    public function getOpenRoles(): array
+    public function getOpenRoles()
     {
         // Create a new query object.
         $db = $this->getDatabase();

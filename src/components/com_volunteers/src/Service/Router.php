@@ -97,7 +97,7 @@ class Router extends RouterView
      *
      * @since 4.0.0
      */
-    public function getDepartmentSegment(string $id, array $query): array
+    public function getDepartmentSegment(string $id, array $query)
     {
         return [(int) $id => $id];
     }
@@ -111,7 +111,7 @@ class Router extends RouterView
      *
      * @since 4.0.0
      */
-    public function getMemberSegment(string $id, array $query): array
+    public function getMemberSegment(string $id, array $query)
     {
         return [(int) $id => $id];
     }
@@ -125,7 +125,7 @@ class Router extends RouterView
      *
      * @since 4.0.0
      */
-    public function getReportSegment(string $id, array $query): array
+    public function getReportSegment(string $id, array $query)
     {
         return [(int) $id => $id];
     }
@@ -139,7 +139,7 @@ class Router extends RouterView
      *
      * @since 4.0.0
      */
-    public function getRoleSegment(string $id, array $query): array
+    public function getRoleSegment(string $id, array $query)
     {
         return [(int) $id => $id];
     }
@@ -153,7 +153,7 @@ class Router extends RouterView
      *
      * @since 4.0.0
      */
-    public function getTeamSegment(string $id, array $query): array
+    public function getTeamSegment(string $id, array $query)
     {
         return [(int) $id => $id];
     }
@@ -167,7 +167,7 @@ class Router extends RouterView
      *
      * @since 4.0.0
      */
-    public function getVolunteerSegment(string $id, array $query): array
+    public function getVolunteerSegment(string $id, array $query)
     {
         return [(int) $id => $id];
     }
@@ -183,7 +183,7 @@ class Router extends RouterView
      *
      * @since 4.0.0
      */
-    public function getDepartmentId(string $segment, array $query): int
+    public function getDepartmentId(string $segment, array $query)
     {
         return (int) $segment;
     }
@@ -197,7 +197,7 @@ class Router extends RouterView
      *
      * @since 4.0.0
      */
-    public function getMemberId(string $segment, array $query): int
+    public function getMemberId(string $segment, array $query)
     {
         return (int) $segment;
     }
@@ -210,7 +210,7 @@ class Router extends RouterView
      * @return  int   The id of this item or false
      * @since 4.0.0
      */
-    public function getReportId(string $segment, array $query): int
+    public function getReportId(string $segment, array $query)
     {
         return (int) $segment;
     }
@@ -224,7 +224,7 @@ class Router extends RouterView
      *
      * @since 4.0.0
      */
-    public function getRoleId(string $segment, array $query): int
+    public function getRoleId(string $segment, array $query)
     {
         return (int) $segment;
     }
@@ -238,7 +238,7 @@ class Router extends RouterView
      *
      * @since 4.0.0
      */
-    public function getTeamId(string $segment, array $query): int
+    public function getTeamId(string $segment, array $query)
     {
         return (int) $segment;
     }
@@ -252,7 +252,7 @@ class Router extends RouterView
      *
      * @since 4.0.0
      */
-    public function getVolunteerId(string $segment, array $query): int
+    public function getVolunteerId(string $segment, array $query)
     {
         return (int) $segment;
     }

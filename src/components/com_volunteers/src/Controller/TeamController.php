@@ -39,7 +39,7 @@ class TeamController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function add(): bool
+    public function add()
     {
         // Get variables
         $department = $this->input->getInt('department');
@@ -79,7 +79,7 @@ class TeamController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function cancel($key = null): bool
+    public function cancel($key = null)
     {
         // Get variables
         $teamId = $this->input->getInt('id');
@@ -105,7 +105,7 @@ class TeamController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function edit($key = null, $urlVar = null): bool
+    public function edit($key = null, $urlVar = null)
     {
         // Get variables
         $teamId = $this->input->getInt('id');
@@ -131,7 +131,7 @@ class TeamController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function save($key = null, $urlVar = null): bool
+    public function save($key = null, $urlVar = null)
     {
         // Check for request forgeries.
         $this->checkToken();
@@ -204,7 +204,7 @@ class TeamController extends FormController
 
         // Get email department coordinator for CC
         $db    = Factory::getContainer()->get('DatabaseDriver');
-        $query = $db->getQuery(true);
+        $query = $db->createQuery();
         $query
             ->select('user.email, user.name')
             ->from('#__volunteers_members as member')

@@ -52,7 +52,7 @@ class MembersController extends AdminController
      * @return  object  The model.
      * @since 1.0.0
      */
-    public function getModel($name = 'Member', $prefix = 'VolunteersModel', $config = ['ignore_request' => true]): object
+    public function getModel($name = 'Member', $prefix = 'VolunteersModel', $config = ['ignore_request' => true])
     {
         return parent::getModel($name, $prefix, $config);
     }
@@ -66,7 +66,7 @@ class MembersController extends AdminController
      *
      * @throws Exception
      */
-    public function export(): void
+    public function export()
     {
         // Check for request forgeries.
         $this->checkToken();
@@ -111,7 +111,7 @@ class MembersController extends AdminController
      * @since 1.0.0
      * @throws Exception
      */
-    public function mail(): void
+    public function mail()
     {
         // Check for request forgeries.
         $this->checkToken();

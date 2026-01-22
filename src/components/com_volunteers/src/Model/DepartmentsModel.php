@@ -36,7 +36,7 @@ class DepartmentsModel extends ListModel
      * @note    Calling getState in this method will result in recursion.
      * @since   4.0.0
      */
-    protected function populateState($ordering = 'a.ordering', $direction = 'asc'): void
+    protected function populateState($ordering = 'a.ordering', $direction = 'asc')
     {
         // Load the filter state.
         $this->setState('filter.search', $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search'));
@@ -62,7 +62,7 @@ class DepartmentsModel extends ListModel
      * @return  string  A store id.
      * @since 4.0.0
      */
-    protected function getStoreId($id = ''): string
+    protected function getStoreId($id = '')
     {
         // Compile the store id.
         $id .= ':' . $this->getState('filter.search');
@@ -78,11 +78,11 @@ class DepartmentsModel extends ListModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function getListQuery(): QueryInterface
+    protected function getListQuery()
     {
         // Create a new query object.
         $db    = $this->getDatabase();
-        $query = $db->getQuery(true);
+        $query = $db->createQuery();
 
         // Select the required fields from the table.
         $query
@@ -137,7 +137,7 @@ class DepartmentsModel extends ListModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getItems(): mixed
+    public function getItems()
     {
 
         $items    = parent::getItems();

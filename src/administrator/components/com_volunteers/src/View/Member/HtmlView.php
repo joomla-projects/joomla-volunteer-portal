@@ -42,7 +42,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /* @var MemberModel $model */
         $model = $this->getModel();
@@ -73,7 +73,7 @@ class HtmlView extends BaseHtmlView
     {
         Factory::getApplication()->input->set('hidemainmenu', true);
 
-        $user       = Factory::getApplication()->getIdentity();
+        $user       = $this->getCurrentUser();
         $isNew      = ($this->item->id == 0);
         $checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->id);
         $canDo      = ContentHelper::getActions('com_volunteers');

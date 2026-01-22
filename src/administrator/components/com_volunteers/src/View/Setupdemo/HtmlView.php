@@ -72,10 +72,10 @@ class HtmlView extends BaseHtmlView
          * @since  4.0.0
          * @throws Exception
          */
-    private function addToolbar(): void
+    private function addToolbar()
     {
         ToolBarHelper::title('Setup Demo Menu');
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         if (
             $user->authorise('core.admin', 'com_volunteer')
@@ -98,7 +98,7 @@ class HtmlView extends BaseHtmlView
      * @since  4.0.0
      * @throws  Exception
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         $this->state       = $this->get('State');
         $this->item        = $this->get('Item');

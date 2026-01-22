@@ -59,7 +59,7 @@ class RoleModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Role', $prefix = 'VolunteersTable', $options = []): Table
+    public function getTable($name = 'Role', $prefix = 'VolunteersTable', $options = [])
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -74,7 +74,7 @@ class RoleModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = [], $loadData = true): Form
+    public function getForm($data = [], $loadData = true)
     {
         // Get the form.
         $form = $this->loadForm('com_volunteers.role', 'role', ['control' => 'jform', 'load_data' => $loadData]);
@@ -104,7 +104,7 @@ class RoleModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData(): array
+    protected function loadFormData()
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.role.data', []);
@@ -129,10 +129,10 @@ class RoleModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table): void
+    protected function prepareTable($table)
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
         $table->alias = ApplicationHelper::stringURLSafe($table->alias);
@@ -173,11 +173,11 @@ class RoleModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function delete(&$pks): bool
+    public function delete(&$pks)
     {
         // Reset role for members
         $db    = $this->getDatabase();
-        $query = $db->getQuery(true);
+        $query = $db->createQuery();
         $query
             ->update('#__volunteers_members')
             ->set('role = 0')

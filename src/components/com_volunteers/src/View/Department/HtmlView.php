@@ -49,7 +49,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
 
         /** @var DepartmentModel $model */
@@ -59,7 +59,7 @@ class HtmlView extends BaseHtmlView
 
         $this->state         = $model->getState();
         $this->form          = $model->getForm();
-        $this->user          = Factory::getApplication()->getIdentity();
+        $this->user          = $this->getCurrentUser();
         $this->item->reports = $model->getDepartmentReports();
 
         $this->item->reportsTeams = $model->getDepartmentReportsTeams();
@@ -89,7 +89,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    protected function prepareDocument(): void
+    protected function prepareDocument()
     {
 
         $title       = $this->item->title;

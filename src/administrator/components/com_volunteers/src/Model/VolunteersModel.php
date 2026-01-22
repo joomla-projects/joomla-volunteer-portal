@@ -67,13 +67,13 @@ class VolunteersModel extends ListModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function getListQuery(): QueryInterface
+    protected function getListQuery()
     {
         $frontend = Factory::getApplication()->isClient('site');
 
         // Create a new query object.
         $db    = $this->getDatabase();
-        $query = $db->getQuery(true);
+        $query = $db->createQuery();
 
         // Select the required fields from the table.
         $query
@@ -186,7 +186,7 @@ class VolunteersModel extends ListModel
      * @return  string  A store id.
      * @since 4.0.0
      */
-    protected function getStoreId($id = ''): string
+    protected function getStoreId($id = '')
     {
         // Compile the store id.
         $id .= ':' . $this->getState('filter.search');
@@ -208,7 +208,7 @@ class VolunteersModel extends ListModel
      * @note    Calling getState in this method will result in recursion.
      * @since   4.0.0
      */
-    protected function populateState($ordering = 'user.name', $direction = 'asc'): void
+    protected function populateState($ordering = 'user.name', $direction = 'asc')
     {
         // Load the filter state.
         $this->setState('filter.search', $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search'));
@@ -236,7 +236,7 @@ class VolunteersModel extends ListModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function resetSpam(): bool
+    public function resetSpam()
     {
         $db    = $this->getDatabase();
         $query = $db->getQuery(true)

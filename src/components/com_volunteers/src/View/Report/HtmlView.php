@@ -55,7 +55,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    public function display($tpl = null): void
+    public function display($tpl = null)
     {
         /** @var ReportModel $model */
 
@@ -65,7 +65,7 @@ class HtmlView extends BaseHtmlView
         $this->state = $model->getState();
 
         $this->form = $model->getForm();
-        $this->user = Factory::getApplication()->getIdentity();
+        $this->user = $this->getCurrentUser();
         // Load volunteer data for new report
         if (!$this->item->id) {
             $this->volunteer = $model->getVolunteer();
@@ -106,7 +106,7 @@ class HtmlView extends BaseHtmlView
      * @since 4.0.0
      * @throws Exception
      */
-    protected function manipulateForm(): void
+    protected function manipulateForm()
     {
         $app      = Factory::getApplication();
         $jinput   = $app->input;
@@ -138,7 +138,7 @@ class HtmlView extends BaseHtmlView
      * @throws Exception
      *
      */
-    protected function prepareDocument(): void
+    protected function prepareDocument()
     {
         $layout = Factory::getApplication()->input->get('layout');
 

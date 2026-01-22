@@ -58,7 +58,7 @@ class VolunteerTable extends Table implements VersionableTableInterface, Taggabl
      *
      * @since 4.0.0
      */
-    public function get($property, $default = null): mixed
+    public function get($property, $default = null)
     {
         return $this->myData->{$property};
     }
@@ -71,7 +71,7 @@ class VolunteerTable extends Table implements VersionableTableInterface, Taggabl
      *
      * @since 4.0.0
      */
-    public function set($property, $value = null): void
+    public function set($property, $value = null)
     {
         $this->myData->{$property} = $value;
     }
@@ -85,7 +85,7 @@ class VolunteerTable extends Table implements VersionableTableInterface, Taggabl
      * @return  boolean  True on success, false on failure.
      * @since 4.0.0
      */
-    public function bind($src, $ignore = []): bool
+    public function bind($src, $ignore = [])
     {
         // send_permission checkbox default
         if (!isset($src['send_permission'])) {
@@ -108,7 +108,7 @@ class VolunteerTable extends Table implements VersionableTableInterface, Taggabl
      * @return  boolean  True on success.
      * @since 4.0.0
      */
-    public function delete($pk = null): bool
+    public function delete($pk = null)
     {
         $return = parent::delete($pk);
 
@@ -131,7 +131,7 @@ class VolunteerTable extends Table implements VersionableTableInterface, Taggabl
      *
      * @since   4.0.0
      */
-    public function getTypeAlias(): string
+    public function getTypeAlias()
     {
         return $this->typeAlias;
     }
@@ -146,10 +146,10 @@ class VolunteerTable extends Table implements VersionableTableInterface, Taggabl
      * @since 4.0.0
      * @throws Exception
      */
-    public function store($updateNulls = false): bool
+    public function store($updateNulls = false)
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         $this->set('modified', $date->toSql());
 
@@ -185,7 +185,7 @@ class VolunteerTable extends Table implements VersionableTableInterface, Taggabl
      *
      * @since 4.0.0
      */
-    public function getTableProperties(bool $public = true): array
+    public function getTableProperties(bool $public = true)
     {
         $vars = get_object_vars($this);
 

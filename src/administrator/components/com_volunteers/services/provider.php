@@ -41,7 +41,7 @@ return new class () implements ServiceProviderInterface {
      *
      * @since  4.0.0
      */
-    public function register(Container $container): void
+    public function register(Container $container)
     {
 
         $container->registerServiceProvider(new CategoryFactory('\\Joomla\\Component\\Volunteers'));

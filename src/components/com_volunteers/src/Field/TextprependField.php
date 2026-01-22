@@ -41,7 +41,7 @@ class TextprependField extends TextField
      *
      * @since 4.0.0
      */
-    public function getInput(): string
+    public function getInput()
     {
         $html[] = '<div class="input-prepend"><span class="add-on">' . Text::_($this->element['prepend']) . '</span>';
         $html[] = parent::getInput();

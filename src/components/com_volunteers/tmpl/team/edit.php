@@ -26,7 +26,7 @@ try {
 }
 $wa->useScript('keepalive');
 $wa->useScript('form.validate');
-HtmlHelper::_('formbehavior.chosen', 'select');
+//HTMLHelper::_('formbehavior.chosen', 'select');;
 ?>
 
 <div class="team-edit">

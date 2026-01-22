@@ -75,7 +75,7 @@ class VolunteerModel extends AdminModel
      *
      * @since 4.0.0
      */
-    public function checkCertification($url): bool
+    public function checkCertification($url)
     {
         // JHttp transport throws an exception when there's no response.
         try {
@@ -104,7 +104,7 @@ class VolunteerModel extends AdminModel
      * @since 1.0.1
      * @since 4.0.0
      */
-    public function checkLink($url): bool
+    public function checkLink($url)
     {
         // Adding a valid user agent string, otherwise some feed-servers returning an error
         $options = new Registry();
@@ -136,7 +136,7 @@ class VolunteerModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getTable($name = 'Volunteer', $prefix = 'VolunteersTable', $options = []): Table
+    public function getTable($name = 'Volunteer', $prefix = 'VolunteersTable', $options = [])
     {
         return parent::getTable($name, $prefix, $options);
     }
@@ -151,7 +151,7 @@ class VolunteerModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getForm($data = [], $loadData = true): Form
+    public function getForm($data = [], $loadData = true)
     {
         // Get the form.
         $form = $this->loadForm('com_volunteers.volunteer', 'volunteer', ['control' => 'jform', 'load_data' => $loadData]);
@@ -181,7 +181,7 @@ class VolunteerModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function loadFormData(): array
+    protected function loadFormData()
     {
         // Check the session for previously entered form data.
         $data = Factory::getApplication()->getUserState('com_volunteers.edit.volunteer.data', []);
@@ -204,10 +204,10 @@ class VolunteerModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    protected function prepareTable($table): void
+    protected function prepareTable($table)
     {
         $date = Factory::getDate();
-        $user = Factory::getApplication()->getIdentity();
+        $user = $this->getCurrentUser();
 
         if (empty($table->getId())) {
             // Set the values
@@ -245,7 +245,7 @@ class VolunteerModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getItem($pk = null): mixed
+    public function getItem($pk = null)
     {
 
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
@@ -309,7 +309,7 @@ class VolunteerModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function save($data): bool
+    public function save($data)
     {
         // Check the url fields
         foreach ($data as $field => $value) {
@@ -416,7 +416,7 @@ class VolunteerModel extends AdminModel
      *
      * @since 4.0.0
      */
-    public function getVolunteerId($userId = null): mixed
+    public function getVolunteerId($userId = null)
     {
         if (empty($userId)) {
             return -1;
@@ -448,7 +448,7 @@ class VolunteerModel extends AdminModel
      * @since 4.0.0
      * @throws Exception
      */
-    public function getVolunteerTeams(int $pk = null): stdClass
+    public function getVolunteerTeams(int $pk = null)
     {
         $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
 
