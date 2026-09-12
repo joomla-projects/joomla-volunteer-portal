@@ -21,12 +21,13 @@ class VolunteersStoryHelper
     {
         $model = $app->bootComponent('com_volunteers')
             ->getMVCFactory()
-            ->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
+            ->createModel('Volunteers', 'Site', ['ignore_request' => true]);
 
         $model->setState('list.limit', 1);
         $model->setState('list.ordering', 'rand()');
         $model->setState('filter.image', 1);
         $model->setState('filter.joomlastory', 1);
+        $model->setState('filter.private', 0);
 
         $items = $model->getItems();
 

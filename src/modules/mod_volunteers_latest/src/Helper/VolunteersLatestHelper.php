@@ -22,15 +22,15 @@ class VolunteersLatestHelper
 
         $model = $app->bootComponent('com_volunteers')
             ->getMVCFactory()
-            ->createModel('Volunteers', 'Administrator', ['ignore_request' => true]);
+            ->createModel('Volunteers', 'Site', ['ignore_request' => true]);
 
         $model->setState('list.limit', (int) $params->get('count', 5));
-        $model->setState('list.ordering', 'registerDate');
+        $model->setState('list.ordering', 'user.registerDate');
         $model->setState('list.direction', 'desc');
         $model->setState('filter.image', 1);
+        $model->setState('filter.private', 0);
 
         $items = $model->getItems();
-
         return $items ?? null;
     }
 }
