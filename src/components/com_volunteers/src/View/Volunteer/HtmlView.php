@@ -12,18 +12,17 @@ namespace Joomla\Component\Volunteers\Site\View\Volunteer;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Exception;
-use Joomla\CMS\Factory;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\User;
-use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
+use Joomla\Component\Volunteers\Administrator\Service\VolunteersService;
 use Joomla\Component\Volunteers\Site\Model\VolunteerModel;
+use Exception;
 
 /**
  * View class for a single volunteer.
@@ -38,6 +37,26 @@ class HtmlView extends BaseHtmlView
     protected User|null $user = null;
 
     protected string $share;
+
+    /**
+     * @var CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor
+     *
+     * @param   array  $config  A named configuration array for object construction.
+     *
+     * @since   4.0.0
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->app = \Joomla\CMS\Factory::getApplication();
+    }
 
     /**
      * Execute and display a template script.
@@ -62,11 +81,11 @@ class HtmlView extends BaseHtmlView
         $this->form        = $model->getForm();
         $this->user        = $this->getCurrentUser();
         $this->item->teams = $model->getVolunteerTeams();
-        $this->item->new   = Factory::getApplication()->input->getInt('new', '0');
+        $this->item->new   = $this->app->input->getInt('new', '0');
 
 
         // Set volunteer id in session
-        $session = Factory::getApplication()->getSession();
+        $session = $this->app->getSession();
 
         $session->set('volunteer', $this->item->id);
 
@@ -94,7 +113,7 @@ class HtmlView extends BaseHtmlView
     protected function manipulateForm()
     {
         // Clear birthday field if not set
-        if ($this->item->birthday == '0000-00-00') {
+        if (empty($this->item->birthday) || $this->item->birthday === '0000-00-00') {
             $this->form->setValue('birthday', null, null);
         }
 
@@ -115,10 +134,13 @@ class HtmlView extends BaseHtmlView
      */
     protected function prepareDocument()
     {
+        /** @var VolunteersService $volunteersService */
+        $volunteersService = $this->app->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);
+
         // Prepare variables
         $title       = Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEER') . ': ' . $this->item->name;
-        $description = HtmlHelper::_('string.truncate', $this->item->intro, 160, true, false);
-        $image       = VolunteersHelper::image($this->item->image, 'large', true);
+        $description = HTMLHelper::_('string.truncate', $this->item->intro, 160, true, false);
+        $image       = $volunteersService->getImage((string) $this->item->image, 'large', true);
         $itemURL     = Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $this->item->id);
         $url         = Uri::getInstance()->toString(['scheme', 'host', 'port']) . $itemURL;
 
@@ -149,7 +171,7 @@ class HtmlView extends BaseHtmlView
         setMetaData('og:url', $url, 'property');
 
         // Add to pathway
-        $pathway = Factory::getApplication()->getPathway();
+        $pathway = $this->app->getPathway();
         $pathway->addItem($this->item->name, $itemURL);
     }
 }

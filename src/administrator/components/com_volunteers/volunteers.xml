@@ -7,12 +7,10 @@
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <authorEmail>admin@joomla.org</authorEmail>
     <authorUrl>www.joomla.org</authorUrl>
-    <version>4.0.0</version>
+    <version>6.1.0</version>
     <description>COM_VOLUNTEERS_XML_DESCRIPTION</description>
     <namespace path="src">Joomla\Component\Volunteers</namespace>
-    <scriptfile>script.php</scriptfile>
-
-    <files folder="components/com_volunteers">
+        <files folder="components/com_volunteers">
         <folder>forms</folder>
         <folder>layouts</folder>
         <folder>src</folder>
@@ -55,10 +53,7 @@
             <menu link="option=com_volunteers&amp;view=volunteers" view="volunteers" alt="Volunteers/Volunteers">
                 COM_VOLUNTEERS_TITLE_VOLUNTEERS
             </menu>
-            <menu link="option=com_volunteers&amp;view=setupdemo" view="volunteers" alt="Volunteers/Volunteers">
-                COM_VOLUNTEERS_TITLE_DEMO
-            </menu>
-        </submenu>
+            </submenu>
 
         <files folder="administrator/components/com_volunteers">
             <folder>forms</folder>
@@ -84,6 +79,12 @@
 
         <filename>joomla.asset.json</filename>
     </media>
+
+    <api>
+        <files folder="api/components/com_volunteers">
+            <folder>src</folder>
+        </files>
+    </api>
 
     <install>
         <sql>

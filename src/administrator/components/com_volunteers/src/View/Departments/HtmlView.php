@@ -8,6 +8,7 @@
 
 namespace Joomla\Component\Volunteers\Administrator\View\Departments;
 
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Pagination\Pagination;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Form\Form;
@@ -82,6 +83,26 @@ class HtmlView extends BaseHtmlView
     public $activeFilters;
 
     /**
+     * @var CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor
+     *
+     * @param   array  $config  A named configuration array for object construction.
+     *
+     * @since   4.0.0
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->app = \Joomla\CMS\Factory::getApplication();
+    }
+
+    /**
      * Display the view
      *
      * @param   string  $tpl  Template name
@@ -96,7 +117,8 @@ class HtmlView extends BaseHtmlView
     {
         /** @var DepartmentsModel $model */
         $model               = $this->getModel();
-        #$this->setUseExceptions(true);
+        $model->setUseExceptions(true);
+        
         $this->state         = $model->getState();
         $this->items         = $model->getItems();
         $this->pagination    = $model->getPagination();

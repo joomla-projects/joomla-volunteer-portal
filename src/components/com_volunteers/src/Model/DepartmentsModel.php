@@ -13,6 +13,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\ParameterType;
 use Joomla\Database\QueryInterface;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -25,6 +26,53 @@ use Joomla\Database\QueryInterface;
  */
 class DepartmentsModel extends ListModel
 {
+    /**
+     * @var \Joomla\CMS\Application\CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor.
+     *
+     * @param   array                $config   An optional associative array of configuration settings.
+     * @param   MVCFactoryInterface  $factory  The factory.
+     *
+     * @since   4.0.0
+     * @throws  Exception
+     */
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
+    {
+        if (empty($config['filter_fields'])) {
+            $config['filter_fields'] = [
+                'id',
+                'a.id',
+                'title',
+                'a.title',
+                'alias',
+                'a.alias',
+                'checked_out',
+                'a.checked_out',
+                'checked_out_time',
+                'a.checked_out_time',
+                'state',
+                'a.state',
+                'created',
+                'a.created',
+                'created_by',
+                'a.created_by',
+                'ordering',
+                'a.ordering',
+                'featured',
+                'a.featured',
+            ];
+        }
+
+        parent::__construct($config, $factory);
+
+        $this->app = Factory::getApplication();
+    }
+
     /**
      * Method to auto-populate the model state.
      *
@@ -87,38 +135,42 @@ class DepartmentsModel extends ListModel
         // Select the required fields from the table.
         $query
             ->select($this->getState('list.select', ['a.*']))
-            ->from($db->quoteName('#__volunteers_departments') . ' AS a');
+            ->from($db->quoteName('#__volunteers_departments', 'a'));
 
         // Join over the users for the checked_out user.
         $query
-            ->select('checked_out.name AS editor')
-            ->join('LEFT', '#__users AS ' . $db->quoteName('checked_out') . ' ON checked_out.id = a.checked_out');
+            ->select($db->quoteName('checked_out.name', 'editor'))
+            ->join('LEFT', $db->quoteName('#__users', 'checked_out') . ' ON ' . $db->quoteName('checked_out.id') . ' = ' . $db->quoteName('a.checked_out'));
 
         // Filter by published state
         $state = $this->getState('filter.state', 1);
 
         if (is_numeric($state)) {
-            $query->where('a.state = ' . (int) $state);
+            $query->where($db->quoteName('a.state') . ' = :state')
+                ->bind(':state', $state, ParameterType::INTEGER);
         }
 
         // Filter by search in title
         $search = $this->getState('filter.search');
 
         if (!empty($search)) {
-            if (stripos($search, 'id:') === 0) {
-                $query->where('a.id = ' . (int) substr($search, 3));
+            if (stripos((string) $search, 'id:') === 0) {
+                $id = (int) substr((string) $search, 3);
+                $query->where($db->quoteName('a.id') . ' = :id')
+                    ->bind(':id', $id, ParameterType::INTEGER);
             } else {
-                $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
-                $query->where('(a.title LIKE ' . $search . ' OR a.alias LIKE ' . $search . ')');
+                $search = '%' . str_replace(' ', '%', $db->escape(trim((string) $search), true) . '%');
+                $query->where('(' . $db->quoteName('a.title') . ' LIKE :search OR ' . $db->quoteName('a.alias') . ' LIKE :search)')
+                    ->bind(':search', $search);
             }
         }
 
         // Filter by active state
-        $frontend = Factory::getApplication()->isClient('site');
+        $frontend = $this->app->isClient('site');
         $board    = ($frontend ? 0 : 1);
 
         if (!$board) {
-            $query->where('a.parent_id != 0');
+            $query->where($db->quoteName('a.parent_id') . ' != 0');
         }
 
         // Add the list ordering clause.
@@ -141,7 +193,7 @@ class DepartmentsModel extends ListModel
     {
 
         $items    = parent::getItems();
-        $frontend = Factory::getApplication()->isClient('site');
+        $frontend = $this->app->isClient('site');
         if ($frontend) {
             $departments = [];
             foreach ($items as $item) {
@@ -170,42 +222,4 @@ class DepartmentsModel extends ListModel
         return $items;
     }
 
-    /**
-     * Constructor.
-     *
-     * @param   $config array  An optional associative array of configuration settings.
-     *
-     * @see     JController
-     * @since   4.0.0
-     * @throws Exception
-     */
-    public function __construct($config = [], MVCFactoryInterface $factory = null)
-    {
-        if (empty($config['filter_fields'])) {
-            $config['filter_fields'] = [
-                'id',
-                'a.id',
-                'title',
-                'a.title',
-                'alias',
-                'a.alias',
-                'checked_out',
-                'a.checked_out',
-                'checked_out_time',
-                'a.checked_out_time',
-                'state',
-                'a.state',
-                'created',
-                'a.created',
-                'created_by',
-                'a.created_by',
-                'ordering',
-                'a.ordering',
-                'featured',
-                'a.featured',
-            ];
-        }
-
-        parent::__construct($config, $factory);
-    }
 }

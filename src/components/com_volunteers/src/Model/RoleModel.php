@@ -12,12 +12,13 @@ namespace Joomla\Component\Volunteers\Site\Model;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
+use Joomla\Database\ParameterType;
 use RuntimeException;
 
 /**
@@ -26,6 +27,28 @@ use RuntimeException;
  */
 class RoleModel extends AdminModel
 {
+    /**
+     * @var \Joomla\CMS\Application\CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor.
+     *
+     * @param   array                $config   An optional associative array of configuration settings.
+     * @param   MVCFactoryInterface  $factory  The factory.
+     *
+     * @since   4.0.0
+     * @throws  Exception
+     */
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
+    {
+        parent::__construct($config, $factory);
+
+        $this->app = Factory::getApplication();
+    }
+
     /**
      * The type alias for this content type.
      *
@@ -108,7 +131,7 @@ class RoleModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.role.data', []);
+        $data = $this->app->getUserState('com_volunteers.edit.role.data', []);
 
         if (empty($data)) {
             if ($this->item === null) {
@@ -135,7 +158,7 @@ class RoleModel extends AdminModel
         $date = Factory::getDate();
         $user = $this->getCurrentUser();
 
-        $table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
+        $table->title = htmlspecialchars_decode((string) $table->title, ENT_QUOTES);
         $table->alias = ApplicationHelper::stringURLSafe($table->alias);
 
         if (empty($table->alias)) {
@@ -182,14 +205,14 @@ class RoleModel extends AdminModel
         $db    = $this->getDatabase();
         $query = $db->createQuery();
         $query
-            ->update('#__volunteers_members')
-            ->set('role = 0')
-            ->where('role = ' . $db->quote($pks));
+            ->update($db->quoteName('#__volunteers_members'))
+            ->set($db->quoteName('role') . ' = 0')
+            ->whereIn($db->quoteName('role'), (array) $pks);
 
         try {
             $db->setQuery($query)->execute();
         } catch (RuntimeException $e) {
-            throw new Exception($e->getMessage(), 500);
+            throw new \Exception($e->getMessage(), 500);
         }
 
         return parent::delete($pks);

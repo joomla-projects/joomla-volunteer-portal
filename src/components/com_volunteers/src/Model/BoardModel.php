@@ -16,9 +16,11 @@ use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\AdminModel;
 
 use Joomla\CMS\Table\Table;
+use Joomla\Database\ParameterType;
 use Joomla\String\StringHelper;
 use stdClass;
 
@@ -52,6 +54,28 @@ class BoardModel extends AdminModel
      * @since  4.0.0
      */
     protected mixed $item = null;
+
+    /**
+     * @var \Joomla\CMS\Application\CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor.
+     *
+     * @param   array                $config   An optional associative array of configuration settings.
+     * @param   MVCFactoryInterface  $factory  The factory.
+     *
+     * @since   4.0.0
+     * @throws  Exception
+     */
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
+    {
+        parent::__construct($config, $factory);
+
+        $this->app = Factory::getApplication();
+    }
 
     /**
      * Hard codes board of directors
@@ -133,7 +157,7 @@ class BoardModel extends AdminModel
 
         // Check for active or inactive members
         foreach ($groupmembers as $item) {
-            if ($item->date_ended == '0000-00-00') {
+            if (empty($item->date_ended) || $item->date_ended === '0000-00-00') {
                 $members->active[] = $item;
             } else {
                 $members->honorroll[] = $item;
@@ -228,7 +252,7 @@ class BoardModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.department.data', []);
+        $data = $this->app->getUserState('com_volunteers.edit.department.data', []);
 
         if (empty($data)) {
             if ($this->item === null) {
@@ -257,7 +281,7 @@ class BoardModel extends AdminModel
         $date = Factory::getDate();
         $user = $this->getCurrentUser();
 
-        $table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
+        $table->title = htmlspecialchars_decode((string) $table->title, ENT_QUOTES);
         $table->alias = ApplicationHelper::stringURLSafe($table->alias);
 
         if (empty($table->alias)) {
@@ -271,7 +295,7 @@ class BoardModel extends AdminModel
             if (empty($table->ordering)) {
                 $db    = $this->getDatabase();
                 $query = $db->getQuery(true)
-                    ->select('MAX(ordering)')
+                    ->select('MAX(' . $db->quoteName('ordering') . ')')
                     ->from($db->quoteName('#__volunteers_departments'));
 
                 $db->setQuery($query);
@@ -301,10 +325,8 @@ class BoardModel extends AdminModel
      */
     public function save($data)
     {
-        $app = Factory::getApplication();
-
         // Alter the title for save as copy
-        if ($app->getInput()->get('task') == 'save2copy') {
+        if ($this->app->getInput()->get('task') == 'save2copy') {
             [$name, $alias] = $this->generateNewTitle(0, $data['alias'], $data['title']);
             $data['title']      = $name;
             $data['alias']      = $alias;

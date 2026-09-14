@@ -12,17 +12,17 @@ namespace Joomla\Component\Volunteers\Site\View\Department;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Exception;
-use Joomla\CMS\Factory;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\HTML\Helpers\StringHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\User;
-use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
+use Joomla\Component\Volunteers\Administrator\Service\AclService;
 use Joomla\Component\Volunteers\Site\Model\DepartmentModel;
+use Exception;
 use stdClass;
 
 /**
@@ -37,6 +37,26 @@ class HtmlView extends BaseHtmlView
     protected mixed $form;
     protected User|null $user = null;
     protected stdClass $acl;
+
+    /**
+     * @var CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor
+     *
+     * @param   array  $config  A named configuration array for object construction.
+     *
+     * @since   4.0.0
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->app = \Joomla\CMS\Factory::getApplication();
+    }
 
 
     /**
@@ -67,10 +87,13 @@ class HtmlView extends BaseHtmlView
         $this->item->teams        = $model->getDepartmentTeams();
 
         $this->item->members = $model->getDepartmentMembers();
-        $this->acl           = VolunteersHelper::acl('department', $this->item->id);
+
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+        $this->acl  = $aclService->getAcl('department', (int) $this->item->id);
 
         // Set department id in session
-        Factory::getApplication()->getSession()->set('department', $this->item->id);
+        $this->app->getSession()->set('department', $this->item->id);
 
         $errors = $model->getErrors();
         if ($errors && count($errors) > 0) {
@@ -126,7 +149,7 @@ class HtmlView extends BaseHtmlView
         setMetaData('og:url', $url, 'property');
 
         // Add to pathway
-        $pathway = Factory::getApplication()->getPathway();
+        $pathway = $this->app->getPathway();
         $pathway->addItem($this->item->title, $itemURL);
 
         // Add the RSS link.

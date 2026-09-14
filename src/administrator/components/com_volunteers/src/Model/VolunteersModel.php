@@ -9,11 +9,11 @@
 namespace Joomla\Component\Volunteers\Administrator\Model;
 
 use Exception;
-use JDatabaseExceptionExecuting;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\ParameterType;
 use Joomla\Database\QueryInterface;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -98,7 +98,8 @@ class VolunteersModel extends ListModel
         $state = $this->getState('filter.state', 1);
 
         if (is_numeric($state)) {
-            $query->where('a.state = ' . (int) $state);
+            $query->where($db->quoteName('a.state') . ' = :state')
+                ->bind(':state', $state, ParameterType::INTEGER);
         }
 
         // Filter by search in title
@@ -106,13 +107,17 @@ class VolunteersModel extends ListModel
 
         if (!empty($search)) {
             if (stripos((string) $search, 'id:') === 0) {
-                $query->where('a.id = ' . (int) substr((string) $search, 3));
+                $id = (int) substr((string) $search, 3);
+                $query->where($db->quoteName('a.id') . ' = :id')
+                    ->bind(':id', $id, ParameterType::INTEGER);
             } else {
-                $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim((string) $search), true) . '%'));
+                $search = '%' . str_replace(' ', '%', $db->escape(trim((string) $search), true) . '%');
                 if ($frontend) {
-                    $query->where('(user.name LIKE ' . $search . ' OR a.alias LIKE ' . $search . ')');
+                    $query->where('(' . $db->quoteName('user.name') . ' LIKE :search OR ' . $db->quoteName('a.alias') . ' LIKE :search)')
+                        ->bind(':search', $search);
                 } else {
-                    $query->where('(user.name LIKE ' . $search . ' OR a.alias LIKE ' . $search . ' OR a.intro LIKE ' . $search . ' OR a.joomlastory LIKE ' . $search . ')');
+                    $query->where('(' . $db->quoteName('user.name') . ' LIKE :search OR ' . $db->quoteName('a.alias') . ' LIKE :search OR ' . $db->quoteName('a.intro') . ' LIKE :search OR ' . $db->quoteName('a.joomlastory') . ' LIKE :search)')
+                        ->bind(':search', $search);
                 }
             }
         }
@@ -129,7 +134,7 @@ class VolunteersModel extends ListModel
 
         if (is_numeric($active)) {
             if ($active == 1) {
-                $query->where($db->quoteName('member.date_ended') . ' = ' . $db->quote('0000-00-00'));
+                $query->where($db->quoteName('member.date_ended') . ' IS NULL');
             }
         }
 

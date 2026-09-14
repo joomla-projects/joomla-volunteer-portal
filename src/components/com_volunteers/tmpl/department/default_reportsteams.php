@@ -58,7 +58,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                         <?php endif; ?>
                     </p>
                     <p>
-                        <?php echo HtmlHelper::_('string.truncate', strip_tags(trim($report->description)), 300); ?>
+                        <?php echo HtmlHelper::_('string.truncate', strip_tags(trim((string) $report->description)), 300); ?>
                     </p>
                     <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>"
                        class="volunteers_btn">

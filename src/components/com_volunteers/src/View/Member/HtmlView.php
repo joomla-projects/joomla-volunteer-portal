@@ -12,11 +12,12 @@ namespace Joomla\Component\Volunteers\Site\View\Member;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Exception;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Exception;
 
 use Joomla\CMS\User\User;
 use Joomla\Component\Volunteers\Site\Model\VolunteerModel;
@@ -32,6 +33,26 @@ class HtmlView extends BaseHtmlView
     protected mixed $item;
     protected mixed $form;
     protected User|null $user = null;
+
+    /**
+     * @var CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor
+     *
+     * @param   array  $config  A named configuration array for object construction.
+     *
+     * @since   4.0.0
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->app = \Joomla\CMS\Factory::getApplication();
+    }
     /**
      * Execute and display a template script.
      *
@@ -78,18 +99,17 @@ class HtmlView extends BaseHtmlView
      */
     protected function manipulateForm()
     {
-        $app          = Factory::getApplication();
-        $jinput       = $app->getInput();
+        $jinput       = $this->app->getInput();
         $memberId     = $jinput->getInt('id');
-        $departmentId = (int) $app->getUserState('com_volunteers.edit.member.departmentid');
-        $teamId       = (int) $app->getUserState('com_volunteers.edit.member.teamid');
+        $departmentId = (int) $this->app->getUserState('com_volunteers.edit.member.departmentid');
+        $teamId       = (int) $this->app->getUserState('com_volunteers.edit.member.teamid');
 
         // Disable fields
         $this->form->setFieldAttribute('department', 'readonly', 'true');
         $this->form->setFieldAttribute('team', 'readonly', 'true');
 
         // Clear date ended field if not set
-        if ($this->item->date_ended == '0000-00-00') {
+        if (empty($this->item->date_ended) || $this->item->date_ended === '0000-00-00') {
             $this->form->setValue('date_ended', null, null);
         }
 

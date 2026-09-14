@@ -23,6 +23,8 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Volunteers\Administrator\Model\MemberModel;
 use Joomla\Component\Volunteers\Administrator\Model\PositionModel;
+use Joomla\Component\Volunteers\Administrator\Service\AclService;
+use Joomla\Component\Volunteers\Administrator\Service\VolunteersService;
 use Joomla\Component\Volunteers\Site\Model\TeamModel;
 use Joomla\Component\Volunteers\Site\Model\VolunteerModel;
 use RuntimeException;
@@ -296,16 +298,9 @@ class VolunteersHelper
      */
     public static function outputVolunteer($volunteer)
     {
-        echo '<a  class="pull-left" href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->volunteer) . '">';
-        echo self::image($volunteer->volunteer_image, 'small', false, $volunteer->volunteer_image);
-        echo '</a>';
-        echo '<a href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->volunteer) . '">';
-        echo $volunteer->volunteer_name;
-        echo '</a>';
-        echo '<span class="muted volunteer-location">';
-        echo '<span class="icon-location" aria-hidden="true"></span> ';
-        echo VolunteersHelper::location($volunteer->volunteer_country);
-        echo '</span';
+        /** @var VolunteersService $volunteersService */
+        $volunteersService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);
+        echo $volunteersService->outputVolunteer($volunteer);
     }
 
     /**
@@ -339,96 +334,9 @@ class VolunteersHelper
      */
     public static function acl($type, $id)
     {
-        // Base ACL
-        $acl                  = new stdClass();
-        $acl->edit_department = false;
-        $acl->edit            = false;
-        $acl->create_report   = false;
-        $acl->create_team     = false;
-
-        // Set ID
-        $departmentId = ($type == 'department') ? $id : null;
-        $teamId       = ($type == 'team') ? $id : null;
-
-        // Get User ID
-        $app  = Factory::getApplication();
-        $user = $app->getIdentity();
-
-
-        // Guest
-        if ($user->guest) {
-            return $acl;
-        }
-
-        // Admin
-        if ($user->authorise('code.admin', 'com_volunteers')) {
-            $acl->edit_department = true;
-            $acl->edit            = true;
-            $acl->create_report   = true;
-            $acl->create_team     = true;
-
-            return $acl;
-        }
-
-        $volmodel      = new VolunteerModel();
-        $teammodel     = new TeamModel();
-        $membermodel   = new MemberModel();
-        $positionmodel = new PositionModel();
-
-        // Get Volunteer ID
-        $volunteerId = (int) $volmodel->getVolunteerId($user->id);
-        if ($volunteerId == -1) { // Found a logged in user who is not in department or team. Think this will only occur when being tested on development machines.
-            return $acl;
-        }
-
-        // Get Department ID
-        if ($type == 'team') {
-            $team         = $teammodel->getItem($id);
-            $departmentId = (int) $team->department;
-            $parentTeamId = (int) $team->parent_id;
-        }
-
-        // Check for department involvement
-        $positionId = (int) $membermodel->getPosition($volunteerId, $departmentId, $teamId);
-
-        // Get ACL for position
-        $positionDepartment = $positionmodel->getItem($positionId);
-
-        foreach ($acl as $action => $value) {
-            if ($positionDepartment->{$action}) {
-                $acl->{$action} = true;
-            }
-        }
-
-        // Check for parent team involvement
-        if ($type == 'team' && $parentTeamId) {
-            $positionId = (int) $membermodel->getPosition($volunteerId, null, $parentTeamId);
-
-            // Get ACL for position
-            $positionTeamParent = $positionmodel->getItem($positionId);
-
-            foreach ($acl as $action => $value) {
-                if ($positionTeamParent->{$action}) {
-                    $acl->{$action} = true;
-                }
-            }
-        }
-
-        // Check for team involvement
-        if ($type == 'team') {
-            $positionId = (int) $membermodel->getPosition($volunteerId, null, $teamId);
-
-            // Get ACL for position
-            $positionTeam = $positionmodel->getItem($positionId);
-
-            foreach ($acl as $action => $value) {
-                if ($positionTeam->{$action}) {
-                    $acl->{$action} = true;
-                }
-            }
-        }
-
-        return $acl;
+        /** @var AclService $aclService */
+        $aclService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+        return $aclService->getAcl($type, (int) $id);
     }
 
     /**
@@ -441,16 +349,9 @@ class VolunteersHelper
      */
     public static function date($date, $format)
     {
-        if ($date == '0000-00-00') {
-            $date = '';
-        }
-
-        if ($date !== '0000-00-00') {
-            $date = new Date($date);
-            $date = $date->format($format);
-        }
-
-        return $date;
+        /** @var VolunteersService $volunteersService */
+        $volunteersService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);
+        return $volunteersService->formatDate($date, $format);
     }
 
     /**
@@ -463,29 +364,9 @@ class VolunteersHelper
      */
     public static function departments($prefix = false)
     {
-        $db      = Factory::getContainer()->get('DatabaseDriver');
-        $query   = $db->getQuery(true);
-        $options = null;
-        if ($prefix) {
-            $query->select('CONCAT(\'d.\', id) AS value, title AS text');
-        } else {
-            $query->select('id AS value, title AS text');
-        }
-
-        $query->from('#__volunteers_departments')
-            ->where('state = 1')
-            ->order('title asc');
-
-        // Get the options.
-        $db->setQuery($query);
-
-        try {
-            $options = $db->loadObjectList();
-        } catch (RuntimeException $e) {
-            Factory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
-        }
-
-        return $options;
+        /** @var VolunteersService $volunteersService */
+        $volunteersService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);
+        return $volunteersService->getDepartments($prefix);
     }
 
     /**
@@ -501,19 +382,9 @@ class VolunteersHelper
      */
     public static function image($image, $size, bool $urlonly = false, string|null $alt = '', string $class = 'img-rounded')
     {
-        if (empty($image)) {
-            $image = Uri::base() . 'media/com_volunteers/images/joomlaperson.png';
-        }
-
-        if ($urlonly) {
-            $html = $image;
-        } elseif ($size === 'small') {
-            $html = '<img class="' . $class . '" alt="' . $alt . '" src="' . $image . '" width="50px"/>';
-        } else {
-            $html = '<img class="' . $class . '" alt="' . $alt . '" src="' . $image . '" width="100%"/>';
-        }
-
-        return $html;
+        /** @var VolunteersService $volunteersService */
+        $volunteersService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);
+        return $volunteersService->getImage((string) $image, $size, $urlonly, $alt, $class);
     }
 
     /**
@@ -526,24 +397,9 @@ class VolunteersHelper
      */
     public static function location($country = null, $city = null)
     {
-        $countries = VolunteersHelper::$countries;
-
-        $text = '';
-
-        if ($city) {
-            $text .= $city;
-        }
-
-        if ($city && $country) {
-            $text .= ', ';
-        }
-
-        if ($country) {
-            $text .= $countries[$country];
-        }
-
-        if($text == '') { $text = 'Unknown';}
-        return $text;
+        /** @var VolunteersService $volunteersService */
+        $volunteersService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);
+        return $volunteersService->formatLocation($country, $city);
     }
 
     /**
@@ -556,36 +412,9 @@ class VolunteersHelper
      */
     public static function positions()
     {
-        $departmentId = Factory::getApplication()->getUserState('com_volunteers.edit.member.departmentid');
-        $teamId       = Factory::getApplication()->getUserState('com_volunteers.edit.member.teamid');
-        $options      = null;
-
-        $db    = Factory::getContainer()->get('DatabaseDriver');
-        $query = $db->getQuery(true)
-            ->select('id AS value, title AS text')
-            ->from('#__volunteers_positions')
-            ->where('state = 1');
-
-        if ($departmentId) {
-            $query->where('type = 1');
-        }
-
-        if ($teamId) {
-            $query->where('type = 2');
-        }
-
-        $query->order('ordering asc');
-
-        // Get the options.
-        $db->setQuery($query);
-
-        try {
-            $options = $db->loadObjectList();
-        } catch (RuntimeException $e) {
-            Factory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
-        }
-
-        return $options;
+        /** @var VolunteersService $volunteersService */
+        $volunteersService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);
+        return $volunteersService->getPositions();
     }
 
     /**
@@ -599,25 +428,9 @@ class VolunteersHelper
      */
     public static function reportcategories()
     {
-        $groups                         = [];
-        $groups[]['items'][]            = HTMLHelper::_('select.option', '', Text::_('COM_VOLUNTEERS_SELECT_REPORTCATEGORY'));
-        $groups['departments']          = [];
-        $groups['departments']['text']  = Text::sprintf('COM_VOLUNTEERS_FIELD_DEPARTMENTS');
-        $groups['departments']['items'] = [];
-
-        foreach (self::departments(true) as $department) {
-            $groups['departments']['items'][] = HTMLHelper::_('select.option', $department->value, $department->text);
-        }
-
-        $groups['teams']          = [];
-        $groups['teams']['text']  = Text::sprintf('COM_VOLUNTEERS_FIELD_TEAMS');
-        $groups['teams']['items'] = [];
-
-        foreach (self::teams(true) as $team) {
-            $groups['teams']['items'][] = HTMLHelper::_('select.option', $team->value, $team->text);
-        }
-
-        return $groups;
+        /** @var VolunteersService $volunteersService */
+        $volunteersService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);
+        return $volunteersService->getReportCategories();
     }
 
     /**
@@ -630,31 +443,9 @@ class VolunteersHelper
      */
     public static function roles($team = null)
     {
-        $options = null;
-
-        if (empty($team)) {
-            // Get team
-            $team = Factory::getApplication()->getUserState('com_volunteers.edit.member.teamid');
-        }
-
-        $db    = Factory::getContainer()->get('DatabaseDriver');
-        $query = $db->getQuery(true)
-            ->select('id AS value, title AS text')
-            ->from('#__volunteers_roles')
-            ->where('state = 1')
-            ->where($db->quoteName('team') . ' = ' . (int) $team)
-            ->order('title asc');
-
-        // Get the options.
-        $db->setQuery($query);
-
-        try {
-            $options = $db->loadObjectList();
-        } catch (RuntimeException $e) {
-            Factory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
-        }
-
-        return $options;
+        /** @var VolunteersService $volunteersService */
+        $volunteersService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);
+        return $volunteersService->getRoles($team ? (int) $team : null);
     }
 
     /**
@@ -667,36 +458,9 @@ class VolunteersHelper
      */
     public static function teams($parent = false, $prefix = false)
     {
-        $db      = Factory::getContainer()->get('DatabaseDriver');
-        $query   = $db->getQuery(true);
-        $options = null;
-        if ($prefix) {
-            $query->select('CONCAT(\'t.\', id) AS value, title AS text');
-        } else {
-            $query->select('id AS value, title AS text');
-        }
-
-        $query
-            ->from('#__volunteers_teams')
-            ->where('state = 1');
-
-        if ($parent) {
-            $teamId = Factory::getApplication()->input->getInt('id', 0);
-            $query->where('id != ' . $teamId);
-        }
-
-        $query->order('title asc');
-
-        // Get the options.
-        $db->setQuery($query);
-
-        try {
-            $options = $db->loadObjectList();
-        } catch (RuntimeException $e) {
-            Factory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
-        }
-
-        return $options;
+        /** @var VolunteersService $volunteersService */
+        $volunteersService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);
+        return $volunteersService->getTeams((bool) $parent, (bool) $prefix);
     }
 
     /**
@@ -709,25 +473,8 @@ class VolunteersHelper
      */
     public static function volunteers()
     {
-        $db      = Factory::getContainer()->get('DatabaseDriver');
-        $options = null;
-        $query   = $db->getQuery(true)
-            ->select('a.id AS value, user.name AS text')
-            ->from($db->quoteName('#__volunteers_volunteers') . ' AS a')
-            ->join('LEFT', '#__users AS ' . $db->quoteName('user') . ' ON user.id = a.user_id')
-            ->where('state = 1')
-            ->where($db->quoteName('user.email') . ' NOT LIKE ' . $db->quote('%identity.joomla.org%'))
-            ->order('name asc');
-
-        // Get the options.
-        $db->setQuery($query);
-
-        try {
-            $options = $db->loadObjectList();
-        } catch (RuntimeException $e) {
-            Factory::getApplication()->enqueueMessage($e->getMessage(), 'warning');
-        }
-
-        return $options;
+        /** @var VolunteersService $volunteersService */
+        $volunteersService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);
+        return $volunteersService->getVolunteers();
     }
 }

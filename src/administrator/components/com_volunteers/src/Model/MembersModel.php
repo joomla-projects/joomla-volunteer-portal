@@ -8,10 +8,11 @@
 
 namespace Joomla\Component\Volunteers\Administrator\Model;
 
-use Exception;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\ParameterType;
 use Joomla\Database\QueryInterface;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -24,6 +25,63 @@ use Joomla\Database\QueryInterface;
  */
 class MembersModel extends ListModel
 {
+    /**
+     * @var \Joomla\CMS\Application\CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor.
+     *
+     * @param   array                $config   An optional associative array of configuration settings.
+     * @param   MVCFactoryInterface  $factory  The factory.
+     *
+     * @since   4.0.0
+     * @throws  Exception
+     */
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
+    {
+        if (empty($config['filter_fields'])) {
+            $config['filter_fields'] = [
+                'id',
+                'a.id',
+                'team_id',
+                'a.team_id',
+                'volunteer_id',
+                'a.volunteer_id',
+                'role',
+                'a.role',
+                'position',
+                'a.position',
+                'checked_out',
+                'a.checked_out',
+                'checked_out_time',
+                'a.checked_out_time',
+                'state',
+                'a.state',
+                'created',
+                'a.created',
+                'created_by',
+                'a.created_by',
+                'ordering',
+                'a.ordering',
+                'featured',
+                'a.featured',
+                'date_started',
+                'a.date_started',
+                'date_ended',
+                'a.date_ended',
+                'volunteer',
+                'a.volunteer',
+            ];
+        }
+
+        parent::__construct($config, $factory);
+
+        $this->app = Factory::getApplication();
+    }
+
     /**
      * Method to get an array of data items.
      *
@@ -113,7 +171,8 @@ class MembersModel extends ListModel
         $state = $this->getState('filter.state');
 
         if (is_numeric($state)) {
-            $query->where('a.state = ' . (int) $state);
+            $query->where($db->quoteName('a.state') . ' = :state')
+                ->bind(':state', $state, ParameterType::INTEGER);
         }
 
         // Filter by search in title
@@ -121,10 +180,13 @@ class MembersModel extends ListModel
 
         if (!empty($search)) {
             if (stripos((string) $search, 'id:') === 0) {
-                $query->where('a.id = ' . (int) substr((string) $search, 3));
+                $id = (int) substr((string) $search, 3);
+                $query->where($db->quoteName('a.id') . ' = :id')
+                    ->bind(':id', $id, ParameterType::INTEGER);
             } else {
-                $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim((string) $search), true) . '%'));
-                $query->where('user.name LIKE ' . $search);
+                $search = '%' . str_replace(' ', '%', $db->escape(trim((string) $search), true) . '%');
+                $query->where($db->quoteName('user.name') . ' LIKE :search')
+                    ->bind(':search', $search);
             }
         }
 
@@ -132,7 +194,8 @@ class MembersModel extends ListModel
         $department = $this->getState('filter.department');
 
         if (is_numeric($department) && ($department > 0)) {
-            $query->where('a.department = ' . (int) $department);
+            $query->where($db->quoteName('a.department') . ' = :department')
+                ->bind(':department', $department, ParameterType::INTEGER);
         }
 
         // Filter by department teams
@@ -141,9 +204,10 @@ class MembersModel extends ListModel
         if (is_numeric($departmentTeam) && ($departmentTeam > 0)) {
             // Special handling for board of directors
             if ($departmentTeam == 58) {
-                $query->where('a.position IN (11,13)');
+                $query->where($db->quoteName('a.position') . ' IN (11,13)');
             } else {
-                $query->where('team.department = ' . (int) $departmentTeam);
+                $query->where($db->quoteName('team.department') . ' = :departmentTeam')
+                    ->bind(':departmentTeam', $departmentTeam, ParameterType::INTEGER);
             }
         }
 
@@ -151,64 +215,68 @@ class MembersModel extends ListModel
         $team = $this->getState('filter.team');
 
         if (is_array($team)) {
-            $query->where('a.team IN (' . implode(',', $team) . ')');
+            $query->whereIn($db->quoteName('a.team'), (array) $team);
         }
 
         if (is_numeric($team) && ($team > 0)) {
-            $query->where('a.team = ' . (int) $team);
+            $query->where($db->quoteName('a.team') . ' = :team')
+                ->bind(':team', $team, ParameterType::INTEGER);
         }
 
         // Filter by volunteer
         $volunteer = $this->getState('filter.volunteer');
 
         if (is_numeric($volunteer) && ($volunteer > 0)) {
-            $query->where('a.volunteer = ' . (int) $volunteer);
+            $query->where($db->quoteName('a.volunteer') . ' = :volunteer')
+                ->bind(':volunteer', $volunteer, ParameterType::INTEGER);
         }
 
         // Filter by position
         $position = $this->getState('filter.position');
 
         if (is_array($position)) {
-            $query->where('a.position IN (' . implode(',', $position) . ')');
+            $query->whereIn($db->quoteName('a.position'), (array) $position);
         }
 
         if (is_numeric($position) && ($position > 0)) {
-            $query->where('a.position = ' . (int) $position);
+            $query->where($db->quoteName('a.position') . ' = :position')
+                ->bind(':position', $position, ParameterType::INTEGER);
         }
 
         // Filter by team status
         $teamStatus = $this->getState('filter.teamStatus');
 
         if (is_numeric($teamStatus)) {
-            $query->where('team.status = ' . (int) $teamStatus);
+            $query->where($db->quoteName('team.status') . ' = :teamStatus')
+                ->bind(':teamStatus', $teamStatus, ParameterType::INTEGER);
         }
 
         // Filter by OSM status
         $osmStatus = $this->getState('filter.osmStatus');
-        $positions = '';
+        $positions = [];
         if ($osmStatus) {
             switch ($osmStatus) {
                 case 'contributor':
-                    $positions = '8';
+                    $positions = [8];
                     break;
                 case 'member':
-                    $positions = '1,2,7';
+                    $positions = [1, 2, 7];
                     break;
                 case 'teamleaders':
-                    $positions = '2';
+                    $positions = [2];
                     break;
                 case 'directors':
-                    $positions = '11';
+                    $positions = [11];
                     break;
                 case 'officers':
-                    $positions = '13';
+                    $positions = [13];
                     break;
             }
 
             $query
-                ->where('a.position IN (' . $positions . ')')
-                ->where('team.parent_id = 0')
-                ->where('team.department != 58');
+                ->whereIn($db->quoteName('a.position'), $positions)
+                ->where($db->quoteName('team.parent_id') . ' = 0')
+                ->where($db->quoteName('team.department') . ' != 58');
         }
 
         // Filter private profile on frontend
@@ -222,14 +290,12 @@ class MembersModel extends ListModel
         $active = $this->getState('filter.active');
 
         if (is_numeric($active)) {
-            $nullDate = $db->quote($db->getNullDate());
-
             if ($active == 1) {
-                $query->where('a.date_ended = ' . $nullDate);
+                $query->where($db->quoteName('a.date_ended') . ' IS NULL');
             }
 
             if ($active == 0) {
-                $query->where('a.date_ended != ' . $nullDate);
+                $query->where($db->quoteName('a.date_ended') . ' IS NOT NULL');
             }
         }
 
@@ -312,38 +378,4 @@ class MembersModel extends ListModel
         parent::populateState($ordering, $direction);
     }
 
-    /**
-     * Constructor.
-     *
-     * @param array $config  An optional associative array of configuration settings.
-* @param $factory MVCFactoryInterface
-     *
-     * @see     JController
-     * @since   4.0.0
-     * @throws Exception
-     */
-    public function __construct($config = [], MVCFactoryInterface $factory = null)
-    {
-        if (empty($config['filter_fields'])) {
-            $config['filter_fields'] = [
-                'id', 'a.id',
-                'team_id', 'a.team_id',
-                'volunteer_id', 'a.volunteer_id',
-                'role', 'a.role',
-                'position', 'a.position',
-                'checked_out', 'a.checked_out',
-                'checked_out_time', 'a.checked_out_time',
-                'state', 'a.state',
-                'created', 'a.created',
-                'created_by', 'a.created_by',
-                'ordering', 'a.ordering',
-                'featured', 'a.featured',
-                'date_started', 'a.date_started',
-                'date_ended', 'a.date_ended',
-                'volunteer', 'a.volunteer',
-            ];
-        }
-
-        parent::__construct($config, $factory);
-    }
 }

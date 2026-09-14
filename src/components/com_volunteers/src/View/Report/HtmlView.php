@@ -12,21 +12,19 @@ namespace Joomla\Component\Volunteers\Site\View\Report;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Exception;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\Helpers\StringHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\User;
-use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
+use Joomla\Component\Volunteers\Administrator\Service\AclService;
 use Joomla\Component\Volunteers\Site\Model\ReportModel;
-use Joomla\Component\Volunteers\Site\Model\VolunteerModel;
+use Exception;
 use stdClass;
 
 /**
@@ -41,6 +39,26 @@ class HtmlView extends BaseHtmlView
     protected mixed $form;
     protected User|null $user = null;
     protected stdClass $acl;
+
+    /**
+     * @var CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor
+     *
+     * @param   array  $config  A named configuration array for object construction.
+     *
+     * @since   4.0.0
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->app = \Joomla\CMS\Factory::getApplication();
+    }
 
     protected string $share;
     protected $volunteer;
@@ -72,16 +90,19 @@ class HtmlView extends BaseHtmlView
             $this->volunteer = $model->getVolunteer();
         }
 
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+
         if ($this->item->department && ($this->item->department_parent_id == 0)) {
-            $this->acl        = VolunteersHelper::acl('department', $this->item->department);
+            $this->acl        = $aclService->getAcl('department', (int) $this->item->department);
             $this->item->link = Route::_('index.php?option=com_volunteers&view=board&id=' . $this->item->department);
             $this->item->name = $this->item->department_title;
         } elseif ($this->item->department) {
-            $this->acl        = VolunteersHelper::acl('department', $this->item->department);
+            $this->acl        = $aclService->getAcl('department', (int) $this->item->department);
             $this->item->link = Route::_('index.php?option=com_volunteers&view=department&id=' . $this->item->department);
             $this->item->name = $this->item->department_title;
         } elseif ($this->item->team) {
-            $this->acl        = VolunteersHelper::acl('team', $this->item->team);
+            $this->acl        = $aclService->getAcl('team', (int) $this->item->team);
             $this->item->link = Route::_('index.php?option=com_volunteers&view=team&id=' . $this->item->team);
             $this->item->name = $this->item->team_title;
         }
@@ -109,8 +130,7 @@ class HtmlView extends BaseHtmlView
      */
     protected function manipulateForm()
     {
-        $app      = Factory::getApplication();
-        $jinput   = $app->getInput();
+        $jinput   = $this->app->getInput();
         $reportId = $jinput->getInt('id');
 
         // Disable fields
@@ -121,11 +141,11 @@ class HtmlView extends BaseHtmlView
         if ($reportId) {
             //$this->form->setFieldAttribute('volunteer', 'readonly', 'true');
         } else {
-            $departmentId = (int) $app->getUserState('com_volunteers.edit.report.departmentid');
-            $teamId       = (int) $app->getUserState('com_volunteers.edit.report.teamid');
+            $departmentId = (int) $this->app->getUserState('com_volunteers.edit.report.departmentid');
+            $teamId       = (int) $this->app->getUserState('com_volunteers.edit.report.teamid');
             $this->form->setValue('department', null, $departmentId);
             $this->form->setValue('team', null, $teamId);
-            $this->form->setValue('created', null, Factory::getDate());
+            $this->form->setValue('created', null, \Joomla\CMS\Factory::getDate());
             $this->item->department = $departmentId;
             $this->item->team       = $teamId;
         }
@@ -141,7 +161,7 @@ class HtmlView extends BaseHtmlView
      */
     protected function prepareDocument()
     {
-        $layout = Factory::getApplication()->input->get('layout');
+        $layout = $this->app->input->get('layout');
 
         if ($layout == 'edit') {
             // Prepare variables
@@ -206,7 +226,7 @@ class HtmlView extends BaseHtmlView
         $this->share = $layout->render($data);
 
         // Add to pathway
-        $pathway = Factory::getApplication()->getPathway();
+        $pathway = $this->app->getPathway();
         if ($this->item->team) {
             $pathway->addItem($this->item->team_title, Route::_('index.php?option=com_volunteers&view=team&id=' . $this->item->team));
         } elseif ($this->item->department) {

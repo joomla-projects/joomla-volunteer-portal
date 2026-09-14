@@ -69,14 +69,14 @@
 			type="editor"
 			label="JGLOBAL_DESCRIPTION"
 			buttons="false"
-			filter="JComponentHelper::filterText"
+			filter="ComponentHelper::filterText"
 		/>
 		<field
 			name="getinvolved"
 			type="editor"
 			label="COM_VOLUNTEERS_FIELD_INVOLVED"
 			buttons="false"
-			filter="JComponentHelper::filterText"
+			filter="ComponentHelper::filterText"
 		/>
 	</fieldset>
 	<fieldset name="details">

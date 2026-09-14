@@ -12,14 +12,16 @@ namespace Joomla\Component\Volunteers\Site\Model;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
+use Joomla\Database\ParameterType;
 use Joomla\String\StringHelper;
+use Exception;
 
 /**
  * Report model.
@@ -27,6 +29,28 @@ use Joomla\String\StringHelper;
  */
 class ReportModel extends AdminModel
 {
+    /**
+     * @var \Joomla\CMS\Application\CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor.
+     *
+     * @param   array                $config   An optional associative array of configuration settings.
+     * @param   MVCFactoryInterface  $factory  The factory.
+     *
+     * @since   4.0.0
+     * @throws  Exception
+     */
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
+    {
+        parent::__construct($config, $factory);
+
+        $this->app = Factory::getApplication();
+    }
+
     /**
      * The type alias for this content type.
      *
@@ -126,7 +150,7 @@ class ReportModel extends AdminModel
         $date = Factory::getDate();
         $user = $this->getCurrentUser();
 
-        $table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
+        $table->title = htmlspecialchars_decode((string) $table->title, ENT_QUOTES);
         $table->alias = ApplicationHelper::stringURLSafe($table->alias);
 
         if (empty($table->alias)) {
@@ -225,7 +249,7 @@ class ReportModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.report.data', []);
+        $data = $this->app->getUserState('com_volunteers.edit.report.data', []);
         if (empty($data)) {
             $data = $this->getItem();
         }
@@ -248,8 +272,7 @@ class ReportModel extends AdminModel
      */
     protected function populateState()
     {
-        $app  = Factory::getApplication();
-        $user = $app->getIdentity();
+        $user = $this->app->getIdentity();
 
         // Check published state
         if ((!$user->authorise('core.edit.state', 'com_volunteers')) && (!$user->authorise('core.edit', 'com_volunteers'))) {
@@ -258,13 +281,13 @@ class ReportModel extends AdminModel
         }
 
         // Load state from the request userState on edit or from the passed variable on default
-        $id = $app->getInput()->get('id');
-        $app->setUserState('com_volunteers.edit.report.id', $id);
+        $id = $this->app->getInput()->get('id');
+        $this->app->setUserState('com_volunteers.edit.report.id', $id);
 
         $this->setState('report.id', $id);
 
         // Load the parameters.
-        $params       = $app->getParams();
+        $params       = $this->app->getParams();
         $params_array = $params->toArray();
 
         if (isset($params_array['item_id'])) {
@@ -292,33 +315,35 @@ class ReportModel extends AdminModel
                 $db    = $this->getDatabase();
                 $query = $db->getQuery(true)
                     ->select($this->getState('item.select', 'a.*'))
-                    ->from('#__volunteers_reports AS a')
-                    ->where('a.id = ' . (int) $pk);
+                    ->from($db->quoteName('#__volunteers_reports', 'a'))
+                    ->where($db->quoteName('a.id') . ' = :pk')
+                    ->bind(':pk', $pk, ParameterType::INTEGER);
 
                 // Join on volunteer table.
-                $query->select('volunteer.id AS volunteer_id, volunteer.image AS volunteer_image')
-                    ->join('LEFT', '#__volunteers_volunteers AS ' . $db->quoteName('volunteer') . ' on volunteer.user_id = a.created_by');
+                $query->select($db->quoteName('volunteer.id', 'volunteer_id') . ', ' . $db->quoteName('volunteer.image', 'volunteer_image'))
+                    ->join('LEFT', $db->quoteName('#__volunteers_volunteers', 'volunteer') . ' on ' . $db->quoteName('volunteer.user_id') . ' = ' . $db->quoteName('a.created_by'));
 
                 // Join over the users for the related user.
                 $query
-                    ->select('user.name AS volunteer_name')
-                    ->join('LEFT', '#__users AS ' . $db->quoteName('user') . ' ON user.id = a.created_by');
+                    ->select($db->quoteName('user.name', 'volunteer_name'))
+                    ->join('LEFT', $db->quoteName('#__users', 'user') . ' ON ' . $db->quoteName('user.id') . ' = ' . $db->quoteName('a.created_by'));
 
                 // Join on department table.
-                $query->select('department.title AS department_title, department.parent_id AS department_parent_id')
-                    ->join('LEFT', '#__volunteers_departments AS ' . $db->quoteName('department') . ' on department.id = a.department');
+                $query->select($db->quoteName('department.title', 'department_title') . ', ' . $db->quoteName('department.parent_id', 'department_parent_id'))
+                    ->join('LEFT', $db->quoteName('#__volunteers_departments', 'department') . ' on ' . $db->quoteName('department.id') . ' = ' . $db->quoteName('a.department'));
 
                 // Join on team table.
-                $query->select('team.title AS team_title')
-                    ->join('LEFT', '#__volunteers_teams AS ' . $db->quoteName('team') . ' on team.id = a.team');
+                $query->select($db->quoteName('team.title', 'team_title'))
+                    ->join('LEFT', $db->quoteName('#__volunteers_teams', 'team') . ' on ' . $db->quoteName('team.id') . ' = ' . $db->quoteName('a.team'));
 
                 // Filter by published state.
                 $published = $this->getState('filter.published');
                 $archived  = $this->getState('filter.archived');
 
                 if (is_numeric($published)) {
-                    $query->where('(a.state = ' . (int) $published . ' OR a.state =' . (int) $archived . ')');
-                    //  ->where('(c.published = ' . (int) $published . ' OR c.published =' . (int) $archived . ')');
+                    $query->where('(' . $db->quoteName('a.state') . ' = :published OR ' . $db->quoteName('a.state') . ' = :archived)')
+                        ->bind(':published', $published, ParameterType::INTEGER)
+                        ->bind(':archived', $archived, ParameterType::INTEGER);
                 }
 
                 $db->setQuery($query);
@@ -336,7 +361,7 @@ class ReportModel extends AdminModel
 
                 return $data;
             } catch (Exception $e) {
-                throw new Exception($e);
+                throw new Exception($e->getMessage(), 500);
             }
         }
         return null;

@@ -14,7 +14,7 @@ namespace Joomla\Component\Volunteers\Site\View\My;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Exception;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Router\Route;
@@ -29,6 +29,26 @@ use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
 class HtmlView extends BaseHtmlView
 {
     /**
+     * @var CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor
+     *
+     * @param   array  $config  A named configuration array for object construction.
+     *
+     * @since   4.0.0
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->app = \Joomla\CMS\Factory::getApplication();
+    }
+
+    /**
      * Execute and display a template script.
      *
      * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
@@ -41,9 +61,8 @@ class HtmlView extends BaseHtmlView
      */
     public function display($tpl = null)
     {
-        $app = Factory::getApplication();
         /** @var VolunteersComponent $extension */
-        $extension = $app->bootComponent('com_volunteers');
+        $extension = $this->app->bootComponent('com_volunteers');
         /** @var VolunteerModel $model */
         $model = $extension->getMVCFactory()->createModel('Volunteer', 'Administrator', ['ignore_request' => true]);
 
@@ -52,7 +71,7 @@ class HtmlView extends BaseHtmlView
         $volunteerId = (int) $model->getVolunteerId($userId);
 
         if ($volunteerId) {
-            Factory::getApplication()->redirect(Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteerId, false));
+            $this->app->redirect(Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteerId, false));
         }
         parent::display($tpl);
     }

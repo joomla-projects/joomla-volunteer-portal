@@ -12,6 +12,7 @@ namespace Joomla\Component\Volunteers\Administrator\View\Department;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 use Exception;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
@@ -32,6 +33,26 @@ class HtmlView extends BaseHtmlView
     protected mixed $state;
     protected mixed $item;
     protected mixed $form;
+
+    /**
+     * @var CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor
+     *
+     * @param   array  $config  A named configuration array for object construction.
+     *
+     * @since   4.0.0
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->app = \Joomla\CMS\Factory::getApplication();
+    }
     /**
      * Display the view
      *
@@ -46,7 +67,8 @@ class HtmlView extends BaseHtmlView
     {
         /** @var DepartmentModel $model */
         $model       = $this->getModel();
-        #$this->setUseExceptions(true);
+        $model->setUseExceptions(true);
+        
         $this->state = $model->getState();
         $this->item  = $model->getItem();
         $this->form  = $model->getForm();
@@ -69,7 +91,7 @@ class HtmlView extends BaseHtmlView
      */
     protected function addToolbar()
     {
-        Factory::getApplication()->getInput()->set('hidemainmenu', true);
+        $this->app->getInput()->set('hidemainmenu', true);
         $user       = $this->getCurrentUser();
         $userId     = $user->id;
         $isNew      = ($this->item->id == 0);

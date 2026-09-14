@@ -12,11 +12,12 @@ namespace Joomla\Component\Volunteers\Site\View\Role;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Exception;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Exception;
 
 use Joomla\CMS\User\User;
 use Joomla\Component\Volunteers\Site\Model\RoleModel;
@@ -32,6 +33,26 @@ class HtmlView extends BaseHtmlView
     protected mixed $item;
     protected mixed $form;
     protected User|null $user = null;
+
+    /**
+     * @var CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor
+     *
+     * @param   array  $config  A named configuration array for object construction.
+     *
+     * @since   4.0.0
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->app = \Joomla\CMS\Factory::getApplication();
+    }
 
     /**
      * Execute and display a template script.
@@ -79,14 +100,13 @@ class HtmlView extends BaseHtmlView
      */
     protected function manipulateForm()
     {
-        $app      = Factory::getApplication();
-        $jinput   = $app->getInput();
+        $jinput   = $this->app->getInput();
         $memberId = $jinput->getInt('id');
         $this->form->setFieldAttribute('team', 'readonly', 'true');
 
         // If editing existing member
         if (!$memberId) {
-            $teamId = (int) $app->getUserState('com_volunteers.edit.role.teamid');
+            $teamId = (int) $this->app->getUserState('com_volunteers.edit.role.teamid');
             $this->form->setValue('team', null, $teamId);
             $this->item->team = $teamId;
         }

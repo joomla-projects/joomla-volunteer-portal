@@ -13,13 +13,13 @@ namespace Joomla\Component\Volunteers\Site\Model;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
-use Jed\Component\Jed\Site\Helper\JedHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 
 use Joomla\CMS\Table\Table;
+use Joomla\Database\ParameterType;
 use Joomla\Utilities\ArrayHelper;
 
 /**
@@ -70,15 +70,18 @@ class MemberModel extends AdminModel
         $nullDate = $db->quote($db->getNullDate());
 
         $query = $db->getQuery(true)
-            ->select('position')
-            ->from('#__volunteers_members')
-            ->where($db->quoteName('volunteer') . ' = ' . (int) $volunteerId)
-            ->where('date_ended = ' . $nullDate);
+            ->select($db->quoteName('position'))
+            ->from($db->quoteName('#__volunteers_members'))
+            ->where($db->quoteName('volunteer') . ' = :volunteer')
+            ->where($db->quoteName('date_ended') . ' = ' . $nullDate)
+            ->bind(':volunteer', $volunteerId, ParameterType::INTEGER);
 
         if ($department) {
-            $query->where($db->quoteName('department') . ' = ' . (int) $department);
+            $query->where($db->quoteName('department') . ' = :department')
+                ->bind(':department', $department, ParameterType::INTEGER);
         } elseif ($team) {
-            $query->where($db->quoteName('team') . ' = ' . (int) $team);
+            $query->where($db->quoteName('team') . ' = :team')
+                ->bind(':team', $team, ParameterType::INTEGER);
         }
 
         $db->setQuery($query);

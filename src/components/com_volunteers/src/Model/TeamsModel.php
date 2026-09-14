@@ -8,12 +8,12 @@
 
 namespace Joomla\Component\Volunteers\Site\Model;
 
-use Exception;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Component\Volunteers\Administrator\Model\MembersModel;
+use Joomla\Database\ParameterType;
 use Joomla\Database\QueryInterface;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -26,6 +26,12 @@ use Joomla\Database\QueryInterface;
  */
 class TeamsModel extends ListModel
 {
+    /**
+     * @var \Joomla\CMS\Application\CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
     /**
      * Constructor.
      *
@@ -64,6 +70,8 @@ class TeamsModel extends ListModel
         }
 
         parent::__construct($config, $factory);
+
+        $this->app = Factory::getApplication();
     }
 
     /**
@@ -86,9 +94,9 @@ class TeamsModel extends ListModel
         $this->setState('filter.department', $this->getUserStateFromRequest($this->context . '.filter.department', 'filter_department'));
         $this->setState('filter.active', $this->getUserStateFromRequest($this->context . '.filter.active', 'filter_active'));
         $this->setState('filter.parent', $this->getUserStateFromRequest($this->context . '.filter.parent', 'filter_parent'));
-        $deptid = Factory::getApplication()->input->getInt('id');
+        $deptid = $this->app->input->getInt('id');
         if ($deptid === 58) {
-            $this->setState('filter.groups', Factory::getApplication()->input->getInt('id'));
+            $this->setState('filter.groups', $this->app->input->getInt('id'));
         }
 
         // Load the parameters.
@@ -139,39 +147,43 @@ class TeamsModel extends ListModel
         // Select the required fields from the table.
         $query
             ->select($this->getState('list.select', ['a.*']))
-            ->from($db->quoteName('#__volunteers_teams') . ' AS a');
+            ->from($db->quoteName('#__volunteers_teams', 'a'));
 
         // Join over the users for the checked_out user.
         $query
-            ->select('checked_out.name AS editor')
-            ->join('LEFT', '#__users AS ' . $db->quoteName('checked_out') . ' ON checked_out.id = a.checked_out');
+            ->select($db->quoteName('checked_out.name', 'editor'))
+            ->join('LEFT', $db->quoteName('#__users', 'checked_out') . ' ON ' . $db->quoteName('checked_out.id') . ' = ' . $db->quoteName('a.checked_out'));
 
         // Join over the departments.
         $query
-            ->select('department.title AS department_title')
-            ->join('LEFT', '#__volunteers_departments AS ' . $db->quoteName('department') . ' ON department.id = a.department');
+            ->select($db->quoteName('department.title', 'department_title'))
+            ->join('LEFT', $db->quoteName('#__volunteers_departments', 'department') . ' ON ' . $db->quoteName('department.id') . ' = ' . $db->quoteName('a.department'));
 
         // Self-join over the parent team.
         $query
-            ->select('parentteam.title AS parent_title')
-            ->join('LEFT', '#__volunteers_teams AS ' . $db->quoteName('parentteam') . ' ON parentteam.id = a.parent_id');
+            ->select($db->quoteName('parentteam.title', 'parent_title'))
+            ->join('LEFT', $db->quoteName('#__volunteers_teams', 'parentteam') . ' ON ' . $db->quoteName('parentteam.id') . ' = ' . $db->quoteName('a.parent_id'));
 
         // Filter by published state
         $state = $this->getState('filter.state', 1);
 
         if (is_numeric($state)) {
-            $query->where('a.state = ' . (int) $state);
+            $query->where($db->quoteName('a.state') . ' = :state')
+                ->bind(':state', $state, ParameterType::INTEGER);
         }
 
         // Filter by search in title
         $search = $this->getState('filter.search');
 
         if (!empty($search)) {
-            if (stripos($search, 'id:') === 0) {
-                $query->where('a.id = ' . (int) substr($search, 3));
+            if (stripos((string) $search, 'id:') === 0) {
+                $id = (int) substr((string) $search, 3);
+                $query->where($db->quoteName('a.id') . ' = :id')
+                    ->bind(':id', $id, ParameterType::INTEGER);
             } else {
-                $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
-                $query->where('(a.title LIKE ' . $search . ' OR a.alias LIKE ' . $search . ')');
+                $search = '%' . str_replace(' ', '%', $db->escape(trim((string) $search), true) . '%');
+                $query->where('(' . $db->quoteName('a.title') . ' LIKE :search OR ' . $db->quoteName('a.alias') . ' LIKE :search)')
+                    ->bind(':search', $search);
             }
         }
 
@@ -179,30 +191,30 @@ class TeamsModel extends ListModel
         $groups = $this->getState('filter.groups');
 
         if (is_numeric($groups) && ($groups > 0)) {
-            $query->where('a.department = ' . (int) $groups);
+            $query->where($db->quoteName('a.department') . ' = :groups')
+                ->bind(':groups', $groups, ParameterType::INTEGER);
         } else {
-            $query->where('a.department <> 58');
+            $query->where($db->quoteName('a.department') . ' <> 58');
         }
 
         // Filter by department
         $department = $this->getState('filter.department');
         if (is_numeric($department) && ($department > 0)) {
-            $query->where('a.department = ' . (int) $department);
+            $query->where($db->quoteName('a.department') . ' = :department')
+                ->bind(':department', $department, ParameterType::INTEGER);
         }
 
         // Filter by active state
-        $frontend = Factory::getApplication()->isClient('site');
+        $frontend = $this->app->isClient('site');
         $active   = $this->getState('filter.active', ($frontend) ? 1 : null);
 
         if (is_numeric($active)) {
-            $nullDate = $db->quote($db->getNullDate());
-
             if ($active == 1) {
-                $query->where('a.date_ended = ' . $nullDate);
+                $query->where($db->quoteName('a.date_ended') . ' IS NULL');
             }
 
             if ($active == 0) {
-                $query->where('a.date_ended != ' . $nullDate);
+                $query->where($db->quoteName('a.date_ended') . ' IS NOT NULL');
             }
         }
 
@@ -210,22 +222,23 @@ class TeamsModel extends ListModel
         $subteams = $this->getState('filter.subteams');
 
         if (!$subteams) {
-            $query->where('a.parent_id = 0');
+            $query->where($db->quoteName('a.parent_id') . ' = 0');
         }
 
         // Filter by parent
         $parent = $this->getState('filter.parent');
 
         if (is_array($parent)) {
-            $query->where('a.parent_id IN (' . implode(',', $parent) . ')');
+            $query->whereIn($db->quoteName('a.parent_id'), (array) $parent);
         }
 
         if (is_numeric($parent) && ($parent > 0)) {
-            $query->where('a.parent_id = ' . (int) $parent);
+            $query->where($db->quoteName('a.parent_id') . ' = :parent')
+                ->bind(':parent', $parent, ParameterType::INTEGER);
         }
 
         // Group by ID
-        $query->group('a.id');
+        $query->group($db->quoteName('a.id'));
 
         // Add the list ordering clause.
         $orderCol  = $this->state->get('list.ordering', 'a.title');
@@ -304,25 +317,25 @@ class TeamsModel extends ListModel
 
         $query
             ->select('*')
-            ->from('#__volunteers_teams');
+            ->from($db->quoteName('#__volunteers_teams'));
 
         if (!$parent) {
-            $query->where('parent_id > 0');
+            $query->where($db->quoteName('parent_id') . ' > 0');
         }
 
         if (is_array($parent)) {
-            $query->where('parent_id IN (' . implode(',', $parent) . ')');
+            $query->whereIn($db->quoteName('parent_id'), (array) $parent);
         }
 
         if (is_numeric($parent) && ($parent > 0)) {
-            $query->where('parent_id = ' . (int) $parent);
+            $query->where($db->quoteName('parent_id') . ' = :parent')
+                ->bind(':parent', $parent, ParameterType::INTEGER);
         }
 
         // Only active teams
-        $nullDate = $db->quote($db->getNullDate());
-        $query->where('date_ended = ' . $nullDate);
+        $query->where($db->quoteName('date_ended') . ' IS NULL');
 
-        $query->order('title ASC');
+        $query->order($db->quoteName('title') . ' ASC');
 
         $db->setQuery($query);
 

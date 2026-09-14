@@ -40,6 +40,12 @@ class RegistrationModel extends FormModel
     protected object $data;
 
     /**
+     * @var \Joomla\CMS\Application\CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
      * Method to get the registration form.
      *
      * The base form is loaded from XML and then an event is fired
@@ -97,11 +103,10 @@ class RegistrationModel extends FormModel
     {
         if ($this->data === null) {
             $this->data = new stdClass();
-            $app        = Factory::getApplication();
             $params     = ComponentHelper::getParams('com_volunteers');
 
             // Override the base user data with any data in the session.
-            $temp = (array) $app->getUserState('com_volunteers.registration.data', []);
+            $temp = (array) $this->app->getUserState('com_volunteers.registration.data', []);
 
             foreach ($temp as $k => $v) {
                 $this->data->$k = $v;
@@ -167,13 +172,13 @@ class RegistrationModel extends FormModel
 
         if (!$volunteer->save($data)) {
             //Change to enqeue message MF
-            Factory::getApplication()->enqueueMessage(Text::sprintf('COM_VOLUNTEERS_REGISTRATION_SAVE_FAILED'));
+            $this->app->enqueueMessage(Text::sprintf('COM_VOLUNTEERS_REGISTRATION_SAVE_FAILED'));
 
             return false;
         }
 
         // Global config
-        $config = Factory::getApplication()->getConfig();
+        $config = $this->app->getConfig();
 
         // Compile the notification mail values.
         $data['fromname'] = $config->get('fromname');
@@ -219,5 +224,7 @@ class RegistrationModel extends FormModel
         );
         $this->data = new stdClass();
         parent::__construct($config, $factory);
+
+        $this->app = Factory::getApplication();
     }
 }

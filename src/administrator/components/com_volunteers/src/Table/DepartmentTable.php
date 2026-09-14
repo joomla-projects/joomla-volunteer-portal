@@ -149,8 +149,9 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
     public function store($updateNulls = false)
     {
         $date = Factory::getDate();
-        $user = $this->getCurrentUser();
-
+        $user = Factory::getApplication()->getIdentity();
+        $this->checked_out = 0;
+        $this->checked_out_time=null;
         $this->modified = $date->toSql();
 
         if ($this->getId()) {
@@ -167,15 +168,16 @@ class DepartmentTable extends Table implements VersionableTableInterface, Taggab
             if (empty($this->created_by ?? null)) {
                 $this->created_by = $user->id;
             }
+            // Verify that the alias is unique
+            $table = new DepartmentTable($this->getDatabase());
+            //$table = Table::getInstance('Department', 'VolunteersTable');
+
+            if ($table->load(['alias' => $this->alias ?? null]) && ($table->get('id') != ($this->id ?? null) || ($this->id ?? null) == 0)) {
+                throw new Exception(Text::_('COM_VOLUNTEERS_ERROR_UNIQUE_ALIAS'));
+            }
         }
 
-        // Verify that the alias is unique
-        $table = new DepartmentTable($this->getDatabase());
-        //$table = Table::getInstance('Department', 'VolunteersTable');
 
-        if ($table->load(['alias' => $this->alias ?? null]) && ($table->get('id') != ($this->id ?? null) || ($this->id ?? null) == 0)) {
-            throw new Exception(Text::_('COM_VOLUNTEERS_ERROR_UNIQUE_ALIAS'));
-        }
 
         return parent::store($updateNulls);
     }

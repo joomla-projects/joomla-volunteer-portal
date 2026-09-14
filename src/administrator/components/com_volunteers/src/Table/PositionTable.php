@@ -146,7 +146,7 @@ class PositionTable extends Table implements VersionableTableInterface, Taggable
     public function store($updateNulls = false)
     {
         $date = Factory::getDate();
-        $user = $this->getCurrentUser();
+        $user = Factory::getApplication()->getIdentity();
 
         $this->modified = $date->toSql();
 
