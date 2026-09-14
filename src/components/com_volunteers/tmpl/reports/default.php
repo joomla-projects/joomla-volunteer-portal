@@ -92,7 +92,7 @@ try {
                         <a href="<?php echo $item->link; ?>"><?php echo $item->name; ?></a>
                     </p>
                     <p>
-                        <?php echo HtmlHelper::_('string.truncate', strip_tags(trim($item->description)), 500); ?>
+                        <?php echo HtmlHelper::_('string.truncate', strip_tags(trim((string) $item->description)), 500); ?>
                     </p>
                     <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="volunteers_btn">
                         <span class="icon-chevron-right" aria-hidden="true"></span>

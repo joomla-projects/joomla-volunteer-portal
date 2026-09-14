@@ -14,7 +14,7 @@ use Exception;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
-use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
+use Joomla\Component\Volunteers\Administrator\Service\AclService;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -39,7 +39,10 @@ class RoleController extends FormController
     {
         // Get variables
         $teamId = $this->input->getInt('team');
-        $acl    = VolunteersHelper::acl('team', $teamId);
+
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+        $acl        = $aclService->getAcl('team', $teamId);
 
         // Check if the user is authorized to edit this team
         if (!$acl->edit) {
@@ -69,7 +72,10 @@ class RoleController extends FormController
         // Get variables
         $roleId = $this->input->getInt('id');
         $teamId = (int) $this->getModel()->getItem($roleId)->team;
-        $acl    = VolunteersHelper::acl('team', $teamId);
+
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+        $acl        = $aclService->getAcl('team', $teamId);
 
         // Check if the user is authorized to edit this team
         if (!$acl->edit) {
@@ -99,7 +105,10 @@ class RoleController extends FormController
         // Get variables
         $roleId = $this->input->getInt('id');
         $teamId = (int) $this->getModel()->getItem($roleId)->team;
-        $acl    = VolunteersHelper::acl('team', $teamId);
+
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+        $acl        = $aclService->getAcl('team', $teamId);
 
         // Check if the user is authorized to edit this team
         if (!$acl->edit) {
@@ -136,7 +145,10 @@ class RoleController extends FormController
         // Get variables
         $roleId = $this->input->getInt('id');
         $teamId = ($roleId) ? $this->getModel()->getItem($roleId)->team : $this->app->getUserState('com_volunteers.edit.role.teamid');
-        $acl    = VolunteersHelper::acl('team', $teamId);
+
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+        $acl        = $aclService->getAcl('team', (int) $teamId);
 
         // Check if the user is authorized to edit this team
         if (!$acl->edit) {

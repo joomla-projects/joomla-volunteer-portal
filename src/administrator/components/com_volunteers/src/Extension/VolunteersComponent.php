@@ -49,6 +49,12 @@ class VolunteersComponent extends MVCComponent implements
     }
 
     /**
+     * @var ContainerInterface
+     * @since  6.1.0
+     */
+    protected $container;
+
+    /**
      * Booting the extension. This is the function to set up the environment of the extension like
      * registering new class loaders, etc.
      *
@@ -63,7 +69,20 @@ class VolunteersComponent extends MVCComponent implements
      */
     public function boot(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->getRegistry()->register('volunteers', new Volunteers());
+    }
+
+    /**
+     * Returns the container.
+     *
+     * @return  ContainerInterface
+     *
+     * @since   6.1.0
+     */
+    public function getContainer(): ContainerInterface
+    {
+        return $this->container;
     }
 
     /**

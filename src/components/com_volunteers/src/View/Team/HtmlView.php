@@ -12,18 +12,17 @@ namespace Joomla\Component\Volunteers\Site\View\Team;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
-use Exception;
-use Joomla\CMS\Factory;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\HTML\Helpers\StringHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\User;
-use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
+use Joomla\Component\Volunteers\Administrator\Service\AclService;
 use Joomla\Component\Volunteers\Site\Model\TeamModel;
+use Exception;
 use stdClass;
 
 /**
@@ -38,6 +37,26 @@ class HtmlView extends BaseHtmlView
     protected mixed $form;
     protected User|null $user = null;
     protected stdClass $acl;
+
+    /**
+     * @var CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor
+     *
+     * @param   array  $config  A named configuration array for object construction.
+     *
+     * @since   4.0.0
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->app = \Joomla\CMS\Factory::getApplication();
+    }
 
 
     /**
@@ -63,16 +82,19 @@ class HtmlView extends BaseHtmlView
         $this->form           = $model->getForm();
         $this->user           = $this->getCurrentUser();
         $this->item->reports  = $model->getTeamReports();
-        $this->item->subteams = $model->getTeamSubteams();
+        $this->item->subteams = $model->getTeamSubteams($this->item->id);
         $this->item->members  = $model->getTeamMembers();
         $this->item->roles    = $model->getTeamRoles();
-        $this->acl            = VolunteersHelper::acl('team', $this->item->id);
+
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+        $this->acl  = $aclService->getAcl('team', (int) $this->item->id);
 
         // Set team id in session
-        Factory::getApplication()->getSession()->set('team', $this->item->id);
+        $this->app->getSession()->set('team', $this->item->id);
 
         // Active / inactive
-        $this->item->active = ($this->item->date_ended == '0000-00-00');
+        $this->item->active = (empty($this->item->date_ended) || $this->item->date_ended === '0000-00-00');
 
         $errors = $model->getErrors();
         if ($errors && count($errors) > 0) {
@@ -99,11 +121,10 @@ class HtmlView extends BaseHtmlView
     protected function manipulateForm()
     {
         // Manipulate frontend edit form
-        $app    = Factory::getApplication();
-        $teamId = $app->getInput()->getInt('id');
+        $teamId = $this->app->getInput()->getInt('id');
 
         // Clear date ended field if not set
-        if ($this->item->date_ended == '0000-00-00') {
+        if (empty($this->item->date_ended) || $this->item->date_ended === '0000-00-00') {
             $this->form->setValue('date_ended', null, null);
         }
 
@@ -114,11 +135,11 @@ class HtmlView extends BaseHtmlView
                 $this->form->setFieldAttribute('status', 'readonly', 'true');
             }
         } else {
-            $departmentId = (int) $app->getUserState('com_volunteers.edit.team.departmentid');
-            $teamId       = (int) $app->getUserState('com_volunteers.edit.team.teamid');
+            $departmentId = (int) $this->app->getUserState('com_volunteers.edit.team.departmentid');
+            $teamId       = (int) $this->app->getUserState('com_volunteers.edit.team.teamid');
             $this->form->setValue('department', null, $departmentId);
             $this->form->setValue('parent_id', null, $teamId);
-            $this->form->setValue('date_started', null, Factory::getDate());
+            $this->form->setValue('date_started', null, \Joomla\CMS\Factory::getDate());
             $this->form->setFieldAttribute('department', 'readonly', 'true');
 
             if ($teamId) {
@@ -136,7 +157,7 @@ class HtmlView extends BaseHtmlView
      */
     protected function prepareDocument()
     {
-        $layout = Factory::getApplication()->input->get('layout');
+        $layout = $this->app->input->get('layout');
 
         if ($layout == 'edit') {
             // Prepare variables
@@ -183,7 +204,7 @@ class HtmlView extends BaseHtmlView
         setMetaData('og:url', $url, 'property');
 
         // Add to pathway
-        $pathway = Factory::getApplication()->getPathway();
+        $pathway = $this->app->getPathway();
         $pathway->addItem($this->item->title, $itemURL);
 
         // Add the RSS link.

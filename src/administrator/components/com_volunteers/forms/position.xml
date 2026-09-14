@@ -28,7 +28,7 @@
 			type="editor"
 			label="JGLOBAL_DESCRIPTION"
 			buttons="false"
-			filter="JComponentHelper::filterText"
+			filter="ComponentHelper::filterText"
 		/>
 	</fieldset>
 	<fieldset name="acl">

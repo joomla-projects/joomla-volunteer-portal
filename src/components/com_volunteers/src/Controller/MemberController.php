@@ -18,7 +18,7 @@ use Exception;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
-use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
+use Joomla\Component\Volunteers\Administrator\Service\AclService;
 use stdClass;
 
 /**
@@ -45,12 +45,15 @@ class MemberController extends FormController
         $teamId       = $this->input->getInt('team');
         $acl          = new stdClass();
 
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+
         // Department or team?
         if ($departmentId) {
-            $acl = VolunteersHelper::acl('department', $departmentId);
+            $acl = $aclService->getAcl('department', $departmentId);
             $this->app->setUserState('com_volunteers.edit.member.departmentid', $departmentId);
         } elseif ($teamId) {
-            $acl = VolunteersHelper::acl('team', $teamId);
+            $acl = $aclService->getAcl('team', $teamId);
             $this->app->setUserState('com_volunteers.edit.member.teamid', $teamId);
         }
 
@@ -112,12 +115,15 @@ class MemberController extends FormController
         $member   = $this->getModel()->getItem($memberId);
         $acl      = new stdClass();
 
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+
         // Department or team?
         if ($member->department) {
-            $acl = VolunteersHelper::acl('department', $member->department);
+            $acl = $aclService->getAcl('department', (int) $member->department);
             $this->app->setUserState('com_volunteers.edit.member.departmentid', $member->department);
         } elseif ($member->team) {
-            $acl = VolunteersHelper::acl('team', $member->team);
+            $acl = $aclService->getAcl('team', (int) $member->team);
             $this->app->setUserState('com_volunteers.edit.member.teamid', $member->team);
         }
 
@@ -152,13 +158,16 @@ class MemberController extends FormController
         $departmentId = ($memberId) ? $member->department : $this->app->getUserState('com_volunteers.edit.member.departmentid');
         $teamId       = ($memberId) ? $member->team : $this->app->getUserState('com_volunteers.edit.member.teamid');
         $acl          = new stdClass();
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+
         // Department or team?
         if ($departmentId) {
             $this->app->setUserState('com_volunteers.edit.member.departmentid', null);
-            $acl = VolunteersHelper::acl('department', $departmentId);
+            $acl = $aclService->getAcl('department', (int) $departmentId);
         } elseif ($teamId) {
             $this->app->setUserState('com_volunteers.edit.member.teamid', null);
-            $acl = VolunteersHelper::acl('team', $teamId);
+            $acl = $aclService->getAcl('team', (int) $teamId);
         }
 
         // Check if the user is authorized to edit this team

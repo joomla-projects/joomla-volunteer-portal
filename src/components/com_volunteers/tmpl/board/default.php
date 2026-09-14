@@ -44,7 +44,7 @@ try {
     </div>
 
     <p class="lead">
-        <?php echo strip_tags($this->item->description) ?>
+        <?php echo strip_tags((string) $this->item->description) ?>
     </p>
 
     <dl class="dl-horizontal">
@@ -249,7 +249,7 @@ try {
                                 href="<?php echo Route::_('index.php?option=com_volunteers&view=board&id=' . $report->department) ?>"><?php echo $report->department_title; ?></a>
                         </p>
                         <p>
-                            <?php echo HtmlHelper::_('string.truncate', strip_tags(trim($report->description)), 300); ?>
+                            <?php echo HtmlHelper::_('string.truncate', strip_tags(trim((string) $report->description)), 300); ?>
                         </p>
                         <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>"
                             class="volunteers_btn">

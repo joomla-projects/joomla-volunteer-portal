@@ -272,7 +272,7 @@ try {
         }
         if ($this->item->joomlastory) {
             echo HTMLHelper::_('uitab.addTab', 'volunteerTab', 'viewjoomlastory', Text::_('COM_VOLUNTEERS_TAB_JOOMLASTORY'));
-            echo (nl2br($this->item->joomlastory));
+            echo (nl2br((string) $this->item->joomlastory));
             echo HTMLHelper::_('uitab.endTab');
         }
 

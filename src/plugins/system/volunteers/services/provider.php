@@ -10,8 +10,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Extension\PluginInterface;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\User\UserFactoryInterface;
 use Joomla\Database\DatabaseInterface;
@@ -39,7 +39,7 @@ return new class () implements ServiceProviderInterface {
                     $container->get(DispatcherInterface::class),
                     (array) PluginHelper::getPlugin('system', 'volunteers')
                 );
-                $plugin->setApplication(Factory::getApplication());
+                $plugin->setApplication($container->get(CMSApplicationInterface::class));
 
                 return $plugin;
             }

@@ -32,13 +32,6 @@ use Joomla\Component\Volunteers\Administrator\Model\VolunteerModel;
  */
 final class Volunteers extends CMSPlugin implements SubscriberInterface
 {
-    /**
-     * Affects constructor behavior. If true, language files will be loaded automatically.
-     *
-     * @var    boolean
-     * @since  1.0.0
-     */
-    protected $autoloadLanguage = true;
 
     /**
      * Check if volunteer filled in all required fields

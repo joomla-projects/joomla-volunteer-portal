@@ -60,26 +60,19 @@
     {
       "name": "com_volunteers.leaflet-css",
       "type": "style",
-      "uri": "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
-      "package": "volunteers",
-      "version": "5.0.0"
-    },
-    {
-      "name": "com_volunteers.leaflet-css-local",
-      "type": "style",
       "uri": "media/com_volunteers/css/leaflet.css",
       "package": "volunteers",
-      "version": "5.0.1"
+      "version": "1.9.4"
     },
     {
       "name": "com_volunteers.leaflet-js",
       "type": "script",
-      "uri": "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
+      "uri": "media/com_volunteers/js/leaflet.js",
       "attributes": {
         "defer": true
       },
       "package": "volunteers",
-      "version": "5.0.0"
+      "version": "1.9.4"
     },
     {
       "name": "com_volunteers.home-page-map-js",
@@ -94,26 +87,26 @@
     {
       "name": "com_volunteers.marker-cluster-css",
       "type": "style",
-      "uri": "https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css",
+      "uri": "media/com_volunteers/css/MarkerCluster.css",
       "package": "volunteers",
-      "version": "5.0.0"
+      "version": "1.4.1"
     },
     {
       "name": "com_volunteers.marker-cluster-default-css",
       "type": "style",
-      "uri": "https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css",
+      "uri": "media/com_volunteers/css/MarkerCluster.Default.css",
       "package": "volunteers",
-      "version": "5.0.0"
+      "version": "1.4.1"
     },
     {
       "name": "com_volunteers.marker-cluster-js",
       "type": "script",
-      "uri": "https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js",
+      "uri": "media/com_volunteers/js/leaflet.markercluster.js",
       "attributes": {
         "defer": true
       },
       "package": "volunteers",
-      "version": "5.0.0"
+      "version": "1.4.1"
     }
   ]
 }

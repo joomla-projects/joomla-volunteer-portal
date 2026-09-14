@@ -60,7 +60,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                     <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $report->team) ?>"><?php echo $report->team_title; ?></a>
                 </p>
                 <p>
-                    <?php echo HtmlHelper::_('string.truncate', strip_tags(trim($report->description)), 300); ?>
+                    <?php echo HtmlHelper::_('string.truncate', strip_tags(trim((string) $report->description)), 300); ?>
                 </p>
                 <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>"
                     class="volunteers_btn">

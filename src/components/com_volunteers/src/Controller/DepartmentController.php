@@ -9,11 +9,12 @@
 namespace Joomla\Component\Volunteers\Site\Controller;
 
 use Exception;
-use Joomla\CMS\Factory;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Mail\MailerFactoryInterface;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
-use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
+use Joomla\Component\Volunteers\Administrator\Service\AclService;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -39,12 +40,14 @@ class DepartmentController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function edit($key = null, $urlVar = null)
+    public function edit($key = null, $urlVar = null): bool
     {
         // Get variables
         $departmentId = $this->input->getInt('id');
 
-        $acl = VolunteersHelper::acl('department', $departmentId);
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+        $acl        = $aclService->getAcl('department', $departmentId);
 
         // Check if the user is authorized to edit this department
         if (!$acl->edit) {
@@ -65,14 +68,17 @@ class DepartmentController extends FormController
      * @since 4.0.0
      * @throws Exception
      */
-    public function save($key = null, $urlVar = null)
+    public function save($key = null, $urlVar = null): bool
     {
         // Check for request forgeries.
         $this->checkToken();
 
         // Get variables
         $departmentId = $this->input->getInt('id');
-        $acl          = VolunteersHelper::acl('department', $departmentId);
+
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+        $acl        = $aclService->getAcl('department', $departmentId);
 
         // Check if the user is authorized to edit this department
         if (!$acl->edit) {
@@ -84,7 +90,7 @@ class DepartmentController extends FormController
 
         // Redirect to the department
         $this->setMessage(Text::_('COM_VOLUNTEERS_LBL_DEPARTMENT_SAVED'));
-        if ($departmentId == 58) {
+        if ($departmentId === 58) {
             $this->setRedirect(Route::_('index.php?option=com_volunteers&view=board', false));
         } else {
             $this->setRedirect(Route::_('index.php?option=com_volunteers&view=department&id=' . $departmentId, false));
@@ -123,7 +129,7 @@ class DepartmentController extends FormController
      * @throws Exception
      * @throws \PHPMailer\PHPMailer\Exception
      */
-    public function sendMail()
+    public function sendMail(): void
     {
         // Check for request forgeries.
         $this->checkToken();
@@ -156,7 +162,7 @@ class DepartmentController extends FormController
         }
 
         // Get a reference to the Joomla! mailer object
-        $mailer = Factory::getMailer();
+        $mailer = $this->app->getContainer()->get(MailerFactoryInterface::class)->createMailer();
 
         // Set the sender
         $mailer->addReplyTo($user->email, $user->name);
@@ -174,7 +180,7 @@ class DepartmentController extends FormController
         $send = $mailer->Send();
 
         // Handle the message
-        if ($send == true) {
+        if ($send === true) {
             $this->app->enqueueMessage(Text::_('COM_VOLUNTEERS_MESSAGE_SEND_SUCCESS'), 'message');
         } else {
             $this->app->enqueueMessage(Text::_('JERROR_SENDING_EMAIL'), 'warning');

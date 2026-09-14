@@ -16,6 +16,7 @@ use Joomla\Component\Volunteers\Administrator\Model\SetupdemoModel;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
@@ -38,6 +39,26 @@ class HtmlView extends BaseHtmlView
      * @since  4.0.0
      */
     protected mixed $item;
+
+    /**
+     * @var CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor
+     *
+     * @param   array  $config  A named configuration array for object construction.
+     *
+     * @since   4.0.0
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->app = \Joomla\CMS\Factory::getApplication();
+    }
     /**
          * The model state
          *
@@ -105,12 +126,12 @@ class HtmlView extends BaseHtmlView
     {
         /** @var SetupdemoModel $model */
         $model = $this->getModel();
-        #$this->setUseExceptions(true);
+        $model->setUseExceptions(true);
+        
         $this->state       = $model->getState();
         $this->item        = $model->getItem();
         $this->params      = ComponentHelper::getParams('com_volunteer');
-        $app               = Factory::getApplication();
-        $input             = $app->getInput()->getInputForRequestMethod();
+        $input             = $this->app->getInput()->getInputForRequestMethod();
         $this->task        = $input->get('task', '');
         $this->addToolbar();
         parent::display($tpl);

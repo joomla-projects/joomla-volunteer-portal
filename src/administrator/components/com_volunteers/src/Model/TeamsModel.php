@@ -266,7 +266,9 @@ class TeamsModel extends ListModel
         $members = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
         $members->setState('filter.active', 1);
         $members->setState('filter.type', 'team');
-        $members->setState('filter.team', $teamIds);
+        if(!empty($teamIds)) {
+            $members->setState('filter.team', $teamIds);
+        }
         $members->setState('filter.private', 1);
         $members = $members->getItems();
 

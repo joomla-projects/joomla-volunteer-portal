@@ -13,13 +13,13 @@ namespace Joomla\Component\Volunteers\Site\Controller;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Mail\MailerFactoryInterface;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Volunteers\Administrator\Model\MembersModel;
-use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
-use RuntimeException;
+use Joomla\Component\Volunteers\Administrator\Service\AclService;
+use Joomla\Database\DatabaseInterface;
 use stdClass;
 
 /**
@@ -45,16 +45,19 @@ class TeamController extends FormController
         $department = $this->input->getInt('department');
         $team       = $this->input->getInt('team');
         $acl        = new stdClass();
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+
         if ($department) {
             $departmentId = $department;
             $teamId       = null;
-            $acl          = VolunteersHelper::acl('department', $departmentId);
+            $acl          = $aclService->getAcl('department', $departmentId);
         }
 
         if ($team) {
             $teamId       = $team;
             $departmentId = $this->getModel()->getItem($teamId)->department;
-            $acl          = VolunteersHelper::acl('team', $teamId);
+            $acl          = $aclService->getAcl('team', $teamId);
         }
 
         $this->app->setUserState('com_volunteers.edit.team.departmentid', $departmentId);
@@ -109,7 +112,10 @@ class TeamController extends FormController
     {
         // Get variables
         $teamId = $this->input->getInt('id');
-        $acl    = VolunteersHelper::acl('team', $teamId);
+
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+        $acl        = $aclService->getAcl('team', $teamId);
 
         // Check if the user is authorized to edit this team
         if (!$acl->edit) {
@@ -142,7 +148,10 @@ class TeamController extends FormController
         $teamId = ($teamId) ? $team->id : $this->app->getUserState('com_volunteers.edit.team.teamid');
 
         $this->app->setUserState('com_volunteers.edit.member.teamid', null);
-        $acl = VolunteersHelper::acl('team', $teamId);
+
+        /** @var AclService $aclService */
+        $aclService = $this->app->bootComponent('com_volunteers')->getContainer()->get(AclService::class);
+        $acl        = $aclService->getAcl('team', (int) $teamId);
 
         // Check if the user is authorized to edit this team
         if (!$acl->edit && $teamId) {
@@ -203,25 +212,25 @@ class TeamController extends FormController
         }
 
         // Get email department coordinator for CC
-        $db    = Factory::getContainer()->get('DatabaseDriver');
+        $db    = $this->app->getContainer()->get(DatabaseInterface::class);
         $query = $db->createQuery();
         $query
-            ->select('user.email, user.name')
-            ->from('#__volunteers_members as member')
+            ->select($db->quoteName(['user.email', 'user.name']))
+            ->from($db->quoteName('#__volunteers_members', 'member'))
             ->join('LEFT', $db->quoteName('#__volunteers_volunteers', 'volunteer') . ' ON ' . $db->qn('member.volunteer') . ' = ' . $db->qn('volunteer.id'))
             ->join('LEFT', $db->quoteName('#__users', 'user') . ' ON ' . $db->qn('volunteer.user_id') . ' = ' . $db->qn('user.id'))
             ->where($db->quoteName('member.department') . ' = ' . (int) $team->department)
-            ->where($db->quoteName('member.position') . ' = ' . 11)
-            ->where($db->quoteName('member.date_ended') . ' = ' . $db->quote('0000-00-00'));
+            ->where($db->quoteName('member.position') . ' = 11')
+            ->where($db->quoteName('member.date_ended') . ' IS NULL');
 
         try {
             $coordinator = $db->setQuery($query)->loadObject();
-        } catch (RuntimeException) {
+        } catch (\RuntimeException) {
             $this->app->enqueueMessage(Text::_('JERROR_SENDING_EMAIL'), 'warning');
         }
 
         // Get a reference to the Joomla! mailer object
-        $mailer = Factory::getMailer();
+        $mailer = $this->app->getContainer()->get(MailerFactoryInterface::class)->createMailer();
 
         // Set the sender
         $mailer->addReplyTo($user->email, $user->name);

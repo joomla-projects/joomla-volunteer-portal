@@ -43,7 +43,7 @@ try {
     </div>
 
     <p class="lead">
-        <?php echo strip_tags($this->item->description) ?>
+        <?php echo strip_tags((string) $this->item->description) ?>
     </p>
 
     <dl class="dl-horizontal">

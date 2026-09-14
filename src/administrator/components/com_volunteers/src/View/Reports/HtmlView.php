@@ -13,6 +13,7 @@ namespace Joomla\Component\Volunteers\Administrator\View\Reports;
 // phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Helper\ContentHelper;
@@ -87,6 +88,26 @@ class HtmlView extends BaseHtmlView
     private bool $isEmptyState = false;
 
     /**
+     * @var CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor
+     *
+     * @param   array  $config  A named configuration array for object construction.
+     *
+     * @since   4.0.0
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+
+        $this->app = \Joomla\CMS\Factory::getApplication();
+    }
+
+    /**
      * Display the view
      *
      * @param   string  $tpl  Template name
@@ -101,7 +122,8 @@ class HtmlView extends BaseHtmlView
     {
         /** @var ReportsModel $model */
         $model               = $this->getModel();
-        #$this->setUseExceptions(true);
+        $model->setUseExceptions(true);
+        
         $this->state         = $model->getState();
         $this->items         = $model->getItems();
         $this->pagination    = $model->getPagination();

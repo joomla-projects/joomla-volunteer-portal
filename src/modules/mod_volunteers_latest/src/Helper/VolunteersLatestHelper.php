@@ -17,7 +17,7 @@ use Joomla\Registry\Registry;
 
 class VolunteersLatestHelper
 {
-    public static function getVolunteers(Registry $params, SiteApplication $app): array
+    public function getVolunteers(Registry $params, SiteApplication $app): array
     {
 
         $model = $app->bootComponent('com_volunteers')

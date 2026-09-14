@@ -16,9 +16,11 @@ use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\AdminModel;
 
 use Joomla\CMS\Table\Table;
+use Joomla\Database\ParameterType;
 use Joomla\String\StringHelper;
 use stdClass;
 
@@ -49,6 +51,28 @@ class DepartmentModel extends AdminModel
      * @since  4.0.0
      */
     protected mixed $item = null;
+
+    /**
+     * @var \Joomla\CMS\Application\CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor.
+     *
+     * @param   array                $config   An optional associative array of configuration settings.
+     * @param   MVCFactoryInterface  $factory  The factory.
+     *
+     * @since   4.0.0
+     * @throws  Exception
+     */
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
+    {
+        parent::__construct($config, $factory);
+
+        $this->app = Factory::getApplication();
+    }
 
     /**
      * Method to get Department Members.
@@ -105,7 +129,7 @@ class DepartmentModel extends AdminModel
 
         // Check for active or inactive members
         foreach ($groupmembers as $item) {
-            if ($item->date_ended == '0000-00-00') {
+            if (empty($item->date_ended) || $item->date_ended === '0000-00-00') {
                 $members->active[] = $item;
             } else {
                 $members->honorroll[$item->date_ended . $item->volunteer_name] = $item;
@@ -177,8 +201,9 @@ class DepartmentModel extends AdminModel
         $query = $db->getQuery(true)
             ->select('count(id)')
             ->from($db->quoteName('#__volunteers_reports'))
-            ->where($db->quoteName('department') . ' = ' . $db->quote($pk))
-            ->where($db->quoteName('state') . ' = 1');
+            ->where($db->quoteName('department') . ' = :pk')
+            ->where($db->quoteName('state') . ' = 1')
+            ->bind(':pk', $pk, ParameterType::INTEGER);
 
         return $db->setQuery($query)->loadResult();
     }
@@ -212,7 +237,7 @@ class DepartmentModel extends AdminModel
         //teamleads is an array(teamid) of positions so
         foreach ($teamLeads as $teamentries) {
             foreach ($teamentries as $lead) {
-                if (!str_contains($lead->position_title, 'Assistant')) {
+                if (!str_contains((string) $lead->position_title, 'Assistant')) {
                     $teamsById[$lead->team]->leader[] = $lead;
                 } else {
                     $teamsById[$lead->team]->assistantleader[] = $lead;
@@ -335,7 +360,7 @@ class DepartmentModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.department.data', []);
+        $data = $this->app->getUserState('com_volunteers.edit.department.data', []);
 
         if (empty($data)) {
             if ($this->item === null) {
@@ -363,7 +388,7 @@ class DepartmentModel extends AdminModel
         $date = Factory::getDate();
         $user = $this->getCurrentUser();
 
-        $table->set('title', htmlspecialchars_decode($table->get('title'), ENT_QUOTES));
+        $table->set('title', htmlspecialchars_decode((string) $table->get('title'), ENT_QUOTES));
         $table->set('alias', ApplicationHelper::stringURLSafe($table->get('alias')));
 
         if (empty($table->get('alias'))) {
@@ -409,10 +434,8 @@ class DepartmentModel extends AdminModel
      */
     public function save($data)
     {
-        $app = Factory::getApplication();
-
         // Alter the title for save as copy
-        if ($app->getInput()->get('task') == 'save2copy') {
+        if ($this->app->getInput()->get('task') == 'save2copy') {
             [$name, $alias] = $this->generateNewTitle(0, $data['alias'], $data['title']);
             $data['title']      = $name;
             $data['alias']      = $alias;

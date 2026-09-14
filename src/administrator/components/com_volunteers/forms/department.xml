@@ -29,6 +29,11 @@
 			label="JGLOBAL_DESCRIPTION"
 			rows="4"
 		/>
+	<field
+				name="parent_id"
+				type="departments"
+				label="COM_VOLUNTEERS_FIELD_DEPARTMENT_PARENT"
+		/>
 	</fieldset>
 
 	<fieldset name="details">

@@ -82,7 +82,7 @@
                 name="description"
                 type="editor"
                 buttons="false"
-                filter="JComponentHelper::filterText"
+                filter="ComponentHelper::filterText"
                 label="JGLOBAL_DESCRIPTION"
         />
 
@@ -90,7 +90,7 @@
                 name="getinvolved"
                 type="editor"
                 buttons="false"
-                filter="JComponentHelper::filterText"
+                filter="ComponentHelper::filterText"
                 label="COM_VOLUNTEERS_FIELD_INVOLVED"
         />
 

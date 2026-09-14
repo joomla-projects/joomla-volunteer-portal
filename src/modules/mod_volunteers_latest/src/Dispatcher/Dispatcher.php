@@ -28,11 +28,9 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
         $app = $this->getApplication();
         $app->getDocument()->getWebAssetManager()->useStyle('com_volunteers.frontend');
 
-        $data['volunteers'] = VolunteersLatestHelper::getVolunteers($data['params'],$app);
-
-     /*   $data['volunteers'] = $this->getHelperFactory()
+        $data['volunteers'] = $this->getHelperFactory()
             ->getHelper('VolunteersLatestHelper')
-            ->getVolunteers($data['params'], $app);*/
+            ->getVolunteers($data['params'], $app);
 
         return $data;
     }

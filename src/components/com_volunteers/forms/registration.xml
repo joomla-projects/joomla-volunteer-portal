@@ -189,7 +189,7 @@
                 name="joomlastory"
                 type="editor"
                 buttons="false"
-                filter="JComponentHelper::filterText"
+                filter="ComponentHelper::filterText"
                 label="COM_VOLUNTEERS_FIELD_JOOMLASTORY"
         />
 

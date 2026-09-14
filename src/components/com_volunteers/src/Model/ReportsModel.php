@@ -171,10 +171,10 @@ class ReportsModel extends ListModel
         $search = $this->getState('filter.search');
 
         if (!empty($search)) {
-            if (stripos($search, 'id:') === 0) {
-                $query->where('a.id = ' . (int) substr($search, 3));
+            if (stripos((string) $search, 'id:') === 0) {
+                $query->where('a.id = ' . (int) substr((string) $search, 3));
             } else {
-                $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
+                $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim((string) $search), true) . '%'));
                 $query->where('(a.title LIKE ' . $search . ' OR a.alias LIKE ' . $search . ')');
             }
         }
@@ -204,7 +204,7 @@ class ReportsModel extends ListModel
         $category = $this->getState('filter.category');
 
         if ($category) {
-            $selection = explode('.', $category);
+            $selection = explode('.', (string) $category);
 
             if ($selection[0] == 'd') {
                 $query->where('a.department = ' . (int) $selection[1]);
@@ -267,7 +267,7 @@ class ReportsModel extends ListModel
         $title    = '';
 
         // Get the name from the category
-        $selection = explode('.', $category);
+        $selection = explode('.', (string) $category);
 
         if ($selection) {
             $db = $this->getDatabase();

@@ -20,11 +20,13 @@ use Joomla\CMS\Form\Form;
 use Joomla\CMS\Http\HttpFactory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\String\PunycodeHelper;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\User\User;
+use Joomla\Database\ParameterType;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 use RuntimeException;
@@ -59,6 +61,28 @@ class VolunteerModel extends AdminModel
     protected mixed $item = null;
 
     /**
+     * @var \Joomla\CMS\Application\CMSApplicationInterface
+     * @since  6.1.0
+     */
+    protected $app;
+
+    /**
+     * Constructor.
+     *
+     * @param   array                $config   An optional associative array of configuration settings.
+     * @param   MVCFactoryInterface  $factory  The factory.
+     *
+     * @since   4.0.0
+     * @throws  Exception
+     */
+    public function __construct($config = [], MVCFactoryInterface $factory = null)
+    {
+        parent::__construct($config, $factory);
+
+        $this->app = Factory::getApplication();
+    }
+
+    /**
      * The fields containing an url, only those that we can check on a 200 code
      *
      * @var    array
@@ -87,7 +111,7 @@ class VolunteerModel extends AdminModel
         }
 
         // Check for error text (most likely this will break at some point in the future...)
-        if ((str_contains($response->body, 'You do not have any certifications.'))) {
+        if ((str_contains((string) $response->body, 'You do not have any certifications.'))) {
             throw new RuntimeException();
         }
 
@@ -184,7 +208,7 @@ class VolunteerModel extends AdminModel
     protected function loadFormData()
     {
         // Check the session for previously entered form data.
-        $data = Factory::getApplication()->getUserState('com_volunteers.edit.volunteer.data', []);
+        $data = $this->app->getUserState('com_volunteers.edit.volunteer.data', []);
 
         if (empty($data)) {
             $data = $this->getItem();
@@ -286,7 +310,7 @@ class VolunteerModel extends AdminModel
 
                 // Make sure we have http:// or https://
                 if ($data->website) {
-                    $data->website = parse_url($data->website, PHP_URL_SCHEME) == '' ? 'http://' . $data->website : $data->website;
+                    $data->website = parse_url((string) $data->website, PHP_URL_SCHEME) == '' ? 'http://' . $data->website : $data->website;
                 }
 
                 return $data;
@@ -332,13 +356,11 @@ class VolunteerModel extends AdminModel
                         }
                     } catch (RuntimeException $e) {
                         Log::add($e->getMessage());
-                        throw new Exception(sprintf(Text::_('COM_VOLUNTEERS_ERROR_URL_INVALID'), $url, ucfirst($field)));
+                        throw new Exception(sprintf(Text::_('COM_VOLUNTEERS_ERROR_URL_INVALID'), $url, ucfirst((string) $field)));
                     }
                 }
             }
         }
-
-        $app = Factory::getApplication();
 
         // Joomla User
         $dataUser = [
@@ -385,7 +407,7 @@ class VolunteerModel extends AdminModel
 
         // Store the newly created volunteer ID
         $volunteerId = $this->getState('volunteer.id');
-        $app->setUserState('com_volunteers.registration.id', $volunteerId);
+        $this->app->setUserState('com_volunteers.registration.id', $volunteerId);
 
         return $return;
     }
@@ -409,17 +431,17 @@ class VolunteerModel extends AdminModel
 
         $query = $db->getQuery(true)
             ->select('id')
-            ->from('#__volunteers_volunteers')
-            ->where($db->quoteName('user_id') . ' = ' . (int) $userId);
+            ->from($db->quoteName('#__volunteers_volunteers'))
+            ->where($db->quoteName('user_id') . ' = :userId')
+            ->bind(':userId', $userId, ParameterType::INTEGER);
 
         $db->setQuery($query);
         $id = $db->loadResult();
 
         if (!is_null($id)) {
             return $id;
-        } else {
-            return -1;
         }
+        return -1;
     }
 
     /**
@@ -458,13 +480,13 @@ class VolunteerModel extends AdminModel
                 $item->name = $item->team_title;
             }
 
-            if ($item->date_ended == '0000-00-00') {
+            if (empty($item->date_ended) || $item->date_ended === '0000-00-00') {
                 $teams->active[] = $item;
             } else {
                 $teams->honorroll[] = $item;
             }
 
-            if ($item->date_ended == '0000-00-00' && $item->position != 8) {
+            if ((empty($item->date_ended) || $item->date_ended === '0000-00-00') && $item->position != 8) {
                 $teams->activemember = true;
             }
         }
