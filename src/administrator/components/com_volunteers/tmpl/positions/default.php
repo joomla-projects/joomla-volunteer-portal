@@ -95,7 +95,7 @@ if ($saveOrder) {
                                     <td class="text-center">
                                         <?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->title); ?>
                                     </td>
-                                    <td class="text=center d-none d-md-table-cell">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <?php
                                         $iconClass = '';
                                         if (!$canChange) {

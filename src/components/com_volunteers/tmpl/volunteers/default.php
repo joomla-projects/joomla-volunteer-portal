@@ -35,45 +35,32 @@ $active = $this->state->get('filter.active', 1);
 
     <div class="volunteers">
         <div class="row">
-            <div class="filter-bar">
-                <div class="btn-group pull-right">
-                    <label class="filter-search-lbl element-invisible" for="filter-search">
-                        <?php echo Text::_('COM_VOLUNTEERS_SEARCH_VOLUNTEER') . '&#160;'; ?>
-                    </label>
-                    <div class="input-append">
-                        <input type="text" name="filter_search" id="filter-search"
-                            value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox"
-                            onchange="document.adminForm.submit();"
-                            placeholder="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_VOLUNTEER'); ?>" />
-                        <button class="volunteers_btn btn-primary" type="submit"
-                            value="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_VOLUNTEER'); ?>">
-                            <span class="icon-search"></span></button>
-                        <?php if ($this->state->get('filter.search')) : ?>
-                            <button class="volunteers_btn" type="reset"
-                                onclick="jQuery('#filter-search').attr('value', null);document.adminForm.submit();">
-                                <span class="icon-remove"></span>
-                            </button>
-                        <?php endif; ?>
-                    </div>
+            <div class="filter-bar d-flex flex-wrap justify-content-end gap-2">
+                <div class="input-group w-auto">
+                    <label class="visually-hidden" for="filter-search"><?php echo Text::_('COM_VOLUNTEERS_SEARCH_VOLUNTEER'); ?></label>
+                    <input type="search" name="filter_search" id="filter-search" class="form-control"
+                        value="<?php echo $this->escape($this->state->get('filter.search')); ?>"
+                        placeholder="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_VOLUNTEER'); ?>">
+                    <button class="btn btn-primary" type="submit" aria-label="<?php echo Text::_('JSEARCH_FILTER_SUBMIT'); ?>">
+                        <span class="icon-search" aria-hidden="true"></span>
+                    </button>
+                    <?php if ($this->state->get('filter.search')) : ?>
+                        <button class="btn btn-secondary" type="button" aria-label="<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?>"
+                            onclick="this.form.filter_search.value='';this.form.submit();">
+                            <span class="icon-times" aria-hidden="true"></span>
+                        </button>
+                    <?php endif; ?>
                 </div>
-
-                <fieldset id="filter_active" class="btn-group radio pull-right" onchange="document.adminForm.submit();">
-                    <input type="radio" id="filter_active1" name="filter_active" value="1" <?php if ($active == 1) :
-                        ?>selected="selected" <?php
-                                                                                           endif; ?>>
-                    <label for="filter_active1" class="volunteers_btn<?php if ($active == 1) :
-                        ?> btn-success<?php
-                                                                     endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ACTIVE') ?></label>
-
-                    <input type="radio" id="filter_active2" name="filter_active" value="2" <?php if ($active == 2) :
-                        ?>selected="selected" <?php
-                                                                                           endif; ?>>
-                    <label for="filter_active2" class="volunteers_btn<?php if ($active == 2) :
-                        ?> btn-inverse<?php
-                                                                     endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ALL') ?></label>
-                </fieldset>
+                <div class="btn-group" role="group" aria-label="<?php echo Text::_('JSTATUS'); ?>">
+                    <input type="radio" class="btn-check" name="filter_active" id="filter_active1" value="1"
+                        autocomplete="off" onchange="this.form.submit();"<?php echo $active == 1 ? ' checked' : ''; ?>>
+                    <label class="btn btn-outline-success" for="filter_active1"><?php echo Text::_('COM_VOLUNTEERS_ACTIVE'); ?></label>
+                    <input type="radio" class="btn-check" name="filter_active" id="filter_active2" value="2"
+                        autocomplete="off" onchange="this.form.submit();"<?php echo $active == 2 ? ' checked' : ''; ?>>
+                    <label class="btn btn-outline-dark" for="filter_active2"><?php echo Text::_('COM_VOLUNTEERS_ALL'); ?></label>
+                </div>
             </div>
-            <div class="page-header">
+            <div class="border-bottom pb-2 mb-3">
                 <h1 class="vol_h1">
                     <?php echo Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS') ?>
                 </h1>
@@ -85,7 +72,7 @@ $active = $this->state->get('filter.active', 1);
             <?php if (!empty($this->items)) {
                 foreach ($this->items as $item) : ?>
                     <div class="col-2">
-                        <div class="well well-small">
+                        <div class="card card-body p-2 mb-3">
                             <?php VolunteersHelper::outputHorizontalVolunteer($item); ?>
                         </div>
                     </div>
@@ -101,7 +88,7 @@ $active = $this->state->get('filter.active', 1);
         </div>
 
         <div class="pagination">
-            <p class="counter pull-right">
+            <p class="counter float-end">
                 <?php echo $this->pagination->getPagesCounter(); ?>
             </p>
 

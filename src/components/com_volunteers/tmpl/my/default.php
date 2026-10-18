@@ -15,7 +15,7 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="page-header">
+        <div class="border-bottom pb-2 mb-3">
             <h1 class="vol_h1">We need your consent</h1>
         </div>
         <p>In order to use the Joomla Volunteers Portal as user we need your consent. By allowing your consent you can use this portal and you will be listed as Joomler. </p>

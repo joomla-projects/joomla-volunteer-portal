@@ -19,7 +19,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 <?php if ($this->acl->edit) : ?>
     <div class="row">
         <div class="filter-bar">
-        <a class="volunteers_btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&team=' . $this->item->id) ?>">
+        <a class="btn btn-secondary float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&team=' . $this->item->id) ?>">
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_MEMBER_ADD') ?>
         </a>
@@ -43,10 +43,10 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
             <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_STARTED') ?>
         </th>
         <?php if ($this->acl->edit) { ?>
-            <th width="10%" class="center">
+            <th width="10%" class="text-center">
                 <?php echo Text::_('COM_VOLUNTEERS_FIELD_ADDRESS') ?>
             </th>
-            <th width="10%" class="center">
+            <th width="10%" class="text-center">
                 <?php echo Text::_('COM_VOLUNTEERS_FIELD_NDA') ?>
             </th>
             <th width="10%"></th>
@@ -69,7 +69,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                     <?php echo VolunteersHelper::date($volunteer->date_started, 'M Y'); ?>
                 </td>
                 <?php if ($this->acl->edit) { ?>
-                    <td class="center">
+                    <td class="text-center">
                         <?php
                         if ($volunteer->address) { ?>
                             <span class="icon-checkbox-checked"></span>
@@ -77,7 +77,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                             <span class="icon-checkbox-unchecked"></span>
                         <?php } ?>
                     </td>
-                    <td class="center">
+                    <td class="text-center">
                         <?php if ($volunteer->nda) { ?>
                             <span class="icon-checkbox-checked"></span>
                         <?php } else { ?>
@@ -85,7 +85,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                         <?php } ?>
                     </td>
                     <td>
-                        <a class="volunteers_btn btn-small pull-right"
+                        <a class="btn btn-secondary btn-sm float-end"
                            href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id) ?>">
                             <span class="icon-edit" aria-hidden="true"></span>
                             <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>

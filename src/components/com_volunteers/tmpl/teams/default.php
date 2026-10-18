@@ -18,11 +18,6 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 
 /** @var \Joomla\Component\Volunteers\Site\View\Teams\HtmlView $this */
 
-$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-$wa->useScript('jquery');
-$wa->useScript('jquery-noconflict');
-$wa->useScript('jquery-migrate');
-
 $active = $this->state->get('filter.active', 1);
 
 
@@ -41,47 +36,35 @@ try {
 <form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 
     <div class="row">
-        <div class="filter-bar">
-            <div class="btn-group pull-right">
-                <label class="filter-search-lbl element-invisible" for="filter-search">
-                    <?php echo Text::_('COM_VOLUNTEERS_SEARCH_TEAM') . '&#160;'; ?>
-                </label>
-                <div class="input-append">
-                    <input type="text" name="filter_search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" placeholder="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_TEAM'); ?>"/>
-                    <button class="volunteers_btn btn-primary" type="submit" value="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_TEAM'); ?>">
-                        <span class="icon-search"></span></button>
-                    <?php if ($this->state->get('filter.search')) : ?>
-                        <button class="volunteers_btn" type="reset" onclick="jQuery('#filter-search').attr('value', null);document.adminForm.submit();">
-                            <span class="icon-remove"></span>
-                        </button>
-                    <?php endif; ?>
-                </div>
+        <div class="filter-bar d-flex flex-wrap justify-content-end gap-2">
+            <div class="input-group w-auto">
+                <label class="visually-hidden" for="filter-search"><?php echo Text::_('COM_VOLUNTEERS_SEARCH_TEAM'); ?></label>
+                <input type="search" name="filter_search" id="filter-search" class="form-control"
+                    value="<?php echo $this->escape($this->state->get('filter.search')); ?>"
+                    placeholder="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_TEAM'); ?>">
+                <button class="btn btn-primary" type="submit" aria-label="<?php echo Text::_('JSEARCH_FILTER_SUBMIT'); ?>">
+                    <span class="icon-search" aria-hidden="true"></span>
+                </button>
+                <?php if ($this->state->get('filter.search')) : ?>
+                    <button class="btn btn-secondary" type="button" aria-label="<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?>"
+                        onclick="this.form.filter_search.value='';this.form.submit();">
+                        <span class="icon-times" aria-hidden="true"></span>
+                    </button>
+                <?php endif; ?>
             </div>
-
-            <fieldset id="filter_active" class="btn-group radio pull-right" onchange="document.adminForm.submit();">
-                <input type="radio" id="filter_active1" name="filter_active" value="1" <?php if ($active == 1) :
-                    ?>selected="selected"<?php
-                                                                                       endif; ?>>
-                <label for="filter_active1" class="volunteers_btn<?php if ($active == 1) :
-                    ?> btn-success<?php
-                                                                 endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ACTIVE') ?></label>
-
-                <input type="radio" id="filter_active0" name="filter_active" value="0" <?php if ($active == 0) :
-                    ?>selected="selected"<?php
-                                                                                       endif; ?>>
-                <label for="filter_active0" class="volunteers_btn<?php if ($active == 0) :
-                    ?> btn-danger<?php
-                                                                 endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ARCHIVED') ?></label>
-
-                <input type="radio" id="filter_active2" name="filter_active" value="2" <?php if ($active == 2) :
-                    ?>selected="selected"<?php
-                                                                                       endif; ?>>
-                <label for="filter_active2" class="volunteers_btn<?php if ($active == 2) :
-                    ?> btn-inverse<?php
-                                                                 endif; ?>"><?php echo Text::_('COM_VOLUNTEERS_ALL') ?></label>
-            </fieldset>
+            <div class="btn-group" role="group" aria-label="<?php echo Text::_('JSTATUS'); ?>">
+                <input type="radio" class="btn-check" name="filter_active" id="filter_active1" value="1"
+                    autocomplete="off" onchange="this.form.submit();"<?php echo $active == 1 ? ' checked' : ''; ?>>
+                <label class="btn btn-outline-success" for="filter_active1"><?php echo Text::_('COM_VOLUNTEERS_ACTIVE'); ?></label>
+                <input type="radio" class="btn-check" name="filter_active" id="filter_active0" value="0"
+                    autocomplete="off" onchange="this.form.submit();"<?php echo $active == 0 ? ' checked' : ''; ?>>
+                <label class="btn btn-outline-danger" for="filter_active0"><?php echo Text::_('COM_VOLUNTEERS_ARCHIVED'); ?></label>
+                <input type="radio" class="btn-check" name="filter_active" id="filter_active2" value="2"
+                    autocomplete="off" onchange="this.form.submit();"<?php echo $active == 2 ? ' checked' : ''; ?>>
+                <label class="btn btn-outline-dark" for="filter_active2"><?php echo Text::_('COM_VOLUNTEERS_ALL'); ?></label>
+            </div>
         </div>
-        <div class="page-header">
+        <div class="border-bottom pb-2 mb-3">
             <?php if ($this->state->get('filter.groups')) : ?>
                 <h1 class="vol_h1"><?php echo Text::_('COM_VOLUNTEERS_TITLE_GROUPS') ?></h1>
             <?php else : ?>
@@ -92,7 +75,7 @@ try {
     <?php if (!empty($this->items)) {
         foreach ($this->items as $i => $item) : ?>
         <div class="row">
-            <div class="team well team-<?php echo($item->id); ?>">
+            <div class="team card card-body mb-3 team-<?php echo($item->id); ?>">
                 <div class="row">
                     <div class="col-8">
                         <h2 class="vol_h2" style="margin-top: 0;">
@@ -104,7 +87,7 @@ try {
                                     <?php if ($item->date_ended != '0000-00-00') : ?>
                                 <small><?php echo Text::_('COM_VOLUNTEERS_ARCHIVED') ?></small>
                                     <?php endif; ?>
-                            <span class="label label-info">
+                            <span class="badge text-bg-info">
                                         <?php if ($item->status == '0') : ?>
                                             <?php echo Text::_('COM_VOLUNTEERS_FIELD_STATUS_INFORMATION') ?>
                                         <?php elseif ($item->status == '1') : ?>
@@ -118,14 +101,14 @@ try {
 
                                 <?php if (count($item->subteams)) : ?>
                             <h3 class="vol_h3"><?php echo Text::_('COM_VOLUNTEERS_SUBTEAMS') ?></h3>
-                            <ul class="nav nav-tabs nav-stacked">
+                            <ul class="nav flex-column">
                                     <?php foreach ($item->subteams as $subteam) : ?>
-                                    <li>
-                                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $subteam->id) ?>">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $subteam->id) ?>">
                                             <?php echo($subteam->title); ?><?php if ($subteam->acronym) :
                                                 ?> (<?php echo($subteam->acronym) ?>)<?php
                                             endif; ?>
-                                            <span class="label label-info">
+                                            <span class="badge text-bg-info">
                                                 <?php if ($subteam->status == '0') : ?>
                                                     <?php echo Text::_('COM_VOLUNTEERS_FIELD_STATUS_INFORMATION') ?>
                                                 <?php elseif ($subteam->status == '1') : ?>
@@ -139,7 +122,7 @@ try {
                                     <?php endforeach; ?>
                             </ul>
                                 <?php endif; ?>
-                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $item->id) ?>" class="volunteers_btn">
+                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $item->id) ?>" class="btn btn-secondary">
                             <span class="icon-chevron-right" aria-hidden="true"></span><?php echo Text::_('COM_VOLUNTEERS_READ_MORE') . ' ' . $item->title; ?>
                         </a>
                     </div>
@@ -171,7 +154,7 @@ try {
     } ?>
 
     <div class="pagination">
-        <p class="counter pull-right">
+        <p class="counter float-end">
             <?php echo $this->pagination->getPagesCounter(); ?>
         </p>
 

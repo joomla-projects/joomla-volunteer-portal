@@ -22,40 +22,40 @@ use Joomla\CMS\Router\Route;
             <?php echo Text::_('COM_VOLUNTEERS_NOTE_LOGIN_CONTACT_DEPARTMENT') ?>
         </p>
     <?php else : ?>
-        <form class="form form-horizontal" name="sendmail" action="<?php echo Route::_('index.php') ?>"
+        <form class="form" name="sendmail" action="<?php echo Route::_('index.php') ?>"
               method="post" enctype="multipart/form-data">
-            <div class="control-group">
-                <label class="control-label" for="to_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_TO') ?></label>
-                <div class="controls">
+            <div class="mb-3">
+                <label class="form-label" for="to_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_TO') ?></label>
+                <div>
                     <input type="text" name="to_name" id="to_name" value="<?php echo $this->item->title ?>"
-                           class="input-block-level" disabled="disabled" />
+                           class="form-control" disabled="disabled" />
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="from_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_FROM') ?></label>
-                <div class="controls">
+            <div class="mb-3">
+                <label class="form-label" for="from_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_FROM') ?></label>
+                <div>
                     <input type="text" name="from_name" id="from_name"
                            value="<?php echo ($this->user->name); ?> <<?php echo ($this->user->email); ?>>"
-                           class="input-block-level" disabled="disabled" />
+                           class="form-control" disabled="disabled" />
                 </div>
             </div>
-            <div class="control-group">
-                <div class="controls col-12">
-                    <input type="text" name="subject" id="subject" class="input-block-level"
+            <div class="mb-3">
+                <div>
+                    <input type="text" name="subject" id="subject" class="form-control"
                            placeholder="<?php echo Text::_('COM_VOLUNTEERS_MESSAGE_SUBJECT') ?>" required />
                 </div>
             </div>
-            <div class="control-group">
-                        <textarea rows="10" name="message" id="message" class="input-block-level"
+            <div class="mb-3">
+                        <textarea rows="10" name="message" id="message" class="form-control"
                                   placeholder="<?php echo Text::sprintf('COM_VOLUNTEERS_MESSAGE_BODY', $this->item->title) ?>"
                                   required></textarea>
             </div>
             <div class="alert alert-info">
                 <?php echo Text::sprintf('COM_VOLUNTEERS_MESSAGE_NOTICE', $this->item->title) ?>
             </div>
-            <div class="control-group">
+            <div class="mb-3">
                 <input type="submit" value="<?php echo Text::_('COM_VOLUNTEERS_MESSAGE_SUBMIT') ?>" name="submit"
-                       id="submitButton" class="volunteers_btn btn-success pull-right" />
+                       id="submitButton" class="btn btn-success float-end" />
             </div>
 
             <input type="hidden" name="option" value="com_volunteers" />

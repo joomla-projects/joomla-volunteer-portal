@@ -27,7 +27,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
     <div class="col-10">
         <div class="filter-bar">
             <?php if ($this->acl->edit || ($this->item->created_by == $this->user->id)) : ?>
-                <a class="volunteers_btn pull-right"
+                <a class="btn btn-secondary float-end"
                     href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $this->item->id) ?>">
                     <span class="icon-edit" aria-hidden="true"></span>
                     <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
@@ -35,13 +35,13 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
             <?php endif; ?>
         </div>
 
-        <div class="page-header">
+        <div class="border-bottom pb-2 mb-3">
             <h1 class="vol_h1">
                 <?php echo $this->item->title ?>
             </h1>
         </div>
 
-        <p class="muted">
+        <p class="text-muted">
             <?php echo Text::_('COM_VOLUNTEERS_BY') ?>
             <a
                 href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $this->item->volunteer_id) ?>"><?php echo $this->item->volunteer_name; ?></a>

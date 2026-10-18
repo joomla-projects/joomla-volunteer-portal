@@ -28,7 +28,7 @@ try {
 ?>
 
 <div class="row">
-    <div class="page-header">
+    <div class="border-bottom pb-2 mb-3">
         <h1 class="vol_h1">
             <?php echo Text::_('COM_VOLUNTEERS_TITLE_ROLESOPEN') ?>
         </h1>
@@ -41,7 +41,7 @@ try {
 <div class="row">
     <div class="col-12">
         <?php foreach ($this->items as $team => $roles) : ?>
-            <div class="well well">
+            <div class="card card-body mb-3">
                 <h2 class="vol_h2" style="margin-top: 0;">
                     <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $roles[0]->team) ?>"
                         id="<?php echo OutputFilter::stringURLSafe($team); ?>">
@@ -65,12 +65,12 @@ try {
                                     <?php echo $role->description; ?>
                                 </td>
                                 <td>
-                                    <a class="volunteers_btn btn-small pull-right"
+                                    <a class="btn btn-secondary btn-sm float-end"
                                         href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $role->team . '&tab=contact') ?>">
                                         <span class="icon-mail" aria-hidden="true"></span>
                                         <?php echo Text::_('COM_VOLUNTEERS_TAB_CONTACT') ?>
                                     </a>
-                                    <a class="volunteers_btn btn-small pull-right"
+                                    <a class="btn btn-secondary btn-sm float-end"
                                         href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $role->team . '&tab=getinvolved') ?>">
                                         <span class="icon-chevron-right" aria-hidden="true"></span>
                                         <?php echo Text::_('COM_VOLUNTEERS_ROLE_APPLY') ?>

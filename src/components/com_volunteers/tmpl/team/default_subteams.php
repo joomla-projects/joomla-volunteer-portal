@@ -19,7 +19,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 <?php if ($this->acl->create_team) { ?>
     <div class="row">
     <div class="filter-bar">
-        <a class="volunteers_btn pull-right"
+        <a class="btn btn-secondary float-end"
             href="<?php echo Route::_('index.php?option=com_volunteers&task=team.add&team=' . $this->item->id) ?>">
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_SUBTEAM_ADD') ?>
@@ -30,7 +30,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 <?php } ?>
 <?php foreach ($this->item->subteams as $i => $item) { ?>
     <div class="row">
-        <div class="team well team-<?php echo ($item->id); ?>">
+        <div class="team card card-body mb-3 team-<?php echo ($item->id); ?>">
             <div class="row">
                 <div class="col-8">
                     <h2 class="vol_h2" style="margin-top: 0;">
@@ -52,7 +52,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                         <?php echo ($item->description); ?>
                     </p>
                     <a href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $item->id) ?>"
-                        class="volunteers_btn">
+                        class="btn btn-secondary">
                         <span class="icon-chevron-right"></span>
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') . ' ' . $item->title; ?>
                     </a>

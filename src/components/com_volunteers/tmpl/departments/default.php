@@ -18,13 +18,6 @@ use Joomla\CMS\Factory;
 
 /** @var \Joomla\Component\Volunteers\Site\View\Departments\HtmlView $this */
 
-$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-$wa->useScript('jquery');
-$wa->useScript('jquery-noconflict');
-$wa->useScript('jquery-migrate');
-
-$active = $this->state->get('filter.active', 1);
-
 
 // Import CSS
 try {
@@ -41,30 +34,31 @@ try {
 <form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 
     <div class="row">
-        <div class="filter-bar">
-            <div class="btn-group pull-right">
-                <label class="filter-search-lbl element-invisible" for="filter-search">
-                    <?php echo Text::_('COM_VOLUNTEERS_SEARCH_DEPARTMENT') . '&#160;'; ?>
-                </label>
-                <div class="input-append">
-                    <input type="text" name="filter_search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" placeholder="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_DEPARTMENT'); ?>"/>
-                    <button class="volunteers_btn btn-primary" type="submit" value="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_DEPARTMENT'); ?>"><span class="fa fa-search"></span></button>
-                    <?php if ($this->state->get('filter.search')) : ?>
-                        <button class="volunteers_btn" type="reset" onclick="jQuery('#filter-search').attr('value', null);document.adminForm.submit();">
-                            <span class="icon-remove"></span>
-                        </button>
-                    <?php endif; ?>
-                </div>
+        <div class="filter-bar d-flex flex-wrap justify-content-end gap-2">
+            <div class="input-group w-auto">
+                <label class="visually-hidden" for="filter-search"><?php echo Text::_('COM_VOLUNTEERS_SEARCH_DEPARTMENT'); ?></label>
+                <input type="search" name="filter_search" id="filter-search" class="form-control"
+                    value="<?php echo $this->escape($this->state->get('filter.search')); ?>"
+                    placeholder="<?php echo Text::_('COM_VOLUNTEERS_SEARCH_DEPARTMENT'); ?>">
+                <button class="btn btn-primary" type="submit" aria-label="<?php echo Text::_('JSEARCH_FILTER_SUBMIT'); ?>">
+                    <span class="icon-search" aria-hidden="true"></span>
+                </button>
+                <?php if ($this->state->get('filter.search')) : ?>
+                    <button class="btn btn-secondary" type="button" aria-label="<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?>"
+                        onclick="this.form.filter_search.value='';this.form.submit();">
+                        <span class="icon-times" aria-hidden="true"></span>
+                    </button>
+                <?php endif; ?>
             </div>
         </div>
-        <div class="page-header">
+        <div class="border-bottom pb-2 mb-3">
             <h1 class="vol_h1"><?php echo Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS') ?></h1>
         </div>
     </div>
     <?php if (!empty($this->items)) {
         foreach ($this->items as $i => $item) : ?>
         <div class="row">
-            <div class="team well team-<?php echo($item->id); ?>">
+            <div class="team card card-body mb-3 team-<?php echo($item->id); ?>">
                 <div class="row">
                     <div class="col-8">
                         <h2 class="vol_h2" style="margin-top: 0;">
@@ -73,7 +67,7 @@ try {
                             </a>
                         </h2>
                         <p><?php echo($item->description); ?></p>
-                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $item->id) ?>" class="volunteers_btn">
+                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $item->id) ?>" class="btn btn-secondary">
                             <span class="fa fa-chevron-right"></span><?php echo Text::_('COM_VOLUNTEERS_READ_MORE') . ' ' . $item->title; ?>
                         </a>
                     </div>
@@ -106,7 +100,7 @@ try {
     } ?>
 
     <div class="pagination">
-        <p class="counter pull-right">
+        <p class="counter float-end">
             <?php echo $this->pagination->getPagesCounter(); ?>
         </p>
 

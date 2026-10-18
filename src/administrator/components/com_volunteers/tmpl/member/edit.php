@@ -45,10 +45,10 @@ $wa->useScript('keepalive')
       method="post" name="adminForm" id="member-form" class="form-validate">
 
     <div class="row">
-        <div class="span9">
+        <div class="col-lg-9">
             <?php echo $this->form->renderFieldset('item'); ?>
         </div>
-        <div class="span3">
+        <div class="col-lg-3">
             <?php echo $this->form->renderFieldset('details'); ?>
         </div>
     </div>

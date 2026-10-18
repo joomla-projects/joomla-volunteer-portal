@@ -571,13 +571,13 @@ class VolunteersService
         $html = [];
         $link = Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->volunteer);
 
-        $html[] = '<a class="pull-left" href="' . $link . '">';
+        $html[] = '<a class="float-start" href="' . $link . '">';
         $html[] = $this->getImage($volunteer->volunteer_image, 'small', false, $volunteer->volunteer_image);
         $html[] = '</a>';
         $html[] = '<a href="' . $link . '">';
         $html[] = htmlspecialchars($volunteer->volunteer_name, ENT_QUOTES);
         $html[] = '</a>';
-        $html[] = '<span class="muted volunteer-location">';
+        $html[] = '<span class="text-muted volunteer-location">';
         $html[] = '<span class="icon-location" aria-hidden="true"></span> ';
         $html[] = $this->formatLocation($volunteer->volunteer_country);
         $html[] = '</span>';

@@ -33,25 +33,25 @@ $wa->useScript('form.validate');
 
     <form id="volunteer"
         action="<?php echo Route::_('index.php?option=com_volunteers&task=volunteer.save&id=' . (int) $this->item->id); ?>"
-        method="post" class="form-validate form-horizontal" enctype="multipart/form-data">
+        method="post" class="form-validate" enctype="multipart/form-data">
         <div class="row">
             <div class="filter-bar">
-                <div class="btn-toolbar pull-right">
+                <div class="btn-toolbar float-end">
                     <div id="toolbar-cancel" class="btn-group">
-                        <button class="volunteers_btn btn-danger"  type="button" onclick="history.back();return false;">
+                        <button class="btn btn-danger"  type="button" onclick="history.back();return false;">
                             <span class="icon-cancel" aria-hidden="true"></span>
                             <?php echo Text::_('JCANCEL') ?>
                         </button>
                     </div>
                     <div id="toolbar-apply" class="btn-group">
-                        <button class="volunteers_btn btn-success" type="submit">
+                        <button class="btn btn-success" type="submit">
                             <span class="icon-pencil" aria-hidden="true"></span>
                             <?php echo Text::_('JSAVE') ?>
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="page-header">
+            <div class="border-bottom pb-2 mb-3">
                 <h1 class="vol_h1">
                     <?php echo Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS_EDIT_MY') ?>
                 </h1>
@@ -239,15 +239,15 @@ $wa->useScript('form.validate');
         <hr>
 
         <div class="filter-bar">
-            <div class="btn-toolbar pull-right">
+            <div class="btn-toolbar float-end">
                 <div id="toolbar-cancel" class="btn-group">
-                        <button class="volunteers_btn btn-danger"  type="button" onclick="history.back();return false;">
+                        <button class="btn btn-danger"  type="button" onclick="history.back();return false;">
                         <span class="icon-cancel" aria-hidden="true"></span>
                         <?php echo Text::_('JCANCEL') ?>
                         </button>
                 </div>
                 <div id="toolbar-apply" class="btn-group">
-                    <button class="volunteers_btn btn-success" type="submit">
+                    <button class="btn btn-success" type="submit">
                         <span class="icon-pencil" aria-hidden="true"></span>
                         <?php echo Text::_('JSAVE') ?>
                     </button>

@@ -21,7 +21,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
     <?php if ($this->acl->create_report) : ?>
     <div class="row">
         <div class="filter-bar">
-            <a class="volunteers_btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=report.add&department=' . $this->item->id) ?>">
+            <a class="btn btn-secondary float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=report.add&department=' . $this->item->id) ?>">
                 <span class="icon-new" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_REPORT_ADD') ?>
             </a>
@@ -40,7 +40,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                 </div>
                 <div class="col-10">
                     <?php if ($this->acl->edit || ($report->created_by == $this->user->id)) : ?>
-                        <a class="volunteers_btn pull-right"
+                        <a class="btn btn-secondary float-end"
                            href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $report->id) ?>">
 
 <span class="icon-edit" aria-hidden="true"></span>
@@ -53,7 +53,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                             <?php echo $report->title; ?>
                         </a>
                     </h2>
-                    <p class="muted">
+                    <p class="text-muted">
                         <?php echo Text::_('COM_VOLUNTEERS_BY') ?>
                         <a
                             href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $report->volunteer_id) ?>"><?php echo $report->volunteer_name; ?></a>
@@ -72,7 +72,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                         <?php echo HtmlHelper::_('string.truncate', strip_tags(trim((string) $report->description)), 300); ?>
                     </p>
                     <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>"
-                       class="volunteers_btn">
+                       class="btn btn-secondary">
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>
                         &nbsp;<?php echo ($report->title); ?>
                     </a>
@@ -82,13 +82,13 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
         <?php endforeach; ?>
         <?php if (count($this->item->reports) == 10) : ?>
             <a href="<?php echo Route::_('index.php?option=com_volunteers&view=reports') ?>?filter_category=d.<?php echo $this->item->id; ?>"
-               class="volunteers_btn">
+               class="btn btn-secondary">
                 <span class="icon-chevron-right" aria-hidden="true"></span>
                 <?php echo Text::sprintf('COM_VOLUNTEERS_REPORTS_BROWSE_DEPARTMENT', $this->item->title); ?>
                 &nbsp
             </a>
         <?php endif; ?>
-        <a class="volunteers_btn btn-warning pull-right"
+        <a class="btn btn-warning float-end"
            href="<?php echo Route::_('index.php?option=com_volunteers&view=reports&filter_category=d.' . $this->item->id . '&format=feed&type=rss') ?>">
             <span class="icon-feed" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_RSSFEED') ?>

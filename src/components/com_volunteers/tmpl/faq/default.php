@@ -31,7 +31,7 @@ try {
 ?>
 
 <div class="row">
-    <div class="page-header">
+    <div class="border-bottom pb-2 mb-3">
         <h1 class="vol_h1">
             <?php echo Text::_('COM_VOLUNTEERS_TITLE_FAQ'); ?>
         </h1>

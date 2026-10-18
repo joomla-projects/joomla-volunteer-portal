@@ -59,7 +59,7 @@ try {
             <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_ACTION'); ?>
         </p>
         <p>
-            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=roles'); ?>" class="volunteers_btn"><col-
+            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=roles'); ?>" class="btn btn-secondary"><col-
                     class="icon-chevron-right"></col->
                 <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_BUTTON'); ?>
             </a>
@@ -76,7 +76,7 @@ try {
             <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_ACTION'); ?>
         </p>
         <p>
-            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>" class="volunteers_btn"><col-
+            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>" class="btn btn-secondary"><col-
                     class="icon-chevron-right"></col->
                 <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_BUTTON'); ?>
             </a>
@@ -104,7 +104,7 @@ try {
                             <?php echo ($item->title); ?>
                         </a>
                     </h3>
-                    <p class="muted">
+                    <p class="text-muted">
                         <?php echo Text::_('COM_VOLUNTEERS_BY') ?>
                         <a
                             href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->volunteer_id) ?>"><?php echo $item->volunteer_name; ?></a>
@@ -116,7 +116,7 @@ try {
                     <p>
                         <?php echo StringHelper::truncate(strip_tags(trim((string) $item->description)), 380); ?>
                     </p>
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="volunteers_btn">
+                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="btn btn-secondary">
                         <col- class="icon-chevron-right"></col->
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>&nbsp;
                         <?php echo HtmlHelper::_('string.truncate', $item->title, 55); ?>
@@ -127,7 +127,7 @@ try {
         <?php endforeach;
     }
     ?>
-    <a class="volunteers_btn volunteers_btn-large volunteers_btn-block"
+    <a class="btn btn-secondary btn-lg w-100"
         href="<?php echo Route::_('index.php?option=com_volunteers&view=reports'); ?>"><?php echo Text::_('COM_VOLUNTEERS_READ_MORE_REPORTS') ?></a>
 </div>
 <hr>

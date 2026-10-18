@@ -23,8 +23,8 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 <?php if ($displayData->item->active) { ?>
     <?php echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewmembers', Text::_('COM_VOLUNTEERS_TAB_MEMBERS')); ?>
     <?php if ($displayData->acl->edit) { ?>
-        <div class="row-fluid">
-            <a class="btn pull-right"
+        <div class="clearfix">
+            <a class="btn btn-secondary float-end"
                 href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&team=' . $displayData->item->id); ?>">
                 <span class="icon-new" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_MEMBER_ADD'); ?>
@@ -48,10 +48,10 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                     <?php echo Text::_('COM_VOLUNTEERS_FIELD_DATE_STARTED'); ?>
                 </th>
                 <?php if ($displayData->acl->edit) : ?>
-                    <th width="10%" class="center">
+                    <th width="10%" class="text-center">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_ADDRESS'); ?>
                     </th>
-                    <th width="10%" class="center">
+                    <th width="10%" class="text-center">
                         <?php echo Text::_('COM_VOLUNTEERS_FIELD_NDA'); ?>
                     </th>
                     <th width="10%"></th>
@@ -61,7 +61,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                 <?php foreach ($displayData->item->members->active as $volunteer) : ?>
                     <tr>
                         <td class="volunteer-image">
-                            <a class="pull-left"
+                            <a class="float-start"
                                 href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->volunteer); ?>">
                                 <?php echo VolunteersHelper::image($volunteer->volunteer_image, 'small', false, $volunteer->volunteer_image); ?>
                             </a>
@@ -69,7 +69,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                                 href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->volunteer); ?>">
                                 <?php echo $volunteer->volunteer_name; ?>
                             </a>
-                            <span class="muted volunteer-location">
+                            <span class="text-muted volunteer-location">
                                 <span class="icon-location" aria-hidden="true"></span>
                                 <?php echo VolunteersHelper::location($volunteer->volunteer_country); ?>
                             </span>
@@ -84,14 +84,14 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                             <?php echo VolunteersHelper::date($volunteer->date_started, 'M Y'); ?>
                         </td>
                         <?php if ($displayData->acl->edit) : ?>
-                            <td class="center">
+                            <td class="text-center">
                                 <?php if ($volunteer->address) { ?>
                                     <span class="icon-checkbox-checked"></span>
                                 <?php } else { ?>
                                     <span class="icon-checkbox-unchecked"></span>
                                 <?php } ?>
                             </td>
-                            <td class="center">
+                            <td class="text-center">
                                 <?php if ($volunteer->nda) { ?>
                                     <span class="icon-checkbox-checked"></span>
                                 <?php } else { ?>
@@ -99,7 +99,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                                 <?php } ?>
                             </td>
                             <td>
-                                <a class="btn btn-small pull-right"
+                                <a class="btn btn-secondary btn-sm float-end"
                                     href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id); ?>">
                                     <span class="icon-edit" aria-hidden="true"></span>
                                     <?php echo Text::_('COM_VOLUNTEERS_EDIT'); ?>

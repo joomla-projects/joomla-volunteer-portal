@@ -20,7 +20,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 <?php if ($this->acl->edit) : ?>
     <div class="row">
         <div class="filter-bar">
-        <a class="volunteers_btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.add&team=' . $this->item->id); ?>">
+        <a class="btn btn-secondary float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.add&team=' . $this->item->id); ?>">
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_ROLE_ADD'); ?>
         </a>
@@ -31,15 +31,15 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 <?php if ($this->item->roles) : ?>
     <?php foreach ($this->item->roles as $role) : ?>
         <div class="row">
-            <div class="team well">
+            <div class="team card card-body mb-3">
                 <div class="row">
 <div class="col-12">
         <?php if ($this->acl->edit) : ?>
-        <a class="volunteers_btn btn-small pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.delete&id=' . $role->id); ?>">
+        <a class="btn btn-secondary btn-sm float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.delete&id=' . $role->id); ?>">
             <span class="icon-delete" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_DELETE'); ?>
         </a>
-        <a class="volunteers_btn btn-small pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.edit&id=' . $role->id); ?>">
+        <a class="btn btn-secondary btn-sm float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.edit&id=' . $role->id); ?>">
             <span class="icon-edit" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_EDIT'); ?>
         </a>
@@ -53,7 +53,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                         <h2 class="vol_h2"><?php echo $role->title; ?></h2>
                         <p><?php echo $role->description; ?></p>
                         <?php if ($role->open) : ?>
-                            <a class="volunteers_btn" data-toggle="tab" onclick="document.getElementById('teamsTab').activateTab(document.getElementById('viewcontact'));">
+                            <a class="btn btn-secondary" onclick="document.getElementById('teamsTab').activateTab(document.getElementById('viewcontact'));">
                                 <span class="icon-chevron-right" aria-hidden="true"></span>
                                 <?php echo Text::_('COM_VOLUNTEERS_ROLE_APPLY'); ?>
                             </a>
@@ -70,7 +70,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                                 <?php endforeach; ?>
                             <?php endif; ?>
                             <?php if ($role->open) : ?>
-                                <a data-toggle="tab" class="all-members"  onclick="document.getElementById('teamsTab').activateTab(document.getElementById('viewgetinvolved'));">
+                                <a class="all-members"  onclick="document.getElementById('teamsTab').activateTab(document.getElementById('viewgetinvolved'));">
                                     <span class="all"><?php echo Text::_('COM_VOLUNTEERS_YOU'); ?></span><span class="number">?</span>
                                 </a>
                             <?php endif; ?>

@@ -314,7 +314,7 @@ class VolunteersHelper
     public static function outputHorizontalVolunteer($volunteer)
     {
         echo '<a href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->id) . '">';
-        echo self::image($volunteer->image, 'small', false, $volunteer->name, 'joomlers img_rounded');
+        echo self::image($volunteer->image, 'small', false, $volunteer->name, 'joomlers rounded w-100');
         echo '</a>';
         echo '<h4 class="text-center vol_h4">';
         echo '<a href="' . Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $volunteer->id) . '">';

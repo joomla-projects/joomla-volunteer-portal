@@ -29,14 +29,14 @@ try {
 <div class="row">
     <div class="filter-bar">
         <?php if ($this->acl->edit) : ?>
-            <a class="volunteers_btn pull-right" href="<?php echo Route::_('index.php?option=com_volunteers&task=department.edit&id=' . $this->item->id) ?>">
+            <a class="btn btn-secondary float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=department.edit&id=' . $this->item->id) ?>">
 
 <span class="icon-edit" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS_EDIT') ?>
             </a>
         <?php endif; ?>
     </div>
-    <div class="page-header">
+    <div class="border-bottom pb-2 mb-3">
         <h1 class="vol_h1">
             <?php echo $this->escape($this->item->title) ?>
         </h1>
@@ -46,12 +46,12 @@ try {
         <?php echo strip_tags((string) $this->item->description) ?>
     </p>
 
-    <dl class="dl-horizontal">
+    <dl class="row">
         <?php if ($this->item->website) : ?>
-            <dt>
+            <dt class="col-sm-3">
                 <?php echo Text::_('COM_VOLUNTEERS_FIELD_WEBSITE') ?>
             </dt>
-            <dd><a href="<?php echo ($this->item->website) ?>"><?php echo ($this->item->website) ?></a></dd>
+            <dd class="col-sm-9"><a href="<?php echo ($this->item->website) ?>"><?php echo ($this->item->website) ?></a></dd>
         <?php endif; ?>
     </dl>
 </div>

@@ -115,7 +115,7 @@ if ($saveOrder) {
                                     <td class="text-center">
                                         <?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->user_username); ?>
                                     </td>
-                                    <td class="text=center d-none d-md-table-cell">
+                                    <td class="text-center d-none d-md-table-cell">
                                         <?php
                                         $iconClass = '';
                                         if (!$canChange) {
@@ -137,10 +137,10 @@ if ($saveOrder) {
                                     </td>
                                     <td class="volunteer-image">
                                         <?php if ($item->image) : ?>
-                                            <img class="img-rounded" src="<?php echo $item->image; ?>"
+                                            <img class="rounded" src="<?php echo $item->image; ?>"
                                                 alt="<?php echo $this->escape($item->user_username); ?>">
                                         <?php else : ?>
-                                            <img class="img-rounded"
+                                            <img class="rounded"
                                                 src="<?php echo URI::root() . 'media/com_volunteers/images/joomlaperson.png'; ?>"
                                                 alt="">
                                         <?php endif; ?>
@@ -188,13 +188,13 @@ if ($saveOrder) {
                                     <td>
                                         <?php echo HTMLHelper::_('string.truncate', $item->intro, 250); ?>
                                     </td>
-                                    <td class="d-none d-md-table-cell center">
+                                    <td class="d-none d-md-table-cell text-center">
                                         <a
                                             href="<?php echo Route::_('index.php?option=com_volunteers&view=members&filter[volunteer]=' . $item->id); ?>">
                                             <?php echo $item->num_teams; ?>
                                         </a>
                                     </td>
-                                    <td class="d-none d-md-table-cell center">
+                                    <td class="d-none d-md-table-cell text-center">
                                         <?php echo $item->spam; ?>
                                     </td>
                                     <td class="d-none d-md-table-cell">

@@ -34,21 +34,22 @@ try {
 <form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm"
     id="adminForm">
     <div class="row">
-        <div class="filter-bar">
-            <div class="btn-group pull-right">
-
-                <?php echo HtmlHelper::_(
-                    'select.groupedlist',
-                    VolunteersHelper::reportcategories(),
-                    'filter_category',
-                    ['list.attr' => [
-                                    'class' => 'input-xlarge form-select',
-                                    'onchange' => 'document.adminForm.submit();'
-                                    ]]
-                ); ?>
-            </div>
+        <div class="filter-bar d-flex justify-content-end">
+            <label class="visually-hidden" for="filter_category"><?php echo Text::_('COM_VOLUNTEERS_SELECT_REPORTCATEGORY'); ?></label>
+            <?php echo HtmlHelper::_(
+                'select.groupedlist',
+                VolunteersHelper::reportcategories(),
+                'filter_category',
+                [
+                    'list.select' => $this->state->get('filter.category'),
+                    'list.attr'   => [
+                        'class'    => 'form-select w-auto',
+                        'onchange' => 'this.form.submit();',
+                    ],
+                ]
+            ); ?>
         </div>
-        <div class="page-header">
+        <div class="border-bottom pb-2 mb-3">
             <h1 class="vol_h1">
                 <?php echo Text::_('COM_VOLUNTEERS_TITLE_REPORTS') ?>
                 <?php if ($this->category) :
@@ -71,7 +72,7 @@ try {
                 </div>
                 <div class="col-10">
                     <?php if ($item->acl->edit || ($this->user->id == $item->created_by)) : ?>
-                        <a class="volunteers_btn pull-right"
+                        <a class="btn btn-secondary float-end"
                             href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $item->id) ?>">
                             <span class="icon-edit" aria-hidden="true"></span>
                             <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
@@ -82,7 +83,7 @@ try {
                             <?php echo ($item->title); ?>
                         </a>
                     </h2>
-                    <p class="muted">
+                    <p class="text-muted">
                         <?php echo Text::_('COM_VOLUNTEERS_BY') ?>
                         <a
                             href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->volunteer_id) ?>"><?php echo $item->volunteer_name; ?></a>
@@ -94,7 +95,7 @@ try {
                     <p>
                         <?php echo HtmlHelper::_('string.truncate', strip_tags(trim((string) $item->description)), 500); ?>
                     </p>
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="volunteers_btn">
+                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="btn btn-secondary">
                         <span class="icon-chevron-right" aria-hidden="true"></span>
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>
                         &nbsp;
@@ -113,7 +114,7 @@ try {
     <?php endif; ?>
 
     <div class="row">
-        <a class="volunteers_btn pull-right btn-warning"
+        <a class="btn btn-warning float-end"
             href="<?php echo Route::_('index.php?option=com_volunteers&view=reports&filter_category=' . $this->state->get('filter.category') . '&format=feed&type=rss') ?>">
             <span class="icon-feed" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_RSSFEED') ?>
@@ -121,7 +122,7 @@ try {
     </div>
 
     <div class="pagination">
-        <p class="counter pull-right">
+        <p class="counter float-end">
             <?php echo $this->pagination->getPagesCounter(); ?>
         </p>
 

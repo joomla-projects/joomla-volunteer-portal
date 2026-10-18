@@ -68,7 +68,7 @@ $wa->useScript('table.columns');
                         <th width="8%">
                             <?php echo HTMLHelper::_('searchtools.sort', 'COM_VOLUNTEERS_FIELD_DATE_ENDED', 'a.date_ended', $listDirn, $listOrder); ?>
                         </th>
-                        <th width="1%" class="nowrap center hidden-phone">
+                        <th width="1%" class="text-nowrap text-center d-none d-md-table-cell">
                             <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
                         </th>
                     </tr>
@@ -90,15 +90,15 @@ $wa->useScript('table.columns');
                                                 ?> error<?php
                                           endif; ?>" sortable-volunteer-id="<?php echo $item->id ?>">
                                 <td>
-                                    <a class="btn btn-small" href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . (int) $item->id); ?>">
+                                    <a class="btn btn-secondary btn-sm" href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . (int) $item->id); ?>">
                                         <span class="icon-edit" aria-hidden="true"></span>Edit
                                     </a>
                                 </td>
-                                <td class="nowrap">
+                                <td class="text-nowrap">
                                     <?php echo $item->department_title; ?>
                                     <?php echo $item->teamdepartment_title; ?>
                                 </td>
-                                <td class="nowrap">
+                                <td class="text-nowrap">
                                     <?php if ($item->team_title) :
                                         ?>
                                             <?php echo $item->team_title; ?>
@@ -124,7 +124,7 @@ $wa->useScript('table.columns');
                                             <?php
                                     endif; ?>
                                 </td>
-                                <td class="nowrap">
+                                <td class="text-nowrap">
                                     <?php echo $item->position_title; ?>
                                     <?php if ($item->role_title) :
                                         ?>
@@ -132,7 +132,7 @@ $wa->useScript('table.columns');
                                             <?php
                                     endif; ?>
                                 </td>
-                                <td class="nowrap">
+                                <td class="text-nowrap">
                                     <?php if ($canEdit) :
                                         ?>
                                             <a href="<?php echo Route::_('index.php?option=com_volunteers&task=volunteer.edit&id=' . (int) $item->volunteer); ?>">
@@ -152,7 +152,7 @@ $wa->useScript('table.columns');
                                 <td>
                                     <?php echo $item->date_ended; ?>
                                 </td>
-                                <td class="center hidden-phone">
+                                <td class="text-center d-none d-md-table-cell">
                                     <?php echo (int) $item->id; ?>
                                 </td>
                             </tr>

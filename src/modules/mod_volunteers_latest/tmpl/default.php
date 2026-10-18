@@ -27,20 +27,20 @@ if (empty($volunteers)) {
     return;
 }
 ?>
-<div class="well">
-    <div class="page-header"><strong>
+<div class="card card-body mb-3">
+    <div class="border-bottom pb-1 mb-2"><strong>
         <?php echo Text::_('COM_VOLUNTEERS_LATEST_VOLUNTEERS'); ?>
     </strong></div>
     <?php foreach ($volunteers as $item) : ?>
-        <ul class="media-list volunteer-mods">
-            <li class="media">
-                <a class="volunteer_link" href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->id); ?>">
-                    <span class="pull-left">
+        <ul class="list-unstyled volunteer-mods">
+            <li>
+                <a class="volunteer_link d-flex" href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $item->id); ?>">
+                    <span class="flex-shrink-0 me-2">
                         <?php echo VolunteersHelper::image($item->image, 'small', false, $item->name); ?>
                     </span>
-                    <div class="media-body">
+                    <div class="flex-grow-1">
                         <h3 class="volunteer-name"><?php echo $item->name; ?></h3>
-                        <p class="muted volunteer-location">
+                        <p class="text-muted volunteer-location">
                             <span class="icon-location" aria-hidden="true"></span>
                             <?php echo VolunteersHelper::location($item->country, $item->city); ?>
                         </p>

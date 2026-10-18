@@ -37,7 +37,7 @@ try {
             </a>
         <?php endif; ?>
     </div>
-    <div class="page-header">
+    <div class="border-bottom pb-2 mb-3">
         <h1 class="vol_h1">
             <?php echo $this->escape($this->item->title) ?>
         </h1>
@@ -47,12 +47,12 @@ try {
         <?php echo strip_tags((string) $this->item->description) ?>
     </p>
 
-    <dl class="dl-horizontal">
+    <dl class="row">
         <?php if ($this->item->website) : ?>
-            <dt>
+            <dt class="col-sm-3">
                 <?php echo Text::_('COM_VOLUNTEERS_FIELD_WEBSITE') ?>
             </dt>
-            <dd><a href="<?php echo ($this->item->website) ?>"><?php echo ($this->item->website) ?></a></dd>
+            <dd class="col-sm-9"><a href="<?php echo ($this->item->website) ?>"><?php echo ($this->item->website) ?></a></dd>
         <?php endif; ?>
     </dl>
 </div>
@@ -238,7 +238,7 @@ try {
                                 <?php echo $report->title; ?>
                             </a>
                         </h2>
-                        <p class="muted">
+                        <p class="text-muted">
                             <?php echo Text::_('COM_VOLUNTEERS_BY') ?>
                             <a
                                 href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $report->volunteer_id) ?>"><?php echo $report->volunteer_name; ?></a>
@@ -252,7 +252,7 @@ try {
                             <?php echo HtmlHelper::_('string.truncate', strip_tags(trim((string) $report->description)), 300); ?>
                         </p>
                         <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>"
-                            class="volunteers_btn">
+                            class="btn btn-secondary">
                             <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>&nbsp;<?php echo ($report->title); ?>
                         </a>
                     </div>
@@ -261,12 +261,12 @@ try {
             <?php endforeach; ?>
             <?php if (count($this->item->reports) == 10) : ?>
                 <a href="<?php echo Route::_('index.php?option=com_volunteers&view=reports') ?>?filter_category=d.<?php echo $this->item->id; ?>"
-                    class="report_volunteers_btn">
+                    class="btn btn-secondary">
                     <span class="icon-chevron-right" aria-hidden="true"></span>
                     <?php echo Text::_('COM_VOLUNTEERS_REPORTS_BROWSE') ?>&nbsp
                 </a>
             <?php endif; ?>
-            <a class="volunteers_btn volunteers_btn-warning pull-right"
+            <a class="btn btn-warning float-end"
                 href="<?php echo Route::_('index.php?option=com_volunteers&view=reports&filter_category=d.' . $this->item->id . '&format=feed&type=rss') ?>">
                 <span class="icon-feed" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_RSSFEED') ?>
@@ -287,40 +287,40 @@ try {
                 <?php echo Text::_('COM_VOLUNTEERS_NOTE_LOGIN_CONTACT_DEPARTMENT') ?>
             </p>
         <?php else : ?>
-            <form class="form form-horizontal" name="sendmail" action="<?php echo Route::_('index.php') ?>" method="post"
+            <form class="form" name="sendmail" action="<?php echo Route::_('index.php') ?>" method="post"
                 enctype="multipart/form-data">
-                <div class="control-group">
-                    <label class="control-label" for="to_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_TO') ?></label>
-                    <div class="controls">
+                <div class="mb-3">
+                    <label class="form-label" for="to_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_TO') ?></label>
+                    <div>
                         <input type="text" name="to_name" id="to_name" value="<?php echo $this->item->title ?>"
-                            class="input-block-level" disabled="disabled" />
+                            class="form-control" disabled="disabled" />
                     </div>
                 </div>
-                <div class="control-group">
-                    <label class="control-label" for="from_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_FROM') ?></label>
-                    <div class="controls">
+                <div class="mb-3">
+                    <label class="form-label" for="from_name"><?php echo Text::_('COM_VOLUNTEERS_MESSAGE_FROM') ?></label>
+                    <div>
                         <input type="text" name="from_name" id="from_name"
                             value="<?php echo ($this->user->name); ?> <<?php echo ($this->user->email); ?>>"
-                            class="input-block-level" disabled="disabled" />
+                            class="form-control" disabled="disabled" />
                     </div>
                 </div>
-                <div class="control-group">
-                    <div class="controls col-12">
-                        <input type="text" name="subject" id="subject" class="input-block-level"
+                <div class="mb-3">
+                    <div>
+                        <input type="text" name="subject" id="subject" class="form-control"
                             placeholder="<?php echo Text::_('COM_VOLUNTEERS_MESSAGE_SUBJECT') ?>" required />
                     </div>
                 </div>
-                <div class="control-group">
-                    <textarea rows="10" name="message" id="message" class="input-block-level"
+                <div class="mb-3">
+                    <textarea rows="10" name="message" id="message" class="form-control"
                         placeholder="<?php echo Text::sprintf('COM_VOLUNTEERS_MESSAGE_BODY', $this->item->title) ?>"
                         required></textarea>
                 </div>
                 <div class="alert alert-info">
                     <?php echo Text::sprintf('COM_VOLUNTEERS_MESSAGE_NOTICE', $this->item->title) ?>
                 </div>
-                <div class="control-group">
+                <div class="mb-3">
                     <input type="submit" value="<?php echo Text::_('COM_VOLUNTEERS_MESSAGE_SUBMIT') ?>" name="submit"
-                        id="submitButton" class="volunteers_btn volunteers_btn-success pull-right" />
+                        id="submitButton" class="btn btn-success float-end" />
                 </div>
 
                 <input type="hidden" name="option" value="com_volunteers" />
