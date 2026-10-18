@@ -204,8 +204,6 @@ class DepartmentsModel extends ListModel
             // Get members
 
             $model = $this->getMVCFactory()->createModel('Members', 'Administrator', ['ignore_request' => true]);
-            $model->setState('filter.position', [11, 13]);
-
             $model->setState('filter.active', 1);
             $model->setState('filter.type', 'department');
             $members = $model->getItems();

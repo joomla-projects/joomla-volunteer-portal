@@ -48,10 +48,10 @@ try {
 
     <dl class="row">
         <?php if ($this->item->website) : ?>
-            <dt class="col-sm-3">
+            <dt class="col-sm-auto">
                 <?php echo Text::_('COM_VOLUNTEERS_FIELD_WEBSITE') ?>
             </dt>
-            <dd class="col-sm-9"><a href="<?php echo ($this->item->website) ?>"><?php echo ($this->item->website) ?></a></dd>
+            <dd class="col-sm"><a href="<?php echo ($this->item->website) ?>"><?php echo ($this->item->website) ?></a></dd>
         <?php endif; ?>
     </dl>
 </div>

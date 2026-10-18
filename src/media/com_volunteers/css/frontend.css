@@ -17,6 +17,7 @@
 }
 
 .members img {
+    border-radius: 6px;
     height: 50px;
     margin: 0;
     padding: 0;
@@ -275,3 +276,14 @@ div#toolbar-cancel.btn-group a {
 .btn-twitter { --brand: #000; --brand-dark: #333; }
 .btn-facebook { --brand: #1668d6; --brand-dark: #1053ab; }
 .btn-linkedin { --brand: #0a66c2; --brand-dark: #084e96; }
+
+/* Text links only underline on hover, as on the homepage */
+.com_volunteers main a:not(.btn, .pathway) {
+    text-decoration: none;
+}
+
+.com_volunteers main a:not(.btn, .pathway):hover,
+.com_volunteers main a:not(.btn, .pathway):focus-visible {
+    text-decoration: underline;
+}
+

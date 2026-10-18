@@ -58,9 +58,9 @@ try {
     <?php if (!empty($this->items)) {
         foreach ($this->items as $i => $item) : ?>
         <div class="row">
-            <div class="team card card-body mb-3 team-<?php echo($item->id); ?>">
+            <div class="team card card-body bg-body-tertiary mb-3 team-<?php echo($item->id); ?>">
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-md-8">
                         <h2 class="vol_h2" style="margin-top: 0;">
                             <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $item->id) ?>">
                                         <?php echo($item->title); ?>
@@ -68,11 +68,12 @@ try {
                         </h2>
                         <p><?php echo($item->description); ?></p>
                         <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $item->id) ?>" class="btn btn-light">
-                            <span class="fa fa-chevron-right"></span><?php echo Text::_('COM_VOLUNTEERS_READ_MORE') . ' ' . $item->title; ?>
+                            <span class="icon-chevron-right" aria-hidden="true"></span>
+                            <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') . ' ' . $item->title; ?>
                         </a>
                     </div>
-                    <div class="col-4">
-                        <div class="members">
+                    <div class="col-md-4">
+                        <div class="members d-flex flex-wrap mt-3 mt-md-0">
                                     <?php $i = 0; ?>
 
                                     <?php if (!empty($item->members)) {
