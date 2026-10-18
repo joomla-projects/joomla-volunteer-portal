@@ -43,10 +43,7 @@ try {
 
 ?>
 
-<div class="row">
-    <img style="width: 100%" src="media/com_volunteers/images/volunteer-header.png" alt="Become a Joomla! contributor">
-</div>
-<br>
+<img class="img-fluid w-100 mb-4" src="media/com_volunteers/images/volunteer-header.png" alt="Become a Joomla! contributor">
 <div class="row">
     <div class="col-6">
         <h2 class="vol_h2">
@@ -82,7 +79,7 @@ try {
     </div>
 </div>
 <hr>
-<div class="row">
+<div class="latest-reports">
     <h2 class="vol_h2">
         <?php echo Text::_('COM_VOLUNTEERS_LATEST_REPORTS') ?>
     </h2>
@@ -129,7 +126,7 @@ try {
         href="<?php echo Route::_('index.php?option=com_volunteers&view=reports'); ?>"><?php echo Text::_('COM_VOLUNTEERS_READ_MORE_REPORTS') ?></a>
 </div>
 <hr>
-<div class="row">
+<div class="volunteers-map">
     <h2 class="vol_h2">
         <?php echo count($this->markers) . ' ' . Text::_('COM_VOLUNTEERS_VOLUNTEERS_WORLD') ?>
     </h2>

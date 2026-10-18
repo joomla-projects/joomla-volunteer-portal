@@ -380,7 +380,7 @@ class VolunteersHelper
      *
      * @since version
      */
-    public static function image($image, $size, bool $urlonly = false, string|null $alt = '', string $class = 'img-rounded')
+    public static function image($image, $size, bool $urlonly = false, string|null $alt = '', string $class = 'rounded')
     {
         /** @var VolunteersService $volunteersService */
         $volunteersService = Factory::getApplication()->bootComponent('com_volunteers')->getContainer()->get(VolunteersService::class);

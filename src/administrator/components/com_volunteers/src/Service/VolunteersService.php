@@ -521,7 +521,7 @@ class VolunteersService
      *
      * @return  string
      */
-    public function getImage(?string $image, string $size, bool $urlOnly = false, ?string $alt = '', string $class = 'img-rounded'): string
+    public function getImage(?string $image, string $size, bool $urlOnly = false, ?string $alt = '', string $class = 'rounded'): string
     {
         if (empty($image)) {
             $image = Uri::root() . 'media/com_volunteers/images/joomlaperson.png';
