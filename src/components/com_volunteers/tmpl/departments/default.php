@@ -44,7 +44,7 @@ try {
                     <span class="icon-search" aria-hidden="true"></span>
                 </button>
                 <?php if ($this->state->get('filter.search')) : ?>
-                    <button class="btn btn-secondary" type="button" aria-label="<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?>"
+                    <button class="btn btn-light" type="button" aria-label="<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?>"
                         onclick="this.form.filter_search.value='';this.form.submit();">
                         <span class="icon-times" aria-hidden="true"></span>
                     </button>
@@ -67,7 +67,7 @@ try {
                             </a>
                         </h2>
                         <p><?php echo($item->description); ?></p>
-                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $item->id) ?>" class="btn btn-secondary">
+                        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=department&id=' . $item->id) ?>" class="btn btn-light">
                             <span class="fa fa-chevron-right"></span><?php echo Text::_('COM_VOLUNTEERS_READ_MORE') . ' ' . $item->title; ?>
                         </a>
                     </div>

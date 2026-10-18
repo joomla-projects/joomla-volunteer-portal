@@ -59,8 +59,7 @@ try {
             <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_ACTION'); ?>
         </p>
         <p>
-            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=roles'); ?>" class="btn btn-secondary"><col-
-                    class="icon-chevron-right"></col->
+            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=roles'); ?>" class="btn btn-light"><span class="icon-chevron-right" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_HOW_BUTTON'); ?>
             </a>
         </p>
@@ -76,8 +75,7 @@ try {
             <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_ACTION'); ?>
         </p>
         <p>
-            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>" class="btn btn-secondary"><col-
-                    class="icon-chevron-right"></col->
+            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteers'); ?>" class="btn btn-light"><span class="icon-chevron-right" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_HOME_INTRO_WHY_BUTTON'); ?>
             </a>
         </p>
@@ -116,18 +114,18 @@ try {
                     <p>
                         <?php echo StringHelper::truncate(strip_tags(trim((string) $item->description)), 380); ?>
                     </p>
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="btn btn-secondary">
-                        <col- class="icon-chevron-right"></col->
+                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="btn btn-light">
+                        <span class="icon-chevron-right" aria-hidden="true"></span>
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>&nbsp;
                         <?php echo HtmlHelper::_('string.truncate', $item->title, 55); ?>
                     </a>
                 </div>
             </div>
-            <hr>
+            <hr class="my-4">
         <?php endforeach;
     }
     ?>
-    <a class="btn btn-secondary btn-lg w-100"
+    <a class="btn btn-light btn-lg w-100"
         href="<?php echo Route::_('index.php?option=com_volunteers&view=reports'); ?>"><?php echo Text::_('COM_VOLUNTEERS_READ_MORE_REPORTS') ?></a>
 </div>
 <hr>

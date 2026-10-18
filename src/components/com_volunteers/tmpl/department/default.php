@@ -29,7 +29,7 @@ try {
 <div class="row">
     <div class="filter-bar">
         <?php if ($this->acl->edit) : ?>
-            <a class="btn btn-secondary float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=department.edit&id=' . $this->item->id) ?>">
+            <a class="btn btn-light float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=department.edit&id=' . $this->item->id) ?>">
 
 <span class="icon-edit" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_TITLE_DEPARTMENTS_EDIT') ?>

@@ -27,7 +27,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
     <div class="col-10">
         <div class="filter-bar">
             <?php if ($this->acl->edit || ($this->item->created_by == $this->user->id)) : ?>
-                <a class="btn btn-secondary float-end"
+                <a class="btn btn-light float-end"
                     href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $this->item->id) ?>">
                     <span class="icon-edit" aria-hidden="true"></span>
                     <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>

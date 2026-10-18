@@ -65,12 +65,12 @@ try {
                                     <?php echo $role->description; ?>
                                 </td>
                                 <td>
-                                    <a class="btn btn-secondary btn-sm float-end"
+                                    <a class="btn btn-light btn-sm float-end"
                                         href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $role->team . '&tab=contact') ?>">
                                         <span class="icon-mail" aria-hidden="true"></span>
                                         <?php echo Text::_('COM_VOLUNTEERS_TAB_CONTACT') ?>
                                     </a>
-                                    <a class="btn btn-secondary btn-sm float-end"
+                                    <a class="btn btn-light btn-sm float-end"
                                         href="<?php echo Route::_('index.php?option=com_volunteers&view=team&id=' . $role->team . '&tab=getinvolved') ?>">
                                         <span class="icon-chevron-right" aria-hidden="true"></span>
                                         <?php echo Text::_('COM_VOLUNTEERS_ROLE_APPLY') ?>

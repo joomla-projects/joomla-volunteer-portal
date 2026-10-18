@@ -30,7 +30,7 @@ try {
 <div class="row">
     <div class="filter-bar">
         <?php if ($this->acl->edit) { ?>
-            <a class="btn btn-secondary float-end"
+            <a class="btn btn-light float-end"
                 href="<?php echo Route::_('index.php?option=com_volunteers&task=team.edit&id=' . $this->item->id) ?>">
                 <span class="icon-edit" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_TITLE_TEAMS_EDIT') ?>
@@ -157,7 +157,7 @@ try {
             if ($this->item->getinvolved) {
                 echo $this->item->getinvolved;
             } else {
-                echo '<a  class="btn btn-secondary"  onclick="document.getElementById(\'teamsTab\').activateTab(document.getElementById(\'viewcontact\'));">' . Text::_('COM_VOLUNTEERS_USE_CONTACT') . '</a>';
+                echo '<a  class="btn btn-light"  onclick="document.getElementById(\'teamsTab\').activateTab(document.getElementById(\'viewcontact\'));">' . Text::_('COM_VOLUNTEERS_USE_CONTACT') . '</a>';
             }
 
             echo HTMLHelper::_('uitab.endTab');

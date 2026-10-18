@@ -45,7 +45,7 @@ $active = $this->state->get('filter.active', 1);
                         <span class="icon-search" aria-hidden="true"></span>
                     </button>
                     <?php if ($this->state->get('filter.search')) : ?>
-                        <button class="btn btn-secondary" type="button" aria-label="<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?>"
+                        <button class="btn btn-light" type="button" aria-label="<?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?>"
                             onclick="this.form.filter_search.value='';this.form.submit();">
                             <span class="icon-times" aria-hidden="true"></span>
                         </button>

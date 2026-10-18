@@ -24,7 +24,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
     <?php echo HTMLHelper::_('uitab.addTab', 'teamsTab', 'viewmembers', Text::_('COM_VOLUNTEERS_TAB_MEMBERS')); ?>
     <?php if ($displayData->acl->edit) { ?>
         <div class="clearfix">
-            <a class="btn btn-secondary float-end"
+            <a class="btn btn-light float-end"
                 href="<?php echo Route::_('index.php?option=com_volunteers&task=member.add&team=' . $displayData->item->id); ?>">
                 <span class="icon-new" aria-hidden="true"></span>
                 <?php echo Text::_('COM_VOLUNTEERS_MEMBER_ADD'); ?>
@@ -99,7 +99,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                                 <?php } ?>
                             </td>
                             <td>
-                                <a class="btn btn-secondary btn-sm float-end"
+                                <a class="btn btn-light btn-sm float-end"
                                     href="<?php echo Route::_('index.php?option=com_volunteers&task=member.edit&id=' . $volunteer->id); ?>">
                                     <span class="icon-edit" aria-hidden="true"></span>
                                     <?php echo Text::_('COM_VOLUNTEERS_EDIT'); ?>

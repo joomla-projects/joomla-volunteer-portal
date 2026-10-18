@@ -252,7 +252,7 @@ try {
                             <?php echo HtmlHelper::_('string.truncate', strip_tags(trim((string) $report->description)), 300); ?>
                         </p>
                         <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>"
-                            class="btn btn-secondary">
+                            class="btn btn-light">
                             <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>&nbsp;<?php echo ($report->title); ?>
                         </a>
                     </div>
@@ -261,7 +261,7 @@ try {
             <?php endforeach; ?>
             <?php if (count($this->item->reports) == 10) : ?>
                 <a href="<?php echo Route::_('index.php?option=com_volunteers&view=reports') ?>?filter_category=d.<?php echo $this->item->id; ?>"
-                    class="btn btn-secondary">
+                    class="btn btn-light">
                     <span class="icon-chevron-right" aria-hidden="true"></span>
                     <?php echo Text::_('COM_VOLUNTEERS_REPORTS_BROWSE') ?>&nbsp
                 </a>

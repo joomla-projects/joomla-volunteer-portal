@@ -29,7 +29,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                 </div>
                 <div class="col-10">
                     <?php if ($this->acl->edit || ($report->created_by == $this->user->id)) : ?>
-                        <a class="btn btn-secondary float-end"
+                        <a class="btn btn-light float-end"
                            href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $report->id) ?>">
 
 <span class="icon-edit" aria-hidden="true"></span>
@@ -61,7 +61,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                         <?php echo HtmlHelper::_('string.truncate', strip_tags(trim((string) $report->description)), 300); ?>
                     </p>
                     <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $report->id) ?>"
-                       class="btn btn-secondary">
+                       class="btn btn-light">
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>
                         &nbsp;<?php echo ($report->title); ?>
                     </a>
@@ -70,7 +70,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
             <hr>
         <?php endforeach; ?>
 
-        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=reports') ?>" class="btn btn-secondary">
+        <a href="<?php echo Route::_('index.php?option=com_volunteers&view=reports') ?>" class="btn btn-light">
             <span class="icon-chevron-right" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_READ_MORE_REPORTS'); ?>
             &nbsp

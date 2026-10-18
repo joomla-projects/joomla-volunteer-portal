@@ -56,7 +56,7 @@ try {
     <div class="col-9">
         <div class="filter-bar">
             <?php if (($this->user->id == $this->item->user_id) && $this->item->user_id) { ?>
-                <a class="btn btn-secondary float-end" href="https://identity.joomla.org/profile?layout=edit">
+                <a class="btn btn-light float-end" href="https://identity.joomla.org/profile?layout=edit">
                     <span class="icon-edit" aria-hidden="true"></span>
                     <?php echo Text::_('COM_VOLUNTEERS_TITLE_VOLUNTEERS_EDIT_MY') ?>
                 </a>

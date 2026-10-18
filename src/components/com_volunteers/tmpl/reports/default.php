@@ -72,7 +72,7 @@ try {
                 </div>
                 <div class="col-10">
                     <?php if ($item->acl->edit || ($this->user->id == $item->created_by)) : ?>
-                        <a class="btn btn-secondary float-end"
+                        <a class="btn btn-light float-end"
                             href="<?php echo Route::_('index.php?option=com_volunteers&task=report.edit&id=' . $item->id) ?>">
                             <span class="icon-edit" aria-hidden="true"></span>
                             <?php echo Text::_('COM_VOLUNTEERS_EDIT') ?>
@@ -95,7 +95,7 @@ try {
                     <p>
                         <?php echo HtmlHelper::_('string.truncate', strip_tags(trim((string) $item->description)), 500); ?>
                     </p>
-                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="btn btn-secondary">
+                    <a href="<?php echo Route::_('index.php?option=com_volunteers&view=report&id=' . $item->id) ?>" class="btn btn-light">
                         <span class="icon-chevron-right" aria-hidden="true"></span>
                         <?php echo Text::_('COM_VOLUNTEERS_READ_MORE') ?>
                         &nbsp;

@@ -20,7 +20,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
 <?php if ($this->acl->edit) : ?>
     <div class="row">
         <div class="filter-bar">
-        <a class="btn btn-secondary float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.add&team=' . $this->item->id); ?>">
+        <a class="btn btn-light float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.add&team=' . $this->item->id); ?>">
             <span class="icon-new" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_ROLE_ADD'); ?>
         </a>
@@ -35,11 +35,11 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                 <div class="row">
 <div class="col-12">
         <?php if ($this->acl->edit) : ?>
-        <a class="btn btn-secondary btn-sm float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.delete&id=' . $role->id); ?>">
+        <a class="btn btn-light btn-sm float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.delete&id=' . $role->id); ?>">
             <span class="icon-delete" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_DELETE'); ?>
         </a>
-        <a class="btn btn-secondary btn-sm float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.edit&id=' . $role->id); ?>">
+        <a class="btn btn-light btn-sm float-end" href="<?php echo Route::_('index.php?option=com_volunteers&task=role.edit&id=' . $role->id); ?>">
             <span class="icon-edit" aria-hidden="true"></span>
             <?php echo Text::_('COM_VOLUNTEERS_EDIT'); ?>
         </a>
@@ -53,7 +53,7 @@ use Joomla\Component\Volunteers\Site\Helper\VolunteersHelper;
                         <h2 class="vol_h2"><?php echo $role->title; ?></h2>
                         <p><?php echo $role->description; ?></p>
                         <?php if ($role->open) : ?>
-                            <a class="btn btn-secondary" onclick="document.getElementById('teamsTab').activateTab(document.getElementById('viewcontact'));">
+                            <a class="btn btn-light" onclick="document.getElementById('teamsTab').activateTab(document.getElementById('viewcontact'));">
                                 <span class="icon-chevron-right" aria-hidden="true"></span>
                                 <?php echo Text::_('COM_VOLUNTEERS_ROLE_APPLY'); ?>
                             </a>

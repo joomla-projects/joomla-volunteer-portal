@@ -40,7 +40,7 @@ if ($story === null) {
         </li>
         <li>
             <p><?php echo HtmlHelper::_('string.truncate', strip_tags(trim((string) $story->joomlastory)), 500); ?></p>
-            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $story->id); ?>#joomlastory" class="btn btn-secondary">
+            <a href="<?php echo Route::_('index.php?option=com_volunteers&view=volunteer&id=' . $story->id); ?>#joomlastory" class="btn btn-light">
                 <span class="icon-chevron-right" aria-hidden="true"></span>
                 <?php echo Text::_('MOD_VOLUNTEERS_STORY_READ_MORE_JOOMLASTORY'); ?>
             </a>
