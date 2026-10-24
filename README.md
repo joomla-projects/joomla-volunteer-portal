@@ -30,9 +30,9 @@ Instructions for installation with Cassiopeia
 ------------------------------
 * Create new installation of Joomla 6.
 * Install the volunteers package from dist/pkg-volunteers-4.0.0.zip
-* Enable the plugin 'Sample Data - JVP'.
-* On the Home Dashboard, you will see JVP Sample Data under the Sample Data heading. Click to install the sample data for the Volunteers Portal (This takes some time...) (This will log you out when you next try and do anything in the admin area - This is due to it moving your admin user to a safe id).
-* Log back in and Click on Components -> Joomla Volunteers -> Set up Demo Menu and then Click the button GO (this will create a front end menu).
+* Install the test data seeder from dist/plg_console_volunteers.zip and enable the plugin 'Console - Joomla Volunteer Portal'.
+* Run `php cli/joomla.php volunteers:seed` to add the test data, see [Test data](#test-data). This moves your admin user to a free ID below 30, so log in again in the admin area.
+* Click on Components -> Joomla Volunteers -> Set up Demo Menu and then Click the button GO (this will create a front end menu).
 * Go to System -> Site Modules and click to edit 'Main Menu'.
 * From the Select Menu dropdown choose 'Joomla Volunteer Portal Demo Menu',  enter 'menu' in the position box, click on 'Title Show' and change to 'Title Hide'. Then hit save and close.
 * Whilst in the list of modules, edit and publish 'Module - Volunteers - Display Latest Joomlers' and 'Module - Display a Joomlers Story' setting both to 'Right [sidebar-right]', and Menu Assignment to 'Only on the pages selected' and 'Joomla Volunteer Portal Demo Menu -> Home'.
@@ -47,14 +47,25 @@ Instructions for installation with Joomla Common Site Template
 * Install Joomla 4  template from the dist folder (jtemplate_4.0.7.zip).
 * Go to site System-> Templates-> Site Template Styles - enable Joomla-default as default template style.
 * Install the volunteers package from dist/pkg-volunteers-4.0.0.zip
-* Enable the plugin 'Sample Data - JVP'.
-* On the Home Dashboard, you will see JVP Sample Data under the Sample Data heading. Click to install the sample data for the Volunteers Portal (This takes some time...) (This will log you out when you next try and do anything in the admin area - This is due to it moving your admin user to a safe id).
-* Log back in and Click on Components -> Joomla Volunteers -> Set up Demo Menu and then Click the button GO (this will create a front end menu).
+* Install the test data seeder from dist/plg_console_volunteers.zip and enable the plugin 'Console - Joomla Volunteer Portal'.
+* Run `php cli/joomla.php volunteers:seed` to add the test data, see [Test data](#test-data). This moves your admin user to a free ID below 30, so log in again in the admin area.
+* Click on Components -> Joomla Volunteers -> Set up Demo Menu and then Click the button GO (this will create a front end menu).
 * Go to System -> Site Modules and click to edit 'Main Menu'.
 * From the Select Menu dropdown choose 'Joomla Volunteer Portal Demo Menu',  enter 'Navigation [position-1]' in the position box, click on 'Title Show' and change to 'Title Hide'. Click on Advanced Tab and type 'nav menu nav-pills mod-list' in Menu Class. Then hit save and close.
 * Whilst in the list of modules, edit and publish 'Module - Volunteers - Display Latest Joomlers' and 'Module - Display a Joomlers Story' setting both to 'Right [position-7]', and Menu Assignment to 'Only on the pages selected' and 'Joomla Volunteer Portal Demo Menu -> Home'.
 * Go to System -> Plugins and search for volunteer. This will show the three Volunteer plugins. Click on `Status` to publish them.
 * Finally click into Menus and Joomla Volunteer Portal Demo and open the Login entry. Then hit save and close. For some reason this one does not like being installed through code but opening and saving seems to fix it. And then click on the Home entry in the list and make sure it's set to be the default Home for the site.
+
+------------------------------
+Test data
+------------------------------
+The development plugin in `dev/plugins/console/volunteers` adds the `volunteers:seed` command to the Joomla CLI. It fills an empty portal with 2186 test users (with an e-mail address at dummy.com), departments, positions, roles, teams, Joomlers and reports from the SQL files in its `sql` folder. It is not part of the package, `build-linux.sh` builds it as dist/plg_console_volunteers.zip. Never install it on a live site.
+
+* `php cli/joomla.php volunteers:seed` adds the test data after a confirmation, it stops when the volunteers tables already contain data.
+* `--force` removes the existing volunteers data and the earlier test users first.
+* `--skip-reports` leaves out the reports, the largest part of the test data.
+* A Super User with the ID of a test user is moved to a free ID below 30.
+* Run `php cli/joomla.php finder:index` afterwards to find the test data with Smart Search.
 
 ------------------------------
 Instructions for uninstalling
