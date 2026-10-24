@@ -17,6 +17,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Methods supporting a list of roles records.
@@ -42,6 +43,9 @@ class RolesModel extends ListModel
                 'a.id',
                 'team',
                 'a.team',
+                'title',
+                'a.title',
+                'team.title',
                 'checked_out',
                 'a.checked_out',
                 'checked_out_time',
@@ -52,8 +56,7 @@ class RolesModel extends ListModel
                 'a.created',
                 'created_by',
                 'a.created_by',
-                'ordering',
-                'a.ordering',
+                'published',
                 'featured',
                 'a.featured',
             ];
@@ -72,10 +75,7 @@ class RolesModel extends ListModel
      */
     protected function populateState($ordering = 'a.title', $direction = 'asc')
     {
-        // Load the filter state.
-        $this->setState('filter.search', $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search'));
-        $this->setState('filter.state', $this->getUserStateFromRequest($this->context . '.filter.state', 'filter_state'));
-        $this->setState('filter.team', $this->getUserStateFromRequest($this->context . '.filter.team', 'filter_team'));
+        // The filters come from the filter form through the parent, a filter outside the form would stick in the session without a way to clear it
 
         // Load the parameters.
         $params = ComponentHelper::getParams('com_volunteers');
@@ -83,6 +83,11 @@ class RolesModel extends ListModel
 
         // List state information.
         parent::populateState($ordering, $direction);
+
+        // Without a selected status the list shows published and unpublished, the models loaded with ignore_request keep the published default
+        if ($this->state->get('filter.published') === null) {
+            $this->setState('filter.published', '');
+        }
     }
 
     /**
@@ -101,8 +106,8 @@ class RolesModel extends ListModel
     {
         // Compile the store id.
         $id .= ':' . $this->getState('filter.search');
-        $id .= ':' . $this->getState('filter.state');
-        $id .= ':' . $this->getState('filter.team');
+        $id .= ':' . $this->getState('filter.published');
+        $id .= ':' . implode(',', (array) $this->getState('filter.team'));
 
         return parent::getStoreId($id);
     }
@@ -134,10 +139,12 @@ class RolesModel extends ListModel
             ->join('LEFT', '#__users AS ' . $db->quoteName('checked_out') . ' ON checked_out.id = a.checked_out');
 
         // Filter by published state
-        $state = $this->getState('filter.state', 1);
+        $state = $this->getState('filter.published', 1);
 
         if (is_numeric($state)) {
             $query->where('a.state = ' . (int) $state);
+        } elseif ($state === '') {
+            $query->whereIn($db->quoteName('a.state'), [0, 1]);
         }
 
         // Filter by search in title
@@ -153,10 +160,11 @@ class RolesModel extends ListModel
         }
 
         // Filter by team
-        $team = $this->getState('filter.team');
+        // The list filter selects one or more teams, the team models set a single team
+        $teams = array_filter(ArrayHelper::toInteger((array) $this->getState('filter.team')));
 
-        if (is_numeric($team) && ($team > 0)) {
-            $query->where('a.team = ' . (int) $team);
+        if ($teams) {
+            $query->whereIn($db->quoteName('a.team'), $teams);
         }
 
         // Add the list ordering clause.

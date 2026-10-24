@@ -8,6 +8,7 @@
 
 namespace Joomla\Component\Volunteers\Administrator\Model;
 
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
@@ -26,7 +27,7 @@ use Joomla\Database\QueryInterface;
 class MembersModel extends ListModel
 {
     /**
-     * @var \Joomla\CMS\Application\CMSApplicationInterface
+     * @var CMSApplicationInterface
      * @since  6.1.0
      */
     protected $app;
@@ -40,7 +41,7 @@ class MembersModel extends ListModel
      * @since   4.0.0
      * @throws  Exception
      */
-    public function __construct($config = [], MVCFactoryInterface $factory = null)
+    public function __construct($config = [], ?MVCFactoryInterface $factory = null)
     {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = [
@@ -74,6 +75,16 @@ class MembersModel extends ListModel
                 'a.date_ended',
                 'volunteer',
                 'a.volunteer',
+                'position_title',
+                'department_name',
+                'team_title',
+                'volunteer_name',
+                'departmentTeam',
+                'team',
+                'teamStatus',
+                'active',
+                'osmStatus',
+                'published',
             ];
         }
 
@@ -147,6 +158,7 @@ class MembersModel extends ListModel
 
         // Join over the teams.
         $query->select('teamdepartment.title AS teamdepartment_title')
+            ->select('COALESCE(department.title, teamdepartment.title) AS department_name')
             ->join('LEFT', '#__volunteers_departments AS ' . $db->quoteName('teamdepartment') . ' ON teamdepartment.id = team.department');
 
         // Join over the positions.
@@ -167,12 +179,21 @@ class MembersModel extends ListModel
             ->select('checked_out.name AS editor')
             ->join('LEFT', '#__users AS ' . $db->quoteName('checked_out') . ' ON checked_out.id = a.checked_out');
 
+        // Filter by the selected members
+        $ids = $this->getState('filter.ids');
+
+        if ($ids) {
+            $query->whereIn($db->quoteName('a.id'), $ids);
+        }
+
         // Filter by published state
-        $state = $this->getState('filter.state');
+        $state = $this->getState('filter.published');
 
         if (is_numeric($state)) {
             $query->where($db->quoteName('a.state') . ' = :state')
                 ->bind(':state', $state, ParameterType::INTEGER);
+        } elseif ($state === '') {
+            $query->whereIn($db->quoteName('a.state'), [0, 1]);
         }
 
         // Filter by search in title
@@ -341,14 +362,16 @@ class MembersModel extends ListModel
     {
         // Compile the store id.
         $id .= ':' . $this->getState('filter.search');
-        $id .= ':' . $this->getState('filter.state');
+        $id .= ':' . $this->getState('filter.published');
         $id .= ':' . $this->getState('filter.department');
         $id .= ':' . $this->getState('filter.departmentTeam');
+        $id .= ':' . implode(',', (array) $this->getState('filter.team'));
         $id .= ':' . $this->getState('filter.volunteer');
         $id .= ':' . $this->getState('filter.active');
         $id .= ':' . $this->getState('filter.type');
         $id .= ':' . $this->getState('filter.teamStatus');
         $id .= ':' . $this->getState('filter.osmStatus');
+        $id .= ':' . implode(',', (array) $this->getState('filter.ids'));
 
         return parent::getStoreId($id);
     }
@@ -363,18 +386,7 @@ class MembersModel extends ListModel
      */
     protected function populateState($ordering = 'a.id', $direction = 'desc')
     {
-        // Load the filter state.
-        $this->setState('filter.search', $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search'));
-        $this->setState('filter.state', $this->getUserStateFromRequest($this->context . '.filter.state', 'filter_state'));
-        $this->setState('filter.department', $this->getUserStateFromRequest($this->context . '.filter.department', 'filter_department'));
-        $this->setState('filter.departmentTeam', $this->getUserStateFromRequest($this->context . '.filter.departmentTeam', 'filter_departmentTeam'));
-        $this->setState('filter.team', $this->getUserStateFromRequest($this->context . '.filter.team', 'filter_team'));
-        $this->setState('filter.volunteer', $this->getUserStateFromRequest($this->context . '.filter.volunteer', 'filter_volunteer'));
-        $this->setState('filter.position', $this->getUserStateFromRequest($this->context . '.filter.position', 'filter_position'));
-        $this->setState('filter.active', $this->getUserStateFromRequest($this->context . '.filter.active', 'filter_active'));
-        $this->setState('filter.type', $this->getUserStateFromRequest($this->context . '.filter.type', 'filter_type'));
-        $this->setState('filter.teamStatus', $this->getUserStateFromRequest($this->context . '.filter.teamStatus', 'filter_teamStatus'));
-        $this->setState('filter.osmStatus', $this->getUserStateFromRequest($this->context . '.filter.osmStatus', 'filter_osmStatus'));
+        // The filters come from the filter form through the parent, a filter outside the form would stick in the session without a way to clear it
 
         // Load the parameters.
         $params = ComponentHelper::getParams('com_volunteers');
@@ -382,6 +394,10 @@ class MembersModel extends ListModel
 
         // List state information.
         parent::populateState($ordering, $direction);
-    }
 
+        // Without a selected status the list shows published and unpublished, the models loaded with ignore_request show all members
+        if ($this->state->get('filter.published') === null) {
+            $this->setState('filter.published', '');
+        }
+    }
 }
