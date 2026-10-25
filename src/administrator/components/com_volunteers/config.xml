@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
+	<inlinehelp button="show"/>
 	<fieldset label="COM_VOLUNTEERS3_CONFIGURATION" name="jed">
 		<field
 			name="jed3_db_host"
@@ -43,6 +44,30 @@
 			hint="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_PREFIX_LABEL"
 			filter="safehtml"
 			default="wqyh6"
+		/>
+	</fieldset>
+	<fieldset
+		name="board"
+		label="COM_VOLUNTEERS_CONFIG_BOARD_LABEL"
+		description="COM_VOLUNTEERS_CONFIG_BOARD_DESC"
+		addfieldprefix="Joomla\Component\Volunteers\Administrator\Field"
+		>
+		<field
+			name="board_department"
+			type="departments"
+			label="COM_VOLUNTEERS_CONFIG_BOARD_DEPARTMENT_LABEL"
+			description="COM_VOLUNTEERS_CONFIG_BOARD_DEPARTMENT_DESC"
+			filter="integer"
+			default="0"
+		/>
+		<field
+			name="board_positions"
+			type="positions"
+			label="COM_VOLUNTEERS_CONFIG_BOARD_POSITIONS_LABEL"
+			description="COM_VOLUNTEERS_CONFIG_BOARD_POSITIONS_DESC"
+			layout="joomla.form.field.groupedlist-fancy-select"
+			multiple="true"
+			filter="intarray"
 		/>
 	</fieldset>
 	<fieldset name="permissions" description="JCONFIG_PERMISSIONS_DESC" label="JCONFIG_PERMISSIONS_LABEL">

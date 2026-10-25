@@ -15,6 +15,7 @@ use Joomla\Database\DatabaseAwareInterface;
 use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\ParameterType;
+use Joomla\Registry\Registry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -71,6 +72,17 @@ class SeedCommand extends AbstractCommand implements DatabaseAwareInterface
         '#__user_mfa'            => 'user_id',
         '#__action_logs'         => 'user_id',
         '#__session'             => 'userid',
+    ];
+
+    /**
+     * The options of the Board of Directors that match the test data
+     *
+     * @var    array
+     * @since  6.1.0
+     */
+    private const BOARD_OPTIONS = [
+        'board_department' => 58,
+        'board_positions'  => [11],
     ];
 
     /**
@@ -196,6 +208,7 @@ EOF
                     'Database: ' . $this->getApplication()->get('db') . ' (prefix ' . $db->getPrefix() . ')',
                     \count($testUserIds) . ' test users and the departments, positions, roles, teams and Joomlers' . ($skipReports ? '' : ' and reports'),
                     $filled ? 'Removes the existing volunteers data and test users first' : '',
+                    'Sets the Board of Directors options of the component to the test data',
                     $superUsers ? 'Moves Super User ' . implode(', ', array_map(static fn (object $user): string => $user->username, $superUsers)) . ' to a free user ID below 30' : '',
                 ]
             )
@@ -221,6 +234,8 @@ EOF
             foreach ($files as $file) {
                 $this->importFile($file, $io);
             }
+
+            $this->setBoardOptions();
 
             $db->transactionCommit();
         } catch (\Throwable $exception) {
@@ -396,6 +411,36 @@ EOF
                 ->bind(':fromId', $fromId, ParameterType::INTEGER);
             $db->setQuery($query)->execute();
         }
+    }
+
+    /**
+     * Set the Board of Directors options of the component to the department and positions of the test data.
+     *
+     * @return  void
+     *
+     * @since   6.1.0
+     */
+    private function setBoardOptions(): void
+    {
+        $db    = $this->getDatabase();
+        $query = $db->getQuery(true)
+            ->select($db->quoteName('params'))
+            ->from($db->quoteName('#__extensions'))
+            ->where($db->quoteName('element') . ' = ' . $db->quote('com_volunteers'))
+            ->where($db->quoteName('type') . ' = ' . $db->quote('component'));
+
+        $params = new Registry($db->setQuery($query)->loadResult());
+        $params->loadArray(self::BOARD_OPTIONS);
+        $value = $params->toString();
+
+        $query = $db->getQuery(true)
+            ->update($db->quoteName('#__extensions'))
+            ->set($db->quoteName('params') . ' = :params')
+            ->where($db->quoteName('element') . ' = ' . $db->quote('com_volunteers'))
+            ->where($db->quoteName('type') . ' = ' . $db->quote('component'))
+            ->bind(':params', $value);
+
+        $db->setQuery($query)->execute();
     }
 
     /**
