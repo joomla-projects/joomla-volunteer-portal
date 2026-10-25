@@ -83,6 +83,7 @@ class SeedCommand extends AbstractCommand implements DatabaseAwareInterface
     private const BOARD_OPTIONS = [
         'board_department' => 58,
         'board_positions'  => [11],
+        'board_roles'      => [286, 287, 288, 289],
     ];
 
     /**
@@ -414,7 +415,7 @@ EOF
     }
 
     /**
-     * Set the Board of Directors options of the component to the department and positions of the test data.
+     * Set the Board of Directors options of the component to the department, positions and roles of the test data.
      *
      * @return  void
      *
