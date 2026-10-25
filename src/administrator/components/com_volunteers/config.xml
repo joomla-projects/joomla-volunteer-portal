@@ -1,51 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 	<inlinehelp button="show"/>
-	<fieldset label="COM_VOLUNTEERS3_CONFIGURATION" name="jed">
-		<field
-			name="jed3_db_host"
-			type="text"
-			label="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_HOST_LABEL"
-			description="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_HOST_DESCR"
-			default="localhost"
-			hint="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_HOST_LABEL"
-			filter="safehtml"
-		/>
-		<field
-			name="jed3_db_user"
-			type="text"
-			label="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_USER_LABEL"
-			description="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_USER_DESCR"
-			filter="safehtml"
-			hint="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_USER_LABEL"
-		/>
-		<field
-			name="jed3_db_password"
-			type="text"
-			label="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_PASSWORD_LABEL"
-			description="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_PASSWORD_DESCR"
-			hint="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_PASSWORD_LABEL"
-			filter="safehtml"
-		/>
-		<field
-			name="jed3_db_database_name"
-			type="text"
-			label="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_NAME_LABEL"
-			description="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_NAME_DESCR"
-			hint="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_NAME_LABEL"
-			filter="safehtml"
-			default="bl_j3_mar22"
-		/>
-		<field
-			name="jed3_db_prefix"
-			type="text"
-			label="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_PREFIX_LABEL"
-			description="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_PREFIX_DESCR"
-			hint="COM_VOLUNTEERS_MIGRATE_VOLUNTEERS3_DB_PREFIX_LABEL"
-			filter="safehtml"
-			default="wqyh6"
-		/>
-	</fieldset>
 	<fieldset
 		name="board"
 		label="COM_VOLUNTEERS_CONFIG_BOARD_LABEL"
